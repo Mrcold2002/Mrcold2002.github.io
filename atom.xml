@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-03-03T09:47:54.398Z</updated>
+  <updated>2023-03-03T09:58:28.856Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,15 +21,17 @@
     <link href="http://example.com/2023/03/03/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%95%E9%AA%8C/"/>
     <id>http://example.com/2023/03/03/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%95%E9%AA%8C/</id>
     <published>2023-03-03T08:58:13.121Z</published>
-    <updated>2023-03-03T09:47:54.398Z</updated>
+    <updated>2023-03-03T09:58:28.856Z</updated>
     
-    <content type="html"><![CDATA[<p>本次操作系统实验根据<code>Orange&#39;s 一个操作系统的实现</code>一书进行操作。在此记录试验的过程及心得</p><h2 id="第一章-amp-第二章-Hello，OS-world"><a href="#第一章-amp-第二章-Hello，OS-world" class="headerlink" title="第一章&amp;第二章 Hello，OS world"></a>第一章&amp;第二章 Hello，OS world</h2><p>这两章通过在windows使用虚拟机运行Ubuntu操作系统，在Ubuntu上使用bochs虚拟机来完成操作系统。</p><h3 id="1-使用vm运行Ubuntu"><a href="#1-使用vm运行Ubuntu" class="headerlink" title="1 使用vm运行Ubuntu"></a>1 使用vm运行Ubuntu</h3><p>我这里虚拟机运行的是Ubuntu20.04，安装虚拟机时主要遇到的问题有：</p><ol><li>虚拟机连不上网，但在瞎搞之后能连上了，选择的时NAT连接</li><li>VM Tools 自动安装不上，会报错。VMtools可以实现Windows环境和Linux环境直接的文件交换，还是有必要安装的。解决方法是手动下载VM Tools，尽管之后还会报错，但已经能实现文件互通。</li></ol><h3 id="2-在Ubuntu中使用bochs"><a href="#2-在Ubuntu中使用bochs" class="headerlink" title="2 在Ubuntu中使用bochs"></a>2 在Ubuntu中使用bochs</h3><p>我这里是在<a href="https://bochs.sourceforge.io/">官网</a>下载的安装包，版本是2.6.11.<br>下载完后根据书上进行安装，安装时主要命令：</p><pre><code class="cmd">tar vxzf bochs-2.6.11.tar.gzcd bochs-2.6.11./configure --enable-debugger --enable-disasmmakesudo make install</code></pre><p>但在<code>make</code>过程中会出现问题，当时在网上搜索解决掉了，现在已经忘了有什么了（因为后来才写得这篇）。<br>安装完后bochsrc文档中即用bochs模拟出的虚拟机的所有状态。同时我们可以利用bochs创建虚拟磁盘。</p><h3 id="3-最简单的操作系统"><a href="#3-最简单的操作系统" class="headerlink" title="3 最简单的操作系统"></a>3 最简单的操作系统</h3><p>我们首先创建一个虚拟软盘(硬盘应该也可以，书中为软盘，毕竟是09年老书)。命令<code>bximage</code><br>随后依据提示创建一个1.44MB的软盘，同时将bochsrc中<code>ata0-master: type=disk, path=&quot;a.img&quot;, mode=flat</code>中的path改为你创建磁盘的名字，这将是虚拟机的磁盘。</p><p>随后实现书中的boot.asm(可以直接从书附带磁盘复制出来，磁盘从学校云图书馆即可下载)：通过<code>basm boot.asm -o boot.bin</code>将asm文件转为bin文件(asm文件即汇编文件，bin文件即二进制文件)</p><p>将生成的bin文件放入bochs虚拟机的文件夹。使用命令<code>dd if=boot.bin of=a.img bs=512 count=1 conv=notrunc</code>将bin文件写入软盘的第一个扇区，这里<code>conv=notrunc</code>不能删去，否则软盘会被截断(变为bin文件的大小)</p><p>随后即可运行bochs虚拟机，使用指令<code>bochs -f bochsrc</code>，默认选线是6：debugger，直接continue掉即可看到结果。</p><p>结果：视窗第一行显示<code>Hello, OS world!</code></p><h2 id="第三章-保护模式"><a href="#第三章-保护模式" class="headerlink" title="第三章 保护模式"></a>第三章 保护模式</h2><p>纯纯的概念，先小跳一下</p><h2 id="第四章-让操作系统进入保护模式"><a href="#第四章-让操作系统进入保护模式" class="headerlink" title="第四章 让操作系统进入保护模式"></a>第四章 让操作系统进入保护模式</h2>]]></content>
+    <content type="html"><![CDATA[<img src="/images/3.jpg">本次操作系统实验根据`Orange's 一个操作系统的实现`一书进行操作。在此记录试验的过程及心得<h2 id="第一章-amp-第二章-Hello，OS-world"><a href="#第一章-amp-第二章-Hello，OS-world" class="headerlink" title="第一章&amp;第二章 Hello，OS world"></a>第一章&amp;第二章 Hello，OS world</h2><p>这两章通过在windows使用虚拟机运行Ubuntu操作系统，在Ubuntu上使用bochs虚拟机来完成操作系统。</p><h3 id="1-使用vm运行Ubuntu"><a href="#1-使用vm运行Ubuntu" class="headerlink" title="1 使用vm运行Ubuntu"></a>1 使用vm运行Ubuntu</h3><p>我这里虚拟机运行的是Ubuntu20.04，安装虚拟机时主要遇到的问题有：</p><ol><li>虚拟机连不上网，但在瞎搞之后能连上了，选择的时NAT连接</li><li>VM Tools 自动安装不上，会报错。VMtools可以实现Windows环境和Linux环境直接的文件交换，还是有必要安装的。解决方法是手动下载VM Tools，尽管之后还会报错，但已经能实现文件互通。</li></ol><h3 id="2-在Ubuntu中使用bochs"><a href="#2-在Ubuntu中使用bochs" class="headerlink" title="2 在Ubuntu中使用bochs"></a>2 在Ubuntu中使用bochs</h3><p>我这里是在<a href="https://bochs.sourceforge.io/">官网</a>下载的安装包，版本是2.6.11.<br>下载完后根据书上进行安装，安装时主要命令：</p><pre><code class="cmd">tar vxzf bochs-2.6.11.tar.gzcd bochs-2.6.11./configure --enable-debugger --enable-disasmmakesudo make install</code></pre><p>但在<code>make</code>过程中会出现问题，当时在网上搜索解决掉了，现在已经忘了有什么了（因为后来才写得这篇）。<br>安装完后bochsrc文档中即用bochs模拟出的虚拟机的所有状态。同时我们可以利用bochs创建虚拟磁盘。</p><h3 id="3-最简单的操作系统"><a href="#3-最简单的操作系统" class="headerlink" title="3 最简单的操作系统"></a>3 最简单的操作系统</h3><p>我们首先创建一个虚拟软盘(硬盘应该也可以，书中为软盘，毕竟是09年老书)。命令<code>bximage</code><br>随后依据提示创建一个1.44MB的软盘，同时将bochsrc中<code>ata0-master: type=disk, path=&quot;a.img&quot;, mode=flat</code>中的path改为你创建磁盘的名字，这将是虚拟机的磁盘。</p><p>随后实现书中的boot.asm(可以直接从书附带磁盘复制出来，磁盘从学校云图书馆即可下载)：通过<code>basm boot.asm -o boot.bin</code>将asm文件转为bin文件(asm文件即汇编文件，bin文件即二进制文件)</p><p>将生成的bin文件放入bochs虚拟机的文件夹。使用命令<code>dd if=boot.bin of=a.img bs=512 count=1 conv=notrunc</code>将bin文件写入软盘的第一个扇区，这里<code>conv=notrunc</code>不能删去，否则软盘会被截断(变为bin文件的大小)</p><p>随后即可运行bochs虚拟机，使用指令<code>bochs -f bochsrc</code>，默认选线是6：debugger，直接continue掉即可看到结果。</p><p>结果：视窗第一行显示<code>Hello, OS world!</code></p><h2 id="第三章-保护模式"><a href="#第三章-保护模式" class="headerlink" title="第三章 保护模式"></a>第三章 保护模式</h2><p>纯纯的概念，先小跳一下</p><h2 id="第四章-让操作系统进入保护模式"><a href="#第四章-让操作系统进入保护模式" class="headerlink" title="第四章 让操作系统进入保护模式"></a>第四章 让操作系统进入保护模式</h2>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;本次操作系统实验根据&lt;code&gt;Orange&amp;#39;s 一个操作系统的实现&lt;/code&gt;一书进行操作。在此记录试验的过程及心得&lt;/p&gt;
-&lt;h2 id=&quot;第一章-amp-第二章-Hello，OS-world&quot;&gt;&lt;a href=&quot;#第一章-amp-第二章-Hello，OS-w</summary>
+    <summary type="html">&lt;img src=&quot;/images/3.jpg&quot;&gt;
+本次操作系统实验根据`Orange&#39;s 一个操作系统的实现`一书进行操作。在此记录试验的过程及心得
+
+&lt;h2 id=&quot;第一章-amp-第二章-Hello，OS-world&quot;&gt;&lt;a href=&quot;#第一章-amp-第二章-Hello</summary>
       
     
     
