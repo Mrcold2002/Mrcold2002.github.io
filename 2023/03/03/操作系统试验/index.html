@@ -123,8 +123,8 @@ sudo mount -o loop a.img /mnt/floppy/
 sudo cp loader.bin /mnt/floppy/ -v
 sudo umount /mnt/floppy/
 </code></pre>
-<p>但是我的<code>mnt</code>目录下没有floppy文件夹，我替换为<code>/mnt/</code>后，运行bochs虚拟机得不到想要的结果。</p>
-<p>查询chatgpt后得到以下方法：</p>
+<p>该指令将软盘挂载到/mnt/floppy下，在将loader程序复制进去，以达到将loader放入软盘的目的，但是我的<code>mnt</code>目录下没有floppy文件夹，因此首先用指令<code>mkdir /mnt/floppy/</code>创建一个挂载软盘的区域</p>
+<p>查询chatgpt后也有以下方法：</p>
 <ul>
 <li>可以使用dd命令将bin文件写入img文件的指定扇区。具体命令如下：<code>dd if=boot.bin of=a.img bs=512 count=1 seek=1 conv=notrunc</code><br>其中，boot.bin为输入的bin文件，a.img为输出的img文件；bs=512表示每个块的大小为512字节；count=1表示只写入一个块；seek=1表示从a.img的第二个扇区开始写入，因为第一个扇区通常是引导扇区，需要保留；conv=notrunc表示不截断输出文件。</li>
 </ul>
