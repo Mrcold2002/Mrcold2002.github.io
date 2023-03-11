@@ -1,44 +1,64 @@
 <!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>数据库系统复习</title><meta name="description" content="菜"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
 <!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="
-
 主要观看 数据库系统实现网课1700后的内容所成笔记。
 与 数据库系统实现（机械工业出版社）所讲内容基本吻合，但在具体部分所讲的顺序有略有不同，但考虑到啃书（尤其是机翻工业出版社的书）有些困难，所以先过一边网课再啃书。网课中得顺序有些与书中不同，这里需要注意。[toc]
-第二章 辅助存储管理01 存储体系回顾（1）数据组织的基础–存储体系将不同性价比的存储器组织在一起，满足高速度，大容量，低价格需求
+第二章 辅助存储管理01 存储体系回顾（1）数据组织的基础—存储体系将不同性价比的存储器组织在一起，满足高速度，大容量，低价格需求
 CPU与内存直接交换信息，按存储单元（字）进行访问
 外存按存储块进行访问，其信息先装入内存，才能被CPU处理。
 
-（2）操作系统对数据的组织FAT-目录-磁盘块/簇
-FAT（文件分配表 File Allocation Table）
-（3）内存管理一条记录的地址=存储单元的地址=内存地址=页面：页面偏移量
-页.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">数据库系统复习</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E8%BE%85%E5%8A%A9%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86"><span class="toc-text">第二章 辅助存储管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#01-%E5%AD%98%E5%82%A8%E4%BD%93%E7%B3%BB%E5%9B%9E%E9%A1%BE"><span class="toc-text">01 存储体系回顾</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%95%B0%E6%8D%AE%E7%BB%84%E7%BB%87%E7%9A%84%E5%9F%BA%E7%A1%80%E2%80%93%E5%AD%98%E5%82%A8%E4%BD%93%E7%B3%BB"><span class="toc-text">（1）数据组织的基础–存储体系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AF%B9%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%84%E7%BB%87"><span class="toc-text">（2）操作系统对数据的组织</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-text">（3）内存管理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#02-%E7%A3%81%E7%9B%98%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E7%89%B9%E6%80%A7"><span class="toc-text">02 磁盘的结构与特性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E7%A3%81%E7%9B%98%E5%8F%8A%E7%A3%81%E7%9B%98%E5%AE%B9%E9%87%8F"><span class="toc-text">（1）磁盘及磁盘容量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%A3%81%E7%9B%98%E7%9A%84%E8%AE%BF%E9%97%AE"><span class="toc-text">（2）磁盘的访问</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%8F%90%E9%AB%98%E7%A3%81%E7%9B%98%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%86%99%E6%97%B6%E9%97%B4%E4%B8%8E%E5%AD%98%E5%82%A8%E5%8F%AF%E9%9D%A0%E6%80%A7%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">（3）提高磁盘数据读写时间与存储可靠性的方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#03-%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="toc-text">03 查询实现的基本思想</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%9A%84%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB%E7%A4%BA%E6%84%8F"><span class="toc-text">（1）数据存储的映射关系示意</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%8E%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6%E7%A4%BA%E6%84%8F"><span class="toc-text">（2）数据存储与查询实现的基本框架示意</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#04-%E8%AE%B0%E5%BD%95%E4%B8%8E%E8%A1%A8%E5%9C%A8%E7%A3%81%E7%9B%98%E4%B8%8A%E7%9A%84%E5%AD%98%E5%82%A8"><span class="toc-text">04 记录与表在磁盘上的存储</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%BF%B5%E4%B8%8E%E7%A3%81%E7%9B%98%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5%E7%9A%84%E6%98%A0%E5%B0%84%E7%A4%BA%E6%84%8F"><span class="toc-text">（1）数据库概念与磁盘相关概念的映射示意</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E8%AE%B0%E5%BD%95%E7%9A%84%E5%8C%BA%E5%88%86%E5%8F%8A%E8%AE%B0%E5%BD%95%E5%B1%9E%E6%80%A7%E5%80%BC%E7%9A%84%E5%8C%BA%E5%88%86"><span class="toc-text">（2）数据库中记录的区分及记录属性值的区分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E8%AE%B0%E5%BD%95-vs-%E7%A3%81%E7%9B%98%E5%9D%97"><span class="toc-text">（3） 数据库中的记录 vs.磁盘块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E8%A1%A8-vs-%E7%A3%81%E7%9B%98%E5%9D%97"><span class="toc-text">（4）数据库中的表 vs.磁盘块</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#05-%E5%9B%9B%E7%A7%8D%E6%96%87%E4%BB%B6%E7%BB%84%E7%BB%87%E6%96%B9%E6%B3%95"><span class="toc-text">05 四种文件组织方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%95%B0%E6%8D%AE%E7%BB%84%E7%BB%87%E4%B8%8E%E5%AD%98%E5%8F%96%E6%96%B9%E6%B3%95"><span class="toc-text">（1）数据组织与存取方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%97%A0%E5%BA%8F%E6%96%87%E4%BB%B6%E7%BB%84%E7%BB%87"><span class="toc-text">（2）无序文件组织</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%9C%89%E5%BA%8F%E6%96%87%E4%BB%B6%E7%BB%84%E7%BB%87"><span class="toc-text">（3）有序文件组织</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E6%95%A3%E5%88%97%E6%96%87%E4%BB%B6%E7%BB%84%E7%BB%87"><span class="toc-text">（4）散列文件组织</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%885%EF%BC%89%E8%81%9A%E7%B0%87%E6%96%87%E4%BB%B6%E7%BB%84%E7%BB%87"><span class="toc-text">（5）聚簇文件组织</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#06-Oracle%E6%95%B0%E6%8D%AE%E5%BA%93%E7%89%A9%E7%90%86%E5%AD%98%E5%82%A8%E7%AE%80%E4%BB%8B"><span class="toc-text">06 Oracle数据库物理存储简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#07-%E7%AC%AC%E4%BA%8C%E7%AB%A0%E6%80%BB%E7%BB%93"><span class="toc-text">07 第二章总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84"><span class="toc-text">第三章 索引结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#01-%E7%B4%A2%E5%BC%95%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E4%BD%9C%E7%94%A8"><span class="toc-text">01 索引的概念和作用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E7%B4%A2%E5%BC%95%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">（1）索引的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%B4%A2%E5%BC%95%E7%9A%84%E4%B8%80%E8%88%AC%E6%80%A7%E7%89%B9%E7%82%B9"><span class="toc-text">（2）索引的一般性特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%85%B3%E4%BA%8E%E7%B4%A2%E5%BC%95%E5%BA%94%E7%94%A8%E7%9A%84%E8%AF%84%E4%BB%B7%E9%97%AE%E9%A2%98"><span class="toc-text">（3）关于索引应用的评价问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E7%B4%A2%E5%BC%95%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5%E7%9A%84%E5%8C%BA%E5%88%86"><span class="toc-text">（4）索引相关概念的区分</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#02-SQL%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E5%88%9B%E5%BB%BA%E4%B8%8E%E7%BB%B4%E6%8A%A4"><span class="toc-text">02 SQL语言中的索引创建与维护</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#03-%E7%A8%A0%E5%AF%86%E7%B4%A2%E5%BC%95%E5%92%8C%E7%A8%80%E7%96%8F%E7%B4%A2%E5%BC%95"><span class="toc-text">03 稠密索引和稀疏索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E7%A8%A0%E5%AF%86%E7%B4%A2%E5%BC%95%E5%92%8C%E7%A8%80%E7%96%8F%E7%B4%A2%E5%BC%95%E6%A6%82%E5%BF%B5"><span class="toc-text">（1）稠密索引和稀疏索引概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%A8%80%E7%96%8F%E7%B4%A2%E5%BC%95%E5%A6%82%E4%BD%95%E5%AE%9A%E4%BD%8D%E8%AE%B0%E5%BD%95"><span class="toc-text">（2）稀疏索引如何定位记录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89-%E7%A8%A0%E5%AF%86%E7%B4%A2%E5%BC%95%E5%A6%82%E4%BD%95%E5%AE%9A%E4%BD%8D%E8%AE%B0%E5%BD%95"><span class="toc-text">（3） 稠密索引如何定位记录</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#04-%E4%B8%BB%E7%B4%A2%E5%BC%95%E4%B8%8E%E8%BE%85%E5%8A%A9%E7%B4%A2%E5%BC%95"><span class="toc-text">04 主索引与辅助索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E4%B8%BB%E7%B4%A2%E5%BC%95"><span class="toc-text">（1）主索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89-%E8%BE%85%E5%8A%A9%E7%B4%A2%E5%BC%95"><span class="toc-text">（2） 辅助索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%B7%AE%E5%88%AB"><span class="toc-text">（3）差别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#05-%E5%85%B6%E4%BB%96%E7%B4%A2%E5%BC%95"><span class="toc-text">05 其他索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E4%B8%8E%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95"><span class="toc-text">（1）聚簇索引与非聚簇索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95"><span class="toc-text">（2）倒排索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%85%B6%E5%AE%83%E7%B4%A2%E5%BC%95"><span class="toc-text">（3）其它索引</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#06-B-%E6%A0%91%E7%B4%A2%E5%BC%95%EF%BC%88%E4%B9%A6%E4%B8%8A%E6%98%AFB%E6%A0%91%EF%BC%89"><span class="toc-text">06 B+树索引（书上是B树）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%A4%9A%E7%BA%A7%E7%B4%A2%E5%BC%95"><span class="toc-text">（1）多级索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89B-%E6%A0%91%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">（2）B+树的基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89B-%E6%A0%91%E7%9A%84%E5%AD%98%E5%82%A8%E7%BA%A6%E5%AE%9A"><span class="toc-text">（3）B+树的存储约定</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%88%A9%E7%94%A8B-%E6%A0%91%E5%BB%BA%E7%AB%8B%E4%B8%8D%E5%90%8C%E7%9A%84%E7%B4%A2%E5%BC%95"><span class="toc-text">(4) 利用B+树建立不同的索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%885%EF%BC%89-B%E6%A0%91"><span class="toc-text">（5） B树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%886%EF%BC%89-B-%E6%A0%91%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95"><span class="toc-text">（6） B+树相关算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#07-B-%E6%A0%91%E4%B9%8B%E9%94%AE%E5%80%BC%E6%8F%92%E5%85%A5%E4%B8%8E%E8%8A%82%E7%82%B9%E5%88%86%E8%A3%82%E7%A4%BA%E6%84%8F"><span class="toc-text">07 B+树之键值插入与节点分裂示意</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89-%E6%8F%92%E5%85%A5"><span class="toc-text">（1） 插入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89-%E5%88%A0%E9%99%A4"><span class="toc-text">（2） 删除</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#08-%E6%95%A3%E5%88%97%E7%B4%A2%E5%BC%95"><span class="toc-text">08 散列索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89-%E6%95%A3%E5%88%97%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">（1） 散列的基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%95%A3%E5%88%97%E7%B4%A2%E5%BC%95"><span class="toc-text">（2）散列索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89-%E6%95%A3%E5%88%97%E7%B4%A2%E5%BC%95%E7%9A%84%E6%8F%92%E5%85%A5%E5%92%8C%E5%88%A0%E9%99%A4"><span class="toc-text">（3） 散列索引的插入和删除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E6%95%A3%E5%88%97%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">（4）散列的问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#09-%E5%8F%AF%E6%89%A9%E5%B1%95%E6%95%A3%E5%88%97%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BA%BF%E6%80%A7%E6%95%A3%E5%88%97%E7%B4%A2%E5%BC%95"><span class="toc-text">09 可扩展散列索引与线性散列索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E5%A4%9A%E7%BB%B4%E7%B4%A2%E5%BC%95%EF%BC%883-4%EF%BC%89"><span class="toc-text">10 多维索引（3.4）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E5%A4%9A%E7%BB%B4%E6%95%B0%E6%8D%AE%E7%9A%84%E6%95%A3%E5%88%97%E7%BB%93%E6%9E%84"><span class="toc-text">11 多维数据的散列结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E7%BD%91%E6%A0%BC%E6%96%87%E4%BB%B6"><span class="toc-text">（1）网格文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%88%86%E6%AE%B5%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B0"><span class="toc-text">（2）分段散列函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-%E5%A4%9A%E7%BB%B4%E6%95%B0%E6%8D%AE%E7%9A%84%E6%A0%91%E7%BB%93%E6%9E%84"><span class="toc-text">12 多维数据的树结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%A4%9A%E9%94%AE%E7%B4%A2%E5%BC%95"><span class="toc-text">（1）多键索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89kd-%E6%A0%91"><span class="toc-text">（2）kd-树</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#kd%E6%A0%91%E6%A6%82%E5%BF%B5"><span class="toc-text">kd树概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#kd%E6%A0%91%E6%93%8D%E4%BD%9C"><span class="toc-text">kd树操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#kd%E6%A0%91%E4%BC%98%E5%8C%96"><span class="toc-text">kd树优化</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%9B%9B%E5%8F%89%E6%A0%91"><span class="toc-text">（3）四叉树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89R-%E6%A0%91"><span class="toc-text">（4）R-树</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-%E4%BD%8D%E5%9B%BE%E7%B4%A2%E5%BC%95"><span class="toc-text">13 位图索引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E6%9F%A5%E8%AF%A2%E6%89%A7%E8%A1%8C"><span class="toc-text">第四章 查询执行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1901-%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="toc-text">1901 查询实现算法概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="toc-text">（1）数据库查询的基本思想</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0-vs-%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="toc-text">（2）查询实现 vs. 查询优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89-%E6%9F%A5%E8%AF%A2%E7%AE%97%E6%B3%95%E6%80%BB%E8%A7%88"><span class="toc-text">（3） 查询算法总览</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1902-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95"><span class="toc-text">1902 连接操作的实现算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E9%80%BB%E8%BE%91%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95"><span class="toc-text">（1）连接操作的逻辑实现算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E7%89%A9%E7%90%86%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95"><span class="toc-text">（2）连接操作的物理实现算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95"><span class="toc-text">（3）连接操作的基本实现算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E5%85%A8%E4%B8%BB%E5%AD%98%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95"><span class="toc-text">（4）连接操作的全主存实现算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%885%EF%BC%89%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E5%8D%8A%E4%B8%BB%E5%AD%98%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95"><span class="toc-text">（5）连接操作的半主存实现算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%886%EF%BC%89%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E5%A4%A7%E5%85%B3%E7%B3%BB%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95"><span class="toc-text">（6）连接操作的大关系实现算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%887%EF%BC%89%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95"><span class="toc-text">（7）连接操作的其他方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1903-%E5%88%A9%E7%94%A8%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%9E%84%E9%80%A0%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95"><span class="toc-text">1903 利用迭代器构造查询实现算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%AE%97%E6%B3%95%E7%9A%84%E6%8F%90%E5%87%BA"><span class="toc-text">（1）迭代器算法的提出</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80"><span class="toc-text">（2）迭代器算法基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%9A%84%E6%9E%84%E9%80%A0"><span class="toc-text">（3）迭代器的构造</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1904-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E7%9A%84%E4%B8%80%E8%B6%9F%E6%89%AB%E6%8F%8F%E7%AE%97%E6%B3%95"><span class="toc-text">1904 数据库查询的一趟扫描算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%80%E8%B6%9F%E7%AE%97%E6%B3%95"><span class="toc-text">（1）什么是一趟算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%85%B3%E7%B3%BB-%E8%A1%A8%E6%95%B0%E6%8D%AE%E7%9A%84%E8%AF%BB%E5%8F%96"><span class="toc-text">（2）关系&#x2F;表数据的读取</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%81%9A%E7%B0%87%E5%85%B3%E7%B3%BB"><span class="toc-text">聚簇关系</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9D%9E%E8%81%9A%E7%B0%87%E5%85%B3%E7%B3%BB"><span class="toc-text">非聚簇关系</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%95%B4%E4%B8%AA%E5%85%B3%E7%B3%BB%E7%9A%84%E4%B8%80%E5%85%83%E6%93%8D%E4%BD%9C%E7%AE%97%E6%B3%95"><span class="toc-text">（3）整个关系的一元操作算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E6%95%B4%E4%B8%AA%E5%85%B3%E7%B3%BB%E7%9A%84%E4%BA%8C%E5%85%83%E6%93%8D%E4%BD%9C%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95"><span class="toc-text">（4）整个关系的二元操作实现算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1905-%E5%9F%BA%E4%BA%8E%E7%B4%A2%E5%BC%95%E7%9A%84%E7%AE%97%E6%B3%95"><span class="toc-text">1905 基于索引的算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%9F%BA%E4%BA%8E%E7%B4%A2%E5%BC%95%E7%9A%84%E9%80%89%E6%8B%A9%E7%AE%97%E6%B3%95"><span class="toc-text">（1）基于索引的选择算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%9F%BA%E4%BA%8E%E6%9C%89%E5%BA%8F%E7%B4%A2%E5%BC%95%E7%9A%84%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%EF%BC%88Zig-Zag%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%EF%BC%89"><span class="toc-text">（2）基于有序索引的连接算法（Zig-Zag连接算法）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1906-%E5%9B%9E%E9%A1%BE"><span class="toc-text">1906 回顾</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2001-%E4%B8%A4%E8%B6%9F%E6%89%AB%E6%8F%8F%E7%AE%97%E6%B3%95%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="toc-text">2001 两趟扫描算法的基本思想</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%95%B4%E4%B8%AA%E5%85%B3%E7%B3%BB%E6%93%8D%E4%BD%9C%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">（1）整个关系操作存在的问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%B8%A4%E8%B6%9F%E7%AE%97%E6%B3%95%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF"><span class="toc-text">（2）两趟算法的基本思路</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2002-%E4%B8%A4%E9%98%B6%E6%AE%B5%E5%A4%9A%E8%B7%AF%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="toc-text">2002 两阶段多路归并排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89-%E5%86%85%E6%8E%92%E5%BA%8F%E5%92%8C%E5%A4%96%E6%8E%92%E5%BA%8F"><span class="toc-text">（1） 内排序和外排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%B8%A4%E9%98%B6%E6%AE%B5%E5%A4%9A%E8%B7%AF%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="toc-text">（2）两阶段多路归并排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%9B%B4%E5%A4%A7%E8%A7%84%E6%A8%A1%E7%9A%84%E5%A4%9A%E9%98%B6%E6%AE%B5%E5%BD%92%E5%B9%B6%E7%AE%97%E6%B3%95"><span class="toc-text">（3）更大规模的多阶段归并算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2003-%E5%9F%BA%E4%BA%8E%E6%8E%92%E5%BA%8F%E7%9A%84%E4%B8%A4%E8%B6%9F%E6%89%AB%E6%8F%8F%E7%AE%97%E6%B3%95"><span class="toc-text">2003 基于排序的两趟扫描算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%93%8D%E4%BD%9C"><span class="toc-text">（1）操作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2004-%E5%9F%BA%E4%BA%8E%E6%95%A3%E5%88%97%E7%9A%84%E4%B8%A4%E8%B6%9F%E6%89%AB%E6%8F%8F%E7%AE%97%E6%B3%95"><span class="toc-text">2004 基于散列的两趟扫描算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="toc-text">（1）基本思想</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%AE%9E%E4%BE%8B"><span class="toc-text">（2）实例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E6%9F%A5%E8%AF%A2%E7%BC%96%E8%AF%91%E5%99%A8"><span class="toc-text">第五章 查询编译器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2101-%E4%BB%80%E4%B9%88%E6%98%AF%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="toc-text">2101 什么是查询优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="toc-text">（1）为什么需要查询优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%BB%80%E4%B9%88%E6%98%AF%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="toc-text">（2）什么是查询优化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2102-%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E7%9A%84%E6%80%BB%E4%BD%93%E6%80%9D%E8%B7%AF"><span class="toc-text">2102 查询优化的总体思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E8%AF%AD%E4%B9%89%E4%BC%98%E5%8C%96%E2%80%93%E5%86%85%E5%AE%B9%E7%AD%89%E4%BB%B7%E6%80%A7"><span class="toc-text">（1）语义优化–内容等价性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E8%AF%AD%E6%B3%95%E4%BC%98%E5%8C%96%EF%BC%88%E9%80%BB%E8%BE%91%E5%B1%82%E4%BC%98%E5%8C%96%EF%BC%89%E2%80%93%E5%86%85%E5%AE%B9%E7%AD%89%E4%BB%B7%E6%80%A7"><span class="toc-text">（2）语法优化（逻辑层优化）–内容等价性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%89%A7%E8%A1%8C%E4%BC%98%E5%8C%96%EF%BC%88%E7%89%A9%E7%90%86%E5%B1%82%E4%BC%98%E5%8C%96%EF%BC%89"><span class="toc-text">（3）执行优化（物理层优化）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E7%9A%84%E6%80%BB%E8%BF%87%E7%A8%8B"><span class="toc-text">（4）查询优化的总过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2103-%E9%80%BB%E8%BE%91%E5%B1%82%E4%BC%98%E5%8C%96%E7%AD%96%E7%95%A5"><span class="toc-text">2103 逻辑层优化策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E4%B8%80%E4%B8%AA%E5%BE%85%E4%BC%98%E5%8C%96%E7%9A%84%E5%AE%9E%E4%BE%8B%E8%83%8C%E6%99%AF"><span class="toc-text">（1）一个待优化的实例背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%94%A8%E8%AF%AD%E6%B3%95%E6%A0%91%E8%A1%A8%E8%BE%BE%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">（2）用语法树表达关系代数表达式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E9%80%BB%E8%BE%91%E4%BC%98%E5%8C%96%E7%9A%84%E7%AD%96%E7%95%A5"><span class="toc-text">（3）逻辑优化的策略</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2104-%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0%E6%93%8D%E4%BD%9C%E6%AC%A1%E5%BA%8F%E4%BA%A4%E6%8D%A2%E7%9A%84%E7%AD%89%E4%BB%B7%E6%80%A7"><span class="toc-text">2104 关系代数操作次序交换的等价性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E7%AD%89%E4%BB%B7%E6%80%A7"><span class="toc-text">（1）等价性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%93%AA%E4%BA%9B%E5%85%B3%E7%B3%BB%E6%93%8D%E4%BD%9C%E6%AC%A1%E5%BA%8F%E5%8F%AF%E4%BB%A5%E4%BA%A4%E6%8D%A2"><span class="toc-text">（2）哪些关系操作次序可以交换</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L1%EF%BC%9A%E8%BF%9E%E6%8E%A5%E4%B8%8E%E8%BF%9E%E6%8E%A5%EF%BC%8C%E7%A7%AF%E4%B8%8E%E7%A7%AF%E7%9A%84%E4%BA%A4%E6%8D%A2%E5%BE%8B"><span class="toc-text">定理L1：连接与连接，积与积的交换律</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L2%EF%BC%9A%E5%AE%9A%E7%90%86L1%EF%BC%9A%E8%BF%9E%E6%8E%A5%E4%B8%8E%E8%BF%9E%E6%8E%A5%EF%BC%8C%E7%A7%AF%E4%B8%8E%E7%A7%AF%E7%9A%84%E7%BB%93%E5%90%88%E5%BE%8B"><span class="toc-text">定理L2：定理L1：连接与连接，积与积的结合律</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L3%EF%BC%9A%E6%8A%95%E5%BD%B1%E4%B8%B2%E6%8E%A5%E7%8E%87"><span class="toc-text">定理L3：投影串接率</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L4%EF%BC%9A%E9%80%89%E6%8B%A9%E7%9A%84%E4%B8%B2%E6%8E%A5%E7%8E%87"><span class="toc-text">定理L4：选择的串接率</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L5%EF%BC%9A%E9%80%89%E6%8B%A9%E5%92%8C%E6%8A%95%E5%BD%B1%E7%9A%84%E4%BA%A4%E6%8D%A2%E5%BE%8B"><span class="toc-text">定理L5：选择和投影的交换律</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L6%EF%BC%9A%E9%80%89%E6%8B%A9%E5%90%88%E7%A7%AF%E7%9A%84%E4%BA%A4%E6%8D%A2%E5%BE%8B"><span class="toc-text">定理L6：选择合积的交换律</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L7-%E6%8A%95%E5%BD%B1%E5%92%8C%E7%A7%AF%E7%9A%84%E4%BA%A4%E6%8D%A2%E5%BE%8B"><span class="toc-text">定理L7:投影和积的交换律</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L8-%E9%80%89%E6%8B%A9%E5%92%8C%E5%B9%B6%E7%9A%84%E4%BA%A4%E6%8D%A2%E5%BE%8B"><span class="toc-text">定理L8:选择和并的交换律</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L9-%E9%80%89%E6%8B%A9%E5%92%8C%E5%B7%AE%E7%9A%84%E4%BA%A4%E6%8D%A2%E5%BE%8B"><span class="toc-text">定理L9:选择和差的交换律</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L10-%E6%8A%95%E5%BD%B1%E5%92%8C%E5%B9%B6%E7%9A%84%E4%BA%A4%E6%8D%A2%E5%BE%8B"><span class="toc-text">定理L10:投影和并的交换律</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2105-%E5%9F%BA%E4%BA%8E%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0%E7%9A%84%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E5%8F%8A%E7%A4%BA%E4%BE%8B"><span class="toc-text">2105 基于关系代数的查询优化算法及示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2106-%E7%89%A9%E7%90%86%E5%B1%82%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="toc-text">2106 物理层查询优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E7%89%A9%E7%90%86%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E2%80%93%E6%80%BB%E4%BD%93%E6%80%9D%E8%B7%AF"><span class="toc-text">（1）物理查询优化–总体思路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E8%A1%A1%E9%87%8F%E4%B8%80%E4%B8%AA%E7%89%A9%E7%90%86%E6%9F%A5%E8%AF%A2%E8%AE%A1%E5%88%92"><span class="toc-text">（2）衡量一个物理查询计划</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%A6%82%E4%BD%95%E6%94%B6%E9%9B%86%E8%BF%99%E4%BA%9B%E4%BF%A1%E6%81%AF"><span class="toc-text">（3）如何收集这些信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2107-%E4%BB%A3%E4%BB%B7%E4%BC%B0%E7%AE%97"><span class="toc-text">2107 代价估算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%8A%95%E5%BD%B1%E8%BF%90%E7%AE%97%E7%9A%84%E4%BB%A3%E4%BB%B7%E4%BC%B0%E7%AE%97"><span class="toc-text">（1）投影运算的代价估算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E9%80%89%E6%8B%A9%E8%BF%90%E7%AE%97%E5%9C%B0%E4%BB%A3%E4%BB%B7%E4%BC%B0%E7%AE%97"><span class="toc-text">（2）选择运算地代价估算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E8%BF%9E%E6%8E%A5%E8%BF%90%E7%AE%97%E7%9A%84%E4%BB%A3%E4%BB%B7%E4%BC%B0%E7%AE%97"><span class="toc-text">（3）连接运算的代价估算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2108-%E5%9B%9E%E9%A1%BE"><span class="toc-text">2108 回顾</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6-%E5%8F%8A-%E7%AC%AC%E5%85%AB%E7%AB%A0-%E5%86%8D%E8%AE%BA%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-text">第七章 并发控制 及 第八章 再论事务管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2201-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%BF%9B%E8%A1%8C%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6"><span class="toc-text">2201 为什么要进行并发控制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%AF%E8%83%BD%E5%AD%98%E5%9C%A8%E4%B8%8D%E4%B8%80%E8%87%B4"><span class="toc-text">（1）数据库可能存在不一致</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E7%9A%84%E7%BC%98%E7%94%B1"><span class="toc-text">（2）并发控制的缘由</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E5%8F%8A%E7%9B%B8%E5%BA%94%E7%9A%84%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E6%8A%80%E6%9C%AF%E6%98%AFDBMS%E7%9A%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF"><span class="toc-text">（3）并发控制及相应的事务处理技术是DBMS的核心技术</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2202-%E6%B7%B1%E5%85%A5%E8%AE%A4%E8%AF%86%E4%BA%8B%E5%8A%A1"><span class="toc-text">2202 深入认识事务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E4%BA%8B%E5%8A%A1%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">（1）事务的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%AE%8F%E8%A7%82%E6%80%A7%E5%92%8C%E5%BE%AE%E8%A7%82%E6%80%A7"><span class="toc-text">（2）事务的宏观性和微观性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%AE%8F%E8%A7%82%E6%80%A7%EF%BC%88%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9C%8B%E5%88%B0%E7%9A%84%E4%BA%8B%E5%8A%A1%EF%BC%89"><span class="toc-text">事务的宏观性（应用程序员看到的事务）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%BE%AE%E8%A7%82%E6%80%A7%EF%BC%88DBMS%E7%9C%8B%E5%88%B0%E7%9A%84%E4%BA%8B%E5%8A%A1%EF%BC%89"><span class="toc-text">事务的微观性（DBMS看到的事务）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E4%BA%8B%E5%8A%A1%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-text">（3）事务的特性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89DBMS%E5%AF%B9%E4%BA%8B%E5%8A%A1%E7%9A%84%E6%8E%A7%E5%88%B6"><span class="toc-text">（4）DBMS对事务的控制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2203-%E4%BA%8B%E5%8A%A1%E8%B0%83%E5%BA%A6%E7%9A%84%E5%8F%AF%E4%B8%B2%E8%A1%8C%E6%80%A7"><span class="toc-text">2203 事务调度的可串行性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">（1）基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%B8%80%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E5%8A%A1%E8%B0%83%E5%BA%A6%E7%9A%84%E6%A0%87%E8%AE%B0%E6%A8%A1%E5%9E%8B"><span class="toc-text">（2）一种简单的事务调度的标记模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%86%B2%E7%AA%81%E7%9A%84%E4%B8%B2%E8%A1%8C%E6%80%A7"><span class="toc-text">（3）冲突的串行性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E5%86%B2%E7%AA%81%E5%8F%AF%E4%B8%B2%E8%A1%8C%E6%80%A7%E5%88%A4%E5%88%AB%E7%AE%97%E6%B3%95"><span class="toc-text">（4）冲突可串行性判别算法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E9%97%AE%E9%A2%98"><span class="toc-text">（1）问题</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%AE%97%E6%B3%95%E8%A1%A8%E8%BE%BE"><span class="toc-text">（2）算法表达</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2204-%E5%9F%BA%E4%BA%8E%E5%B0%81%E9%94%81%E7%9A%84%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E6%96%B9%E6%B3%95"><span class="toc-text">2204 基于封锁的并发控制方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89-%E9%97%AE%E9%A2%98"><span class="toc-text">（1） 问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%BB%80%E4%B9%88%E6%98%AF%E2%80%9C%E9%94%81%E2%80%9D"><span class="toc-text">（2）什么是“锁”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%B0%81%E9%94%81%E5%8D%8F%E8%AE%AE%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E4%BB%80%E4%B9%88"><span class="toc-text">（3）封锁协议需要考虑什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E4%B8%A4%E7%AB%AF%E5%B0%81%E9%94%81%E5%8D%8F%E8%AE%AE"><span class="toc-text">（4）两端封锁协议</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%A4%E6%AE%B5%E5%B0%81%E9%94%81%E5%8D%8F%E8%AE%AE"><span class="toc-text">什么是两段封锁协议</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2205-%E5%9F%BA%E4%BA%8E%E6%97%B6%E9%97%B4%E6%88%B3%E7%9A%84%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6"><span class="toc-text">2205 基于时间戳的并发控制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E4%BB%80%E4%B9%88%E6%98%AF%E6%97%B6%E9%97%B4%E6%88%B3"><span class="toc-text">（1）什么是时间戳</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%9F%BA%E4%BA%8E%E6%97%B6%E9%97%B4%E6%88%B3%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF"><span class="toc-text">（2）基于时间戳并发控制的基本思路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%9F%BA%E4%BA%8E%E6%97%B6%E9%97%B4%E6%88%B3%E7%9A%84%E7%AE%80%E5%8D%95%E8%B0%83%E5%BA%A6"><span class="toc-text">（3）基于时间戳的简单调度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%EF%BC%883%EF%BC%89%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-text">（4）（3）的改进</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6%E8%A7%84%E5%88%99"><span class="toc-text">调度规则</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2206-%E5%9F%BA%E4%BA%8E%E6%9C%89%E6%95%88%E6%80%A7%E7%A1%AE%E8%AE%A4%E7%9A%84%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E6%96%B9%E6%B3%95"><span class="toc-text">2206 基于有效性确认的并发控制方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%80%9D%E6%83%B3"><span class="toc-text">（1）思想</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E8%B0%83%E5%BA%A6%E5%99%A8%E7%9A%84%E8%BF%90%E8%A1%8C"><span class="toc-text">（2）调度器的运行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%9C%89%E6%95%88%E6%80%A7%E7%A1%AE%E8%AE%A4%E7%9A%84%E8%A7%84%E5%88%99"><span class="toc-text">（3）有效性确认的规则</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E7%B3%BB%E7%BB%9F%E6%95%85%E9%9A%9C%E5%AF%B9%E7%AD%96"><span class="toc-text">第六章 系统故障对策</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2301-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%95%85%E9%9A%9C%E5%8F%8A%E5%85%B6%E5%BD%B1%E5%93%8D"><span class="toc-text">2301 数据库的故障及其影响</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%9F%BA%E7%A1%80%E9%9C%80%E8%A6%81%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84"><span class="toc-text">（1）基础需要需要知道的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%95%85%E9%9A%9C%E7%B1%BB%E5%9E%8B"><span class="toc-text">（2）数据库的故障类型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2302-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9B%9E%E5%A4%8D%E7%9A%84%E5%AE%8F%E8%A7%82%E6%80%9D%E8%B7%AF"><span class="toc-text">2302 数据库回复的宏观思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E4%BA%8B%E5%8A%A1%E6%95%85%E9%9A%9C%E7%9A%84%E5%9B%9E%E5%A4%8D"><span class="toc-text">（1）事务故障的回复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%B3%BB%E7%BB%9F%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D"><span class="toc-text">（2）系统故障恢复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E4%BB%8B%E8%B4%A8%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D"><span class="toc-text">（3）介质故障恢复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E5%B0%8F%E7%BB%93"><span class="toc-text">（4）小结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2303-%E8%BF%90%E8%A1%8C%E6%97%A5%E5%BF%97%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">2303 运行日志的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%97%A5%E5%BF%97%E6%89%80%E8%AE%B0%E5%BD%95%E7%9A%84"><span class="toc-text">（1）日志所记录的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%B8%8D%E5%90%8C%E7%9A%84%E7%BC%93%E5%86%B2%E5%8C%BA%E7%AD%96%E7%95%A5%E5%BD%B1%E5%93%8D%E4%BA%8B%E5%8A%A1%E7%9A%84%E6%8C%81%E4%B9%85%E6%80%A7"><span class="toc-text">（2）不同的缓冲区策略影响事务的持久性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E4%BA%8B%E5%8A%A1%E6%95%85%E9%9A%9C%E5%BD%B1%E5%93%8D%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%8E%9F%E5%AD%90%E6%80%A7"><span class="toc-text">（3）事务故障影响事务的原子性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E6%80%8E%E6%A0%B7%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97"><span class="toc-text">（4）怎样记录日志</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%885%EF%BC%89%E7%BC%93%E5%86%B2%E5%8C%BA%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5%E5%92%8C%E6%97%A5%E5%BF%97%E6%81%A2%E5%A4%8D%E7%AD%96%E7%95%A5%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">（5）缓冲区处理策略和日志恢复策略的关系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2304-Undo%E5%9E%8B%E6%97%A5%E5%BF%97%E5%8F%8A%E5%85%B6%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D"><span class="toc-text">2304 Undo型日志及其故障恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89Undo%E5%9E%8B%E6%97%A5%E5%BF%97%E7%9A%84%E8%AE%B0%E5%BD%95%E8%A7%84%E5%88%99"><span class="toc-text">（1）Undo型日志的记录规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%88%A9%E7%94%A8Undo%E5%9E%8B%E6%97%A5%E5%BF%97%E8%BF%9B%E8%A1%8C%E6%81%A2%E5%A4%8D"><span class="toc-text">（2）利用Undo型日志进行恢复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%A3%80%E6%9F%A5%E7%82%B9%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8"><span class="toc-text">（3）检查点及其使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2305-Redo%E5%9E%8B%E6%97%A5%E5%BF%97%E5%8F%8A%E5%85%B6%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D"><span class="toc-text">2305 Redo型日志及其故障恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89Redo%E5%9E%8B%E6%97%A5%E5%BF%97%E7%9A%84%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E8%A7%84%E5%88%99"><span class="toc-text">（1）Redo型日志的日志记录规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%88%A9%E7%94%A8redo%E6%97%A5%E5%BF%97%E8%BF%9B%E8%A1%8C%E6%81%A2%E5%A4%8D"><span class="toc-text">（2）利用redo日志进行恢复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%A3%80%E6%9F%A5%E7%82%B9%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8"><span class="toc-text">（3）检查点及其应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2306-Undo-Redo%E7%BB%93%E5%90%88%E5%9E%8B%E6%97%A5%E5%BF%97%E5%8F%8A%E5%85%B6%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D"><span class="toc-text">2306 Undo&#x2F;Redo结合型日志及其故障恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%8D%95%E7%A7%8D%E6%97%A5%E5%BF%97%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">（1）单种日志的问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89Undo-Redo%E7%BB%93%E5%90%88%E5%9E%8B%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E8%A7%84%E5%88%99"><span class="toc-text">（2）Undo&#x2F;Redo结合型日志记录规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89Undo-Redo%E7%BB%93%E5%90%88%E5%9E%8B%E6%97%A5%E5%BF%97%E8%BF%9B%E8%A1%8C%E6%81%A2%E5%A4%8D"><span class="toc-text">（3）Undo&#x2F;Redo结合型日志进行恢复</span></a></li></ol></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93"><i class="tag post-item-tag">数据库</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">数据库系统复习</h1><time class="has-text-grey" datetime="2023-02-28T12:08:14.993Z">2023-02-28</time><article class="mt-2 post-content"><img src="/images/meitu/2.jpg">
+#### （2）操作系统对数据的组织
 
-<p>主要观看 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1VE411h7hq?p=176&vd_source=240b8edf72530a8ec2d9f48cc6514072">数据库系统实现网课</a>1700后的内容所成笔记。</p>
+FAT-目录-磁盘块/簇
+
+FAT（文件分配表 File Allocation Table）
+
+#### （3）内存管理
+
+一条记录的地址=存储单元的地址=.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">数据库系统复习</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E8%BE%85%E5%8A%A9%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86"><span class="toc-text">第二章 辅助存储管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#01-%E5%AD%98%E5%82%A8%E4%BD%93%E7%B3%BB%E5%9B%9E%E9%A1%BE"><span class="toc-text">01 存储体系回顾</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%95%B0%E6%8D%AE%E7%BB%84%E7%BB%87%E7%9A%84%E5%9F%BA%E7%A1%80%E2%80%94%E5%AD%98%E5%82%A8%E4%BD%93%E7%B3%BB"><span class="toc-text">（1）数据组织的基础—存储体系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#03-%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="toc-text">03 查询实现的基本思想</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%9A%84%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB%E7%A4%BA%E6%84%8F"><span class="toc-text">（1）数据存储的映射关系示意</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B8%8E%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6%E7%A4%BA%E6%84%8F"><span class="toc-text">（2）数据存储与查询实现的基本框架示意</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#04-%E8%AE%B0%E5%BD%95%E4%B8%8E%E8%A1%A8%E5%9C%A8%E7%A3%81%E7%9B%98%E4%B8%8A%E7%9A%84%E5%AD%98%E5%82%A8"><span class="toc-text">04 记录与表在磁盘上的存储</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%BF%B5%E4%B8%8E%E7%A3%81%E7%9B%98%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5%E7%9A%84%E6%98%A0%E5%B0%84%E7%A4%BA%E6%84%8F"><span class="toc-text">（1）数据库概念与磁盘相关概念的映射示意</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E8%AE%B0%E5%BD%95%E7%9A%84%E5%8C%BA%E5%88%86%E5%8F%8A%E8%AE%B0%E5%BD%95%E5%B1%9E%E6%80%A7%E5%80%BC%E7%9A%84%E5%8C%BA%E5%88%86"><span class="toc-text">（2）数据库中记录的区分及记录属性值的区分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E8%AE%B0%E5%BD%95-vs-%E7%A3%81%E7%9B%98%E5%9D%97"><span class="toc-text">（3） 数据库中的记录 vs.磁盘块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%B4%A2%E5%BC%95%E7%9A%84%E4%B8%80%E8%88%AC%E6%80%A7%E7%89%B9%E7%82%B9"><span class="toc-text">（2）索引的一般性特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%85%B3%E4%BA%8E%E7%B4%A2%E5%BC%95%E5%BA%94%E7%94%A8%E7%9A%84%E8%AF%84%E4%BB%B7%E9%97%AE%E9%A2%98"><span class="toc-text">（3）关于索引应用的评价问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E7%B4%A2%E5%BC%95%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5%E7%9A%84%E5%8C%BA%E5%88%86"><span class="toc-text">（4）索引相关概念的区分</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#02-SQL%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E5%88%9B%E5%BB%BA%E4%B8%8E%E7%BB%B4%E6%8A%A4"><span class="toc-text">02 SQL语言中的索引创建与维护</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#03-%E7%A8%A0%E5%AF%86%E7%B4%A2%E5%BC%95%E5%92%8C%E7%A8%80%E7%96%8F%E7%B4%A2%E5%BC%95"><span class="toc-text">03 稠密索引和稀疏索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E7%A8%A0%E5%AF%86%E7%B4%A2%E5%BC%95%E5%92%8C%E7%A8%80%E7%96%8F%E7%B4%A2%E5%BC%95%E6%A6%82%E5%BF%B5"><span class="toc-text">（1）稠密索引和稀疏索引概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%A8%80%E7%96%8F%E7%B4%A2%E5%BC%95%E5%A6%82%E4%BD%95%E5%AE%9A%E4%BD%8D%E8%AE%B0%E5%BD%95"><span class="toc-text">（2）稀疏索引如何定位记录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89-%E7%A8%A0%E5%AF%86%E7%B4%A2%E5%BC%95%E5%A6%82%E4%BD%95%E5%AE%9A%E4%BD%8D%E8%AE%B0%E5%BD%95"><span class="toc-text">（3） 稠密索引如何定位记录</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#04-%E4%B8%BB%E7%B4%A2%E5%BC%95%E4%B8%8E%E8%BE%85%E5%8A%A9%E7%B4%A2%E5%BC%95"><span class="toc-text">04 主索引与辅助索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E4%B8%BB%E7%B4%A2%E5%BC%95"><span class="toc-text">（1）主索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89-%E8%BE%85%E5%8A%A9%E7%B4%A2%E5%BC%95"><span class="toc-text">（2） 辅助索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%B7%AE%E5%88%AB"><span class="toc-text">（3）差别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#05-%E5%85%B6%E4%BB%96%E7%B4%A2%E5%BC%95"><span class="toc-text">05 其他索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E4%B8%8E%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95"><span class="toc-text">（1）聚簇索引与非聚簇索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95"><span class="toc-text">（2）倒排索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%85%B6%E5%AE%83%E7%B4%A2%E5%BC%95"><span class="toc-text">（3）其它索引</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#06-B-%E6%A0%91%E7%B4%A2%E5%BC%95%EF%BC%88%E4%B9%A6%E4%B8%8A%E6%98%AFB%E6%A0%91%EF%BC%89"><span class="toc-text">06 B+树索引（书上是B树）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%A4%9A%E7%BA%A7%E7%B4%A2%E5%BC%95"><span class="toc-text">（1）多级索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89B-%E6%A0%91%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">（2）B+树的基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89B-%E6%A0%91%E7%9A%84%E5%AD%98%E5%82%A8%E7%BA%A6%E5%AE%9A"><span class="toc-text">（3）B+树的存储约定</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%88%A9%E7%94%A8B-%E6%A0%91%E5%BB%BA%E7%AB%8B%E4%B8%8D%E5%90%8C%E7%9A%84%E7%B4%A2%E5%BC%95"><span class="toc-text">(4) 利用B+树建立不同的索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%885%EF%BC%89-B%E6%A0%91"><span class="toc-text">（5） B树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%886%EF%BC%89-B-%E6%A0%91%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95"><span class="toc-text">（6） B+树相关算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#07-B-%E6%A0%91%E4%B9%8B%E9%94%AE%E5%80%BC%E6%8F%92%E5%85%A5%E4%B8%8E%E8%8A%82%E7%82%B9%E5%88%86%E8%A3%82%E7%A4%BA%E6%84%8F"><span class="toc-text">07 B+树之键值插入与节点分裂示意</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89-%E6%8F%92%E5%85%A5"><span class="toc-text">（1） 插入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89-%E5%88%A0%E9%99%A4"><span class="toc-text">（2） 删除</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#08-%E6%95%A3%E5%88%97%E7%B4%A2%E5%BC%95"><span class="toc-text">08 散列索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89-%E6%95%A3%E5%88%97%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">（1） 散列的基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%95%A3%E5%88%97%E7%B4%A2%E5%BC%95"><span class="toc-text">（2）散列索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89-%E6%95%A3%E5%88%97%E7%B4%A2%E5%BC%95%E7%9A%84%E6%8F%92%E5%85%A5%E5%92%8C%E5%88%A0%E9%99%A4"><span class="toc-text">（3） 散列索引的插入和删除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E6%95%A3%E5%88%97%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">（4）散列的问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#09-%E5%8F%AF%E6%89%A9%E5%B1%95%E6%95%A3%E5%88%97%E7%B4%A2%E5%BC%95%E4%B8%8E%E7%BA%BF%E6%80%A7%E6%95%A3%E5%88%97%E7%B4%A2%E5%BC%95"><span class="toc-text">09 可扩展散列索引与线性散列索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E5%A4%9A%E7%BB%B4%E7%B4%A2%E5%BC%95%EF%BC%883-4%EF%BC%89"><span class="toc-text">10 多维索引（3.4）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E5%A4%9A%E7%BB%B4%E6%95%B0%E6%8D%AE%E7%9A%84%E6%95%A3%E5%88%97%E7%BB%93%E6%9E%84"><span class="toc-text">11 多维数据的散列结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E7%BD%91%E6%A0%BC%E6%96%87%E4%BB%B6"><span class="toc-text">（1）网格文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%88%86%E6%AE%B5%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B0"><span class="toc-text">（2）分段散列函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-%E5%A4%9A%E7%BB%B4%E6%95%B0%E6%8D%AE%E7%9A%84%E6%A0%91%E7%BB%93%E6%9E%84"><span class="toc-text">12 多维数据的树结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%A4%9A%E9%94%AE%E7%B4%A2%E5%BC%95"><span class="toc-text">（1）多键索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89kd-%E6%A0%91"><span class="toc-text">（2）kd-树</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#kd%E6%A0%91%E6%A6%82%E5%BF%B5"><span class="toc-text">kd树概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#kd%E6%A0%91%E6%93%8D%E4%BD%9C"><span class="toc-text">kd树操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#kd%E6%A0%91%E4%BC%98%E5%8C%96"><span class="toc-text">kd树优化</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%9B%9B%E5%8F%89%E6%A0%91"><span class="toc-text">（3）四叉树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89R-%E6%A0%91"><span class="toc-text">（4）R-树</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-%E4%BD%8D%E5%9B%BE%E7%B4%A2%E5%BC%95"><span class="toc-text">13 位图索引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E6%9F%A5%E8%AF%A2%E6%89%A7%E8%A1%8C"><span class="toc-text">第四章 查询执行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1901-%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="toc-text">1901 查询实现算法概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="toc-text">（1）数据库查询的基本思想</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0-vs-%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="toc-text">（2）查询实现 vs. 查询优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89-%E6%9F%A5%E8%AF%A2%E7%AE%97%E6%B3%95%E6%80%BB%E8%A7%88"><span class="toc-text">（3） 查询算法总览</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1902-%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95"><span class="toc-text">1902 连接操作的实现算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E9%80%BB%E8%BE%91%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95"><span class="toc-text">（1）连接操作的逻辑实现算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E7%89%A9%E7%90%86%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95"><span class="toc-text">（2）连接操作的物理实现算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95"><span class="toc-text">（3）连接操作的基本实现算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E5%85%A8%E4%B8%BB%E5%AD%98%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95"><span class="toc-text">（4）连接操作的全主存实现算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%885%EF%BC%89%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E5%8D%8A%E4%B8%BB%E5%AD%98%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95"><span class="toc-text">（5）连接操作的半主存实现算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%886%EF%BC%89%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E5%A4%A7%E5%85%B3%E7%B3%BB%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95"><span class="toc-text">（6）连接操作的大关系实现算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%887%EF%BC%89%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95"><span class="toc-text">（7）连接操作的其他方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1903-%E5%88%A9%E7%94%A8%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%9E%84%E9%80%A0%E6%9F%A5%E8%AF%A2%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95"><span class="toc-text">1903 利用迭代器构造查询实现算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%AE%97%E6%B3%95%E7%9A%84%E6%8F%90%E5%87%BA"><span class="toc-text">（1）迭代器算法的提出</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80"><span class="toc-text">（2）迭代器算法基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%9A%84%E6%9E%84%E9%80%A0"><span class="toc-text">（3）迭代器的构造</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1904-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E7%9A%84%E4%B8%80%E8%B6%9F%E6%89%AB%E6%8F%8F%E7%AE%97%E6%B3%95"><span class="toc-text">1904 数据库查询的一趟扫描算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%80%E8%B6%9F%E7%AE%97%E6%B3%95"><span class="toc-text">（1）什么是一趟算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%85%B3%E7%B3%BB-%E8%A1%A8%E6%95%B0%E6%8D%AE%E7%9A%84%E8%AF%BB%E5%8F%96"><span class="toc-text">（2）关系&#x2F;表数据的读取</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%81%9A%E7%B0%87%E5%85%B3%E7%B3%BB"><span class="toc-text">聚簇关系</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9D%9E%E8%81%9A%E7%B0%87%E5%85%B3%E7%B3%BB"><span class="toc-text">非聚簇关系</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%95%B4%E4%B8%AA%E5%85%B3%E7%B3%BB%E7%9A%84%E4%B8%80%E5%85%83%E6%93%8D%E4%BD%9C%E7%AE%97%E6%B3%95"><span class="toc-text">（3）整个关系的一元操作算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E6%95%B4%E4%B8%AA%E5%85%B3%E7%B3%BB%E7%9A%84%E4%BA%8C%E5%85%83%E6%93%8D%E4%BD%9C%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95"><span class="toc-text">（4）整个关系的二元操作实现算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1905-%E5%9F%BA%E4%BA%8E%E7%B4%A2%E5%BC%95%E7%9A%84%E7%AE%97%E6%B3%95"><span class="toc-text">1905 基于索引的算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%9F%BA%E4%BA%8E%E7%B4%A2%E5%BC%95%E7%9A%84%E9%80%89%E6%8B%A9%E7%AE%97%E6%B3%95"><span class="toc-text">（1）基于索引的选择算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%9F%BA%E4%BA%8E%E6%9C%89%E5%BA%8F%E7%B4%A2%E5%BC%95%E7%9A%84%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%EF%BC%88Zig-Zag%E8%BF%9E%E6%8E%A5%E7%AE%97%E6%B3%95%EF%BC%89"><span class="toc-text">（2）基于有序索引的连接算法（Zig-Zag连接算法）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1906-%E5%9B%9E%E9%A1%BE"><span class="toc-text">1906 回顾</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2001-%E4%B8%A4%E8%B6%9F%E6%89%AB%E6%8F%8F%E7%AE%97%E6%B3%95%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="toc-text">2001 两趟扫描算法的基本思想</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%95%B4%E4%B8%AA%E5%85%B3%E7%B3%BB%E6%93%8D%E4%BD%9C%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">（1）整个关系操作存在的问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%B8%A4%E8%B6%9F%E7%AE%97%E6%B3%95%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF"><span class="toc-text">（2）两趟算法的基本思路</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2002-%E4%B8%A4%E9%98%B6%E6%AE%B5%E5%A4%9A%E8%B7%AF%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="toc-text">2002 两阶段多路归并排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89-%E5%86%85%E6%8E%92%E5%BA%8F%E5%92%8C%E5%A4%96%E6%8E%92%E5%BA%8F"><span class="toc-text">（1） 内排序和外排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%B8%A4%E9%98%B6%E6%AE%B5%E5%A4%9A%E8%B7%AF%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="toc-text">（2）两阶段多路归并排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%9B%B4%E5%A4%A7%E8%A7%84%E6%A8%A1%E7%9A%84%E5%A4%9A%E9%98%B6%E6%AE%B5%E5%BD%92%E5%B9%B6%E7%AE%97%E6%B3%95"><span class="toc-text">（3）更大规模的多阶段归并算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2003-%E5%9F%BA%E4%BA%8E%E6%8E%92%E5%BA%8F%E7%9A%84%E4%B8%A4%E8%B6%9F%E6%89%AB%E6%8F%8F%E7%AE%97%E6%B3%95"><span class="toc-text">2003 基于排序的两趟扫描算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%93%8D%E4%BD%9C"><span class="toc-text">（1）操作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2004-%E5%9F%BA%E4%BA%8E%E6%95%A3%E5%88%97%E7%9A%84%E4%B8%A4%E8%B6%9F%E6%89%AB%E6%8F%8F%E7%AE%97%E6%B3%95"><span class="toc-text">2004 基于散列的两趟扫描算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="toc-text">（1）基本思想</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%AE%9E%E4%BE%8B"><span class="toc-text">（2）实例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E6%9F%A5%E8%AF%A2%E7%BC%96%E8%AF%91%E5%99%A8"><span class="toc-text">第五章 查询编译器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2101-%E4%BB%80%E4%B9%88%E6%98%AF%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="toc-text">2101 什么是查询优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="toc-text">（1）为什么需要查询优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%BB%80%E4%B9%88%E6%98%AF%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="toc-text">（2）什么是查询优化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2102-%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E7%9A%84%E6%80%BB%E4%BD%93%E6%80%9D%E8%B7%AF"><span class="toc-text">2102 查询优化的总体思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E8%AF%AD%E4%B9%89%E4%BC%98%E5%8C%96%E2%80%94%E5%86%85%E5%AE%B9%E7%AD%89%E4%BB%B7%E6%80%A7"><span class="toc-text">（1）语义优化—内容等价性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E8%AF%AD%E6%B3%95%E4%BC%98%E5%8C%96%EF%BC%88%E9%80%BB%E8%BE%91%E5%B1%82%E4%BC%98%E5%8C%96%EF%BC%89%E2%80%94%E5%86%85%E5%AE%B9%E7%AD%89%E4%BB%B7%E6%80%A7"><span class="toc-text">（2）语法优化（逻辑层优化）—内容等价性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%89%A7%E8%A1%8C%E4%BC%98%E5%8C%96%EF%BC%88%E7%89%A9%E7%90%86%E5%B1%82%E4%BC%98%E5%8C%96%EF%BC%89"><span class="toc-text">（3）执行优化（物理层优化）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E7%9A%84%E6%80%BB%E8%BF%87%E7%A8%8B"><span class="toc-text">（4）查询优化的总过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2103-%E9%80%BB%E8%BE%91%E5%B1%82%E4%BC%98%E5%8C%96%E7%AD%96%E7%95%A5"><span class="toc-text">2103 逻辑层优化策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E4%B8%80%E4%B8%AA%E5%BE%85%E4%BC%98%E5%8C%96%E7%9A%84%E5%AE%9E%E4%BE%8B%E8%83%8C%E6%99%AF"><span class="toc-text">（1）一个待优化的实例背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%94%A8%E8%AF%AD%E6%B3%95%E6%A0%91%E8%A1%A8%E8%BE%BE%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">（2）用语法树表达关系代数表达式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E9%80%BB%E8%BE%91%E4%BC%98%E5%8C%96%E7%9A%84%E7%AD%96%E7%95%A5"><span class="toc-text">（3）逻辑优化的策略</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2104-%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0%E6%93%8D%E4%BD%9C%E6%AC%A1%E5%BA%8F%E4%BA%A4%E6%8D%A2%E7%9A%84%E7%AD%89%E4%BB%B7%E6%80%A7"><span class="toc-text">2104 关系代数操作次序交换的等价性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E7%AD%89%E4%BB%B7%E6%80%A7"><span class="toc-text">（1）等价性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%93%AA%E4%BA%9B%E5%85%B3%E7%B3%BB%E6%93%8D%E4%BD%9C%E6%AC%A1%E5%BA%8F%E5%8F%AF%E4%BB%A5%E4%BA%A4%E6%8D%A2"><span class="toc-text">（2）哪些关系操作次序可以交换</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L1%EF%BC%9A%E8%BF%9E%E6%8E%A5%E4%B8%8E%E8%BF%9E%E6%8E%A5%EF%BC%8C%E7%A7%AF%E4%B8%8E%E7%A7%AF%E7%9A%84%E4%BA%A4%E6%8D%A2%E5%BE%8B"><span class="toc-text">定理L1：连接与连接，积与积的交换律</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L2%EF%BC%9A%E5%AE%9A%E7%90%86L1%EF%BC%9A%E8%BF%9E%E6%8E%A5%E4%B8%8E%E8%BF%9E%E6%8E%A5%EF%BC%8C%E7%A7%AF%E4%B8%8E%E7%A7%AF%E7%9A%84%E7%BB%93%E5%90%88%E5%BE%8B"><span class="toc-text">定理L2：定理L1：连接与连接，积与积的结合律</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L3%EF%BC%9A%E6%8A%95%E5%BD%B1%E4%B8%B2%E6%8E%A5%E7%8E%87"><span class="toc-text">定理L3：投影串接率</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L4%EF%BC%9A%E9%80%89%E6%8B%A9%E7%9A%84%E4%B8%B2%E6%8E%A5%E7%8E%87"><span class="toc-text">定理L4：选择的串接率</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L5%EF%BC%9A%E9%80%89%E6%8B%A9%E5%92%8C%E6%8A%95%E5%BD%B1%E7%9A%84%E4%BA%A4%E6%8D%A2%E5%BE%8B"><span class="toc-text">定理L5：选择和投影的交换律</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L6%EF%BC%9A%E9%80%89%E6%8B%A9%E5%90%88%E7%A7%AF%E7%9A%84%E4%BA%A4%E6%8D%A2%E5%BE%8B"><span class="toc-text">定理L6：选择合积的交换律</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L7-%E6%8A%95%E5%BD%B1%E5%92%8C%E7%A7%AF%E7%9A%84%E4%BA%A4%E6%8D%A2%E5%BE%8B"><span class="toc-text">定理L7:投影和积的交换律</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L8-%E9%80%89%E6%8B%A9%E5%92%8C%E5%B9%B6%E7%9A%84%E4%BA%A4%E6%8D%A2%E5%BE%8B"><span class="toc-text">定理L8:选择和并的交换律</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L9-%E9%80%89%E6%8B%A9%E5%92%8C%E5%B7%AE%E7%9A%84%E4%BA%A4%E6%8D%A2%E5%BE%8B"><span class="toc-text">定理L9:选择和差的交换律</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E7%90%86L10-%E6%8A%95%E5%BD%B1%E5%92%8C%E5%B9%B6%E7%9A%84%E4%BA%A4%E6%8D%A2%E5%BE%8B"><span class="toc-text">定理L10:投影和并的交换律</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2105-%E5%9F%BA%E4%BA%8E%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0%E7%9A%84%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E5%8F%8A%E7%A4%BA%E4%BE%8B"><span class="toc-text">2105 基于关系代数的查询优化算法及示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2106-%E7%89%A9%E7%90%86%E5%B1%82%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="toc-text">2106 物理层查询优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E7%89%A9%E7%90%86%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E2%80%94%E6%80%BB%E4%BD%93%E6%80%9D%E8%B7%AF"><span class="toc-text">（1）物理查询优化—总体思路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E8%A1%A1%E9%87%8F%E4%B8%80%E4%B8%AA%E7%89%A9%E7%90%86%E6%9F%A5%E8%AF%A2%E8%AE%A1%E5%88%92"><span class="toc-text">（2）衡量一个物理查询计划</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%A6%82%E4%BD%95%E6%94%B6%E9%9B%86%E8%BF%99%E4%BA%9B%E4%BF%A1%E6%81%AF"><span class="toc-text">（3）如何收集这些信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2107-%E4%BB%A3%E4%BB%B7%E4%BC%B0%E7%AE%97"><span class="toc-text">2107 代价估算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%8A%95%E5%BD%B1%E8%BF%90%E7%AE%97%E7%9A%84%E4%BB%A3%E4%BB%B7%E4%BC%B0%E7%AE%97"><span class="toc-text">（1）投影运算的代价估算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E9%80%89%E6%8B%A9%E8%BF%90%E7%AE%97%E5%9C%B0%E4%BB%A3%E4%BB%B7%E4%BC%B0%E7%AE%97"><span class="toc-text">（2）选择运算地代价估算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E8%BF%9E%E6%8E%A5%E8%BF%90%E7%AE%97%E7%9A%84%E4%BB%A3%E4%BB%B7%E4%BC%B0%E7%AE%97"><span class="toc-text">（3）连接运算的代价估算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2108-%E5%9B%9E%E9%A1%BE"><span class="toc-text">2108 回顾</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6-%E5%8F%8A-%E7%AC%AC%E5%85%AB%E7%AB%A0-%E5%86%8D%E8%AE%BA%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-text">第七章 并发控制 及 第八章 再论事务管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2201-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%BF%9B%E8%A1%8C%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6"><span class="toc-text">2201 为什么要进行并发控制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%AF%E8%83%BD%E5%AD%98%E5%9C%A8%E4%B8%8D%E4%B8%80%E8%87%B4"><span class="toc-text">（1）数据库可能存在不一致</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E7%9A%84%E7%BC%98%E7%94%B1"><span class="toc-text">（2）并发控制的缘由</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E5%8F%8A%E7%9B%B8%E5%BA%94%E7%9A%84%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E6%8A%80%E6%9C%AF%E6%98%AFDBMS%E7%9A%84%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF"><span class="toc-text">（3）并发控制及相应的事务处理技术是DBMS的核心技术</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2202-%E6%B7%B1%E5%85%A5%E8%AE%A4%E8%AF%86%E4%BA%8B%E5%8A%A1"><span class="toc-text">2202 深入认识事务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E4%BA%8B%E5%8A%A1%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">（1）事务的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%AE%8F%E8%A7%82%E6%80%A7%E5%92%8C%E5%BE%AE%E8%A7%82%E6%80%A7"><span class="toc-text">（2）事务的宏观性和微观性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%AE%8F%E8%A7%82%E6%80%A7%EF%BC%88%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9C%8B%E5%88%B0%E7%9A%84%E4%BA%8B%E5%8A%A1%EF%BC%89"><span class="toc-text">事务的宏观性（应用程序员看到的事务）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%BE%AE%E8%A7%82%E6%80%A7%EF%BC%88DBMS%E7%9C%8B%E5%88%B0%E7%9A%84%E4%BA%8B%E5%8A%A1%EF%BC%89"><span class="toc-text">事务的微观性（DBMS看到的事务）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E4%BA%8B%E5%8A%A1%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-text">（3）事务的特性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89DBMS%E5%AF%B9%E4%BA%8B%E5%8A%A1%E7%9A%84%E6%8E%A7%E5%88%B6"><span class="toc-text">（4）DBMS对事务的控制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2203-%E4%BA%8B%E5%8A%A1%E8%B0%83%E5%BA%A6%E7%9A%84%E5%8F%AF%E4%B8%B2%E8%A1%8C%E6%80%A7"><span class="toc-text">2203 事务调度的可串行性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">（1）基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%B8%80%E7%A7%8D%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E5%8A%A1%E8%B0%83%E5%BA%A6%E7%9A%84%E6%A0%87%E8%AE%B0%E6%A8%A1%E5%9E%8B"><span class="toc-text">（2）一种简单的事务调度的标记模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%86%B2%E7%AA%81%E7%9A%84%E4%B8%B2%E8%A1%8C%E6%80%A7"><span class="toc-text">（3）冲突的串行性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E5%86%B2%E7%AA%81%E5%8F%AF%E4%B8%B2%E8%A1%8C%E6%80%A7%E5%88%A4%E5%88%AB%E7%AE%97%E6%B3%95"><span class="toc-text">（4）冲突可串行性判别算法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E9%97%AE%E9%A2%98"><span class="toc-text">（1）问题</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%AE%97%E6%B3%95%E8%A1%A8%E8%BE%BE"><span class="toc-text">（2）算法表达</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2204-%E5%9F%BA%E4%BA%8E%E5%B0%81%E9%94%81%E7%9A%84%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E6%96%B9%E6%B3%95"><span class="toc-text">2204 基于封锁的并发控制方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89-%E9%97%AE%E9%A2%98"><span class="toc-text">（1） 问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%BB%80%E4%B9%88%E6%98%AF%E2%80%9C%E9%94%81%E2%80%9D"><span class="toc-text">（2）什么是“锁”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%B0%81%E9%94%81%E5%8D%8F%E8%AE%AE%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E4%BB%80%E4%B9%88"><span class="toc-text">（3）封锁协议需要考虑什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E4%B8%A4%E7%AB%AF%E5%B0%81%E9%94%81%E5%8D%8F%E8%AE%AE"><span class="toc-text">（4）两端封锁协议</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%A4%E6%AE%B5%E5%B0%81%E9%94%81%E5%8D%8F%E8%AE%AE"><span class="toc-text">什么是两段封锁协议</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2205-%E5%9F%BA%E4%BA%8E%E6%97%B6%E9%97%B4%E6%88%B3%E7%9A%84%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6"><span class="toc-text">2205 基于时间戳的并发控制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E4%BB%80%E4%B9%88%E6%98%AF%E6%97%B6%E9%97%B4%E6%88%B3"><span class="toc-text">（1）什么是时间戳</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%9F%BA%E4%BA%8E%E6%97%B6%E9%97%B4%E6%88%B3%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF"><span class="toc-text">（2）基于时间戳并发控制的基本思路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%9F%BA%E4%BA%8E%E6%97%B6%E9%97%B4%E6%88%B3%E7%9A%84%E7%AE%80%E5%8D%95%E8%B0%83%E5%BA%A6"><span class="toc-text">（3）基于时间戳的简单调度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%EF%BC%883%EF%BC%89%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-text">（4）（3）的改进</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6%E8%A7%84%E5%88%99"><span class="toc-text">调度规则</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2206-%E5%9F%BA%E4%BA%8E%E6%9C%89%E6%95%88%E6%80%A7%E7%A1%AE%E8%AE%A4%E7%9A%84%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E6%96%B9%E6%B3%95"><span class="toc-text">2206 基于有效性确认的并发控制方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%80%9D%E6%83%B3"><span class="toc-text">（1）思想</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E8%B0%83%E5%BA%A6%E5%99%A8%E7%9A%84%E8%BF%90%E8%A1%8C"><span class="toc-text">（2）调度器的运行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%9C%89%E6%95%88%E6%80%A7%E7%A1%AE%E8%AE%A4%E7%9A%84%E8%A7%84%E5%88%99"><span class="toc-text">（3）有效性确认的规则</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E7%B3%BB%E7%BB%9F%E6%95%85%E9%9A%9C%E5%AF%B9%E7%AD%96"><span class="toc-text">第六章 系统故障对策</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2301-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%95%85%E9%9A%9C%E5%8F%8A%E5%85%B6%E5%BD%B1%E5%93%8D"><span class="toc-text">2301 数据库的故障及其影响</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%9F%BA%E7%A1%80%E9%9C%80%E8%A6%81%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84"><span class="toc-text">（1）基础需要需要知道的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%95%85%E9%9A%9C%E7%B1%BB%E5%9E%8B"><span class="toc-text">（2）数据库的故障类型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2302-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9B%9E%E5%A4%8D%E7%9A%84%E5%AE%8F%E8%A7%82%E6%80%9D%E8%B7%AF"><span class="toc-text">2302 数据库回复的宏观思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E4%BA%8B%E5%8A%A1%E6%95%85%E9%9A%9C%E7%9A%84%E5%9B%9E%E5%A4%8D"><span class="toc-text">（1）事务故障的回复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%B3%BB%E7%BB%9F%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D"><span class="toc-text">（2）系统故障恢复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E4%BB%8B%E8%B4%A8%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D"><span class="toc-text">（3）介质故障恢复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E5%B0%8F%E7%BB%93"><span class="toc-text">（4）小结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2303-%E8%BF%90%E8%A1%8C%E6%97%A5%E5%BF%97%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">2303 运行日志的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%97%A5%E5%BF%97%E6%89%80%E8%AE%B0%E5%BD%95%E7%9A%84"><span class="toc-text">（1）日志所记录的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%B8%8D%E5%90%8C%E7%9A%84%E7%BC%93%E5%86%B2%E5%8C%BA%E7%AD%96%E7%95%A5%E5%BD%B1%E5%93%8D%E4%BA%8B%E5%8A%A1%E7%9A%84%E6%8C%81%E4%B9%85%E6%80%A7"><span class="toc-text">（2）不同的缓冲区策略影响事务的持久性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E4%BA%8B%E5%8A%A1%E6%95%85%E9%9A%9C%E5%BD%B1%E5%93%8D%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%8E%9F%E5%AD%90%E6%80%A7"><span class="toc-text">（3）事务故障影响事务的原子性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E6%80%8E%E6%A0%B7%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97"><span class="toc-text">（4）怎样记录日志</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%885%EF%BC%89%E7%BC%93%E5%86%B2%E5%8C%BA%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5%E5%92%8C%E6%97%A5%E5%BF%97%E6%81%A2%E5%A4%8D%E7%AD%96%E7%95%A5%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">（5）缓冲区处理策略和日志恢复策略的关系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2304-Undo%E5%9E%8B%E6%97%A5%E5%BF%97%E5%8F%8A%E5%85%B6%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D"><span class="toc-text">2304 Undo型日志及其故障恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89Undo%E5%9E%8B%E6%97%A5%E5%BF%97%E7%9A%84%E8%AE%B0%E5%BD%95%E8%A7%84%E5%88%99"><span class="toc-text">（1）Undo型日志的记录规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%88%A9%E7%94%A8Undo%E5%9E%8B%E6%97%A5%E5%BF%97%E8%BF%9B%E8%A1%8C%E6%81%A2%E5%A4%8D"><span class="toc-text">（2）利用Undo型日志进行恢复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%A3%80%E6%9F%A5%E7%82%B9%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8"><span class="toc-text">（3）检查点及其使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2305-Redo%E5%9E%8B%E6%97%A5%E5%BF%97%E5%8F%8A%E5%85%B6%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D"><span class="toc-text">2305 Redo型日志及其故障恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89Redo%E5%9E%8B%E6%97%A5%E5%BF%97%E7%9A%84%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E8%A7%84%E5%88%99"><span class="toc-text">（1）Redo型日志的日志记录规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%88%A9%E7%94%A8redo%E6%97%A5%E5%BF%97%E8%BF%9B%E8%A1%8C%E6%81%A2%E5%A4%8D"><span class="toc-text">（2）利用redo日志进行恢复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%A3%80%E6%9F%A5%E7%82%B9%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8"><span class="toc-text">（3）检查点及其应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2306-Undo-Redo%E7%BB%93%E5%90%88%E5%9E%8B%E6%97%A5%E5%BF%97%E5%8F%8A%E5%85%B6%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D"><span class="toc-text">2306 Undo&#x2F;Redo结合型日志及其故障恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%8D%95%E7%A7%8D%E6%97%A5%E5%BF%97%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">（1）单种日志的问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89Undo-Redo%E7%BB%93%E5%90%88%E5%9E%8B%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E8%A7%84%E5%88%99"><span class="toc-text">（2）Undo&#x2F;Redo结合型日志记录规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89Undo-Redo%E7%BB%93%E5%90%88%E5%9E%8B%E6%97%A5%E5%BF%97%E8%BF%9B%E8%A1%8C%E6%81%A2%E5%A4%8D"><span class="toc-text">（3）Undo&#x2F;Redo结合型日志进行恢复</span></a></li></ol></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93"><i class="tag post-item-tag">数据库</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">数据库系统复习</h1><time class="has-text-grey" datetime="2023-02-28T12:08:14.993Z">2023-02-28</time><article class="mt-2 post-content"><p><img src="/images/meitu/2.jpg"></p>
+<p>主要观看 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1VE411h7hq?p=176&amp;vd_source=240b8edf72530a8ec2d9f48cc6514072">数据库系统实现网课</a>1700后的内容所成笔记。</p>
 <p>与 数据库系统实现（机械工业出版社）所讲内容基本吻合，但在具体部分所讲的顺序有略有不同，但考虑到啃书（尤其是机翻工业出版社的书）有些困难，所以先过一边网课再啃书。<br>网课中得顺序有些与书中不同，这里需要注意。<br>[toc]</p>
-<h2 id="第二章-辅助存储管理"><a href="#第二章-辅助存储管理" class="headerlink" title="第二章 辅助存储管理"></a>第二章 辅助存储管理</h2><h3 id="01-存储体系回顾"><a href="#01-存储体系回顾" class="headerlink" title="01 存储体系回顾"></a>01 存储体系回顾</h3><h4 id="（1）数据组织的基础–存储体系"><a href="#（1）数据组织的基础–存储体系" class="headerlink" title="（1）数据组织的基础–存储体系"></a>（1）数据组织的基础–存储体系</h4><li>将不同性价比的存储器组织在一起，满足高速度，大容量，低价格需求
+<h2 id="第二章-辅助存储管理"><a href="#第二章-辅助存储管理" class="headerlink" title="第二章 辅助存储管理"></a>第二章 辅助存储管理</h2><h3 id="01-存储体系回顾"><a href="#01-存储体系回顾" class="headerlink" title="01 存储体系回顾"></a>01 存储体系回顾</h3><h4 id="（1）数据组织的基础—存储体系"><a href="#（1）数据组织的基础—存储体系" class="headerlink" title="（1）数据组织的基础—存储体系"></a>（1）数据组织的基础—存储体系</h4><li>将不同性价比的存储器组织在一起，满足高速度，大容量，低价格需求
 </li><li>CPU与内存直接交换信息，按存储单元（字）进行访问
 </li><li>外存按存储块进行访问，其信息先装入内存，才能被CPU处理。
 
-<h4 id="（2）操作系统对数据的组织"><a href="#（2）操作系统对数据的组织" class="headerlink" title="（2）操作系统对数据的组织"></a>（2）操作系统对数据的组织</h4><p>FAT-目录-磁盘块/簇</p>
-<p>FAT（文件分配表 File Allocation Table）</p>
-<h4 id="（3）内存管理"><a href="#（3）内存管理" class="headerlink" title="（3）内存管理"></a>（3）内存管理</h4></li><li>一条记录的地址=存储单元的地址=内存地址=页面：页面偏移量
+#### （2）操作系统对数据的组织
+
+FAT-目录-磁盘块/簇
+
+FAT（文件分配表 File Allocation Table）
+
+#### （3）内存管理
+
+</li><li>一条记录的地址=存储单元的地址=内存地址=页面：页面偏移量
 </li><li>页面 = 块
 </li><li>内存页面的分配
 </li><li>内存页面的置换
 
-<h3 id="02-磁盘的结构与特性"><a href="#02-磁盘的结构与特性" class="headerlink" title="02 磁盘的结构与特性"></a>02 磁盘的结构与特性</h3><h4 id="（1）磁盘及磁盘容量"><a href="#（1）磁盘及磁盘容量" class="headerlink" title="（1）磁盘及磁盘容量"></a>（1）磁盘及磁盘容量</h4><p>此处应为磁盘结构图</p>
-<p>磁盘位置表述：盘面：磁道：扇区</p>
-<p>磁盘读写单位：扇区(sector)-&gt;簇cluster/块(block)</p>
-<h4 id="（2）磁盘的访问"><a href="#（2）磁盘的访问" class="headerlink" title="（2）磁盘的访问"></a>（2）磁盘的访问</h4><p>寻道时间(1-20ms)<br>旋转时间(0-10ms)<br>传输时间(每4KB页&lt;1ms)</p>
-<p>三个时间的和称为延迟</p>
-<p>物理存取算法考虑的关键：降低I/O次数</p>
-<p>降低排队等候时间&lt;==&gt;降低寻道/旋转延迟时间</p>
-</li><li>同一磁道连续存储
+### 02 磁盘的结构与特性
+
+#### （1）磁盘及磁盘容量
+
+此处应为磁盘结构图
+
+磁盘位置表述：盘面：磁道：扇区
+
+磁盘读写单位：扇区(sector)->簇cluster/块(block)
+
+#### （2）磁盘的访问
+
+寻道时间(1-20ms)
+旋转时间(0-10ms)
+传输时间(每4KB页<1ms) 三个时间的和称为延迟 物理存取算法考虑的关键：降低i o次数 降低排队等候时间<="=">降低寻道/旋转延迟时间
+<li>同一磁道连续存储
 </li><li>同一柱面不同磁道并行块存储
 </li><li>多个磁盘并行块存储
 
-<h4 id="（3）提高磁盘数据读写时间与存储可靠性的方法"><a href="#（3）提高磁盘数据读写时间与存储可靠性的方法" class="headerlink" title="（3）提高磁盘数据读写时间与存储可靠性的方法"></a>（3）提高磁盘数据读写时间与存储可靠性的方法</h4><p>RAID技术：Redundant Array of Independent Disk(独立磁盘冗余磁盘阵列)</p>
-<p>主要思想：</p>
+#### （3）提高磁盘数据读写时间与存储可靠性的方法
+
+RAID技术：Redundant Array of Independent Disk(独立磁盘冗余磁盘阵列)
+
+主要思想：
 </li><li>并行处理：并行读取多个磁盘<ul>
 <li>
     比特级拆分：一个字节被拆分成八个比特位，不同比特位存储于不同磁盘
@@ -68,11 +88,9 @@ FAT（文件分配表 File Allocation Table）
 <li>RAID6 快交叉分布式校验：块拆分存储，互为校验盘</li>
 <li>更多复杂冗余</li>
 </ol>
-<h3 id="03-查询实现的基本思想"><a href="#03-查询实现的基本思想" class="headerlink" title="03 查询实现的基本思想"></a>03 查询实现的基本思想</h3><h4 id="（1）数据存储的映射关系示意"><a href="#（1）数据存储的映射关系示意" class="headerlink" title="（1）数据存储的映射关系示意"></a>（1）数据存储的映射关系示意</h4><p>查询操作算法  –&gt;<br>文件管理/索引管理：数据逻辑结构 –&gt;<br>内存-缓冲区管理 –&gt;<br>磁盘-磁盘管理：读/写 块 –&gt;</p>
-<h4 id="（2）数据存储与查询实现的基本框架示意"><a href="#（2）数据存储与查询实现的基本框架示意" class="headerlink" title="（2）数据存储与查询实现的基本框架示意"></a>（2）数据存储与查询实现的基本框架示意</h4><img src="/images/数据存储与查询实现的基本框架示意.jpg">
-
-<h3 id="04-记录与表在磁盘上的存储"><a href="#04-记录与表在磁盘上的存储" class="headerlink" title="04 记录与表在磁盘上的存储"></a>04 记录与表在磁盘上的存储</h3><h4 id="（1）数据库概念与磁盘相关概念的映射示意"><a href="#（1）数据库概念与磁盘相关概念的映射示意" class="headerlink" title="（1）数据库概念与磁盘相关概念的映射示意"></a>（1）数据库概念与磁盘相关概念的映射示意</h4><img src="/images/数据库概念与磁盘相关概念的映射示意.jpg">
-
+<h3 id="03-查询实现的基本思想"><a href="#03-查询实现的基本思想" class="headerlink" title="03 查询实现的基本思想"></a>03 查询实现的基本思想</h3><h4 id="（1）数据存储的映射关系示意"><a href="#（1）数据存储的映射关系示意" class="headerlink" title="（1）数据存储的映射关系示意"></a>（1）数据存储的映射关系示意</h4><p>查询操作算法  —&gt;<br>文件管理/索引管理：数据逻辑结构 —&gt;<br>内存-缓冲区管理 —&gt;<br>磁盘-磁盘管理：读/写 块 —&gt;</p>
+<h4 id="（2）数据存储与查询实现的基本框架示意"><a href="#（2）数据存储与查询实现的基本框架示意" class="headerlink" title="（2）数据存储与查询实现的基本框架示意"></a>（2）数据存储与查询实现的基本框架示意</h4><p><img src="/images/数据存储与查询实现的基本框架示意.jpg"></p>
+<h3 id="04-记录与表在磁盘上的存储"><a href="#04-记录与表在磁盘上的存储" class="headerlink" title="04 记录与表在磁盘上的存储"></a>04 记录与表在磁盘上的存储</h3><h4 id="（1）数据库概念与磁盘相关概念的映射示意"><a href="#（1）数据库概念与磁盘相关概念的映射示意" class="headerlink" title="（1）数据库概念与磁盘相关概念的映射示意"></a>（1）数据库概念与磁盘相关概念的映射示意</h4><p><img src="/images/数据库概念与磁盘相关概念的映射示意.jpg"></p>
 <h4 id="（2）数据库中记录的区分及记录属性值的区分"><a href="#（2）数据库中记录的区分及记录属性值的区分" class="headerlink" title="（2）数据库中记录的区分及记录属性值的区分"></a>（2）数据库中记录的区分及记录属性值的区分</h4><p>定长记录：按长度分记录<br>边长记录：按指针或标志区分记录</p>
 <p>块头如何设计？</p>
 <h4 id="（3）-数据库中的记录-vs-磁盘块"><a href="#（3）-数据库中的记录-vs-磁盘块" class="headerlink" title="（3） 数据库中的记录 vs.磁盘块"></a>（3） 数据库中的记录 vs.磁盘块</h4><p>记录在磁盘中的存储：</p>
@@ -80,43 +98,55 @@ FAT（文件分配表 File Allocation Table）
 <li>浪费一些存储空间
 </li><li>磁盘块之间无关联可并行
 
-<p>跨块存储：靠指针连接</p>
+跨块存储：靠指针连接
 </li><li>节省一些存储空间
 </li><li>磁盘间有关联需要串行
 
-<h4 id="（4）数据库中的表-vs-磁盘块"><a href="#（4）数据库中的表-vs-磁盘块" class="headerlink" title="（4）数据库中的表 vs.磁盘块"></a>（4）数据库中的表 vs.磁盘块</h4><p>表所占磁盘块的分配方法：</p>
+#### （4）数据库中的表 vs.磁盘块
+
+表所占磁盘块的分配方法：
+
 </li><li>连续分配：数据块被分配到连续的数据块上(会存在扩展困难问题)
 </li><li>链接分配：数据块中包含指向下一数据块的指针(访问速度问题)
 </li><li>按簇分配：簇是若干连续的磁盘块，簇之间靠指针链接
 </li><li>索引分配：索引块中存放指向实际数据块的指针
 
-<h3 id="05-四种文件组织方法"><a href="#05-四种文件组织方法" class="headerlink" title="05 四种文件组织方法"></a>05 四种文件组织方法</h3><ol>
-<li>无序文件组织</li>
-<li>有序文件组织</li>
-<li>散列文件组织</li>
-<li>聚簇文件组织</li>
-</ol>
-<h4 id="（1）数据组织与存取方法"><a href="#（1）数据组织与存取方法" class="headerlink" title="（1）数据组织与存取方法"></a>（1）数据组织与存取方法</h4></li><li>数据组织要考虑更新(增删改)和检索需求
+### 05 四种文件组织方法
 
-<ol>
-<li>更新将涉及数据存储空间的扩展和回收问题</li>
-<li>检索将涉及扫描整个数据库的问题，大批量处理数据问题</li>
-<li>不同的需求要求不同的数据组织方法和存取方法</li>
-</ol>
+1. 无序文件组织
+2. 有序文件组织
+3. 散列文件组织
+4. 聚簇文件组织
+
+#### （1）数据组织与存取方法
+
+</li><li>数据组织要考虑更新(增删改)和检索需求
+
+1. 更新将涉及数据存储空间的扩展和回收问题
+2. 检索将涉及扫描整个数据库的问题，大批量处理数据问题
+3. 不同的需求要求不同的数据组织方法和存取方法
+
 </li>
 <li> 文件组织：指的是数据组织成记录，块和访问结构的方式，包括把记录和块存储在磁盘上的方式，以及记录块之间相互联系的方法。(可以理解为是一种数据结构)
 </li><li>存取方法：指的是对文件所采取的存取操作方法。（可以理解为在数据结构上使用的算法）
 </li><li>一种文件组织可以采用多种存取方法进行访问
 
-<h4 id="（2）无序文件组织"><a href="#（2）无序文件组织" class="headerlink" title="（2）无序文件组织"></a>（2）无序文件组织</h4></li><li>特点：记录可存储于任意空间的位置，磁盘上存储的记录是无序的。更新效率高，但检索效率可能 低。
+#### （2）无序文件组织
+
+</li><li>特点：记录可存储于任意空间的位置，磁盘上存储的记录是无序的。更新效率高，但检索效率可能 低。
 
 </li><li>如何建立？
 
-<p>方法1：新记录插入到文件尾部；删除记录时，可以直接删除该记录所在位置的内容，也可以在该记录前标记“删除标记”<br>方法2：在前者基础上，新增记录可以利用那些标记为“删除标记”的记录空间</p>
+方法1：新记录插入到文件尾部；删除记录时，可以直接删除该记录所在位置的内容，也可以在该记录前标记“删除标记”
+方法2：在前者基础上，新增记录可以利用那些标记为“删除标记”的记录空间
+
 </li><li>频繁删增记录时会造成空间浪费，所以需要周期性重新组织数据库。
 
-<p>数据库重组 是通过移走被删除的记录使有效记录连续存放，从而回收那些由删除记录而产生的未利用空间。</p>
-<h4 id="（3）有序文件组织"><a href="#（3）有序文件组织" class="headerlink" title="（3）有序文件组织"></a>（3）有序文件组织</h4></li><li>特点：记录按某属性或属性组值得顺序插入，磁盘上存储的记录是有序的。检索效率较高。</li>
+数据库重组 是通过移走被删除的记录使有效记录连续存放，从而回收那些由删除记录而产生的未利用空间。
+
+#### （3）有序文件组织
+
+</li><li>特点：记录按某属性或属性组值得顺序插入，磁盘上存储的记录是有序的。检索效率较高。</li>
 <li>用户存储排序的属性通常称为 排序字段 ，通常，排序字段使用关系中的主码，所以又称排序码</li>
 <li>当按排序字段进行检索时，速度得到很大提升</li>
 
@@ -124,106 +154,107 @@ FAT（文件分配表 File Allocation Table）
 <li>有序记录文件的更新效率可能很低
 </li><li>因为：在更新时要移动其它记录，为插入记录流出空间
 
-<p>改进：</p>
+改进：
 </li><li>改进措施是为将来可能插入的元组预留空间，或者再使用一个临时的无序文件（被称为溢出文件）保留新增的记录。
 </li><li>当采取溢出文件措施时，检索操作既要操作主文件，也要操作溢出文件
 </li><li>因此需要周期性地重组数据库
 </li><li>数据库重组是将溢出文件合并到主文件中，并恢复主文件中的记录顺序。
 
-<h4 id="（4）散列文件组织"><a href="#（4）散列文件组织" class="headerlink" title="（4）散列文件组织"></a>（4）散列文件组织</h4></li><li>特点：可以把记录按照某属性或属性组地值，依据一个散列函数来计算其应放位置：桶号（Bucket，块号或簇号等）。检索效率和更新效率都有一定程度的提升。
+#### （4）散列文件组织
+
+</li><li>特点：可以把记录按照某属性或属性组地值，依据一个散列函数来计算其应放位置：桶号（Bucket，块号或簇号等）。检索效率和更新效率都有一定程度的提升。
 </li><li>用于进行散列函数计算的属性通常称为散列字段，散列字段通常也采用关系中的主码，所以又称散列码。
 </li><li>不同记录可能被hash成同一桶号，此时需在顺序检索出某一记录。
 
-<p>优化：</p>
+优化：
 </li><li>链接法处理溢出
 </li><li>动态散列技术等
 
-<h4 id="（5）聚簇文件组织"><a href="#（5）聚簇文件组织" class="headerlink" title="（5）聚簇文件组织"></a>（5）聚簇文件组织</h4></li><li>聚簇：将具有相同或相似属性值的记录存放在连续的磁盘簇块中
+#### （5）聚簇文件组织
+
+</li><li>聚簇：将具有相同或相似属性值的记录存放在连续的磁盘簇块中
 </li><li>多表聚簇：将若干个相互关联的Table存储于一个文件中---这可以提高多表情况下的查询速度。
 
-<h3 id="06-Oracle数据库物理存储简介"><a href="#06-Oracle数据库物理存储简介" class="headerlink" title="06 Oracle数据库物理存储简介"></a>06 Oracle数据库物理存储简介</h3><p>这个书上好像没有，先跳了</p>
-<h3 id="07-第二章总结"><a href="#07-第二章总结" class="headerlink" title="07 第二章总结"></a>07 第二章总结</h3><img src="/images/数据库物理存储.jpg">
+### 06 Oracle数据库物理存储简介
 
-<h2 id="第三章-索引结构"><a href="#第三章-索引结构" class="headerlink" title="第三章 索引结构"></a>第三章 索引结构</h2><h3 id="01-索引的概念和作用"><a href="#01-索引的概念和作用" class="headerlink" title="01 索引的概念和作用"></a>01 索引的概念和作用</h3><h4 id="（1）索引的概念"><a href="#（1）索引的概念" class="headerlink" title="（1）索引的概念"></a>（1）索引的概念</h4><p><code>索引</code>是定义在存储表基础上，有助于无需检查所有记录而快速定位所需记录的一种<code>辅助存储结构</code>，由一系列存储在磁盘上的<code>索引项</code>组成，每一项索引由两部分组成：</p>
-<ol>
-<li>索引字段，由Table中某些列中的值串接而成。索引中通常存储了索引字段的每一个值，索引字段类似于词典中的词条。</li>
-<li>行指针：指向Table中包含索引字段值的记录 在磁盘上的存储位置，行指针类似于词条在数据，词典中出现的页码</li>
-</ol>
+这个书上好像没有，先跳了
+
+### 07 第二章总结
+
+<img src="/images/数据库物理存储.jpg">
+
+## 第三章 索引结构
+
+### 01 索引的概念和作用
+
+#### （1）索引的概念
+
+`索引`是定义在存储表基础上，有助于无需检查所有记录而快速定位所需记录的一种`辅助存储结构`，由一系列存储在磁盘上的`索引项`组成，每一项索引由两部分组成：
+
+1. 索引字段，由Table中某些列中的值串接而成。索引中通常存储了索引字段的每一个值，索引字段类似于词典中的词条。
+2. 行指针：指向Table中包含索引字段值的记录 在磁盘上的存储位置，行指针类似于词条在数据，词典中出现的页码
+
 </li><li>存储索引项的文件为索引文件，相对应，存储表又称主文件</li>
 
-<h4 id="（2）索引的一般性特点"><a href="#（2）索引的一般性特点" class="headerlink" title="（2）索引的一般性特点"></a>（2）索引的一般性特点</h4><li>索引文件是一种辅助存储结构，其存在不改变存储表的物理存储结构，但可以明显提高存储表的访问速度
-</li><li>索引文件组织方式有两种：
-
+<h4 id="（2）索引的一般性特点"><a href="#（2）索引的一般性特点" class="headerlink" title="（2）索引的一般性特点"></a>（2）索引的一般性特点</h4><p><li>索引文件是一种辅助存储结构，其存在不改变存储表的物理存储结构，但可以明显提高存储表的访问速度</li></p>
+<p><li>索引文件组织方式有两种：</li></p>
 <ol>
 <li>排序索引文件：按索引字段值的某一种顺序组织存储</li>
 <li>散列索引文件：依据索引字段值使用散列函数分配散列桶的方式存储</li>
 </ol>
-</li><li>主文件组织有 堆文件，排序文件，散列文件，聚簇文件等多种方式
-
-</li><li>在一个表上可以针对不同的属性值或属性组和建立不同的索引文件，可建立多个索引文件。索引字段的值可以是table中的任何一个属性的值或任何多个属性值的组合值
-</li><li>索引文件比主文件小很多，通过检索一个小的索引文件（可以全部装载进内存），快速定位后，再有针对性的读取非常大的主文件中的有关记录
-</li><li>有索引时，更新操作必须同步更新索引文件和主文件
-
-<h4 id="（3）关于索引应用的评价问题"><a href="#（3）关于索引应用的评价问题" class="headerlink" title="（3）关于索引应用的评价问题"></a>（3）关于索引应用的评价问题</h4></li><li>索引技术应用是检索效率大幅度提高，但同时也增加了存储空间，使维护负担加重
-</li><li>衡量索引性能好坏： 1 访问时间 2 插入时间 3 删除时间 4 空间负载 5 支持存取的有效比
-
-<h4 id="（4）索引相关概念的区分"><a href="#（4）索引相关概念的区分" class="headerlink" title="（4）索引相关概念的区分"></a>（4）索引相关概念的区分</h4></li><li>字段，排序字段，索引字段
-</li><li>码（Key），主码，又称表键---具有唯一性
-</li><li>排序码：对主文件进行排序存储的那些属性或属性组
-</li><li>索引码：即索引字段，不一定具有唯一性
-</li><li>搜索码：在主文件中查找记录的属性或属性集
-
+<p><li>主文件组织有 堆文件，排序文件，散列文件，聚簇文件等多种方式</li></p>
+<p><li>在一个表上可以针对不同的属性值或属性组和建立不同的索引文件，可建立多个索引文件。索引字段的值可以是table中的任何一个属性的值或任何多个属性值的组合值</li></p>
+<p><li>索引文件比主文件小很多，通过检索一个小的索引文件（可以全部装载进内存），快速定位后，再有针对性的读取非常大的主文件中的有关记录</li></p>
+<p><li>有索引时，更新操作必须同步更新索引文件和主文件</li></p>
+<h4 id="（3）关于索引应用的评价问题"><a href="#（3）关于索引应用的评价问题" class="headerlink" title="（3）关于索引应用的评价问题"></a>（3）关于索引应用的评价问题</h4><p><li>索引技术应用是检索效率大幅度提高，但同时也增加了存储空间，使维护负担加重</li></p>
+<p><li>衡量索引性能好坏： 1 访问时间 2 插入时间 3 删除时间 4 空间负载 5 支持存取的有效比</li></p>
+<h4 id="（4）索引相关概念的区分"><a href="#（4）索引相关概念的区分" class="headerlink" title="（4）索引相关概念的区分"></a>（4）索引相关概念的区分</h4><p><li>字段，排序字段，索引字段</li></p>
+<p><li>码（Key），主码，又称表键—-具有唯一性</li></p>
+<p><li>排序码：对主文件进行排序存储的那些属性或属性组</li></p>
+<p><li>索引码：即索引字段，不一定具有唯一性</li></p>
+<p><li>搜索码：在主文件中查找记录的属性或属性集</li></p>
 <h3 id="02-SQL语言中的索引创建与维护"><a href="#02-SQL语言中的索引创建与维护" class="headerlink" title="02 SQL语言中的索引创建与维护"></a>02 SQL语言中的索引创建与维护</h3><p>书上没有，先跳了</p>
-<h3 id="03-稠密索引和稀疏索引"><a href="#03-稠密索引和稀疏索引" class="headerlink" title="03 稠密索引和稀疏索引"></a>03 稠密索引和稀疏索引</h3><h4 id="（1）稠密索引和稀疏索引概念"><a href="#（1）稠密索引和稀疏索引概念" class="headerlink" title="（1）稠密索引和稀疏索引概念"></a>（1）稠密索引和稀疏索引概念</h4></li><li>对于一个主文件中的每一个记录（形成的每一个索引字段值），都有一个索引项和它对应，指明该记录所在位置。这样的索引称为稠密索引
-</li><li>对于主文件中的部分记录(形成的索引字段值)，有索引项和它对应，这样的索引称为 非稠密索引或稀疏索引
-
-<h4 id="（2）稀疏索引如何定位记录"><a href="#（2）稀疏索引如何定位记录" class="headerlink" title="（2）稀疏索引如何定位记录"></a>（2）稀疏索引如何定位记录</h4></li><li>索引文件中不存在搜索码的值，不代表主文件没有对应搜索码的记录
-</li><li>定位索引字段值为K的记录，需要
-
+<h3 id="03-稠密索引和稀疏索引"><a href="#03-稠密索引和稀疏索引" class="headerlink" title="03 稠密索引和稀疏索引"></a>03 稠密索引和稀疏索引</h3><h4 id="（1）稠密索引和稀疏索引概念"><a href="#（1）稠密索引和稀疏索引概念" class="headerlink" title="（1）稠密索引和稀疏索引概念"></a>（1）稠密索引和稀疏索引概念</h4><p><li>对于一个主文件中的每一个记录（形成的每一个索引字段值），都有一个索引项和它对应，指明该记录所在位置。这样的索引称为稠密索引</li></p>
+<p><li>对于主文件中的部分记录(形成的索引字段值)，有索引项和它对应，这样的索引称为 非稠密索引或稀疏索引</li></p>
+<h4 id="（2）稀疏索引如何定位记录"><a href="#（2）稀疏索引如何定位记录" class="headerlink" title="（2）稀疏索引如何定位记录"></a>（2）稀疏索引如何定位记录</h4><p><li>索引文件中不存在搜索码的值，不代表主文件没有对应搜索码的记录</li></p>
+<p><li>定位索引字段值为K的记录，需要</li></p>
 <ol>
 <li>首先找相邻的小于K的最大索引字段值对应的索引项</li>
 <li>从该索引项对应的记录考试顺序进行table的检索</li>
 </ol>
-</li><li>稀疏索引的使用要求--主文件必须是按对应检索字段属性排序存储
-</li><li>相比稠密搜索：空间占用更少，维护任务更轻，但速度较慢
-</li><li>平衡：索引项不指向记录指针，而是指向记录所在存储块的指针，即每一个存储块有一个索引项，而不是每条记录有一个索引项
-
+<p><li>稀疏索引的使用要求—主文件必须是按对应检索字段属性排序存储</li></p>
+<p><li>相比稠密搜索：空间占用更少，维护任务更轻，但速度较慢</li></p>
+<p><li>平衡：索引项不指向记录指针，而是指向记录所在存储块的指针，即每一个存储块有一个索引项，而不是每条记录有一个索引项</li></p>
 <h4 id="（3）-稠密索引如何定位记录"><a href="#（3）-稠密索引如何定位记录" class="headerlink" title="（3） 稠密索引如何定位记录"></a>（3） 稠密索引如何定位记录</h4><p>候选键属性的稠密索引：先查索引，然后再根据索引读主文件。</p>
 <p>非候选键属性的稠密索引：</p>
 <p>第一种情况：索引文件中索引字段值是不重复的；主文件按检索字段排序且索引字段不是候选键。</p>
 <p>第二种情况：索引文件中索引字段值有重复；主文件 未按索引字段排序且索引字段不是候选键。</p>
 <p>第三种情况：引入指针桶处理非候选键索引的多记录情况；主文件未按检索字段排序且检索字段不是候选键。</p>
 <h3 id="04-主索引与辅助索引"><a href="#04-主索引与辅助索引" class="headerlink" title="04 主索引与辅助索引"></a>04 主索引与辅助索引</h3><h4 id="（1）主索引"><a href="#（1）主索引" class="headerlink" title="（1）主索引"></a>（1）主索引</h4><p>主索引通常是每一存储块有一个索引项，索引项的总数和存储表所占的存储块数目相同，存储表的每一存储块的第一条记录，又称为锚记录，或者称为块锚。</p>
-</li><li>主索引的索引字段值为块锚的索引字段值，而指针指向其所在的存储块
-</li><li>主索引是是按索引字段值进行排序的一个有序文件，通常建立在有序主文件的基于主码的排序字段上，即主索引的索引字段与主文件的主码有对应关系
-</li><li>主索引是稀疏索引
-
+<p><li>主索引的索引字段值为块锚的索引字段值，而指针指向其所在的存储块</li></p>
+<p><li>主索引是是按索引字段值进行排序的一个有序文件，通常建立在有序主文件的基于主码的排序字段上，即主索引的索引字段与主文件的主码有对应关系</li></p>
+<p><li>主索引是稀疏索引</li></p>
 <h4 id="（2）-辅助索引"><a href="#（2）-辅助索引" class="headerlink" title="（2） 辅助索引"></a>（2） 辅助索引</h4><p>辅助索引是定义在主文件的任意或者多个非排序字段上的辅助存储结构。</p>
-</li><li>辅助索引通常是对某一非排序字段上的每一个不同值有一个索引项；索引字段既是该字段的不同值，而指针则指向包含该纪录的块或该记录本身
-</li><li>当非排序字段为索引字段时，如果该字段值不唯一，则要采用一个类似链表的结构来保存包含该字段值的所有记录的位置
-</li><li>辅助索引是稠密索引，检索效率有时相当高
-
-<h4 id="（3）差别"><a href="#（3）差别" class="headerlink" title="（3）差别"></a>（3）差别</h4></li><li>一个主文件只有一个主索引，但可以有多个辅助索引
-</li><li>主索引通常建立在主码/排序码上；辅助索引建立在其他属性上
-</li><li>可以利用主索引重新组织主文件数据，但辅助索引不能改变主文件数据
-</li><li>主索引是稀疏索引，辅助索引是稠密索引
-
+<p><li>辅助索引通常是对某一非排序字段上的每一个不同值有一个索引项；索引字段既是该字段的不同值，而指针则指向包含该纪录的块或该记录本身</li></p>
+<p><li>当非排序字段为索引字段时，如果该字段值不唯一，则要采用一个类似链表的结构来保存包含该字段值的所有记录的位置</li></p>
+<p><li>辅助索引是稠密索引，检索效率有时相当高</li></p>
+<h4 id="（3）差别"><a href="#（3）差别" class="headerlink" title="（3）差别"></a>（3）差别</h4><p><li>一个主文件只有一个主索引，但可以有多个辅助索引</li></p>
+<p><li>主索引通常建立在主码/排序码上；辅助索引建立在其他属性上</li></p>
+<p><li>可以利用主索引重新组织主文件数据，但辅助索引不能改变主文件数据</li></p>
+<p><li>主索引是稀疏索引，辅助索引是稠密索引</li></p>
 <h3 id="05-其他索引"><a href="#05-其他索引" class="headerlink" title="05 其他索引"></a>05 其他索引</h3><h4 id="（1）聚簇索引与非聚簇索引"><a href="#（1）聚簇索引与非聚簇索引" class="headerlink" title="（1）聚簇索引与非聚簇索引"></a>（1）聚簇索引与非聚簇索引</h4><p>聚簇索引：是指索引中邻近的记录在著文件中也是临近存储的<br>非聚簇索引：是指索引中邻近的记录在主文件中不一定是临近存储的</p>
 <h4 id="（2）倒排索引"><a href="#（2）倒排索引" class="headerlink" title="（2）倒排索引"></a>（2）倒排索引</h4><p>正排：一个文档包含了哪些词汇<br>倒排：一个词汇包含在哪些文档中</p>
-<h4 id="（3）其它索引"><a href="#（3）其它索引" class="headerlink" title="（3）其它索引"></a>（3）其它索引</h4></li><li>多级索引：当索引想比较多时，可以对索引再建立索引，形成多级索引。 常见多级索引有B树/B+树，以树形数据结构来组织索引项。
-
-</li><li>多属性索引：索引字段由table的多个属性值组合在一起形成的索引
-</li><li>散列索引：使用散列技术组织的索引
-</li><li>网格索引：使用多索引字段进行交叉联合定位与检索
-
+<h4 id="（3）其它索引"><a href="#（3）其它索引" class="headerlink" title="（3）其它索引"></a>（3）其它索引</h4><p><li>多级索引：当索引想比较多时，可以对索引再建立索引，形成多级索引。 常见多级索引有B树/B+树，以树形数据结构来组织索引项。</li></p>
+<p><li>多属性索引：索引字段由table的多个属性值组合在一起形成的索引</li></p>
+<p><li>散列索引：使用散列技术组织的索引</li></p>
+<p><li>网格索引：使用多索引字段进行交叉联合定位与检索</li></p>
 <h3 id="06-B-树索引（书上是B树）"><a href="#06-B-树索引（书上是B树）" class="headerlink" title="06 B+树索引（书上是B树）"></a>06 B+树索引（书上是B树）</h3><h4 id="（1）多级索引"><a href="#（1）多级索引" class="headerlink" title="（1）多级索引"></a>（1）多级索引</h4><p>当索引较多时，可以对索引再建立索引</p>
 <h4 id="（2）B-树的基本概念"><a href="#（2）B-树的基本概念" class="headerlink" title="（2）B+树的基本概念"></a>（2）B+树的基本概念</h4><p>B+树索引：一种以树形数据结构来组织索引项的多级索引</p>
 <p>一块中索引项的组织：<br>Ki:索引字段值<br>Pj：指针，只想索引块或数据块或数据块中记录的指针</p>
 <p>索引文件的叶子节点的指针指向主文件的数据块</p>
 <p>B+树能自动保持与主文件大小相适应的树的层次，每个索引块指针的利用率都大于50%</p>
 <h4 id="（3）B-树的存储约定"><a href="#（3）B-树的存储约定" class="headerlink" title="（3）B+树的存储约定"></a>（3）B+树的存储约定</h4><p>B+树有一个参数n，决定了树的所有存储块的状态</p>
-</li><li>一块中有 n-1 个索引项（<索引字段值Ki，指针Pi>） + 1个指针（Pn）
-
+<p><li>一块中有 n-1 个索引项（&lt;索引字段值Ki，指针Pi&gt;） + 1个指针（Pn）</li></p>
 <p>示例： 存储块=4096B，整数型索引字段值=4B，指针=8B<br>则n应该满足 4（n-1) + 8n &lt; 4096,n取341为最大值</p>
 <p>指针情况：</p>
 <ul>
@@ -236,7 +267,7 @@ FAT（文件分配表 File Allocation Table）
 <li>所有叶子节点即可覆盖所有键值的索引</li>
 <li>索引字段值在叶子节点中是按顺序排列的</li>
 </ul>
-<p>B+树级数相同–平衡，如何保证？</p>
+<p>B+树级数相同—平衡，如何保证？</p>
 <ul>
 <li>插入删除记录时，伴随着节点的分裂和合并</li>
 <li>分裂和合并将调整部分节点块中的索引项，需要算法支持</li>
@@ -289,7 +320,7 @@ FAT（文件分配表 File Allocation Table）
 <li>均匀分布如何做到？</li>
 <li>桶的数目m如何确定？</li>
 </ul>
-<p>如果桶数m固定—-静态散列索引<br>&nbsp;&nbsp;&nbsp;如果m过大，则浪费，过小则产生更多溢出桶，增加索引检索时间<br>桶的数目随键值增多动态增加—动态散列索引<br>&nbsp;&nbsp;&nbsp;</p>
+<p>如果桶数m固定——静态散列索引<br>&nbsp;&nbsp;&nbsp;如果m过大，则浪费，过小则产生更多溢出桶，增加索引检索时间<br>桶的数目随键值增多动态增加—-动态散列索引<br>&nbsp;&nbsp;&nbsp;</p>
 <h3 id="09-可扩展散列索引与线性散列索引"><a href="#09-可扩展散列索引与线性散列索引" class="headerlink" title="09 可扩展散列索引与线性散列索引"></a>09 可扩展散列索引与线性散列索引</h3><p>先略过，书上有，开卷考现场学来得及</p>
 <p>以下第三章书上有，视频里没有</p>
 <h3 id="10-多维索引（3-4）"><a href="#10-多维索引（3-4）" class="headerlink" title="10 多维索引（3.4）"></a>10 多维索引（3.4）</h3><p>多维索引的应用：对地理数据的处理。</p>
@@ -387,16 +418,16 @@ FAT（文件分配表 File Allocation Table）
 <p>迭代器算法在流水线计算策略中实现</p>
 <h4 id="（2）迭代器算法基础"><a href="#（2）迭代器算法基础" class="headerlink" title="（2）迭代器算法基础"></a>（2）迭代器算法基础</h4><p>迭代器：迭代的读取一个集合中的每一个元素，而封装其读取细节</p>
 <p>有一个抽象类：</p>
-<pre><code class="C++">class iterator&#123;
+<pre><code class="lang-C++">class iterator&#123;
   void Open();
   tuple GetNext();
   void Close();
   iterator &amp;inputs[];
-&#125; 
+&#125;
 </code></pre>
 <p>所有的关系操作可继承此迭代器进行构造。<br>不同操作，可以构造不同的Open(),GetNext(),Close()函数</p>
-<h4 id="（3）迭代器的构造"><a href="#（3）迭代器的构造" class="headerlink" title="（3）迭代器的构造"></a>（3）迭代器的构造</h4><p>迭代器示例：表空间扫描发–读取关系</p>
-<pre><code class="C++">Open()&#123;
+<h4 id="（3）迭代器的构造"><a href="#（3）迭代器的构造" class="headerlink" title="（3）迭代器的构造"></a>（3）迭代器的构造</h4><p>迭代器示例：表空间扫描发—读取关系</p>
+<pre><code class="lang-C++">Open()&#123;
   b:=R的第一块
   t:=b的第一个元组
 &#125;
@@ -415,7 +446,7 @@ GetNext()&#123;
 Close()&#123;&#125;
 </code></pre>
 <p>迭代器示例：R并S算法</p>
-<pre><code class="C++">Open()&#123;
+<pre><code class="lang-C++">Open()&#123;
   R.Open();
   CurRel:=R;
 &#125;
@@ -449,18 +480,13 @@ Close()&#123;R.close();S.close();&#125;
 </li>
 <li><p>扫描结果未排序：T(R)</p>
 </li>
-<li><p>扫描结果排序：T(R)+2B(R)</p>
-</li>
+<li>扫描结果排序：T(R)+2B(R)</li>
 </ul>
 <h4 id="（3）整个关系的一元操作算法"><a href="#（3）整个关系的一元操作算法" class="headerlink" title="（3）整个关系的一元操作算法"></a>（3）整个关系的一元操作算法</h4><ul>
-<li><p>需要在内存中保存已经处理过的元组</p>
-</li>
-<li><p>当新元组到达时，需要和之前处理过的元组进行比较</p>
-</li>
-<li><p>建立不同的内存数据结构，来保存之前处理过的数据，以便快速处理整个关系上的操作</p>
-</li>
-<li><p>算法复杂性：B（R）</p>
-</li>
+<li>需要在内存中保存已经处理过的元组</li>
+<li>当新元组到达时，需要和之前处理过的元组进行比较</li>
+<li>建立不同的内存数据结构，来保存之前处理过的数据，以便快速处理整个关系上的操作</li>
+<li>算法复杂性：B（R）</li>
 <li><p>应用条件：B(&amp;R)&lt;=M</p>
 </li>
 <li><p>去重复 &amp;(R)，分组聚集<br>可以在内存中采取散列的数据结构，达到快速插入，快速定位的效果</p>
@@ -487,10 +513,8 @@ Close()&#123;R.close();S.close();&#125;
 </ul>
 <h4 id="（2）基于有序索引的连接算法（Zig-Zag连接算法）"><a href="#（2）基于有序索引的连接算法（Zig-Zag连接算法）" class="headerlink" title="（2）基于有序索引的连接算法（Zig-Zag连接算法）"></a>（2）基于有序索引的连接算法（Zig-Zag连接算法）</h4><p>略难，跳，对应书P122</p>
 <h3 id="1906-回顾"><a href="#1906-回顾" class="headerlink" title="1906 回顾"></a>1906 回顾</h3><ul>
-<li><p>查询实现算法的基本思维</p>
-</li>
-<li><p>连接的逻辑实现算法</p>
-</li>
+<li>查询实现算法的基本思维</li>
+<li>连接的逻辑实现算法</li>
 <li><p>连接的物理实现算法</p>
 <ul>
 <li>如何降低磁盘I/O</li>
@@ -530,10 +554,8 @@ Close()&#123;R.close();S.close();&#125;
 </ol>
 <p>算法效率：</p>
 <ul>
-<li><p>子集和排序阶段读一遍写一遍</p>
-</li>
-<li><p>归并阶段读一遍写一遍</p>
-</li>
+<li>子集和排序阶段读一遍写一遍</li>
+<li>归并阶段读一遍写一遍</li>
 <li><p>总I/O次数4B(R)</p>
 </li>
 <li><p>算法应用条件：</p>
@@ -618,13 +640,13 @@ Close()&#123;R.close();S.close();&#125;
 <li>如何使数据库查询时间最短</li>
 <li>三个层面进行优化<ul>
 <li>语义优化：利用模型的语义及完整性规则，优化查询</li>
-<li>语法优化—逻辑层优化：利用语法结构，优化操作执行顺序</li>
-<li>执行优化—物理层优化：存取路径和执行算法的选择与执行次序优化</li>
+<li>语法优化—-逻辑层优化：利用语法结构，优化操作执行顺序</li>
+<li>执行优化—-物理层优化：存取路径和执行算法的选择与执行次序优化</li>
 </ul>
 </li>
 </ul>
-<h3 id="2102-查询优化的总体思路"><a href="#2102-查询优化的总体思路" class="headerlink" title="2102 查询优化的总体思路"></a>2102 查询优化的总体思路</h3><h4 id="（1）语义优化–内容等价性"><a href="#（1）语义优化–内容等价性" class="headerlink" title="（1）语义优化–内容等价性"></a>（1）语义优化–内容等价性</h4><p>sql层优化，不在这里进行讨论，此处需要用户取想办法，相关研究再进行了</p>
-<h4 id="（2）语法优化（逻辑层优化）–内容等价性"><a href="#（2）语法优化（逻辑层优化）–内容等价性" class="headerlink" title="（2）语法优化（逻辑层优化）–内容等价性"></a>（2）语法优化（逻辑层优化）–内容等价性</h4><ul>
+<h3 id="2102-查询优化的总体思路"><a href="#2102-查询优化的总体思路" class="headerlink" title="2102 查询优化的总体思路"></a>2102 查询优化的总体思路</h3><h4 id="（1）语义优化—内容等价性"><a href="#（1）语义优化—内容等价性" class="headerlink" title="（1）语义优化—内容等价性"></a>（1）语义优化—内容等价性</h4><p>sql层优化，不在这里进行讨论，此处需要用户取想办法，相关研究再进行了</p>
+<h4 id="（2）语法优化（逻辑层优化）—内容等价性"><a href="#（2）语法优化（逻辑层优化）—内容等价性" class="headerlink" title="（2）语法优化（逻辑层优化）—内容等价性"></a>（2）语法优化（逻辑层优化）—内容等价性</h4><ul>
 <li>基本思想：改变关系代数的操作次序：尽可能地早做选择和投影运算</li>
 <li>关系代数地五种基本操作中哪些能够交换次序</li>
 <li>次序变化前后两个表达式地等价性问题</li>
@@ -641,11 +663,11 @@ Close()&#123;R.close();S.close();&#125;
 <h4 id="（4）查询优化的总过程"><a href="#（4）查询优化的总过程" class="headerlink" title="（4）查询优化的总过程"></a>（4）查询优化的总过程</h4><ul>
 <li>用户书写sql语言</li>
 <li>转化为关系代数</li>
-<li>逻辑查询计划–逻辑层优化<ul>
+<li>逻辑查询计划—逻辑层优化<ul>
 <li>关系代数操作顺序的优化</li>
 </ul>
 </li>
-<li>物理查询计划–物理层优化<ul>
+<li>物理查询计划—物理层优化<ul>
 <li>代价估算</li>
 <li>算法选择与装配次序</li>
 </ul>
@@ -698,15 +720,15 @@ Close()&#123;R.close();S.close();&#125;
 <li>$(E_1\times E_2)\times E_3\equiv E_1\times (E_2\times E_3)$</li>
 </ul>
 <p>并，交运算也有结合律</p>
-<h5 id="定理L3：投影串接率"><a href="#定理L3：投影串接率" class="headerlink" title="定理L3：投影串接率"></a>定理L3：投影串接率</h5><p>设属性集合${A_1,..A_n}\subseteq {B_1..B_m}$,$E$是表达式，则有：<br>$$\pi_{A_1,..A_n}(\pi_{B_1,..B_m}(E))\equiv \pi_{A_1,..A_n}$$</p>
-<ul>
+<h5 id="定理L3：投影串接率"><a href="#定理L3：投影串接率" class="headerlink" title="定理L3：投影串接率"></a>定理L3：投影串接率</h5><p>设属性集合${A_1,..A_n}\subseteq {B_1..B_m}$,$E$是表达式，则有：</p>
+<script type="math/tex; mode=display">\pi_{A_1,..A_n}(\pi_{B_1,..B_m}(E))\equiv \pi_{A_1,..A_n}</script><ul>
 <li>此定理可以双向使用<ul>
 <li>正向可以将两遍扫描变为一边扫描</li>
 <li>逆向可以将属性扩展便于投影操作的移动</li>
 </ul>
 </li>
 </ul>
-<h5 id="定理L4：选择的串接率"><a href="#定理L4：选择的串接率" class="headerlink" title="定理L4：选择的串接率"></a>定理L4：选择的串接率</h5><p>若$E$是关系代数表达式，$F_1,F_2$是条件，则有$$\sigma_{F1}(\sigma_{F2}(E))\equiv \sigma_{F_1\wedge F_2}(E)$$</p>
+<h5 id="定理L4：选择的串接率"><a href="#定理L4：选择的串接率" class="headerlink" title="定理L4：选择的串接率"></a>定理L4：选择的串接率</h5><p>若$E$是关系代数表达式，$F_1,F_2$是条件，则有<script type="math/tex">\sigma_{F1}(\sigma_{F2}(E))\equiv \sigma_{F_1\wedge F_2}(E)</script></p>
 <ul>
 <li>此定理可以双向使用<ul>
 <li>正向可以将两遍扫描变为一边扫描</li>
@@ -714,18 +736,18 @@ Close()&#123;R.close();S.close();&#125;
 </ul>
 </li>
 </ul>
-<h5 id="定理L5：选择和投影的交换律"><a href="#定理L5：选择和投影的交换律" class="headerlink" title="定理L5：选择和投影的交换律"></a>定理L5：选择和投影的交换律</h5><p>设条件F只涉及属性${A_1…A_n}$,$E$是关系表达式，则有$$\pi_{A_1..A_n}(\sigma_{F}(E))\equiv\sigma_F(\pi_{A_1..A_n}(E))$$<br>更一般地，若$F$还涉及不属于${A1,..A_n}$的属性${B_1,..B_m}$,则$$\pi_{A_1,…A_n}(\sigma_F(E))\equiv\pi_{A_1,..A_n}(\sigma_F(\pi_{A_1,..A_n,B_1,..B_m}(E)))$$</p>
+<h5 id="定理L5：选择和投影的交换律"><a href="#定理L5：选择和投影的交换律" class="headerlink" title="定理L5：选择和投影的交换律"></a>定理L5：选择和投影的交换律</h5><p>设条件F只涉及属性${A_1…A_n}$,$E$是关系表达式，则有<script type="math/tex">\pi_{A_1..A_n}(\sigma_{F}(E))\equiv\sigma_F(\pi_{A_1..A_n}(E))</script><br>更一般地，若$F$还涉及不属于${A1,..A_n}$的属性${B_1,..B_m}$,则<script type="math/tex">\pi_{A_1,...A_n}(\sigma_F(E))\equiv\pi_{A_1,..A_n}(\sigma_F(\pi_{A_1,..A_n,B_1,..B_m}(E)))</script></p>
 <p>尽可能地早做选择</p>
 <h5 id="定理L6：选择合积的交换律"><a href="#定理L6：选择合积的交换律" class="headerlink" title="定理L6：选择合积的交换律"></a>定理L6：选择合积的交换律</h5><p>设$E_1,E_2$是关系代数表达式</p>
 <ul>
-<li>(1):若条件F只涉及$E_1$中的属性：则有$$\sigma_F(E_1\times E_2)\equiv \sigma_{F}(E_1)\times(E_2)$$</li>
-<li>(2):若$F=F_1\wedge F_2$,$F_1$,$F_2$,分别只涉及$E_1,E_2$中属性，则有：$$\sigma_F(E_1\times E_2)\equiv \sigma_{F_1}(E_1)\times \sigma_{F_2}(E_2)$$</li>
-<li>(3):若$F=F_1\wedge F_2$,$F_1$只涉及$E_1$中属性，而$F_2$涉及$E_1,E_2$中属性，则有$$\sigma_F(E1\times E2)\equiv \sigma_{F_2}(\sigma_{F_1}(E_1)\times E_2)$$</li>
+<li>(1):若条件F只涉及$E_1$中的属性：则有<script type="math/tex">\sigma_F(E_1\times E_2)\equiv \sigma_{F}(E_1)\times(E_2)</script></li>
+<li>(2):若$F=F_1\wedge F_2$,$F_1$,$F_2$,分别只涉及$E_1,E_2$中属性，则有：<script type="math/tex">\sigma_F(E_1\times E_2)\equiv \sigma_{F_1}(E_1)\times \sigma_{F_2}(E_2)</script></li>
+<li>(3):若$F=F_1\wedge F_2$,$F_1$只涉及$E_1$中属性，而$F_2$涉及$E_1,E_2$中属性，则有<script type="math/tex">\sigma_F(E1\times E2)\equiv \sigma_{F_2}(\sigma_{F_1}(E_1)\times E_2)</script></li>
 </ul>
-<h5 id="定理L7-投影和积的交换律"><a href="#定理L7-投影和积的交换律" class="headerlink" title="定理L7:投影和积的交换律"></a>定理L7:投影和积的交换律</h5><p>设$E_1,E_2$为俩关系的代数表达式，$A_1,…A_n$是出现在$E_1$或$E_2$中的一些属性，其中$B_1,..B_m$出现在中$E_1$，剩余的属性$C_1,..C_k$出现在$E_2$中，则有$$\pi_{A_1..A_n}(E_1\times E_2)\equiv \pi_{B_1,..B_m}(E_1)\times \pi_{C_1,..c_k}(E_2))$$</p>
-<h5 id="定理L8-选择和并的交换律"><a href="#定理L8-选择和并的交换律" class="headerlink" title="定理L8:选择和并的交换律"></a>定理L8:选择和并的交换律</h5><p>设关系代数表达式$E=E_1\cup E_2$，$F$是条件，则有：$$\sigma_{F}(E_1\cup E_2)\equiv \sigma_F(E_1) \cup \sigma_F(E_2)$$</p>
-<h5 id="定理L9-选择和差的交换律"><a href="#定理L9-选择和差的交换律" class="headerlink" title="定理L9:选择和差的交换律"></a>定理L9:选择和差的交换律</h5><p>设关系代数表达式$E=E_1-E_2$，$F$是条件，则有：$$\sigma_{F}(E_1 - E_2)\equiv \sigma_F(E_1) - \sigma_F(E_2)$$</p>
-<h5 id="定理L10-投影和并的交换律"><a href="#定理L10-投影和并的交换律" class="headerlink" title="定理L10:投影和并的交换律"></a>定理L10:投影和并的交换律</h5><p>设关系代数表达式$E=E_1\cup E_2,A_1…A_n$是$E$中的一些属性，则有$$\pi_{A_1..A_n}(E_1\cup E_2)\equiv \pi_{A_1..A_n}\cup \pi_{A_1..A_n}(E_2)$$</p>
+<h5 id="定理L7-投影和积的交换律"><a href="#定理L7-投影和积的交换律" class="headerlink" title="定理L7:投影和积的交换律"></a>定理L7:投影和积的交换律</h5><p>设$E_1,E_2$为俩关系的代数表达式，$A_1,…A_n$是出现在$E_1$或$E_2$中的一些属性，其中$B_1,..B_m$出现在中$E_1$，剩余的属性$C_1,..C_k$出现在$E_2$中，则有<script type="math/tex">\pi_{A_1..A_n}(E_1\times E_2)\equiv \pi_{B_1,..B_m}(E_1)\times \pi_{C_1,..c_k}(E_2))</script></p>
+<h5 id="定理L8-选择和并的交换律"><a href="#定理L8-选择和并的交换律" class="headerlink" title="定理L8:选择和并的交换律"></a>定理L8:选择和并的交换律</h5><p>设关系代数表达式$E=E_1\cup E_2$，$F$是条件，则有：<script type="math/tex">\sigma_{F}(E_1\cup E_2)\equiv \sigma_F(E_1) \cup \sigma_F(E_2)</script></p>
+<h5 id="定理L9-选择和差的交换律"><a href="#定理L9-选择和差的交换律" class="headerlink" title="定理L9:选择和差的交换律"></a>定理L9:选择和差的交换律</h5><p>设关系代数表达式$E=E_1-E_2$，$F$是条件，则有：<script type="math/tex">\sigma_{F}(E_1 - E_2)\equiv \sigma_F(E_1) - \sigma_F(E_2)</script></p>
+<h5 id="定理L10-投影和并的交换律"><a href="#定理L10-投影和并的交换律" class="headerlink" title="定理L10:投影和并的交换律"></a>定理L10:投影和并的交换律</h5><p>设关系代数表达式$E=E_1\cup E_2,A_1…A_n$是$E$中的一些属性，则有<script type="math/tex">\pi_{A_1..A_n}(E_1\cup E_2)\equiv \pi_{A_1..A_n}\cup \pi_{A_1..A_n}(E_2)</script></p>
 <h3 id="2105-基于关系代数的查询优化算法及示例"><a href="#2105-基于关系代数的查询优化算法及示例" class="headerlink" title="2105 基于关系代数的查询优化算法及示例"></a>2105 基于关系代数的查询优化算法及示例</h3><ul>
 <li>算法：关系代数表达式的优化算法</li>
 <li>input：一个关系代数表达式的语法树</li>
@@ -743,15 +765,11 @@ Close()&#123;R.close();S.close();&#125;
 </ul>
 </li>
 </ul>
-<h3 id="2106-物理层查询优化"><a href="#2106-物理层查询优化" class="headerlink" title="2106 物理层查询优化"></a>2106 物理层查询优化</h3><h4 id="（1）物理查询优化–总体思路"><a href="#（1）物理查询优化–总体思路" class="headerlink" title="（1）物理查询优化–总体思路"></a>（1）物理查询优化–总体思路</h4><ul>
-<li><p>获取数据库的相关信息（定期统计）</p>
-</li>
-<li><p>实现同一关系操作的不同例行程序</p>
-</li>
-<li><p>选择相应的例行程序</p>
-</li>
-<li><p>依据相关信息进行代价估算，选择代价最少的例行程序及确定相应的参数</p>
-</li>
+<h3 id="2106-物理层查询优化"><a href="#2106-物理层查询优化" class="headerlink" title="2106 物理层查询优化"></a>2106 物理层查询优化</h3><h4 id="（1）物理查询优化—总体思路"><a href="#（1）物理查询优化—总体思路" class="headerlink" title="（1）物理查询优化—总体思路"></a>（1）物理查询优化—总体思路</h4><ul>
+<li>获取数据库的相关信息（定期统计）</li>
+<li>实现同一关系操作的不同例行程序</li>
+<li>选择相应的例行程序</li>
+<li>依据相关信息进行代价估算，选择代价最少的例行程序及确定相应的参数</li>
 <li><p>形成查询计划：以基本的例行程序为基本，确定这些例行程序的执行顺序</p>
 </li>
 <li><p>物理查询运算符</p>
@@ -768,12 +786,12 @@ Close()&#123;R.close();S.close();&#125;
 <li>基于索引算法，基于散列算法，基于排序算法</li>
 </ul>
 </li>
-<li>迭代器构造–流水化，物化</li>
+<li>迭代器构造—流水化，物化</li>
 </ul>
 </li>
 </ul>
 <p>物理查询运算符通常是关系代数操作符的一个特定实现</p>
-<h4 id="（2）衡量一个物理查询计划"><a href="#（2）衡量一个物理查询计划" class="headerlink" title="（2）衡量一个物理查询计划"></a>（2）衡量一个物理查询计划</h4><p>依据数据库中的一些统计信息–存放在数据字典或系统目录中的</p>
+<h4 id="（2）衡量一个物理查询计划"><a href="#（2）衡量一个物理查询计划" class="headerlink" title="（2）衡量一个物理查询计划"></a>（2）衡量一个物理查询计划</h4><p>依据数据库中的一些统计信息—存放在数据字典或系统目录中的</p>
 <ul>
 <li>$T_R$或$T(R):$关系R的元组数目</li>
 <li>$B_R$或$B(R):$关系R的磁盘块数目</li>
@@ -840,7 +858,7 @@ Close()&#123;R.close();S.close();&#125;
 </ul>
 </li>
 </ul>
-<h4 id="（2）并发控制的缘由"><a href="#（2）并发控制的缘由" class="headerlink" title="（2）并发控制的缘由"></a>（2）并发控制的缘由</h4><pre><code class="mermaid">graph LR
+<h4 id="（2）并发控制的缘由"><a href="#（2）并发控制的缘由" class="headerlink" title="（2）并发控制的缘由"></a>（2）并发控制的缘由</h4><pre><code class="lang-mermaid">graph LR
 A(DB共享)--&gt;B(多应用程序使用);
 B--&gt;C(可能同时使用);
 C--&gt;D(数据的不一致性);
@@ -864,10 +882,8 @@ F--&gt;G(并发控制方法);
 <li>事物的并发执行：多个事务在宏观上看是并发执行，但其在微观上的基本操作则可以是交叉执行的</li>
 </ul>
 <h4 id="（3）事务的特性"><a href="#（3）事务的特性" class="headerlink" title="（3）事务的特性"></a>（3）事务的特性</h4><ul>
-<li><p>宏观独立性</p>
-</li>
-<li><p>微观交错执行</p>
-</li>
+<li>宏观独立性</li>
+<li>微观交错执行</li>
 <li><p>并发控制就是通过事务微观交错执行次序的正确安排，保证事务宏观的独立性，完整性和正确性</p>
 </li>
 <li><p>事务的特性 ACID</p>
@@ -878,11 +894,9 @@ F--&gt;G(并发控制方法);
 <li>持久性（Durablity）:DBMS保证已提交的事务影响是持久的，被撤销事务的影响是可以恢复的</li>
 </ul>
 </li>
-<li><p>具有ACID特性的若干数据库基本操作的组合体称为事务</p>
-</li>
+<li>具有ACID特性的若干数据库基本操作的组合体称为事务</li>
 </ul>
-<h4 id="（4）DBMS对事务的控制"><a href="#（4）DBMS对事务的控制" class="headerlink" title="（4）DBMS对事务的控制"></a>（4）DBMS对事务的控制</h4><img src="/images/DBMS对事务的控制.jpg">
-
+<h4 id="（4）DBMS对事务的控制"><a href="#（4）DBMS对事务的控制" class="headerlink" title="（4）DBMS对事务的控制"></a>（4）DBMS对事务的控制</h4><p><img src="/images/DBMS对事务的控制.jpg"></p>
 <h3 id="2203-事务调度的可串行性"><a href="#2203-事务调度的可串行性" class="headerlink" title="2203 事务调度的可串行性"></a>2203 事务调度的可串行性</h3><h4 id="（1）基本概念"><a href="#（1）基本概念" class="headerlink" title="（1）基本概念"></a>（1）基本概念</h4><ul>
 <li>事务调度：一组事务的基本步（读，写，其它控制操作比如加锁，解锁等）的一种执行顺序称为对这组事务的一个调度。<br>并发调度：多个事务从宏观上看是并发执行的，但是其微观上的基本操作(读写)则是交叉执行的。</li>
 <li>并发调度的正确性：当且仅当在这个并发调度下所得到的新数据库结果与分别串行地运行这些事务所得到地新数据库完全一直，则说调度是正确的。</li>
@@ -913,8 +927,7 @@ F--&gt;G(并发控制方法);
 <li>解决：通过判断是否为冲突可串行性</li>
 </ul>
 </li>
-<li><p>问题2：怎样产生一个正确的并发调度</p>
-</li>
+<li>问题2：怎样产生一个正确的并发调度</li>
 </ul>
 <h5 id="（2）算法表达"><a href="#（2）算法表达" class="headerlink" title="（2）算法表达"></a>（2）算法表达</h5><ul>
 <li>构造一个前驱图（有向图）</li>
@@ -990,26 +1003,21 @@ F--&gt;G(并发控制方法);
 </li>
 </ul>
 <h4 id="（4）两端封锁协议"><a href="#（4）两端封锁协议" class="headerlink" title="（4）两端封锁协议"></a>（4）两端封锁协议</h4><h5 id="什么是两段封锁协议"><a href="#什么是两段封锁协议" class="headerlink" title="什么是两段封锁协议"></a>什么是两段封锁协议</h5><ul>
-<li><p>读写数据之前要获得锁。每个事务中所有封锁请求先于任何一个解锁请求</p>
-</li>
+<li>读写数据之前要获得锁。每个事务中所有封锁请求先于任何一个解锁请求</li>
 <li><p>两阶段：加锁段，解锁段。加锁段中不能有解锁操作，解锁段中不能有加锁操作。</p>
 </li>
 <li><p>两段封锁协议可以保证冲突可串行化<br>归纳法证明P215</p>
 </li>
-<li><p>两端封锁协议可能产生死锁</p>
-</li>
+<li>两端封锁协议可能产生死锁</li>
 </ul>
 <h3 id="2205-基于时间戳的并发控制"><a href="#2205-基于时间戳的并发控制" class="headerlink" title="2205 基于时间戳的并发控制"></a>2205 基于时间戳的并发控制</h3><h4 id="（1）什么是时间戳"><a href="#（1）什么是时间戳" class="headerlink" title="（1）什么是时间戳"></a>（1）什么是时间戳</h4><ul>
-<li><p>一种基于时间的标志</p>
-</li>
+<li>一种基于时间的标志</li>
 <li><p>时间戳具有唯一性和递增性</p>
 </li>
 <li><p>事务T启动时，系统将该时刻赋予T，为T的时间戳</p>
 </li>
-<li><p>时间戳可以表征一系列事务执行的先后顺序：时间戳小的事务先执行，大的后执行</p>
-</li>
-<li><p>利用时间戳，可以不用锁来进行并发控制</p>
-</li>
+<li>时间戳可以表征一系列事务执行的先后顺序：时间戳小的事务先执行，大的后执行</li>
+<li>利用时间戳，可以不用锁来进行并发控制</li>
 </ul>
 <h4 id="（2）基于时间戳并发控制的基本思路"><a href="#（2）基于时间戳并发控制的基本思路" class="headerlink" title="（2）基于时间戳并发控制的基本思路"></a>（2）基于时间戳并发控制的基本思路</h4><ul>
 <li>借助时间戳，强制使一组并发事务的交叉执行，等价于一个特定顺序（时间戳从小到大）的串行执行</li>
@@ -1027,13 +1035,11 @@ F--&gt;G(并发控制方法);
 </ul>
 <h4 id="（3）基于时间戳的简单调度"><a href="#（3）基于时间戳的简单调度" class="headerlink" title="（3）基于时间戳的简单调度"></a>（3）基于时间戳的简单调度</h4><p>对DB中的每个元素x，系统保留其上最大的时间戳</p>
 <ul>
-<li><p>RT（X）即R-timestamp（x）</p>
-<ul>
+<li>RT（X）即R-timestamp（x）<ul>
 <li>读过该数据事务中最大的时间戳，即最后读x的事务的时间戳</li>
 </ul>
 </li>
-<li><p>WT（X）即W-timestamp（x）</p>
-<ul>
+<li>WT（X）即W-timestamp（x）<ul>
 <li>写过该数据事务中最大的时间戳，即最后写x的事务的时间戳</li>
 </ul>
 </li>
@@ -1055,8 +1061,7 @@ F--&gt;G(并发控制方法);
 </li>
 </ul>
 </li>
-<li><p>写写并发</p>
-<ul>
+<li>写写并发<ul>
 <li>若T事务写x，则将T的时间戳TS与WT（x）比较<ul>
 <li>若TS大，则允许T写，并且更改WT（x）为T的时间戳</li>
 <li>否则有冲突，T撤回重做</li>
@@ -1192,10 +1197,8 @@ F--&gt;G(并发控制方法);
 </ul>
 <h4 id="（2）系统故障恢复"><a href="#（2）系统故障恢复" class="headerlink" title="（2）系统故障恢复"></a>（2）系统故障恢复</h4><p>运行日志：</p>
 <ul>
-<li><p>运行日志是DBMS维护的一个文件，该文件以流水的形式记录乐每一个事务对数据库的每一次操作及操作顺序</p>
-</li>
-<li><p>运行日志直接写入介质存储上，会保持正确性</p>
-</li>
+<li>运行日志是DBMS维护的一个文件，该文件以流水的形式记录乐每一个事务对数据库的每一次操作及操作顺序</li>
+<li>运行日志直接写入介质存储上，会保持正确性</li>
 <li><p>当事务对数据库进行操作时：先写运行日志，写成功后，再与数据库缓冲区进行信息交换</p>
 </li>
 <li><p>系统故障可以通过运行日志来恢复</p>
@@ -1214,8 +1217,7 @@ F--&gt;G(并发控制方法);
 <li>检查点表征了，在检查点之前内存中数据和介质中数据是保持一致的</li>
 </ul>
 </li>
-<li><p>系统故障的恢复</p>
-<ul>
+<li>系统故障的恢复<ul>
 <li>检查点之间结束的书屋不需要恢复(已经写回DB)</li>
 <li>检查点之后结束或发生的事务需要依据运行日志进行恢复(不能确定是否写回DB)：故障点前结束的重做，故障点时刻未结束的撤销</li>
 </ul>
@@ -1234,8 +1236,7 @@ F--&gt;G(并发控制方法);
 <li>由于介质故障影响全面，用副本恢复后还需要根据运行日志进行恢复</li>
 </ul>
 </li>
-<li><p>如何确定备份的时刻：转储点</p>
-<ul>
+<li>如何确定备份的时刻：转储点<ul>
 <li>过频，影响系统工作效率；过疏，会造成运行日志过大，也影响系统性能</li>
 <li>备份转储周期与运行日志的大小密切相关，应注意防止衔接不畅而引起的漏洞</li>
 </ul>
@@ -1247,8 +1248,7 @@ F--&gt;G(并发控制方法);
 <li>两个重要时刻：检查点和转储点</li>
 </ul>
 <h3 id="2303-运行日志的概念"><a href="#2303-运行日志的概念" class="headerlink" title="2303 运行日志的概念"></a>2303 运行日志的概念</h3><h4 id="（1）日志所记录的"><a href="#（1）日志所记录的" class="headerlink" title="（1）日志所记录的"></a>（1）日志所记录的</h4><ul>
-<li><p>每个事务都会读/写某些元素</p>
-<ul>
+<li>每个事务都会读/写某些元素<ul>
 <li>READ(X,t):将元素X读到事务的局部变量t中</li>
 <li>WRITE(X,t):将事务局部变量t写回元素X中</li>
 <li>INPUT(X):将元素X从磁盘读入到内存缓冲区中</li>
@@ -1264,8 +1264,8 @@ F--&gt;G(并发控制方法);
 <li><p>DBMS保证事务的：</p>
 <ul>
 <li>持久性：已提交的事务对数据库产生的影响是持久的，未提交的事务对数据库不应用影响<ul>
-<li>已提交的事务—缓冲区内容保证写回磁盘</li>
-<li>未提交的事务—缓冲区的内容不能影响磁盘</li>
+<li>已提交的事务—-缓冲区内容保证写回磁盘</li>
+<li>未提交的事务—-缓冲区的内容不能影响磁盘</li>
 </ul>
 </li>
 <li>原子性：事务的所有操作，要么全都执行，要么全不执行</li>
@@ -1276,8 +1276,8 @@ F--&gt;G(并发控制方法);
 <ul>
 <li>Force：内存中的数据最晚在commit的时候写入磁盘</li>
 <li>No Steal：不允许事务commit之前把内存中的数据写入磁盘</li>
-<li>No force：内存中的数据可以一直保留，在commit之后过一段时间在写入磁盘(此时在系统崩溃的时候可能还没写入到磁盘，需要redo)—灵活</li>
-<li>Steal：允许事务commit之前把内存中的数据写入磁盘（此时若系统commit之前崩溃时），已经有数据写入到磁盘时，要恢复到崩溃前的状态，需要Undo）—灵活</li>
+<li>No force：内存中的数据可以一直保留，在commit之后过一段时间在写入磁盘(此时在系统崩溃的时候可能还没写入到磁盘，需要redo)—-灵活</li>
+<li>Steal：允许事务commit之前把内存中的数据写入磁盘（此时若系统commit之前崩溃时），已经有数据写入到磁盘时，要恢复到崩溃前的状态，需要Undo）—-灵活</li>
 </ul>
 <h4 id="（3）事务故障影响事务的原子性"><a href="#（3）事务故障影响事务的原子性" class="headerlink" title="（3）事务故障影响事务的原子性"></a>（3）事务故障影响事务的原子性</h4><p>在事务运行时故障，事务会中断，影响原子性</p>
 <h4 id="（4）怎样记录日志"><a href="#（4）怎样记录日志" class="headerlink" title="（4）怎样记录日志"></a>（4）怎样记录日志</h4><p>日志</p>
@@ -1297,25 +1297,7 @@ F--&gt;G(并发控制方法);
 </li>
 <li>三种日志：Undo型日志，Redo型日志，Undo/Redo型日志</li>
 </ul>
-<h4 id="（5）缓冲区处理策略和日志恢复策略的关系"><a href="#（5）缓冲区处理策略和日志恢复策略的关系" class="headerlink" title="（5）缓冲区处理策略和日志恢复策略的关系"></a>（5）缓冲区处理策略和日志恢复策略的关系</h4><table>
-<thead>
-<tr>
-<th></th>
-<th>No Steal</th>
-<th>Steal</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>No Force</td>
-<td></td>
-<td>最快</td>
-</tr>
-<tr>
-<td>Force</td>
-<td>最慢</td>
-<td></td>
-</tr>
-</tbody></table>
+<h4 id="（5）缓冲区处理策略和日志恢复策略的关系"><a href="#（5）缓冲区处理策略和日志恢复策略的关系" class="headerlink" title="（5）缓冲区处理策略和日志恢复策略的关系"></a>（5）缓冲区处理策略和日志恢复策略的关系</h4><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -1324,7 +1306,30 @@ F--&gt;G(并发控制方法);
 <th>Steal</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
+<td>No Force</td>
+<td></td>
+<td>最快</td>
+</tr>
+<tr>
+<td>Force</td>
+<td>最慢</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>No Steal</th>
+<th>Steal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td>No Force</td>
 <td>只需Redo<br>无需Undo</td>
 <td>需要Redo<br>需要Undo</td>
@@ -1334,7 +1339,9 @@ F--&gt;G(并发控制方法);
 <td>无需Redo<br>无需Undo</td>
 <td>无需Redo<br>只需Undo</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="2304-Undo型日志及其故障恢复"><a href="#2304-Undo型日志及其故障恢复" class="headerlink" title="2304 Undo型日志及其故障恢复"></a>2304 Undo型日志及其故障恢复</h3><h4 id="（1）Undo型日志的记录规则"><a href="#（1）Undo型日志的记录规则" class="headerlink" title="（1）Undo型日志的记录规则"></a>（1）Undo型日志的记录规则</h4><ul>
 <li>对于任一事务T，按下列顺序像磁盘输出T的日志信息<ul>
 <li>首先&lt;T,x,v&gt;被写入日志中</li>
@@ -1385,10 +1392,8 @@ F--&gt;G(并发控制方法);
 <li>最后，OUTPUT(X)</li>
 </ul>
 </li>
-<li><p>注意：redo型日志保留新值，T,x,v，v为更新后的值</p>
-</li>
-<li><p>与undo型的差别，往后两步，先写提交记录输出，还是先输出再写提交记录</p>
-</li>
+<li>注意：redo型日志保留新值，T,x,v，v为更新后的值</li>
+<li>与undo型的差别，往后两步，先写提交记录输出，还是先输出再写提交记录</li>
 </ul>
 <h4 id="（2）利用redo日志进行恢复"><a href="#（2）利用redo日志进行恢复" class="headerlink" title="（2）利用redo日志进行恢复"></a>（2）利用redo日志进行恢复</h4><ul>
 <li>首先，确定每一个事务是否已经完成<ul>
@@ -1406,8 +1411,7 @@ F--&gt;G(并发控制方法);
 </li>
 </ul>
 <h4 id="（3）检查点及其应用"><a href="#（3）检查点及其应用" class="headerlink" title="（3）检查点及其应用"></a>（3）检查点及其应用</h4><ul>
-<li><p>静态检查点（同Undo）</p>
-</li>
+<li>静态检查点（同Undo）</li>
 <li><p>非静态检查点</p>
 <ul>
 <li>再进行检查点设置时不必关闭系统，允许新事务进入</li>
@@ -1418,8 +1422,7 @@ F--&gt;G(并发控制方法);
 </li>
 <li><p>step1：寻找到最后的end ckpt</p>
 </li>
-<li><p>step2：从start ckpt里的事务的最早开始处开始恢复，忽略更早的提交事务</p>
-</li>
+<li>step2：从start ckpt里的事务的最早开始处开始恢复，忽略更早的提交事务</li>
 </ul>
 <h3 id="2306-Undo-Redo结合型日志及其故障恢复"><a href="#2306-Undo-Redo结合型日志及其故障恢复" class="headerlink" title="2306 Undo/Redo结合型日志及其故障恢复"></a>2306 Undo/Redo结合型日志及其故障恢复</h3><h4 id="（1）单种日志的问题"><a href="#（1）单种日志的问题" class="headerlink" title="（1）单种日志的问题"></a>（1）单种日志的问题</h4><ul>
 <li>Undo型日志<ul>
@@ -1434,7 +1437,7 @@ F--&gt;G(并发控制方法);
 <li>但灵活性差，数据必须在COMMIT后才可见</li>
 </ul>
 </li>
-<li>更好地—Undo/Redo 型日志</li>
+<li>更好地—-Undo/Redo 型日志</li>
 </ul>
 <h4 id="（2）Undo-Redo结合型日志记录规则"><a href="#（2）Undo-Redo结合型日志记录规则" class="headerlink" title="（2）Undo/Redo结合型日志记录规则"></a>（2）Undo/Redo结合型日志记录规则</h4><ul>
 <li>对于任一事务T，按下列顺序向磁盘输出T的日志信息<ul>
@@ -1448,4 +1451,4 @@ F--&gt;G(并发控制方法);
 <li>自前向后地，按日志记录的正序，重做所有已经提交的事务；</li>
 <li>自后向前地，按日志记录地反序，撤销所有未完成事务地修改</li>
 </ul>
-</索引字段值Ki，指针Pi></li></article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2023/03/03/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%95%E9%AA%8C/" title="操作系统试验--在linux环境下复现操作系统（未完）"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: 操作系统试验--在linux环境下复现操作系统（未完）</span></a><a class="button is-default" href="/2023/02/27/hello-world/" title="Hello Hexo World"><span class="has-text-weight-semibold">Next: Hello Hexo World</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2023</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
+</1ms)></li></article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2023/03/03/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%95%E9%AA%8C/" title="操作系统试验--在linux环境下复现操作系统（未完）"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: 操作系统试验--在linux环境下复现操作系统（未完）</span></a><a class="button is-default" href="/2023/02/27/hello-world/" title="Hello Hexo World"><span class="has-text-weight-semibold">Next: Hello Hexo World</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2023</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
