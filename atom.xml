@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-03-23T08:00:59.580Z</updated>
+  <updated>2023-03-23T16:25:09.150Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spring系列突击（未完）</title>
+    <link href="http://example.com/2023/03/23/web/spring%E7%B3%BB%E5%88%97%E7%AA%81%E5%87%BB/"/>
+    <id>http://example.com/2023/03/23/web/spring%E7%B3%BB%E5%88%97%E7%AA%81%E5%87%BB/</id>
+    <published>2023-03-23T14:23:50.515Z</published>
+    <updated>2023-03-23T16:25:09.150Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="spring" tabindex="-1">Spring</h2><p>Spring技术是JavaEE开发必备技能，企业开发技术选型命中率&gt;90%</p><ul><li><p>简化开发，降低企业级开发的复杂性</p></li><li><p>框架整合，高效整合其它技术，提高企业级应用开发和运行效率</p></li><li><p>学什么？</p><ul><li>IoC</li><li>AOP</li><li>事务处理</li><li>框架整合</li></ul></li><li><p>怎么学？</p><ul><li>学习Spring框架的设计思想</li><li>学习基础操作，思考操作与思想间的联系</li><li>学习案例，熟练应用操作的同时，体会思想</li></ul></li></ul><h3 id="0-mybaits" tabindex="-1">0 MyBaits</h3><h3 id="1-spring-%E5%88%9D%E8%AF%86" tabindex="-1">1 Spring 初识</h3><ul><li>Spring 既是一门技术，也是一套项目，已经形成了开发的生态圈，Spring 全家桶</li><li>包含重点：<ul><li>Spring Framework：基础框架，全家桶所有都基于此</li><li>Spring Boot：Spring开发已经更简单，该技术让Spring开发更迅速</li><li>Spring Cloud：提供分布式开发相关技术</li></ul></li></ul><h3 id="2-spring-framework" tabindex="-1">2 Spring Framework</h3><ul><li>该项目为Spring生态圈最基础的项目<br><img src="/images/web/spring/Spring4.0%E6%9E%B6%E6%9E%84%E5%9B%BE.jpg" alt="Spring4.0架构图"></li></ul><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;spring&quot; tabindex=&quot;-1&quot;&gt;Spring&lt;/h2&gt;
+&lt;p&gt;Spring技术是JavaEE开发必备技能，企业开发技术选型命中率&amp;gt;90%&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;简化开发，降低企业级开发的复杂性&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;框架</summary>
+      
+    
+    
+    
+    <category term="笔记" scheme="http://example.com/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="后端" scheme="http://example.com/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="web" scheme="http://example.com/tags/web/"/>
+    
+  </entry>
   
   <entry>
     <title>gitx学习（未完）</title>
@@ -45,12 +78,12 @@
   
   <entry>
     <title>初入后端（未完）</title>
-    <link href="http://example.com/2023/03/22/%E5%88%9D%E5%85%A5%E5%90%8E%E7%AB%AF/"/>
-    <id>http://example.com/2023/03/22/%E5%88%9D%E5%85%A5%E5%90%8E%E7%AB%AF/</id>
+    <link href="http://example.com/2023/03/22/web/%E5%88%9D%E5%85%A5%E5%90%8E%E7%AB%AF/"/>
+    <id>http://example.com/2023/03/22/web/%E5%88%9D%E5%85%A5%E5%90%8E%E7%AB%AF/</id>
     <published>2023-03-22T13:20:28.676Z</published>
-    <updated>2023-03-23T09:00:01.061Z</updated>
+    <updated>2023-03-23T14:24:19.736Z</updated>
     
-    <content type="html"><![CDATA[<p>本次初入主要与实验室学习有关:<br>同一环境和技术选型：<br>开发语言：Java<br>开发环境：IDEA<br>包管理：Maven<br>版本控制：Gitlab</p><h2 id="1.-maven-%E5%88%9D%E6%8E%A2" tabindex="-1">1. Maven 初探</h2><p><a href="https://github.com/vectorxxxx/NOTE_Maven">参考</a><br><a href="https://maven.apache.org/download.cgi">maven官网下载</a></p><p>IDEA是一个集成IDE，包含了Maven，但在使用时，可以自行决定是使用IDEA自带的Maven或是使用自己的。</p><h2 id="2.-%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84%E8%AF%A6%E8%A7%A3" tabindex="-1">2. 三层架构详解</h2><p><a href="https://www.runoob.com/w3cnote/three-tier-architecture.html">地址</a></p><h3 id="%EF%BC%881%EF%BC%89%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%89%E5%B1%82" tabindex="-1">（1）什么是三层</h3><ul><li><p>UI 表现层：主要是指与用户交互的界面。用于接收用户输入的数据和显示处理后用户需要的数据。</p></li><li><p>BLL 业务逻辑层：UI层和DAL层之间的桥梁。实现业务逻辑。业务逻辑具体包含：验证、计算、业务规则等等。</p></li><li><p>DAL 数据访问层：与数据库打交道。主要实现对数据的增、删、改、查。将存储在数据库中的数据提交给业务层，同时将业务层处理的数据保存到数据库。</p></li><li><p>每一层都各负其责，那么该如何将三层联系起来呢？</p><ul><li>单项引用</li><li>使用实体层：</li><li>实体层在三层架构中的作用<ul><li>1、实现面向对象思想中的&quot;封装&quot;;</li><li>2、贯穿于三层，在三层之间传递数据;</li></ul></li></ul></li></ul><h3 id="%EF%BC%882%EF%BC%89%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E4%B8%89%E5%B1%82%EF%BC%9F" tabindex="-1">（2）为什么使用三层？</h3><p>使用三层架构的目的：解耦！！！<br>任何一层发生变化都不会影响到另外一层！！！</p><h3 id="%EF%BC%883%EF%BC%89%E4%B8%89%E5%B1%82%E4%B8%8E%E4%B8%A4%E5%B1%82%E6%AF%94%E8%BE%83" tabindex="-1">（3）三层与两层比较</h3><ul><li>三层架构的优势：<ul><li><ol><li>结构清晰、耦合度低</li></ol></li><li><ol start="2"><li>可维护性高，可扩展性高</li></ol></li><li><ol start="3"><li>利于开发任务同步进行, 容易适应需求变化</li></ol></li></ul></li><li>三层架构的劣势：<ul><li><ol><li>降低了系统的性能。这是不言而喻的。如果不采用分层式结构，很多业务可以直接造访数据库，以此获取相应的数据，如今却必须通过中间层来完成。</li></ol></li><li><ol start="2"><li>有时会导致级联的修改。这种修改尤其体现在自上而下的方向。如果在表示层中需要增加一个功能，为保证其设计符合分层式结构，可能需要在相应的业务逻辑层和数据访问层中都增加相应的代码</li></ol></li><li><ol start="3"><li>增加了代码量，增加了工作量</li></ol></li></ul></li></ul><h2 id="3.springboot-%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8" tabindex="-1">3.SpringBoot 快速入门</h2><p><a href="https://www.fangzhipeng.com/spring-boot.html">教程</a></p><ul><li><p>设计目的： 用来简化新 Spring 应用的初始搭建以及开发过程。</p></li><li><p>从最根本上来讲，Spring Boot 就是一些库的集合，它能够被任意项目的构建系统所使用。它使用 “习惯优于配置” （项目中存在大量的配置，此外还内置一个习惯性的配置）的理念让你的项目快速运行起来。用大佬的话来理解，就是 spring boot 其实不是什么新的框架，它默认配置了很多框架的使用方式，就像 maven 整合了所有的 jar 包，spring boot 整合了所有的框架，总结一下及几点：</p><ul><li>（1）为所有 Spring 开发提供一个更快更广泛的入门体验。</li><li>（2）零配置。无冗余代码生成和XML 强制配置，遵循“约定大于配置” 。</li><li>（3）集成了大量常用的第三方库的配置， Spring Boot 应用为这些第三方库提供了几乎可以零配置的开箱即用的能力。</li><li>（4）提供一系列大型项目常用的非功能性特征，如嵌入式服务器、安全性、度量、运行状况检查、外部化配置等。</li><li>（5）Spring Boot 不是Spring 的替代者，Spring 框架是通过 IOC 机制来管理 Bean 的。Spring Boot 依赖 Spring 框架来管理对象的依赖。Spring Boot 并不是Spring 的精简版本，而是为使用 Spring 做好各种产品级准备</li></ul></li><li><p>环境准备</p><ul><li>JDK 环境必须是 1.8 及以上</li><li>使用到 Maven 管理工具 3.2.5 及以上版本</li><li>开发工具IDEA</li></ul></li></ul><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">]]></content>
+    <content type="html"><![CDATA[<p>本次初入主要与实验室学习有关:<br>同一环境和技术选型：<br>开发语言：Java<br>开发环境：IDEA<br>包管理：Maven<br>版本控制：Gitlab</p><h2 id="1.-maven-%E5%88%9D%E6%8E%A2" tabindex="-1">1. Maven 初探</h2><p><a href="https://github.com/vectorxxxx/NOTE_Maven">参考</a><br><a href="https://maven.apache.org/download.cgi">maven官网下载</a></p><p>IDEA是一个集成IDE，包含了Maven，但在使用时，可以自行决定是使用IDEA自带的Maven或是使用自己的。</p><h2 id="2.-%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84%E8%AF%A6%E8%A7%A3" tabindex="-1">2. 三层架构详解</h2><p><a href="https://www.runoob.com/w3cnote/three-tier-architecture.html">地址</a></p><h3 id="%EF%BC%881%EF%BC%89%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%89%E5%B1%82" tabindex="-1">（1）什么是三层</h3><ul><li><p>UI 表现层：主要是指与用户交互的界面。用于接收用户输入的数据和显示处理后用户需要的数据。</p></li><li><p>BLL 业务逻辑层：UI层和DAL层之间的桥梁。实现业务逻辑。业务逻辑具体包含：验证、计算、业务规则等等。</p></li><li><p>DAL 数据访问层：与数据库打交道。主要实现对数据的增、删、改、查。将存储在数据库中的数据提交给业务层，同时将业务层处理的数据保存到数据库。</p></li><li><p>每一层都各负其责，那么该如何将三层联系起来呢？</p><ul><li>单项引用</li><li>使用实体层：</li><li>实体层在三层架构中的作用<ul><li>1、实现面向对象思想中的&quot;封装&quot;;</li><li>2、贯穿于三层，在三层之间传递数据;</li></ul></li></ul></li></ul><h3 id="%EF%BC%882%EF%BC%89%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E4%B8%89%E5%B1%82%EF%BC%9F" tabindex="-1">（2）为什么使用三层？</h3><p>使用三层架构的目的：解耦！！！<br>任何一层发生变化都不会影响到另外一层！！！</p><h3 id="%EF%BC%883%EF%BC%89%E4%B8%89%E5%B1%82%E4%B8%8E%E4%B8%A4%E5%B1%82%E6%AF%94%E8%BE%83" tabindex="-1">（3）三层与两层比较</h3><ul><li>三层架构的优势：<ul><li><ol><li>结构清晰、耦合度低</li></ol></li><li><ol start="2"><li>可维护性高，可扩展性高</li></ol></li><li><ol start="3"><li>利于开发任务同步进行, 容易适应需求变化</li></ol></li></ul></li><li>三层架构的劣势：<ul><li><ol><li>降低了系统的性能。这是不言而喻的。如果不采用分层式结构，很多业务可以直接造访数据库，以此获取相应的数据，如今却必须通过中间层来完成。</li></ol></li><li><ol start="2"><li>有时会导致级联的修改。这种修改尤其体现在自上而下的方向。如果在表示层中需要增加一个功能，为保证其设计符合分层式结构，可能需要在相应的业务逻辑层和数据访问层中都增加相应的代码</li></ol></li><li><ol start="3"><li>增加了代码量，增加了工作量</li></ol></li></ul></li></ul><h2 id="3.springboot-%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8" tabindex="-1">3.SpringBoot 快速入门</h2><p><a href="https://www.fangzhipeng.com/spring-boot.html">教程</a></p><ul><li><p>设计目的： 用来简化新 Spring 应用的初始搭建以及开发过程。</p></li><li><p>从最根本上来讲，Spring Boot 就是一些库的集合，它能够被任意项目的构建系统所使用。它使用 “习惯优于配置” （项目中存在大量的配置，此外还内置一个习惯性的配置）的理念让你的项目快速运行起来。用大佬的话来理解，就是 spring boot 其实不是什么新的框架，它默认配置了很多框架的使用方式，就像 maven 整合了所有的 jar 包，spring boot 整合了所有的框架，总结一下及几点：</p><ul><li>（1）为所有 Spring 开发提供一个更快更广泛的入门体验。</li><li>（2）零配置。无冗余代码生成和XML 强制配置，遵循“约定大于配置” 。</li><li>（3）集成了大量常用的第三方库的配置， Spring Boot 应用为这些第三方库提供了几乎可以零配置的开箱即用的能力。</li><li>（4）提供一系列大型项目常用的非功能性特征，如嵌入式服务器、安全性、度量、运行状况检查、外部化配置等。</li><li>（5）Spring Boot 不是Spring 的替代者，Spring 框架是通过 IOC 机制来管理 Bean 的。Spring Boot 依赖 Spring 框架来管理对象的依赖。Spring Boot 并不是Spring 的精简版本，而是为使用 Spring 做好各种产品级准备</li></ul></li><li><p>环境准备</p><ul><li>JDK 环境必须是 1.8 及以上</li><li>使用到 Maven 管理工具 3.2.5 及以上版本</li><li>开发工具IDEA</li></ul></li></ul><p>以该<a href="https://blog.csdn.net/qq_40147863/article/details/84194493">博客</a>完成springboot的初始创建</p><p>急了，目前卡在</p><pre><code>Description:Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.Reason: Failed to determine a suitable driver class</code></pre><p>还是不熟悉，把B站网课看看再搞吧。</p><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">]]></content>
     
     
       
@@ -71,12 +104,14 @@
     
     <category term="后端" scheme="http://example.com/tags/%E5%90%8E%E7%AB%AF/"/>
     
+    <category term="web" scheme="http://example.com/tags/web/"/>
+    
   </entry>
   
   <entry>
     <title>编译原理（未完）</title>
-    <link href="http://example.com/2023/03/07/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/"/>
-    <id>http://example.com/2023/03/07/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/</id>
+    <link href="http://example.com/2023/03/07/%E6%9C%AC%E7%A7%91/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/"/>
+    <id>http://example.com/2023/03/07/%E6%9C%AC%E7%A7%91/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/</id>
     <published>2023-03-07T05:04:21.339Z</published>
     <updated>2023-03-23T12:04:46.445Z</updated>
     
@@ -126,8 +161,8 @@
   
   <entry>
     <title>数据库试验--PostgreSQL源码分析--遗传算法的使用</title>
-    <link href="http://example.com/2023/03/06/%E6%95%B0%E6%8D%AE%E5%BA%93PostgreSQL%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
-    <id>http://example.com/2023/03/06/%E6%95%B0%E6%8D%AE%E5%BA%93PostgreSQL%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</id>
+    <link href="http://example.com/2023/03/06/%E6%9C%AC%E7%A7%91/%E6%95%B0%E6%8D%AE%E5%BA%93PostgreSQL%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    <id>http://example.com/2023/03/06/%E6%9C%AC%E7%A7%91/%E6%95%B0%E6%8D%AE%E5%BA%93PostgreSQL%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</id>
     <published>2023-03-06T09:20:30.100Z</published>
     <updated>2023-03-11T14:34:16.032Z</updated>
     
@@ -153,8 +188,8 @@
   
   <entry>
     <title>操作系统试验--在linux环境下复现操作系统（未完）</title>
-    <link href="http://example.com/2023/03/03/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%95%E9%AA%8C/"/>
-    <id>http://example.com/2023/03/03/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%95%E9%AA%8C/</id>
+    <link href="http://example.com/2023/03/03/%E6%9C%AC%E7%A7%91/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%95%E9%AA%8C/"/>
+    <id>http://example.com/2023/03/03/%E6%9C%AC%E7%A7%91/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%95%E9%AA%8C/</id>
     <published>2023-03-03T08:58:13.121Z</published>
     <updated>2023-03-16T16:03:04.402Z</updated>
     
@@ -179,8 +214,8 @@
   
   <entry>
     <title>数据库系统复习</title>
-    <link href="http://example.com/2023/02/28/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0/"/>
-    <id>http://example.com/2023/02/28/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0/</id>
+    <link href="http://example.com/2023/02/28/%E6%9C%AC%E7%A7%91/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0/"/>
+    <id>http://example.com/2023/02/28/%E6%9C%AC%E7%A7%91/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0/</id>
     <published>2023-02-28T12:08:14.993Z</published>
     <updated>2023-03-09T04:20:04.515Z</updated>
     
