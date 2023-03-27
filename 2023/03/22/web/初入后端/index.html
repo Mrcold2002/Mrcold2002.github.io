@@ -36,7 +36,7 @@ IDEA创建Maven项目
 Maven坐标
 
 什么是坐.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">初入后端（未完）</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#maven"><span class="toc-text">Maven</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#01-maven%E6%A6%82%E8%BF%B0"><span class="toc-text">01 Maven概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#02-idea%E9%9B%86%E6%88%90maven"><span class="toc-text">02 IDEA集成Maven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#03-%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86"><span class="toc-text">03 依赖管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web-%E5%85%A5%E9%97%A8"><span class="toc-text">Web 入门</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#01-springbootweb%E5%85%A5%E9%97%A8"><span class="toc-text">01 SpringBootWeb入门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#02-http%E5%8D%8F%E8%AE%AE"><span class="toc-text">02 HTTP协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#03-web%E6%9C%8D%E5%8A%A1%E5%99%A8-tomcat"><span class="toc-text">03 Web服务器-Tomcat</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94"><span class="toc-text">请求响应</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#01-%E8%AF%B7%E6%B1%82"><span class="toc-text">01 请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#02-%E5%93%8D%E5%BA%94"><span class="toc-text">02 响应</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#03-%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90"><span class="toc-text">03 请求和响应综合案例分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#04-%E5%88%86%E5%B1%82%E8%A7%A3%E8%80%A6"><span class="toc-text">04 分层解耦</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql"><span class="toc-text">MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#01-mysql%E6%A6%82%E8%BF%B0"><span class="toc-text">01 MySQL概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#02-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1-ddl"><span class="toc-text">02 数据库设计-DDL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#03-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1-dml"><span class="toc-text">03 数据库设计-DML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#04-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1-dql"><span class="toc-text">04 数据库设计-DQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#05-%E5%A4%9A%E8%A1%A8%E8%AE%BE%E8%AE%A1"><span class="toc-text">05 多表设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#06-%E4%BA%8B%E5%8A%A1"><span class="toc-text">06 事务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#07-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="toc-text">07 多表查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#08-%E7%B4%A2%E5%BC%95"><span class="toc-text">08 索引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mybaits"><span class="toc-text">MyBaits</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spring"><span class="toc-text">Spring</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-spring-%E5%88%9D%E8%AF%86"><span class="toc-text">1 Spring 初识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-spring-framework"><span class="toc-text">2 Spring Framework</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-spring-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">3 Spring 核心概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-ioc%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B"><span class="toc-text">4 IoC入门案例</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/%E5%90%8E%E7%AB%AF"><i class="tag post-item-tag">后端</i></a><a href="/tags/web"><i class="tag post-item-tag">web</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">初入后端（未完）</h1><time class="has-text-grey" datetime="2023-03-22T13:20:28.676Z">2023-03-22</time><article class="mt-2 post-content"><p>[toc]</p>
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">初入后端（未完）</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#maven"><span class="toc-text">Maven</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#01-maven%E6%A6%82%E8%BF%B0"><span class="toc-text">01 Maven概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#02-idea%E9%9B%86%E6%88%90maven"><span class="toc-text">02 IDEA集成Maven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#03-%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86"><span class="toc-text">03 依赖管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web-%E5%85%A5%E9%97%A8"><span class="toc-text">Web 入门</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#01-springbootweb%E5%85%A5%E9%97%A8"><span class="toc-text">01 SpringBootWeb入门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#02-http%E5%8D%8F%E8%AE%AE"><span class="toc-text">02 HTTP协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#03-web%E6%9C%8D%E5%8A%A1%E5%99%A8-tomcat"><span class="toc-text">03 Web服务器-Tomcat</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94"><span class="toc-text">请求响应</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#01-%E8%AF%B7%E6%B1%82"><span class="toc-text">01 请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#02-%E5%93%8D%E5%BA%94"><span class="toc-text">02 响应</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#03-%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90"><span class="toc-text">03 请求和响应综合案例分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#04-%E5%88%86%E5%B1%82%E8%A7%A3%E8%80%A6"><span class="toc-text">04 分层解耦</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql"><span class="toc-text">MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#01-mysql%E6%A6%82%E8%BF%B0"><span class="toc-text">01 MySQL概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#02-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1-ddl"><span class="toc-text">02 数据库设计-DDL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#03-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1-dml"><span class="toc-text">03 数据库设计-DML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#04-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1-dql"><span class="toc-text">04 数据库设计-DQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#05-%E5%A4%9A%E8%A1%A8%E8%AE%BE%E8%AE%A1"><span class="toc-text">05 多表设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#06-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="toc-text">06 多表查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#07-%E4%BA%8B%E5%8A%A1"><span class="toc-text">07 事务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#08-%E7%B4%A2%E5%BC%95"><span class="toc-text">08 索引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mybaits"><span class="toc-text">MyBaits</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#01-mybatis%E5%85%A5%E9%97%A8"><span class="toc-text">01 Mybatis入门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#02-mybatis%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C"><span class="toc-text">02 Mybatis基础操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#03-xml%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6"><span class="toc-text">03 XML映射文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#04-mybatis%E5%8A%A8%E6%80%81sql"><span class="toc-text">04 Mybatis动态SQL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spring"><span class="toc-text">Spring</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-spring-%E5%88%9D%E8%AF%86"><span class="toc-text">1 Spring 初识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-spring-framework"><span class="toc-text">2 Spring Framework</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-spring-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">3 Spring 核心概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-ioc%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B"><span class="toc-text">4 IoC入门案例</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/%E5%90%8E%E7%AB%AF"><i class="tag post-item-tag">后端</i></a><a href="/tags/web"><i class="tag post-item-tag">web</i></a><a href="/tags/IDEA"><i class="tag post-item-tag">IDEA</i></a><a href="/tags/spring,springboot"><i class="tag post-item-tag">spring,springboot</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">初入后端（未完）</h1><time class="has-text-grey" datetime="2023-03-22T13:20:28.676Z">2023-03-22</time><article class="mt-2 post-content"><p>[toc]</p>
 <h2 id="maven" tabindex="-1">Maven</h2>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1m84y1w7Tb?p=50&amp;vd_source=240b8edf72530a8ec2d9f48cc6514072">视频地址</a></p>
 <h3 id="01-maven%E6%A6%82%E8%BF%B0" tabindex="-1">01 Maven概述</h3>
@@ -996,30 +996,502 @@ public class address &#123;
 </ul>
 <h3 id="04-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1-dql" tabindex="-1">04 数据库设计-DQL</h3>
 <ul>
-<li>DQL（Data Query Language）（数据查询语言），用来查询数据库表中的数据</li>
-<li>关键词 SELECT
+<li>
+<p>DQL（Data Query Language）（数据查询语言），用来查询数据库表中的数据</p>
+</li>
+<li>
+<p>关键词 SELECT</p>
 <ul>
 <li>语法：<br>
-<a href="/images/web/%E5%88%9D%E5%85%A5%E5%90%8E%E7%AB%AF/DQL0.jpg">DQL语法</a></li>
+<img src="/images/web/%E5%88%9D%E5%85%A5%E5%90%8E%E7%AB%AF/DQL0.jpg" alt="DQL语法"></li>
+</ul>
+</li>
+<li>
+<p>基本查询</p>
+<ul>
+<li>查询多个字段：<code>selcet 字段1,字段2,字段3 from 表名</code></li>
+<li>查询所有字段（通配符）：<code>select * from 表名</code>(该方法不直观，且效率低)</li>
+<li>设置别名：<code>select 字段1 [as 别名1], 字段2 [as 别名2] from 表名</code></li>
+<li>去除重复记录：<code>select distinct 字段列表 from 表名</code></li>
+</ul>
+</li>
+<li>
+<p>条件查询</p>
+<ul>
+<li>语法：<code>select 字段列表 from 表名 where 条件列表</code></li>
+<li>比较运算符：<code>&gt;,&gt;=,&lt;,&lt;=,=,&lt;&gt;或!=(不等于),between ... and ..., in(...),like (字符串和占位符),is null </code></li>
+<li>逻辑运算符：<code>and或&amp;&amp;,or或||,not或!</code></li>
+</ul>
+</li>
+<li>
+<p>分组查询</p>
+<ul>
+<li>聚合函数
+<ul>
+<li>介绍：将一列数据作为一个整体，并进行纵向计算</li>
+<li>语法：<code>select 聚合函数(字段列表) from 表名</code></li>
+<li>常见聚合函数<code>count,max,min,avg,sum</code></li>
+<li>注意事项：null不参与聚合函数</li>
+</ul>
+</li>
+<li>语法：
+<ul>
+<li>分组查询：<code>select 字段列表 from 表名 [where 条件]  group 分组字段名 [having 分组过滤后的条件]</code></li>
+</ul>
+</li>
+<li>where和having区别
+<ul>
+<li>
+<ol>
+<li>执行时机不同：where是分组之前进行过滤，不满足where条件，不参与分组；而having是分组之后对结果进行过滤</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>判断条件不同：where不能对聚合函数进行判断，而having可以</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>注意事项：
+<ul>
+<li>分组后，查询的字段为分组字段和聚合函数，查询其它字段无意义</li>
+<li>执行顺序：where&gt;聚合函数&gt;having</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>排序查询</p>
+<ul>
+<li>语法：
+<ul>
+<li>条件查询：<code>select 字段列表 from 表名 [where 条件列表][group by 分组字段] order by 字段1 排序方式1, 字段2 排序方式2...;</code></li>
+</ul>
+</li>
+<li>排序方式
+<ul>
+<li><code>ASC</code>升序（默认值），<code>DESC</code>降序</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>分页查询</p>
+<ul>
+<li>语法：<code>select 字段列表 from 表名 limit 起始索引,查询记录数</code></li>
+<li>注意事项：
+<ul>
+<li>
+<ol>
+<li>起始索引从0开始，起始索引=(查询页码-1)*每页显示记录数</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>分页查询是数据库的方言，不同数据库实现不同</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>如果查询的数据是第一页的数据，起始索引可以省略</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>函数</p>
+<ul>
+<li><code>if(表达式,tvalue,fvalue)</code>:当表达式为true时，取tvalue，否则取fvalue</li>
+<li><code>case expr when value1 then result1 [when value2 then result2..][else result] end</code> 类似switch语句</li>
 </ul>
 </li>
 </ul>
 <h3 id="05-%E5%A4%9A%E8%A1%A8%E8%AE%BE%E8%AE%A1" tabindex="-1">05 多表设计</h3>
-<h3 id="06-%E4%BA%8B%E5%8A%A1" tabindex="-1">06 事务</h3>
-<h3 id="07-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2" tabindex="-1">07 多表查询</h3>
+<ul>
+<li>
+<p>一对多</p>
+<ul>
+<li>使用外键约束，保证数据的一致性和完整性</li>
+<li>外键语法：</li>
+</ul>
+<pre><code class="language-sql"># 创建时添加外键
+create table 表名(
+  字段民 数据类型,
+  ...
+  [constraint] [外键名称] foreign key (外键字段名) references 主表 (字段名)
+);
+# 创建后添加外键
+alter table 表名 add constraint 外键名称 foreign key (外键字段名) references 主表(字段名) 
+</code></pre>
+<ul>
+<li>物理外键
+<ul>
+<li>概念：使用<code>foreign key</code>定义外键关联另一张表</li>
+<li>缺点：
+<ul>
+<li>影响增删改的效率（需要查外键关系）</li>
+<li>仅用于单节点数据库，不适用于分布式，集群场景</li>
+<li>容易引发数据库的死锁问题，消耗性能</li>
+</ul>
+</li>
+<li>引起缺点在企业中已经很少使用，甚至明文禁止</li>
+</ul>
+</li>
+<li>逻辑外键
+<ul>
+<li>概念：在业务层逻辑，解决外键连接</li>
+<li>通过逻辑外键，可以很方便解决</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>一对一</p>
+<ul>
+<li>关系：一对一关系，多用于单表拆分，将一张表的基础字段放在一张表中，其它字段放在另一张表中，以提升效率</li>
+<li>实现：在任意一方加入外键，关联另一方的主键，并且设置外键为唯一的。</li>
+</ul>
+</li>
+<li>
+<p>多对多</p>
+<ul>
+<li>关系：一个学生可以选多个课程，一个课程可供多个学生选择</li>
+<li>实现：建立第三张表，中间表至少包含两个外键，分别关联两方主键</li>
+</ul>
+</li>
+</ul>
+<h3 id="06-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2" tabindex="-1">06 多表查询</h3>
+<ul>
+<li>
+<p>概念：从多个表中查询数据</p>
+<ul>
+<li>笛卡尔积</li>
+<li>内连接</li>
+<li>外连接
+<ul>
+<li>左外连接：查询左表所有数据（包括两张表交集部分数据）</li>
+<li>右外连接：查询右表所有数据（包括两张表交集部分数据）</li>
+</ul>
+</li>
+<li>子查询</li>
+</ul>
+</li>
+<li>
+<p>内连接</p>
+<ul>
+<li>语法
+<ul>
+<li>隐式内连接：<code>select 字段列表 from 表1,表2 where 条件 ...;</code></li>
+<li>显式内连接：<code>select 字段列表 from 表1 [inner] join 表2 on 条件;</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>左外连接：<code>select 字段列表 from 表1 left [outer] join 表2 on 连接条件</code></p>
+</li>
+<li>
+<p>左外连接：<code>select 字段列表 from 表1 right [outer] join 表2 on 连接条件</code></p>
+</li>
+<li>
+<p>子查询</p>
+<ul>
+<li>介绍：SQL语句种嵌套select语句，称为嵌套查询，又称子查询</li>
+<li>形式：<code>select * from t1 where column1 = (select column1 from t2 ..)</code></li>
+<li>子查询外部的语句可以是insert/update/delete/select的任何一个，最常见的是select</li>
+<li>分类
+<ul>
+<li>标量子查询，列子查询，行子查询，表子查询</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="07-%E4%BA%8B%E5%8A%A1" tabindex="-1">07 事务</h3>
+<ul>
+<li>介绍
+<ul>
+<li>概念：事务是一组操作集合，他是一个不可分割的工作单位。事务会把所有的操作作为一个整体一起向系统提交或撤销操作请求，即这些操作要么同时成功，要么同时失败</li>
+<li>注意事项：默认MySQL的事务是自动提交的，即当执行依据DML语句，MySQL会立即隐式地提交事务</li>
+</ul>
+</li>
+<li>事务控制
+<ul>
+<li>开启事务：<code>start transaction; / begin</code></li>
+<li>提交事务：<code>commit</code></li>
+<li>回归事务：<code>rollback</code></li>
+</ul>
+</li>
+<li>事务四大特性
+<ul>
+<li>原子性Atomicity  ：事务是不可分割的最小单位，要么全部成功，要么全部失败</li>
+<li>一致性Consistency：事务完成时，必须使所有的数据都保持一致性</li>
+<li>隔离性Isolation  ：数据库系统提供的隔离机制，保证事务在不受外部并发操作影响的独立环境下运行</li>
+<li>持久性Durability ：事务一旦提交或回滚，它对数据库中的数据的改变就是永久的。</li>
+</ul>
+</li>
+</ul>
 <h3 id="08-%E7%B4%A2%E5%BC%95" tabindex="-1">08 索引</h3>
+<ul>
+<li>
+<p>概念：帮助数据库高效获取数据的数据结构</p>
+</li>
+<li>
+<p>优点：</p>
+<ul>
+<li>提高数据查询效率，降低数据库IO成本</li>
+<li>通过索引列对数据进行排序，降低数据排序成本，降低CPU消耗</li>
+</ul>
+</li>
+<li>
+<p>缺点</p>
+<ul>
+<li>索引会占据存储空间</li>
+<li>索引大大提高了查询效率，但降低了增删改的效率</li>
+<li>然而缺点影响不大，当今企业存储空间已经不是问题，且一个正常的数据库系统90%是查询操作</li>
+</ul>
+</li>
+<li>
+<p>结构</p>
+<ul>
+<li>MySQL数据库支持的索引结构很多，如：hash索引，B+Tree索引，Full-Text索引等。但MySQL默认索引为B+Tree结果组织的索引。</li>
+</ul>
+</li>
+<li>
+<p>语法</p>
+<ul>
+<li>创建索引：<code>creat [unique] index 索引名 on 表名(字段名)</code></li>
+<li>查看索引：<code>show index from 表名</code></li>
+<li>删除索引：<code>drop index 索引名 on 表名</code></li>
+</ul>
+</li>
+<li>
+<p>注意事项：</p>
+<ul>
+<li>主键字段，在建表时，会自动创建主键索引</li>
+<li>添加唯一约束时，数据库实际上会添加唯一索引</li>
+</ul>
+</li>
+</ul>
 <h2 id="mybaits" tabindex="-1">MyBaits</h2>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1m84y1w7Tb?p=116&amp;vd_source=240b8edf72530a8ec2d9f48cc6514072">课程连接</a></p>
 <ul>
 <li>Mybaits是一款优秀的持久层（即三层中的第三层）框架，用于简化JDBC的开发</li>
-<li>使用Mybatis查询所有用户数据
+<li></li>
+</ul>
+<h3 id="01-mybatis%E5%85%A5%E9%97%A8" tabindex="-1">01 Mybatis入门</h3>
+<ul>
+<li>
+<p>使用Mybatis查询所有用户数据</p>
 <ul>
 <li>1 准备工作（创建springboot工程，数据库表user，实体类User）</li>
 <li>2 引入Mybatis的相关依赖，配置Mybaits(数据库连接信息)</li>
 <li>3 编写SQL语句（注解/XML）</li>
 </ul>
 </li>
+<li>
+<p>配置SQL提示</p>
+</li>
+<li>
+<p>JDBC（Java DataBase Connectivity）,就是使用Java语言操作关系型数据库的一套API</p>
+<ul>
+<li>本质
+<ul>
+<li>sun公司官方定义的一套操作所用关系型数据的规范，即接口</li>
+<li>各个数据库厂商去实现这套接口，提供数据库的驱动jar包</li>
+<li>使用这套接口编程，真正执行的是驱动jar包中的代码</li>
 </ul>
+</li>
+</ul>
+</li>
+<li>
+<p>数据库连接池</p>
+<ul>
+<li>概念
+<ul>
+<li>数据库连接池是一个容器，负责分配，管理数据库连接</li>
+<li>允许应用程序重复使用一个现有的数据库连接，而不是再重新建立一个</li>
+<li>释放空闲时间超过最大空闲时间的连接，来避免因为没有释放连接而引起的数据库连接遗漏</li>
+</ul>
+</li>
+<li>优势
+<ul>
+<li>资源重用</li>
+<li>提升系统响应速度</li>
+<li>避免数据库连接遗漏</li>
+</ul>
+</li>
+<li>便准接口：DataSource
+<ul>
+<li>官方sun提供的供数据库连接池接口，由第三方组织实现该接口</li>
+<li>功能：获取连接</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>lombok</p>
+<ul>
+<li>定义：Lombok是一个实用的java类库，能通过注解的形式自动生成构造器getter/setter,equals,hashcode,toString等方法，并可以自动化生成日志变量，简化java开发，提高效率</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>注解</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>@Getter/@Setter</td>
+<td>为所有属性提供get/set方法</td>
+</tr>
+<tr>
+<td>@ToString</td>
+<td>会给类自动生成易读的toString方法</td>
+</tr>
+<tr>
+<td>@EqualsAndHashCode</td>
+<td>根据类所拥有的非静态字段自动重写equals方法和hashcode方法</td>
+</tr>
+<tr>
+<td>@Data</td>
+<td>提供了更综合的生成代码功能（包含以上四个方法）</td>
+</tr>
+<tr>
+<td>@NoArgsConstructor</td>
+<td>为实体类生成无参的构造器方法</td>
+</tr>
+<tr>
+<td>@AllArgsConstructor</td>
+<td>为实体类生成除static修饰的字段之外带有各参数的构造器方法</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<h3 id="02-mybatis%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C" tabindex="-1">02 Mybatis基础操作</h3>
+<ul>
+<li>
+<p>准备</p>
+</li>
+<li>
+<p>删除</p>
+<ul>
+<li>SQL语句：<code>delete from emp where id=17</code></li>
+<li>接口方法：</li>
+</ul>
+<pre><code class="language-java">@Delete(&quot;delete from emp where id=#&#123;id&#125;&quot;)
+//也可以是@Delete(&quot;delete from emp where id=$&#123;id&#125;&quot;)
+//但#&#123;&#125;为预编译，$&#123;&#125;为直接嵌入
+public void delete(Integer id);
+</code></pre>
+<ul>
+<li>如果mapper接口方法形参只有一个普通类型的参数，#{…}里面的属性名可以随便写，否则要对应</li>
+<li>日志输出：再application.properties中配置<code>mybatis.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl</code>，打开mybatis日志，并指定输出到控制台中</li>
+<li>预编译
+<ul>
+<li>性能更高</li>
+<li>更安全（防止SQL注入 ）
+<ul>
+<li>sQL注入：通过操作输入的数据来修改实现定义好的SQL语句，以达到执行代码对服务器进行攻击的方法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>新增</p>
+<ul>
+<li>SQL语句</li>
+</ul>
+<pre><code class="language-sql">insert into emp(username, name, gender, image, job, entrydate, dept_id, create_time, update_time)
+    values ('Tom','汤姆','1','1.jpg',1,'2005-01-01',1,now(),now())
+</code></pre>
+<ul>
+<li>接口方法</li>
+</ul>
+<pre><code class="language-java">@Options(useGeneratedKeys = true,keyProperty = &quot;id&quot;)//该注解可以返回生成的主键，默认是不返回的
+@Insert(&quot;insert into emp(username, name, gender, image, job, entrydate, dept_id, create_time, update_time)&quot; +
+          &quot; values (#&#123;username&#125;,#&#123;name&#125;,#&#123;gender&#125;,#&#123;image&#125;,#&#123;job&#125;,#&#123;entrydate&#125;,#&#123;deptId&#125;,#&#123;createTime&#125;,#&#123;updateTime&#125;)&quot;)
+  public void insert(Emp emp);
+</code></pre>
+</li>
+<li>
+<p>更新</p>
+<ul>
+<li>SQL语句</li>
+</ul>
+<pre><code class="language-sql">update emp set username='',name='',gender='',image='',job='',
+entrydate='',dept_id='',create_time='',update_time='' where id=1;
+</code></pre>
+<ul>
+<li>接口方法</li>
+</ul>
+<pre><code class="language-java">@Update(&quot;update emp set username=#&#123;username&#125;,name=#&#123;name&#125;,gender=#&#123;gender&#125;,image=#&#123;image&#125;,&quot;+
+&quot;job=#&#123;job&#125;,entrydate=#&#123;entrydate&#125;,dept_id=#&#123;deptId&#125;,update_time=#&#123;updateTime&#125; where id=#&#123;id&#125;&quot;)
+  public void update(Emp emp);
+</code></pre>
+</li>
+<li>
+<p>查询</p>
+<ul>
+<li>SQL语句：<code>select * from emp where id=15</code></li>
+<li>接口方法：</li>
+</ul>
+<pre><code class="language-java">@Select(&quot;select * from emp where id=#&#123;id&#125;&quot;)
+  public Emp getById(Integer id);
+</code></pre>
+<ul>
+<li>mybatis数据封装
+<ul>
+<li>实体类属性名和数据库表查询返回的字段名一致，mybatis会自动封装</li>
+<li>不一致时解决方案：
+<ul>
+<li>
+<ol>
+<li>在sql语句中起别名</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>通过<code>@Results,@Result</code>注解手动映射</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>通过mybaits的驼峰命名自动映射开关</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>条件查询</p>
+<ul>
+<li>SQL语句</li>
+</ul>
+<pre><code class="language-sql">select * from emp where name like '%张%' and gender = 1 and entrydate between '2010-01-01' and '2020-01-01' order by update_time desc
+</code></pre>
+<ul>
+<li>接口方法</li>
+</ul>
+<pre><code class="language-java">@Select(&quot;select * from emp where name like concat('%',#&#123;name&#125;,'%') and gender = #&#123;gender&#125; and &quot; +
+  &quot;entrydate between #&#123;begin&#125; and #&#123;end&#125; order by update_time desc&quot;)
+  public List&lt;Emp&gt; list(String name, short gender, LocalDate begin,LocalDate end);
+</code></pre>
+</li>
+</ul>
+<h3 id="03-xml%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6" tabindex="-1">03 XML映射文件</h3>
+<p>//之后在本次突击还没用到，以后闲了看看</p>
+<h3 id="04-mybatis%E5%8A%A8%E6%80%81sql" tabindex="-1">04 Mybatis动态SQL</h3>
 <h2 id="spring" tabindex="-1">Spring</h2>
 <p>Spring技术是JavaEE开发必备技能，企业开发技术选型命中率&gt;90%</p>
 <ul>
