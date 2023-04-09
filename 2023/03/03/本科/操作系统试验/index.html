@@ -11,7 +11,7 @@ VM Tools 自动安装不上，会报错。VMtools可以实现Windows环境和Lin
 
 2 在Ubuntu中使用bochs
 我这里是在官网下载的安装包，版本.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">操作系统试验--在linux环境下复现操作系统（未完）</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0&%E7%AC%AC%E4%BA%8C%E7%AB%A0-hello%EF%BC%8Cos-world"><span class="toc-text">第一章&amp;第二章 Hello，OS world</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BD%BF%E7%94%A8vm%E8%BF%90%E8%A1%8Cubuntu"><span class="toc-text">1 使用vm运行Ubuntu</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%9C%A8ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8bochs"><span class="toc-text">2 在Ubuntu中使用bochs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-text">3 最简单的操作系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F"><span class="toc-text">第三章 保护模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3.1-%E8%AE%A4%E8%AF%86%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F"><span class="toc-text">3.1 认识保护模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83"><span class="toc-text">保护模式的运行环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gdt(global-descriptor-table)"><span class="toc-text">GDT(Global Descriptor Table)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%B8%BB%E8%A6%81%E6%AD%A5%E9%AA%A4"><span class="toc-text">进入保护模式的主要步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0%E7%AC%A6%E5%B1%9E%E6%80%A7"><span class="toc-text">描述符属性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.2-%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E8%BF%9B%E9%98%B6"><span class="toc-text">3.2 保护模式进阶</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.3-%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8"><span class="toc-text">3.3 页式存储</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.4-%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8"><span class="toc-text">3.4 中断和异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.5-%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84i/o"><span class="toc-text">3.5 保护模式下的I&#x2F;O</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.6-%E5%B0%8F%E7%BB%93"><span class="toc-text">3.6 小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E8%AE%A9%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%BF%9B%E5%85%A5%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F"><span class="toc-text">第四章 让操作系统进入保护模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#loader%E6%A8%A1%E5%9D%97"><span class="toc-text">loader模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BDloader%E5%85%A5%E5%86%85%E5%AD%98"><span class="toc-text">加载Loader入内存</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E5%86%85%E6%A0%B8%E9%9B%8F%E5%BD%A2"><span class="toc-text">第五章 内核雏形</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-linux%E4%B8%8Basm%E6%96%87%E4%BB%B6%E7%9A%84%E8%BF%90%E8%A1%8C"><span class="toc-text">1 linux下asm文件的运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-linux%E4%B8%8B%E6%B1%87%E7%BC%96%E5%92%8Cc%E5%90%8C%E6%AD%A5%E4%BD%BF%E7%94%A8"><span class="toc-text">2 linux下汇编和C同步使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-elf(executable-and-linkable-format)"><span class="toc-text">3 ELF(Executable and  Linkable Format)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BB%8Eloader%E5%88%B0%E5%86%85%E6%A0%B8"><span class="toc-text">4 从Loader到内核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%89%A9%E5%85%85%E5%86%85%E6%A0%B8"><span class="toc-text">5 扩充内核</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><i class="tag post-item-tag">操作系统</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">操作系统试验--在linux环境下复现操作系统（未完）</h1><time class="has-text-grey" datetime="2023-03-03T08:58:13.121Z">2023-03-03</time><article class="mt-2 post-content"><img src="/images/meitu/4.jpg">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">操作系统试验--在linux环境下复现操作系统（未完）</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0&%E7%AC%AC%E4%BA%8C%E7%AB%A0-hello%EF%BC%8Cos-world"><span class="toc-text">第一章&amp;第二章 Hello，OS world</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BD%BF%E7%94%A8vm%E8%BF%90%E8%A1%8Cubuntu"><span class="toc-text">1 使用vm运行Ubuntu</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%9C%A8ubuntu%E4%B8%AD%E4%BD%BF%E7%94%A8bochs"><span class="toc-text">2 在Ubuntu中使用bochs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-text">3 最简单的操作系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F"><span class="toc-text">第三章 保护模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3.1-%E8%AE%A4%E8%AF%86%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F"><span class="toc-text">3.1 认识保护模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83"><span class="toc-text">保护模式的运行环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%92%8C%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F"><span class="toc-text">实模式和保护模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gdt(global-descriptor-table)"><span class="toc-text">GDT(Global Descriptor Table)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%B8%BB%E8%A6%81%E6%AD%A5%E9%AA%A4"><span class="toc-text">进入保护模式的主要步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0%E7%AC%A6%E5%B1%9E%E6%80%A7"><span class="toc-text">描述符属性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.2-%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E8%BF%9B%E9%98%B6"><span class="toc-text">3.2 保护模式进阶</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.3-%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8"><span class="toc-text">3.3 页式存储</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.4-%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8"><span class="toc-text">3.4 中断和异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.5-%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84i/o"><span class="toc-text">3.5 保护模式下的I&#x2F;O</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.6-%E5%B0%8F%E7%BB%93"><span class="toc-text">3.6 小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E8%AE%A9%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%BF%9B%E5%85%A5%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F"><span class="toc-text">第四章 让操作系统进入保护模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#loader%E6%A8%A1%E5%9D%97"><span class="toc-text">loader模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BDloader%E5%85%A5%E5%86%85%E5%AD%98"><span class="toc-text">加载Loader入内存</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E5%86%85%E6%A0%B8%E9%9B%8F%E5%BD%A2"><span class="toc-text">第五章 内核雏形</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-linux%E4%B8%8Basm%E6%96%87%E4%BB%B6%E7%9A%84%E8%BF%90%E8%A1%8C"><span class="toc-text">1 linux下asm文件的运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-linux%E4%B8%8B%E6%B1%87%E7%BC%96%E5%92%8Cc%E5%90%8C%E6%AD%A5%E4%BD%BF%E7%94%A8"><span class="toc-text">2 linux下汇编和C同步使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-elf(executable-and-linkable-format)"><span class="toc-text">3 ELF(Executable and  Linkable Format)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BB%8Eloader%E5%88%B0%E5%86%85%E6%A0%B8"><span class="toc-text">4 从Loader到内核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%89%A9%E5%85%85%E5%86%85%E6%A0%B8"><span class="toc-text">5 扩充内核</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E8%BF%9B%E7%A8%8B"><span class="toc-text">第六章 进程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6.1-6.2-%E8%BF%9F%E5%88%B0%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%8E%E6%A6%82%E8%BF%B0"><span class="toc-text">6.1-6.2 迟到的进程与概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6.3-%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E8%BF%9B%E7%A8%8B"><span class="toc-text">6.3 最简单的进程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%AE%80%E5%8D%95%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%85%B3%E9%94%AE%E6%8A%80%E6%9C%AF"><span class="toc-text">1 简单进程的关键技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%AC%AC%E4%B8%80%E6%AD%A5-%E2%80%93-ring0--%3E-ring1"><span class="toc-text">2 第一步 – ring0 -&gt; ring1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E7%AC%AC%E4%BA%8C%E6%AD%A5-%E2%80%93-%E4%B8%B0%E5%AF%8C%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F"><span class="toc-text">3 第二步 – 丰富中断处理程序</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6.4-%E5%A4%9A%E8%BF%9B%E7%A8%8B"><span class="toc-text">6.4 多进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E5%89%8Dorange%E2%80%99s%E8%BF%90%E8%BD%AC%E8%BF%87%E7%A8%8B"><span class="toc-text">目前orange’s运转过程</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><i class="tag post-item-tag">操作系统</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">操作系统试验--在linux环境下复现操作系统（未完）</h1><time class="has-text-grey" datetime="2023-03-03T08:58:13.121Z">2023-03-03</time><article class="mt-2 post-content"><img src="/images/meitu/4.jpg">
 本次操作系统实验根据`Orange's 一个操作系统的实现`一书进行操作。在此记录试验的过程及心得
 <h2 id="%E7%AC%AC%E4%B8%80%E7%AB%A0%26%E7%AC%AC%E4%BA%8C%E7%AB%A0-hello%EF%BC%8Cos-world" tabindex="-1">第一章&amp;第二章 Hello，OS world</h2>
 <p>这两章通过在windows使用虚拟机运行Ubuntu操作系统，在Ubuntu上使用bochs虚拟机来完成操作系统。</p>
@@ -136,11 +136,90 @@ boot: a （这里即选择bochs虚拟机的驱动磁盘）</li>
 <li>输入<code>b:pmtest1.com</code>即可运行该文件，可以看到以下效果<br>
 <img src="/images/OS%E5%AE%9E%E9%AA%8C/3_1_1.jpg" alt="3_1_1"></li>
 </ol>
+<h4 id="%E5%AE%9E%E6%A8%A1%E5%BC%8F%E5%92%8C%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F" tabindex="-1">实模式和保护模式</h4>
+<ul>
+<li>
+<p>CPU的实模式和保护模式是两种不同的工作状态，这两种工作状态主要用于控制CPU的访问内存和外设的方式。</p>
+</li>
+<li>
+<p>实模式是CPU最初的工作状态，也是最基本的工作状态。在实模式下，CPU可以<code>直接访问内存和外设</code>，但只能使用16位的地址总线和处理器寄存器，因此内存地址的范围只能是从0到1MB。此外，在实模式下，CPU不提供对内存的保护，程序可以随意访问内存，这可能会导致内存损坏或数据丢失。</p>
+</li>
+<li>
+<p>保护模式是CPU的一种高级工作状态，它提供了更高的性能和更强的内存保护。在保护模式下，CPU可以使用32位的地址总线和处理器寄存器，从而可以访问4GB的内存空间。此外，保护模式可以提供多任务处理、虚拟内存、安全性等高级功能。</p>
+</li>
+<li>
+<p>在保护模式下，CPU将内存划分为许多不同的段，每个段都有自己的段描述符，用于描述该段的访问权限、基地址和长度等信息。这些段描述符是存储在内存中的数据结构，由操作系统来管理和维护。CPU访问内存时，必须遵循这些段描述符的规则，如果访问了不允许的内存区域，CPU会触发异常并终止程序的执行，从而实现了内存的保护。</p>
+</li>
+<li>
+<p>为什么会有实模式？</p>
+<ul>
+<li>实模式最初是设计用于早期的计算机系统，在这种模式下CPU可以直接访问物理内存和外设，这种简单的访问方式可以更容易地与早期的操作系统和应用程序相兼容。但是，实模式存在许多限制，如只能使用16位的地址总线和处理器寄存器，内存保护不足等问题，这些限制已经不能满足现代计算机系统的需求。</li>
+<li>为了满足计算机系统日益增长的复杂性和安全性需求，保护模式应运而生。保护模式提供了更多的功能和特性，如内存保护、多任务处理、虚拟内存等，这些特性使得操作系统和应用程序可以更好地控制和保护计算机系统的资源和数据，同时也提高了系统的性能和安全性。</li>
+</ul>
+</li>
+<li>
+<p>为什么现在还要有实模式到保护模式的转换，实模式不是早期计算机的吗？</p>
+<ul>
+<li>实模式虽然是最早的CPU工作模式之一，但是在一些情况下仍然需要将CPU从实模式切换到保护模式。主要原因有以下几个：
+<ul>
+<li>
+<ol>
+<li>兼容性：一些操作系统或应用程序仍然需要在实模式下运行。例如，一些老旧的DOS程序和BIOS固件仅支持实模式，无法在保护模式下正常运行（这个应该是主要原因）。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>引导程序：操作系统的引导程序（Bootloader）通常运行在实模式下，当引导程序加载完毕后，会切换到保护模式，以便操作系统可以更好地管理系统资源和内存。</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>性能：一些特殊场景需要CPU在实模式下运行，以获取更好的性能。例如，在一些嵌入式系统或低级别的驱动程序中，可能需要直接访问硬件设备或内存地址，这时可以选择在实模式下运行。</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>调试：在进行系统调试和开发过程中，将CPU从实模式切换到保护模式可以提供更丰富的调试信息和工具支持，帮助开发人员更好地进行调试和优化。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h4 id="gdt(global-descriptor-table)" tabindex="-1">GDT(Global Descriptor Table)</h4>
 <ul>
-<li>在IA32下，CPU有两种工作模式：实模式和保护模式。</li>
-<li>保护模式下，CPU有着强大的寻址能力吗，并为强大的32为操作系统提供了更好的硬件基础。</li>
-<li>GDT的作用是用来提供段式存储机制，这种机制是通过寄存器和GDT中的描述符共同提供的。</li>
+<li>
+<p>在IA32下，CPU有两种工作模式：实模式和保护模式。</p>
+</li>
+<li>
+<p>保护模式下，CPU有着强大的寻址能力吗，并为强大的32为操作系统提供了更好的硬件基础。</p>
+</li>
+<li>
+<p>GDT的作用是用来提供段式存储机制，这种机制是通过寄存器和GDT中的描述符共同提供的。</p>
+</li>
+<li>
+<p>在实模式下，由于早期CPU为16位，其有着16位的寄存器，16位的数据总线，但有20位的地址总线，因此物理地址遵循的计算公式<eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>物理地址</mtext><mo>=</mo><mtext>段值</mtext><mo>∗</mo><mn>16</mn><mo>+</mo><mtext>偏移</mtext></mrow><annotation encoding="application/x-tex">物理地址 = 段值*16+偏移</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord cjk_fallback">物理地址</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord cjk_fallback">段值</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">16</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord cjk_fallback">偏移</span></span></span></span></eq>，相当于将段值左移4位再加上偏移，且段值和便宜都是16位的。</p>
+</li>
+<li>
+<p>在CPU进入32位时代后，寄存器和地址线均为32位，但段值这一手段并没有被抛弃，此时引入实模式向保护模式的转变，保护模式下依然采用&quot;段：偏移&quot;这样的形式来表示，但保护模式下“段”的概念发生根本性的变化。</p>
+<ul>
+<li>实模式下，段值可以看作地址的一部分，从物理地址的计算公式可以看出</li>
+<li>保护模式下，段值仅变为一个索引，这个索引指向一个数据结构的一个表项，表项中详细定义了段的起始地址，界限，属性等内容。这个数据结构，就是GDT（也可以是LDT）。GDT的表项也叫描述符(Descripter)。GDT即为全局描述符表。</li>
+<li>因此GDT的作用是提供段式存储机制，这种机制是通过段寄存器和GDT中的描述符共同提供的</li>
+</ul>
+</li>
+<li>
+<p>下图为代码段和数据段描述符示例,此外还有系统段描述符和门描述符<br>
+<img src="/images/OS%E5%AE%9E%E9%AA%8C/GDT0.jpg" alt="GDT0.jpg"></p>
+</li>
+<li>
+<p>选择子结构，当TI个PRL都为0时，选择子就变成了对应描述符相当于GDT基址的偏移。<br>
+<img src="/images/OS%E5%AE%9E%E9%AA%8C/%E9%80%89%E6%8B%A9%E5%AD%90.jpg" alt="选择子"></p>
+</li>
+<li>
+<p>在保护模式下，寻址方式如下<img src="/images/OS%E5%AE%9E%E9%AA%8C/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E5%AF%BB%E5%9D%80.jpg" alt="保护模式下的寻址"></p>
+</li>
 </ul>
 <h4 id="%E8%BF%9B%E5%85%A5%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%B8%BB%E8%A6%81%E6%AD%A5%E9%AA%A4" tabindex="-1">进入保护模式的主要步骤</h4>
 <ol>
@@ -155,7 +234,7 @@ boot: a （这里即选择bochs虚拟机的驱动磁盘）</li>
 <h3 id="3.2-%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E8%BF%9B%E9%98%B6" tabindex="-1">3.2 保护模式进阶</h3>
 <ul>
 <li>
-<p>LDT（Local Descriptor Table）局部描述符表</p>
+<p>LDT（Local Descriptor Table）局部描述符表，与GDT差不多，但选择子的TI位必须置为1。在运用它时，需要先使用lldt指令加载ldtr，lldt的操作数是GDT中用来描述LDT的描述符1</p>
 </li>
 <li>
 <p>保护模式中“保护”二字的含义</p>
@@ -172,10 +251,83 @@ boot: a （这里即选择bochs虚拟机的驱动磁盘）</li>
 <li>特权级转移：通过jmp或call进行直接转移</li>
 </ul>
 </li>
+<li>
+<p>门：也是一种描述符，可以分为四种</p>
+<ul>
+<li>调用门：本质上为入口地址，但可以用来实现不同特权级代码之间的转移
+<ul>
+<li>使用调用门的过程分为两个部分：</li>
+<li>
+<ol>
+<li>一部分是从低特权级到高特权级，通过调用门和call指令实现</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>另一部分是从高特权级到低特权级，通过ret指令来实现</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>终端门</li>
+<li>陷阱门</li>
+<li>任务门</li>
+</ul>
+</li>
 </ul>
 <h3 id="3.3-%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8" tabindex="-1">3.3 页式存储</h3>
+<ul>
+<li>
+<ol>
+<li>什么叫做页？<br>
+所谓页，就是一块内存。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>逻辑地址，线性地址，物理地址<br>
+在未打开分页机制前，线性地址等同于物理地址，可以理解为逻辑地址通过分段机制直接转换为物理地址。<br>
+当分页开启后，分段机制将逻辑地址转换为线性地址，线性地址再通过分页机制转换成物理地址。</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>为什么分页？<br>
+其主要目的是实现虚拟存储器，线性地址的任何一个页都可以映射到物理地址中的任何一个页，这使得内存管理变得相当灵活。</li>
+</ol>
+</li>
+</ul>
 <h3 id="3.4-%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8" tabindex="-1">3.4 中断和异常</h3>
+<ul>
+<li>
+<p>IDT：中断描述符表，描述符可以是以下三种</p>
+<ul>
+<li>中断门描述符</li>
+<li>陷阱门描述符</li>
+<li>任务门描述符</li>
+</ul>
+</li>
+<li>
+<p>IDT作用是将每一个中断向量和一个描述符对应起来，IDT也是一种向量表</p>
+</li>
+<li>
+<p>异常的三种类型</p>
+<ul>
+<li>Fault错误：可被更正的异常，且被更正后，程序可以不失连续性地执行</li>
+<li>Trap陷阱：发生trap地指令执行后立即被报告的异常</li>
+<li>Abort异常：不总是报告异常发生位置的异常，不允许程序或任务继续执行，用来报告严重错误</li>
+</ul>
+</li>
+<li>
+<p>中断产生的原因有两种</p>
+<ul>
+<li>一种是外部中断，即由硬件产生的中断</li>
+<li>另一种是由指令 int n 产生的中断，n即为向量号</li>
+</ul>
+</li>
+</ul>
 <h3 id="3.5-%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84i%2Fo" tabindex="-1">3.5 保护模式下的I/O</h3>
+<p>IOPL和IO许可位图</p>
 <h3 id="3.6-%E5%B0%8F%E7%BB%93" tabindex="-1">3.6 小结</h3>
 <p>保护模式有以下几方面含义：</p>
 <ul>
@@ -467,6 +619,228 @@ lib/string.o : lib/string.asm
 </ul>
 </li>
 </ul>
+<h2 id="%E7%AC%AC%E5%85%AD%E7%AB%A0-%E8%BF%9B%E7%A8%8B" tabindex="-1">第六章 进程</h2>
+<h3 id="6.1-6.2-%E8%BF%9F%E5%88%B0%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%8E%E6%A6%82%E8%BF%B0" tabindex="-1">6.1-6.2 迟到的进程与概述</h3>
+<h3 id="6.3-%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E8%BF%9B%E7%A8%8B" tabindex="-1">6.3 最简单的进程</h3>
+<ul>
+<li>进程切换时的过程
+<ul>
+<li>
+<ol>
+<li>进程A运行中</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>时钟中断发生，ring1 -&gt; ring0,时钟中断处理程序启动</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>进程调度，下一个应运行的进程(假设为B进程)被指定</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>进程B被恢复，ring0 -&gt; ring1</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>进程B运行中</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>想要实现这些功能，需要实现以下3项
+<ul>
+<li>时钟中断处理程序</li>
+<li>进程调度模块</li>
+<li>两个进程</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-%E7%AE%80%E5%8D%95%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%85%B3%E9%94%AE%E6%8A%80%E6%9C%AF" tabindex="-1">1 简单进程的关键技术</h4>
+<ul>
+<li>进程的哪些状态需要保存
+<ul>
+<li>只有被改变的才有保存的必要，因此寄存器的值需要保存起来</li>
+</ul>
+</li>
+<li>进程的状态何需要以及怎样被保存
+<ul>
+<li>进程被挂起时即刻保存，中断发生则立即执行</li>
+</ul>
+</li>
+<li>恢复进程B的状态</li>
+<li>进程表的引入
+<ul>
+<li>进程表：保存进程状态的数据结构，也称进程控制块PCB</li>
+<li>进程表相当于进程的提纲</li>
+</ul>
+</li>
+<li>进程栈和内核栈
+<ul>
+<li>在进程调度模块中会使用到堆栈，而寄存器被压到进程表之后，esp是指向进程的某个位置的</li>
+<li>为此，在进程调度后将esp指向内核栈，避免错误的发生</li>
+</ul>
+</li>
+<li>特权级变换:ring1-&gt;ring0
+<ul>
+<li>由外层向内层转移时，需要从TSS中取出内层ss和esp作为目标代码的ss和esp。因此必须事先准备好TSS。由于每个进程相对独立，将涉及到的描述符放在LDT中，为此，需要给每个进程准备LDT</li>
+</ul>
+</li>
+<li>特权级变换:ring0-&gt;ring1
+<ul>
+<li>跳转到中断处理程序的后半部分，“假装”发生了一次中断来启动进程A，利用iretd来实现ring0到ring1转移</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-%E7%AC%AC%E4%B8%80%E6%AD%A5-%E2%80%93-ring0--%3E-ring1" tabindex="-1">2 第一步 – ring0 -&gt; ring1</h4>
+<ul>
+<li>操作系统启动第一个进程时的入口</li>
+</ul>
+<pre><code>restart:
+	mov	esp, [p_proc_ready]
+	lldt	[esp + P_LDT_SEL]
+	lea	eax, [esp + P_STACKTOP]
+	mov	dword [tss + TSS3_S_SP0], eax
+restart_reenter:
+	dec	dword [k_reenter]
+	pop	gs
+	pop	fs
+	pop	es
+	pop	ds
+	popad
+	add	esp, 4
+	iretd
+</code></pre>
+<p>上述代码中：</p>
+<ol>
+<li>p_proc_ready是一个结构类型指针，指向该进程在进程表中的位置；当要恢复一个进程时，便将esp指向这个结构体的开始处，然后运行一系列pop命令将寄存器弹出；</li>
+<li>esp+P_LDT_SEL时选择子的位置，这个语句即对ldt_sel的初始化</li>
+<li>
+<ol start="4">
+<li>将进程表结构体的第一个结构体成员regs的末地址赋给TSS中ring0堆栈指针域esp</li>
+</ol>
+</li>
+</ol>
+<p>接下来一次做一些优先级变化需要的准备工作</p>
+<ol>
+<li>时间中断处理程序：这里先不需要完善的，只要能实现优先级跳转即可</li>
+<li>化整为零：进程表，进程体，GDT，TSS，这四个关系可分为三个部分
+<ol>
+<li>进程表和GDT：进程表内的LDT Selector对应GDT的一个描述符，而这个描述符所指向的内存空间位于进程表</li>
+<li>进程表和进程：进程表是进程的描述，进程在运行过程中如果被打断，各个寄存器的值都会保存在进程表中。此外，程序一定会使用堆栈，因此需要事先指定esp</li>
+<li>GDT和TSS：GDT中有一个描述符对应TSS，需要事先初始化这个描述符</li>
+</ol>
+</li>
+<li>使用restart函数，进行优先级转换</li>
+</ol>
+<ul>
+<li>回顾
+<ul>
+<li>第一个进程启动过程：
+<ul>
+<li>
+<ol>
+<li>进程体TestA()准备就绪</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>初始化GDT中的TSS和LDT两个描述符，以及初始化TSS(在init_prot()完成)</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>准备进程表(在kernel_main()中完成)</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>完成跳转，实现ring0-&gt;ring1（kernel.asm之restart）</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-%E7%AC%AC%E4%BA%8C%E6%AD%A5-%E2%80%93-%E4%B8%B0%E5%AF%8C%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F" tabindex="-1">3 第二步 – 丰富中断处理程序</h4>
+<ol>
+<li>让时间中断开始起作用</li>
+<li>现场的保护和恢复<br>
+中断例程中使用栈来保护寄存器值</li>
+<li>赋值tss.esp0<br>
+存储在ring0时栈指针的位置</li>
+<li>内核栈</li>
+<li>中断重入<br>
+中断处理程序是被动的，它知道中断发生时忠实的执行那段代码，不理会中断何时发生，因此我们需要设置一个全局变量限制中断处理程序的运行。</li>
+</ol>
+<h3 id="6.4-%E5%A4%9A%E8%BF%9B%E7%A8%8B" tabindex="-1">6.4 多进程</h3>
+<ul>
+<li>
+<ol>
+<li>添加一个进程B</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>相关的变量和宏</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>进程表初始化代码扩充</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>初始化LDT，3，4均在上一步加上循环对多进程赋值即可</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>修改中断处理程序</li>
+</ol>
+<ul>
+<li>进程从“睡眠”状态到“运行”状态既是将esp指向进程表项的开始处，因此想要恢复不同的进程，只需要将esp指向不同的进程表即可</li>
+</ul>
+</li>
+<li>
+<p>添加一个进程的步骤总结</p>
+<ul>
+<li>
+<ol>
+<li>在task_table中增加一项(global.c)</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>让NR_TASKS加1</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>定义任务堆栈</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>修改STACK_SIZE_TOTAL(proc.h)</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>添加新进程执行体的函数声明(proto.h)</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="%E7%9B%AE%E5%89%8Dorange%E2%80%99s%E8%BF%90%E8%BD%AC%E8%BF%87%E7%A8%8B" tabindex="-1">目前orange’s运转过程</h3>
+<p><img src="/images/OS%E5%AE%9E%E9%AA%8C/%E6%A9%98%E5%AD%90%E8%BF%90%E8%BD%AC%E8%BF%87%E7%A8%8B.jpg" alt></p>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2023/03/06/%E6%9C%AC%E7%A7%91/%E6%95%B0%E6%8D%AE%E5%BA%93PostgreSQL%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" title="数据库试验--PostgreSQL源码分析--遗传算法的使用"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: 数据库试验--PostgreSQL源码分析--遗传算法的使用</span></a><a class="button is-default" href="/2023/02/28/%E6%9C%AC%E7%A7%91/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0/" title="数据库系统复习"><span class="has-text-weight-semibold">Next: 数据库系统复习</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2023</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
