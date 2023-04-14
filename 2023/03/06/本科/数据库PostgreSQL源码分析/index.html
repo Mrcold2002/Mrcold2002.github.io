@@ -53,11 +53,11 @@ PostgreSQL数据库由连接管理系统(系统控制器)、编译执行系统�
 <p>在PostgreSQL中，遗传算法将路径作为个体，将个体以某种方式编码(个体体现了连接顺序),然后通过重组得到后代，考虑连接代价来计算后代的适应值，再选择合适的后代进行下一次迭代。当到达一定的迭代次数之后，遗传算法终止。选择遗传算法可以减少生成路径的时间，但是遗传算法并不一定能找到&quot;最好&quot;的规划，它只能找到相对较优的路径。</p>
 <h2 id="6-postgresql%E4%B8%AD%E7%9A%84%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95" tabindex="-1">6 PostgreSQL中的遗传算法</h2>
 <p>PostgreSQ 中，遗传算法主要用在连接路径的生成操作中，其流程如下：</p>
-<p><img src="/images/PostgreSQL/GA_process.jpg" alt="GA_process"></p>
+<p><img src="/images/%E6%9C%AC%E7%A7%91/PostgreSQL/GA_process.jpg" alt="GA_process"></p>
 <h3 id="%EF%BC%881%EF%BC%89%E4%B8%AA%E4%BD%93%E7%BC%96%E7%A0%81%E6%96%B9%E5%BC%8F%E5%8F%8A%E7%A7%8D%E7%BE%A4%E5%88%9D%E5%A7%8B%E5%8C%96" tabindex="-1">（1）个体编码方式及种群初始化</h3>
 <p>PG中用遗传算法解决表连接的问题的方式类似于TSP问题。可能的连接路径被当作整数串进行编码。v每个穿代表查询中的一种可能的连接顺序。</p>
 <p>如下图的查询书可以用整数串<code>&quot;4132&quot;</code>编码,即首先连接表&quot;4&quot;和&quot;1&quot; 得到的结果表再和表 “3” 连接，最后再和&quot;2&quot; 连接。</p>
-<p><img src="/images/PostgreSQL/%E6%9F%A5%E8%AF%A2%E6%A0%911.jpg" alt="查询树"></p>
+<p><img src="/images/%E6%9C%AC%E7%A7%91/PostgreSQL/%E6%9F%A5%E8%AF%A2%E6%A0%911.jpg" alt="查询树"></p>
 <p>遗传算法执行第一步为随机初始化种群。假设种群大小为n，首先随机初始化n个排列树，每一个排列数即是一个个体。然后基于n各排列数生成的基本表的连接路径，在此过程中进行代价评估，将最后的代价作为适应值衡量该个体的优劣。</p>
 <p>每一个个体都用Chromosome结构表示，记录了个体的排列和代价</p>
 <pre><code class="language-c">typedef int Gene;
@@ -101,7 +101,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 边重组杂交过程如下：</p>
 <ol>
 <li>两个父体中的基因构成循环队列<br>
-<img src="/images/PostgreSQL/GA_ERX.jpg" alt="查询树"></li>
+<img src="/images/%E6%9C%AC%E7%A7%91/PostgreSQL/GA_ERX.jpg" alt="查询树"></li>
 <li>确定父体间的边关系<br>
 在步骤1中的循环队列中，任意一个基因和相邻的基因构成“边关系”。如果某“边关系”同时在父体1和父体2中出现，则称为“共享边”。</li>
 <li>由边关系得到后代<br>
@@ -160,7 +160,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 </ol>
 <h3 id="%EF%BC%887%EF%BC%89%E5%9F%BA%E4%BA%8E%E6%8E%92%E5%88%97%E7%94%9F%E6%88%90%E8%B7%AF%E5%BE%84" tabindex="-1">（7）基于排列生成路径</h3>
 <p>在遗传算法中由排列生成连接路径由以下算法实现</p>
-<p><img src="/images/PostgreSQL/GA_creat_path.jpg" alt="GA_creat_path"></p>
+<p><img src="/images/%E6%9C%AC%E7%A7%91/PostgreSQL/GA_creat_path.jpg" alt="GA_creat_path"></p>
 <p>其中变量rels中保存了按照排列数所对应的各个基本关系（即基本表）。<br>
 变量rels_temp用来保存当前不可连接的关系。（不可连接指只能用笛卡尔积进行连接）</p>
 <p>该算法的处理过程：</p>
