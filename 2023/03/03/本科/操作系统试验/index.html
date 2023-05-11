@@ -69,9 +69,9 @@ mouse: enabled=0
 
 </code></pre>
 <p>之后在bin文件夹下输入<code>bochs -f bochsrc</code>即可运行虚拟机，选择6开始模拟，之后输入c即可显示交互命令行界面<br>
-<img src="/images/本科//OS实验/bochs_1.jpg"><br>
-<img src="/images/本科//OS实验/bochs_2.jpg"><br>
-<img src="/images/本科//OS实验/bochs_3.jpg"><br>
+<img src="/images/本科/OS实验/bochs_1.jpg"><br>
+<img src="/images/本科/OS实验/bochs_2.jpg"><br>
+<img src="/images/本科/OS实验/bochs_3.jpg"><br>
 在上图中，报错是因为我们还没有驱动磁盘，在bochsrc的配置代码中我们可以看到该虚拟机配备软盘floppy为a.img，那么接下来我们就要创建一个软盘去实现一个最小的操作系统</p>
 <h3 id="3-%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F" tabindex="-1">3 最简单的操作系统</h3>
 <p>我们首先创建一个虚拟软盘(硬盘应该也可以，书中为软盘，毕竟是09年老书)。命令<code>bximage</code><br>
