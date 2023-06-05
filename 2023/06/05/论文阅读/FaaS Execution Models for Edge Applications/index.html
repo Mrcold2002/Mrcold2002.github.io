@@ -1,0 +1,327 @@
+<!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>FaaS Execution Models for Edge Applications</title><meta name="description" content="菜"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="0 摘要
+
+
+在这篇论文中，我们解决了在边缘网络中支持基于函数即服务（FaaS）模型的有状态工作流的问题。
+
+
+特别是我们关注数据传输问题，由于某些边缘场景中通信链路速度有限，这可能成为性能瓶颈。为此，我们提出了三种不同的方案：
+
+纯FaaS实现
+StateProp（应用状态在整个函数链中传播）
+以及StateLocal（状态仅保留在运行函数的工作节点上，需要时进行检索）。
+
+
+
+然后，我们将提出的方案扩展到应用程序建模为有向无环图（DAG）的更一般情况，这种建模方法涵盖了广泛的实际应用场景，例如物联网（IoT）领域。
+
+
+我们的贡献通过原型实现进行了验证。在模拟条件下的实验表明，应用数据本地化原则显著减少了所需的网络流量并改善了端到端的延迟性能，尤其是在边缘节点上进行本地缓存和低链路速度的情况下。
+
+
+1.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">FaaS Execution Models for Edge Applications</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E6%91%98%E8%A6%81"><span class="toc-text">0 摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%8A%A8%E6%9C%BA%EF%BC%9A%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-text">2 动机：实际应用案例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-text">3 相关工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%9C%89%E7%8A%B6%E6%80%81%E7%9A%84%E5%87%BD%E6%95%B0%E9%93%BE"><span class="toc-text">4 有状态的函数链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%89%A9%E5%B1%95%E5%88%B0dag"><span class="toc-text">5 扩展到DAG</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5.1-dag%E7%89%B9%E5%AE%9A%E7%AC%A6%E5%8F%B7%E8%A1%A8%E7%A4%BA"><span class="toc-text">5.1 DAG特定符号表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2-purefaas%E6%A8%A1%E5%9E%8B%E6%89%A9%E5%B1%95"><span class="toc-text">5.2 PureFaaS模型扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.3-stateprop/statelocal%E6%A8%A1%E5%9E%8B%E6%89%A9%E5%B1%95"><span class="toc-text">5.3 StateProp&#x2F;StateLocal模型扩展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E8%A1%A8%E7%8E%B0%E8%AF%84%E4%BC%B0"><span class="toc-text">6 表现评估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E7%BB%93%E8%AE%BA"><span class="toc-text">7 结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%93%E4%B8%9A%E6%9C%AF%E8%AF%AD"><span class="toc-text">专业术语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#faas-&-serverless"><span class="toc-text">FaaS &amp; Serverless</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E7%8A%B6%E6%80%81faas"><span class="toc-text">无状态FaaS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#k8s"><span class="toc-text">K8s</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97"><i class="tag post-item-tag">边缘计算</i></a><a href="/tags/Faas"><i class="tag post-item-tag">Faas</i></a><a href="/tags/ServerLess"><i class="tag post-item-tag">ServerLess</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">FaaS Execution Models for Edge Applications</h1><time class="has-text-grey" datetime="2023-06-05T10:01:35.802Z">2023-06-05</time><article class="mt-2 post-content"><h2 id="0-%E6%91%98%E8%A6%81" tabindex="-1">0 摘要</h2>
+<ul>
+<li>
+<p>在这篇论文中，我们解决了在边缘网络中支持基于函数即服务（FaaS）模型的有状态工作流的问题。</p>
+</li>
+<li>
+<p>特别是我们关注数据传输问题，由于某些边缘场景中通信链路速度有限，这可能成为性能瓶颈。为此，我们提出了三种不同的方案：</p>
+<ul>
+<li>纯FaaS实现</li>
+<li>StateProp（应用状态在整个函数链中传播）</li>
+<li>以及StateLocal（状态仅保留在运行函数的工作节点上，需要时进行检索）。</li>
+</ul>
+</li>
+<li>
+<p>然后，我们将提出的方案扩展到应用程序建模为有向无环图（DAG）的更一般情况，这种建模方法涵盖了广泛的实际应用场景，例如物联网（IoT）领域。</p>
+</li>
+<li>
+<p>我们的贡献通过原型实现进行了验证。在模拟条件下的实验表明，应用数据本地化原则显著减少了所需的网络流量并改善了端到端的延迟性能，尤其是在边缘节点上进行本地缓存和低链路速度的情况下。</p>
+</li>
+</ul>
+<h2 id="1-%E4%BB%8B%E7%BB%8D" tabindex="-1">1 介绍</h2>
+<ul>
+<li>
+<p>这篇论文中，我们针对有状态函数工作流中的数据传输问题（包括参数/返回值和应用状态）</p>
+</li>
+<li>
+<p>以第2节中介绍的实际应用案例为动机进行了研究，</p>
+</li>
+<li>
+<p>在回顾现有技术（第3节）之后，</p>
+</li>
+<li>
+<p>我们在我们之前的工作中总结了研究结果（第4节），提出了三种完全去中心化的执行模型：PureFaaS、StateProp和StateLocal</p>
+</li>
+<li>
+<p>第5节中，这些模型扩展到将应用程序建模到DAG的更一般情况</p>
+</li>
+<li>
+<p>第6节中比较他们的性能</p>
+</li>
+<li>
+<p>第7节中得出结论</p>
+</li>
+</ul>
+<h2 id="2-%E5%8A%A8%E6%9C%BA%EF%BC%9A%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B" tabindex="-1">2 动机：实际应用案例</h2>
+<ul>
+<li>
+<p>一个用于智慧城市的实时分析框架，与几个高影响的应用相关</p>
+<ul>
+<li>自动检测异常交通情况</li>
+<li>检测拥挤区域</li>
+<li>保护脆弱人群</li>
+<li>公共事件中的情绪识别等</li>
+</ul>
+</li>
+<li>
+<p>这些应用程序有着相似的总体结构<img src="/images/%E8%AE%BA%E6%96%87/FaaS%20Execution%20Models%20for%20Edge%20Application/%E6%A1%88%E4%BE%8B%E6%80%BB%E4%BD%93%E7%BB%93%E6%9E%84.jpg" alt></p>
+<ul>
+<li>从传感器获取数据开始，首先进行匿名化处理以删除个人数据，然后提取相关特征并用于触发基于机器学习（ML）的决策过程。</li>
+<li>此时普通的Serverless不能在这里采用，原因
+<ul>
+<li>
+<ol>
+<li>无状态执行是不够的：一些组件需要对程序状态进行读写访问</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>FaaS支持函数链，但这里工作流程为DAG</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>这些应用的状态可以保存在3个位置</p>
+<ul>
+<li>
+<ol>
+<li>本地客户端</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>边缘节点</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>云端</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>而对于这些可保存状态的文职，随着传感器获得数据大小的增加，3个位置时延的增加有所不同<img src="/images/%E8%AE%BA%E6%96%87/FaaS%20Execution%20Models%20for%20Edge%20Application/%E6%A1%88%E4%BE%8B%E6%97%B6%E5%BB%B6.jpg" alt></p>
+<ul>
+<li>云端时延最高，且随着状态的增大而显著增大</li>
+<li>状态在边缘或者客户端维护时，没有明显增加，但事实需要更高的网络流量成本</li>
+</ul>
+</li>
+<li>
+<p>综上：由DAG状态函数组成的数据密集型应用程序（例如实时智慧城市分析）的性能在很大程度上取决于状态的存储位置，而这也是本文研究的主题。</p>
+</li>
+<li>
+<p>DAG状态应用程序并不是特殊情况，依据阿里巴巴数据中心的生产系统中收集的真实云应用程序的跟踪信息：</p>
+<ul>
+<li>由DAG组成的占21.7%</li>
+<li>单个任务28.6%</li>
+<li>链占49.7%</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C" tabindex="-1">3 相关工作</h2>
+<ul>
+<li>云中的无服务器平台依赖于底层容器编排系统，这些系统处理自动缩放并负责保持一致的性能。然而，当在边缘使用这些编排工具时，设备是异构且集群化的，这会导致低效的性能。</li>
+<li>支持有状态应用程序是云中无服务器计算定位文件中确定的关键研究挑战之一</li>
+<li>目前，边缘网络中的有状态FaaS在很大程度上尚未被探索，这是我们的动机，探索不同的方法来处理函数调用的链和DAG的参数和状态分配。在实际部署中，可以将复杂的状态管理系统与我们在本文中提出的执行模型结合使用。</li>
+<li>之后再补充</li>
+</ul>
+<h2 id="4-%E6%9C%89%E7%8A%B6%E6%80%81%E7%9A%84%E5%87%BD%E6%95%B0%E9%93%BE" tabindex="-1">4 有状态的函数链</h2>
+<p><img src="/images/%E8%AE%BA%E6%96%87/FaaS%20Execution%20Models%20for%20Edge%20Application/%E7%B3%BB%E7%BB%9F%E6%A8%A1%E5%9E%8B.jpg" alt></p>
+<ul>
+<li>图中共有四个边缘节点，表示为ni，每个节点都托管一个无服务器平台，可以通过一组工作节点执行一个或多个类型的Lambda函数，表示为λi。例如，n1可以执行Lambda函数λ1和λ4，但不能执行λ2和λ3。</li>
+</ul>
+<p><img src="/images/%E8%AE%BA%E6%96%87/FaaS%20Execution%20Models%20for%20Edge%20Application/%E7%A4%BA%E4%BE%8B%E7%94%A8%E6%88%B7%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F.jpg" alt></p>
+<ul>
+<li>考虑上图的示例用户应用程序
+<ul>
+<li>客户端需要将输出提供给λ1</li>
+<li>λ1需要应用状态SA，其输出out1需要提供λ2</li>
+<li>以此类推，最终输出out4返回客户端</li>
+</ul>
+</li>
+<li>在云中，有状态函数通过访问外部服务（例如内存数据库或存储服务）来实现无状态函数。然而这种方法在边缘上并不高效，由此提出三种方法，下列方法中假设函数分配为：[λ1，λ2，λ3，λ4] → [n1，n4，n2，n1]。</li>
+</ul>
+<p><img src="/images/%E8%AE%BA%E6%96%87/FaaS%20Execution%20Models%20for%20Edge%20Application/PureFaaS%E6%96%B9%E6%B3%95.jpg" alt></p>
+<ul>
+<li>PureFaaS中，函数链中的函数一个接一个地执行，并且每次调用时都会来回传输每个函数所需的状态，如上图示，只要满足以下两个条件，就可以在商业/开源的无服务器平台上轻松实现此策略
+<ul>
+<li>
+<ol>
+<li>函数的签名（包括参数和返回值）支持客户端嵌入所需的状态</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>客户端事先知道每个下一个被调用的函数所需的状态。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/%E8%AE%BA%E6%96%87/FaaS%20Execution%20Models%20for%20Edge%20Application/StateProp%E6%96%B9%E6%B3%95.jpg" alt></p>
+<ul>
+<li>StateProp中，它利用了大多数无服务器平台提供的链式功能，如上图示，客户端将应用程序的完整状态嵌入到函数的参数和返回值中：不使用嵌入状态的函数将简单地将其传递，而其他函数将将接收到的修改后的状态作为函数参数嵌入，并最终返回给客户端。</li>
+</ul>
+<p><img src="/images/%E8%AE%BA%E6%96%87/FaaS%20Execution%20Models%20for%20Edge%20Application/StateLocal%E6%96%B9%E6%B3%95.jpg" alt></p>
+<ul>
+<li>StateLocal将状态保留在边缘节点中,如上图所示，不是将状态嵌入到函数调用中，而是仅传递指针。
+<ul>
+<li>当一个Lambda函数需要状态时，它通过指针检索状态，然后成为状态的新所有者，从而修改链中后续函数调用中的状态指针。</li>
+<li>这样，客户端最终将返回所有状态的更新指针列表，以便在后续应用程序执行中使用它们，或者在需要时从边缘节点中撤回状态。</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-%E6%89%A9%E5%B1%95%E5%88%B0dag" tabindex="-1">5 扩展到DAG</h2>
+<h3 id="5.1-dag%E7%89%B9%E5%AE%9A%E7%AC%A6%E5%8F%B7%E8%A1%A8%E7%A4%BA" tabindex="-1">5.1 DAG特定符号表示</h3>
+<p><img src="/images/%E8%AE%BA%E6%96%87/FaaS%20Execution%20Models%20for%20Edge%20Application/%E4%BE%9D%E8%B5%96%E5%9B%BE1.jpg" alt></p>
+<ul>
+<li>一组任务之间的关系：如果任务λi必须在任务λj之前执行，则存在边λi → λj。这些先行关系定义了一个有向图，称为任务依赖图，最后形成DAG</li>
+<li>任务也可能依赖某些状态：态依赖图是一个无向图，其中边λi → Sx表示任务λj需要访问状态Sx。任务依赖图和状态依赖图的并集生成任务-状态依赖图；如上图示</li>
+</ul>
+<p><img src="/images/%E8%AE%BA%E6%96%87/FaaS%20Execution%20Models%20for%20Edge%20Application/%E4%BE%9D%E8%B5%96%E5%9B%BE2.jpg" alt></p>
+<ul>
+<li>
+<p>在应用程序的单次执行过程中，可能会出现多个任务需要在同一状态上操作的情况，就像上图中的示例一样。根据应用程序的内部逻辑，可能会出现以下情况</p>
+<ul>
+<li>
+<ol>
+<li>执行顺序无关紧要</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>λ2必须在λ3之前执行</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>λ3必须在λ2之前执行</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>服务器无状态平台需要从应用程序中了解依赖于共享状态的任务的执行时间顺序，以保持状态的因果一致性。为此，我们通过以下方式来捕捉这种时间顺序，将任务-状态依赖图进行扩展：</p>
+<ul>
+<li>如果λi和λj都使用相同的状态，并且λi必须在λj之前执行以确保共享状态的因果一致性，我们添加一个虚拟边λi → λj，虚线表示，如上图示。</li>
+</ul>
+</li>
+<li>
+<p>添加虚拟边会影响可以实现的并行性：没有状态依赖关系的情况下，在上图中的DAG可以执行为{λ1, λ2 | λ3, λ4}（其中|表示两个任务可以并行执行）</p>
+<ul>
+<li>但在下图中需要虚拟边λ4 → λ2，但这会创建循环λ2 → λ3 → λ4，从而导致死锁：λ4无法执行，直到它接收到λ3的输出，而λ3无法运行，直到它接收到λ2的输出，而λ2在λ4执行完成之前无法访问状态S.</li>
+<li>由于应用程序可以检测到这种情况，并且这反映了逻辑设计问题，因此我们假设我们感兴趣的应用程序仅限于具有非循环的扩展任务-状态依赖图。<br>
+<img src="/images/%E8%AE%BA%E6%96%87/FaaS%20Execution%20Models%20for%20Edge%20Application/%E4%BE%9D%E8%B5%96%E5%9B%BE3.jpg" alt></li>
+</ul>
+</li>
+</ul>
+<h3 id="5.2-purefaas%E6%A8%A1%E5%9E%8B%E6%89%A9%E5%B1%95" tabindex="-1">5.2 PureFaaS模型扩展</h3>
+<ul>
+<li>PureFaaS在链式函数调用和DAG中的使用方式保持不变，除了可以并行执行一些任务外。类似于拓扑排序，下图为示例</li>
+</ul>
+<p><img src="/images/%E8%AE%BA%E6%96%87/FaaS%20Execution%20Models%20for%20Edge%20Application/PureFaaS%E6%A8%A1%E5%9E%8B%E6%8B%93%E5%B1%951.jpg" alt><br>
+<img src="/images/%E8%AE%BA%E6%96%87/FaaS%20Execution%20Models%20for%20Edge%20Application/PureFaaS%E6%A8%A1%E5%9E%8B%E6%8B%93%E5%B1%95.jpg" alt></p>
+<h3 id="5.3-stateprop%2Fstatelocal%E6%A8%A1%E5%9E%8B%E6%89%A9%E5%B1%95" tabindex="-1">5.3 StateProp/StateLocal模型扩展</h3>
+<ul>
+<li>
+<p>StateProp和StateLocal都依赖于工作节点在当前函数完成后调用下一个函数；它们在状态管理方面有所区别：StateProp沿着函数调用链传递状态，而StateLocal将状态保留在最后使用它的边缘节点内部。</p>
+</li>
+<li>
+<p>首先，一个任务可能有多个输入，比如λ2和λ3都希望在各自的任务结束后执行λ4，因此“每个函数执行下一个函数”的概念并不像链式函数那样明确定义。我们通过引入异步调用的概念来解决这个问题：当一个函数终止时，它总是调用下一个函数（根据DAG的直接后继），但只有在所有输入都可用时才触发任务的执行。(这里相当于拓朴排序)</p>
+<ul>
+<li>如果情况不是这样，则前一个函数的输出暂时存储在边缘节点上，函数会暂停执行<img src="/images/%E8%AE%BA%E6%96%87/FaaS%20Execution%20Models%20for%20Edge%20Application/5_3_1.jpg" alt></li>
+<li>上图中的模式，增加了边缘节点上服务器无状态平台的复杂性，因为它们必须为每个不完整的操作维护一个临时状态。</li>
+<li>但这种异步调用本身并不能解决问题：当λ2和λ3不同时调用n4节点的λ4时，将发生死锁</li>
+</ul>
+</li>
+<li>
+<p>因此，为了支持StateProp/StateLocal，至少在DAG应用的单个执行期间，所有工作节点都需要知道函数与边缘节点之间的映射关系。这样，我们可以确保所有工作节点将在相同的边缘节点上调用后续任务的执行，这将带来以下影响</p>
+<ul>
+<li>
+<ol>
+<li>函数与边缘节点之间的映射信息必须沿着执行DAG传递，这会略微增加协议开销</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>必须有一个能够在DAG被调用时“解析”所有函数的过程（例如，可以由客户端完成），这可能会增加启动延迟</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>但仍不够支持StateProp/StateLocal，如果λ2和λ3都依赖于相同的状态S。无论相对顺序如何，都需要将由第一个要执行的函数（例如λ2）修改的更新状态传递给另一个函数（例如λ3）。但是两者之间没有调用路径，即λ3不是DAG中λ2的后代，这使得仅仅依靠状态传播变得不可能。因此，提出第二个修改</p>
+<ul>
+<li>不再将状态嵌入函数参数（或其引用，对于StateLocal而言）</li>
+<li>而是每个访问状态的函数将其直接发送给下一个将使用它的工作节点，根据状态依赖图和因果一致性约束，这两者已经是已知的。</li>
+<li>因此，函数的工作节点必须准备好不仅接收异步调用并临时存储其参数，还要存储更新的状态，这些状态也是异步到达的。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/%E8%AE%BA%E6%96%87/FaaS%20Execution%20Models%20for%20Edge%20Application/5_3_2.jpg" alt></p>
+<ul>
+<li>上图是同PureFaaS解决的依赖图中StateProp/StateLocal的顺序图，两者之间唯一的区别在于对于StateLocal，状态必须从最后的所有者中检索</li>
+</ul>
+<p><img src="/images/%E8%AE%BA%E6%96%87/FaaS%20Execution%20Models%20for%20Edge%20Application/5_3_3.jpg" alt></p>
+<ul>
+<li>
+<p>上表为所有方案的流量交换</p>
+</li>
+<li>
+<p>总结：StateProp和StateLocal可以支持DAG应用程序，但需要进行以下主要修改：</p>
+<ul>
+<li>工作节点必须支持异步函数调用</li>
+<li>在单个DAG执行期间，函数和边缘节点之间的绑定必须为所有工作节点所知，而状态不能随参数一起传播</li>
+</ul>
+</li>
+<li>
+<p>这些变化增加了在边缘节点上运行的软件的复杂性和协议开销，并加剧了可能存在的有关披露专有信息的担忧</p>
+</li>
+</ul>
+<h2 id="6-%E8%A1%A8%E7%8E%B0%E8%AF%84%E4%BC%B0" tabindex="-1">6 表现评估</h2>
+<h2 id="7-%E7%BB%93%E8%AE%BA" tabindex="-1">7 结论</h2>
+<h2 id="%E4%B8%93%E4%B8%9A%E6%9C%AF%E8%AF%AD" tabindex="-1">专业术语</h2>
+<h3 id="faas-%26-serverless" tabindex="-1">FaaS &amp; Serverless</h3>
+<p>FaaS是一种云计算模型，其中开发者可以编写和部署独立的函数（代码块），并通过云服务提供商的平台执行这些函数。FaaS允许开发者根据需要执行函数，而无需管理底层的服务器和基础设施。每个函数都是独立的、无状态的，以事件驱动的方式触发执行。开发者只需关注函数的实现，而不用担心服务器的管理和扩展性。</p>
+<p>Serverless是一种更广泛的概念，它是构建在FaaS模型之上的。Serverless强调开发者无需关心服务器和基础设施，只需专注于编写代码和业务逻辑。在Serverless架构中，云服务提供商负责自动扩展和管理底层的资源。开发者只需支付根据函数执行时间和资源消耗计算的费用，而无需事先预留或管理服务器。</p>
+<p>FaaS和Serverless提供了更灵活、可扩展的开发和部署方式，使开发者能够更专注于核心业务逻辑而不必担心基础设施的细节。它们在构建微服务、事件驱动应用和处理短暂任务等场景中得到广泛应用，为开发者提供了高度可伸缩、成本效益高的解决方案。</p>
+<h3 id="%E6%97%A0%E7%8A%B6%E6%80%81faas" tabindex="-1">无状态FaaS</h3>
+<ul>
+<li>无状态FaaS指的是函数即服务（FaaS）模型中的一种特性，即函数本身不存储任何状态信息。在无状态FaaS中，每个函数都是独立的、无状态的，它们被设计成接收输入参数并生成输出结果，而不会在函数之间保留任何状态信息。</li>
+<li>这种设计有助于实现函数的高度可伸缩性和灵活性。由于函数本身不存储状态，它们可以独立地扩展和部署，而无需关心底层的服务器和基础设施。此外，无状态函数对于并行执行和容错性也更具优势，因为它们之间没有任何依赖或共享状态。</li>
+<li>然而，无状态FaaS也意味着对于那些需要在函数之间共享和保持状态的应用程序来说，需要依赖外部服务（例如存储或数据库）来管理和存储状态信息。因此，无状态FaaS适用于那些可以通过函数的输入和输出进行完全描述的简单任务或短期计算，而对于复杂的应用程序或需要持久状态的任务，则可能需要其他机制来处理状态管理和共享。</li>
+</ul>
+<h3 id="k8s" tabindex="-1">K8s</h3>
+<ul>
+<li>Kubernetes（通常简称为K8s）是一个开源的容器编排平台，用于自动化部署、扩展和管理容器化应用程序。它提供了一组强大的功能和工具，帮助用户简化容器化应用程序的部署、扩展和运维工作。</li>
+<li>以下是Kubernetes的一些主要特性和概念：
+<ul>
+<li>容器编排：Kubernetes可以管理和编排容器化的应用程序，使其能够高效地运行在集群中的多个节点上。它可以自动在集群中的节点之间调度容器，并确保应用程序的高可用性和负载均衡。</li>
+<li>自动伸缩：Kubernetes允许根据应用程序的负载情况自动扩展或缩减应用程序的副本数量。这样可以根据实际需求来调整资源的使用，以保证应用程序的性能和可用性。</li>
+<li>服务发现和负载均衡：Kubernetes提供了内建的服务发现机制，可以为应用程序提供稳定的网络地址。同时，它还可以通过负载均衡来分发流量，确保应用程序能够平均地处理请求。</li>
+<li>配置和存储管理：Kubernetes提供了灵活的配置管理机制，可以将应用程序的配置信息与容器分离，使得配置的修改和更新更加方便。此外，Kubernetes还支持多种存储选项，包括持久化存储和临时存储。</li>
+<li>自愈和自修复：Kubernetes具备自愈和自修复的能力，当应用程序出现故障或节点失效时，它可以自动重新启动容器、替换故障节点，并确保应用程序的正常运行。</li>
+<li>扩展性和可插拔性：Kubernetes的设计具有良好的扩展性和可插拔性，可以根据需要添加新的功能和组件。它提供了丰富的API和扩展点，允许开发人员根据自己的需求进行定制和扩展。</li>
+</ul>
+</li>
+<li>总的来说，Kubernetes为容器化应用程序的部署、管理和运维提供了一套完整的解决方案。它可以帮助用户简化复杂的容器编排任务，并提供高可用性、弹性伸缩和自动化管理等功能，使得应用程序能够更加高效和可靠地运行在分布式环境中。</li>
+</ul>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><em></em><a class="button is-default" href="/2023/06/03/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/P2PFaaS/" title="P2PFaaS"><span class="has-text-weight-semibold">Next: P2PFaaS</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2023</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
