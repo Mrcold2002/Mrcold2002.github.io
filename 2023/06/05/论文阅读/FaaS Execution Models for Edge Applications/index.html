@@ -1,5 +1,6 @@
 <!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>FaaS Execution Models for Edge Applications</title><meta name="description" content="菜"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
-<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="0 摘要
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="
+0 摘要
 
 
 在这篇论文中，我们解决了在边缘网络中支持基于函数即服务（FaaS）模型的有状态工作流的问题。
@@ -19,8 +20,9 @@ StateProp（应用状态在整个函数链中传播）
 我们的贡献通过原型实现进行了验证。在模拟条件下的实验表明，应用数据本地化原则显著减少了所需的网络流量并改善了端到端的延迟性能，尤其是在边缘节点上进行本地缓存和低链路速度的情况下。
 
 
-1.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">FaaS Execution Models for Edge Applications</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E6%91%98%E8%A6%81"><span class="toc-text">0 摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%8A%A8%E6%9C%BA%EF%BC%9A%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-text">2 动机：实际应用案例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-text">3 相关工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%9C%89%E7%8A%B6%E6%80%81%E7%9A%84%E5%87%BD%E6%95%B0%E9%93%BE"><span class="toc-text">4 有状态的函数链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%89%A9%E5%B1%95%E5%88%B0dag"><span class="toc-text">5 扩展到DAG</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5.1-dag%E7%89%B9%E5%AE%9A%E7%AC%A6%E5%8F%B7%E8%A1%A8%E7%A4%BA"><span class="toc-text">5.1 DAG特定符号表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2-purefaas%E6%A8%A1%E5%9E%8B%E6%89%A9%E5%B1%95"><span class="toc-text">5.2 PureFaaS模型扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.3-stateprop/statelocal%E6%A8%A1%E5%9E%8B%E6%89%A9%E5%B1%95"><span class="toc-text">5.3 StateProp&#x2F;StateLocal模型扩展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E8%A1%A8%E7%8E%B0%E8%AF%84%E4%BC%B0"><span class="toc-text">6 表现评估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E7%BB%93%E8%AE%BA"><span class="toc-text">7 结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%93%E4%B8%9A%E6%9C%AF%E8%AF%AD"><span class="toc-text">专业术语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#faas-&-serverless"><span class="toc-text">FaaS &amp; Serverless</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E7%8A%B6%E6%80%81faas"><span class="toc-text">无状态FaaS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#k8s"><span class="toc-text">K8s</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97"><i class="tag post-item-tag">边缘计算</i></a><a href="/tags/Faas"><i class="tag post-item-tag">Faas</i></a><a href="/tags/ServerLess"><i class="tag post-item-tag">ServerLess</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">FaaS Execution Models for Edge Applications</h1><time class="has-text-grey" datetime="2023-06-05T10:01:35.802Z">2023-06-05</time><article class="mt-2 post-content"><h2 id="0-%E6%91%98%E8%A6%81" tabindex="-1">0 摘要</h2>
+.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">FaaS Execution Models for Edge Applications</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E6%91%98%E8%A6%81"><span class="toc-text">0 摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%8A%A8%E6%9C%BA%EF%BC%9A%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-text">2 动机：实际应用案例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-text">3 相关工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%9C%89%E7%8A%B6%E6%80%81%E7%9A%84%E5%87%BD%E6%95%B0%E9%93%BE"><span class="toc-text">4 有状态的函数链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%89%A9%E5%B1%95%E5%88%B0dag"><span class="toc-text">5 扩展到DAG</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5.1-dag%E7%89%B9%E5%AE%9A%E7%AC%A6%E5%8F%B7%E8%A1%A8%E7%A4%BA"><span class="toc-text">5.1 DAG特定符号表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2-purefaas%E6%A8%A1%E5%9E%8B%E6%89%A9%E5%B1%95"><span class="toc-text">5.2 PureFaaS模型扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.3-stateprop/statelocal%E6%A8%A1%E5%9E%8B%E6%89%A9%E5%B1%95"><span class="toc-text">5.3 StateProp&#x2F;StateLocal模型扩展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E8%A1%A8%E7%8E%B0%E8%AF%84%E4%BC%B0"><span class="toc-text">6 表现评估</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6.1-%E6%89%A7%E8%A1%8C"><span class="toc-text">6.1 执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6.2-%E7%BB%93%E6%9E%9C"><span class="toc-text">6.2 结果</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E9%93%BE%EF%BC%9A"><span class="toc-text">函数链：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dag"><span class="toc-text">DAG</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E7%BB%93%E8%AE%BA"><span class="toc-text">7 结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%93%E4%B8%9A%E6%9C%AF%E8%AF%AD"><span class="toc-text">专业术语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#faas-&-serverless"><span class="toc-text">FaaS &amp; Serverless</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E7%8A%B6%E6%80%81faas"><span class="toc-text">无状态FaaS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#k8s"><span class="toc-text">K8s</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mininet"><span class="toc-text">Mininet</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97"><i class="tag post-item-tag">边缘计算</i></a><a href="/tags/Faas"><i class="tag post-item-tag">Faas</i></a><a href="/tags/ServerLess"><i class="tag post-item-tag">ServerLess</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">FaaS Execution Models for Edge Applications</h1><time class="has-text-grey" datetime="2023-06-05T10:01:35.802Z">2023-06-05</time><article class="mt-2 post-content"><p><img src="https://arxiv.org/pdf/2111.06595.pdf" alt="论文连接"></p>
+<h2 id="0-%E6%91%98%E8%A6%81" tabindex="-1">0 摘要</h2>
 <ul>
 <li>
 <p>在这篇论文中，我们解决了在边缘网络中支持基于函数即服务（FaaS）模型的有状态工作流的问题。</p>
@@ -42,27 +44,13 @@ StateProp（应用状态在整个函数链中传播）
 </ul>
 <h2 id="1-%E4%BB%8B%E7%BB%8D" tabindex="-1">1 介绍</h2>
 <ul>
-<li>
-<p>这篇论文中，我们针对有状态函数工作流中的数据传输问题（包括参数/返回值和应用状态）</p>
-</li>
-<li>
-<p>以第2节中介绍的实际应用案例为动机进行了研究，</p>
-</li>
-<li>
-<p>在回顾现有技术（第3节）之后，</p>
-</li>
-<li>
-<p>我们在我们之前的工作中总结了研究结果（第4节），提出了三种完全去中心化的执行模型：PureFaaS、StateProp和StateLocal</p>
-</li>
-<li>
-<p>第5节中，这些模型扩展到将应用程序建模到DAG的更一般情况</p>
-</li>
-<li>
-<p>第6节中比较他们的性能</p>
-</li>
-<li>
-<p>第7节中得出结论</p>
-</li>
+<li>这篇论文中，我们针对有状态函数工作流中的数据传输问题（包括参数/返回值和应用状态）</li>
+<li>以第2节中介绍的实际应用案例为动机进行了研究，</li>
+<li>在回顾现有技术（第3节）之后，</li>
+<li>我们在我们之前的工作中总结了研究结果（第4节），提出了三种完全去中心化的执行模型：PureFaaS、StateProp和StateLocal</li>
+<li>第5节中，这些模型扩展到将应用程序建模到DAG的更一般情况</li>
+<li>第6节中比较他们的性能</li>
+<li>第7节中得出结论</li>
 </ul>
 <h2 id="2-%E5%8A%A8%E6%9C%BA%EF%BC%9A%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B" tabindex="-1">2 动机：实际应用案例</h2>
 <ul>
@@ -295,7 +283,167 @@ StateProp（应用状态在整个函数链中传播）
 </li>
 </ul>
 <h2 id="6-%E8%A1%A8%E7%8E%B0%E8%AF%84%E4%BC%B0" tabindex="-1">6 表现评估</h2>
+<h3 id="6.1-%E6%89%A7%E8%A1%8C" tabindex="-1">6.1 执行</h3>
+<ul>
+<li>
+<p>在ServerlessOnEdge框架中实现这三种方案</p>
+<ul>
+<li>该框架是一个分布式的调度无状态FaaS函数的框架</li>
+<li>有论文团队开发和维护</li>
+<li>在github开源</li>
+</ul>
+</li>
+<li>
+<p>在该框架中</p>
+<ul>
+<li>客户端通过e路由器调用请求函数</li>
+<li>同时e路由器在无服务平台上充当中间人的角色，将无状态请求转发到根据负载和网络条件可用的多个目的地之一</li>
+<li>实现了e计算机，它可以模拟具有特定配置的无服务器平台，包括计算速度、内存、容器数量等</li>
+<li>ServerlessOnEdge使用谷歌的gRPC进行客户端、e路由器和e计算机之间的通信。</li>
+</ul>
+</li>
+<li>
+<p>PureFaaS的实现</p>
+<ul>
+<li>
+<ol>
+<li>客户端在每个函数调用时将所需的状态嵌入参数中</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>e计算机将嵌入的状态作为函数返回值的一部分返回</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>如果满足先决条件，会调用多个函数（仅适用于DAG）</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>StateProp的实现</p>
+<ul>
+<li>
+<ol>
+<li>实现异步调用：立即返回空的确认消息，而真正的输出由链中的最后一个e计算机作为主动回应消息提供给客户端</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>在每个e计算机上安装了一个附带的e路由器，用于调度由其e计算机生成的函数调用作为函数链的一部分执行，这样系统中的每个e计算机可以知道链中下一个函数的目的地</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/%E8%AE%BA%E6%96%87/FaaS%20Execution%20Models%20for%20Edge%20Application/6_1_1.jpg" alt></p>
+<ul>
+<li>
+<p>上图展示了StateProp的实现</p>
+<ul>
+<li λ1, λ4>图中共有5个边缘节点(主机1到主机5)，调用两个函数链</li>
+<li>客户端在主机0上，主机0上e路由器被客户端用于调用链中的第一个函数（λ1，转发到主机1）</li>
+<li>主机1上的e路由器接收到对λ4的下一次调用（转发到主机4）</li>
+<li>主机4上的e计算机不需要经过其附带的e路由器，因为它可以将最终响应发送给主机0上的客户端</li>
+</ul>
+</li>
+<li>
+<p>StateLocal要求与StateProp相同，但还需要需他的一些升级</p>
+<ul>
+<li>
+<ol>
+<li>系统消息必须支持远程状态，即不直接嵌入函数调用/响应中的状态，而是通过它们的名称和端点间接引用</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>状态由称为状态服务器的新组件进行管理，它们是与每个e计算机和客户端共存的简单内存键值存储</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>消息流与StateProp完全相同，但在每个函数调用时，e计算机检索所需的远程状态，然后将其复制到本地状态服务器中；为了做到这一点，状态依赖性也嵌入在函数调用请求消息中。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="6.2-%E7%BB%93%E6%9E%9C" tabindex="-1">6.2 结果</h3>
+<ul>
+<li>进行了两批实验，分别是函数链和有向无环图（DAG）</li>
+</ul>
+<h4 id="%E5%87%BD%E6%95%B0%E9%93%BE%EF%BC%9A" tabindex="-1">函数链：</h4>
+<ul>
+<li>实验条件：
+<ul>
+<li>客户端执行长度为L（3或6）的函数链</li>
+<li>其中每个函数随机选择自λ1、…、λ5，并可能重复。</li>
+<li>我们假设应用程序有S个状态（3或6），其中第i个状态的大小为（1+i）×10 kB（以0为基的索引）；</li>
+<li>每个状态依赖于随机选择的随机基数从0（无依赖关系）到L（链中的所有函数都依赖于该状态）。</li>
+<li>输入参数和返回值的大小被假设为相同，并且等于A（10 kB或100 kB）。一组函数<br>
+<img src="/images/%E8%AE%BA%E6%96%87/FaaS%20Execution%20Models%20for%20Edge%20Application/6_2_1.jpg" alt></li>
+</ul>
+</li>
+<li>如上图示，将在各个场景中使用不同执行模型获得的平均端到端延迟进行了比较，其中网络设备之间的链路速率从1 Mb/s增加到100 Mb/s。
+<ul>
+<li>在左上角的图中
+<ul>
+<li>PureFaaS和StateProp几乎重叠：这是因为状态和参数的大小相对较小；</li>
+<li>直到链路速率低于20 Mb/s，StateLocal具有更低的平均延迟，这要归功于其更智能的仅在需要时传输状态的方法</li>
+<li>然而，随着链路速率的提高，优势逐渐减小，直到延迟高于50 Mb/s和100 Mb/s链路速率下PureFaaS/StateProp的延迟：在如此高的连接速率下，数据传输变得与（或高于）建立TCP连接来检索/更新状态的时间相当</li>
+</ul>
+</li>
+<li>在相反的情况，即右下角的图中
+<ul>
+<li>StateProp和StateLocal的性能相当</li>
+<li>除了在高链路速率下：这是因为链条比其他情景中的链条要短，数据传输由输入/输出参数主导，这两种方案的处理是一样的</li>
+</ul>
+</li>
+<li>右上图和左下图是中间状况
+<ul>
+<li>StateLocal在所有较慢的链路速率下都实现了更好的性能</li>
+<li>而PureFaaS始终位于StateProp的顶部。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>总结：
+<ul>
+<li>对于函数链，考虑到实际的协议开销，根据状态大小和网络速度，存在将状态保持在边缘节点（StateLocal）和将其嵌入到函数调用中之间的权衡。</li>
+<li>StateProp的性能始终优于PureFaaS。<br>
+<img src="/images/%E8%AE%BA%E6%96%87/FaaS%20Execution%20Models%20for%20Edge%20Application/6_2_2.jpg" alt></li>
+</ul>
+</li>
+<li>对比函数链时，三种模型中的平均网络流量,如上图，此时链路速度100Mb/s，时StateLocal表现最差的时候
+<ul>
+<li>PureFaaS生成的流量始终大于StateProp生成的流量，而后者始终大于StateLocal生成的流量</li>
+<li>对于函数链，即使在高网络速度下，StateLocal的开销（以所需的流量速率为衡量）明显低于其他方案，但这并不总是转化为更低的端到端延迟。</li>
+</ul>
+</li>
+</ul>
+<h3 id="dag" tabindex="-1">DAG</h3>
+<ul>
+<li>考虑由一系列阶段组成的应用程序，每个阶段都有一个分支函数，该函数生成多个无状态调用，然后是一个有状态的收集任务。这种结构在ML应用程序中非常典型</li>
+<li>我们使用了3个阶段，每个阶段有5个分支。函数是从边缘节点中随机选择的，状态依赖关系也是随机的，使用与链式结构相同的方法。<br>
+<img src="/images/%E8%AE%BA%E6%96%87/FaaS%20Execution%20Models%20for%20Edge%20Application/6_2_3.jpg" alt></li>
+<li>在上图中，展示了平均延迟随链路速率从1 Mb/s增加到100 Mb/s的变化（对数-对数图），以及仅针对链路速率为100 Mb/s的网络流量
+<ul>
+<li>我们发现PureFaaS在所有情况下都优于StateProp，且在参数大小较小时优势更为突出。这是因为调用的总函数数量远远超过链式情况，这会严重影响将所有状态嵌入到调用和响应中。</li>
+<li>StateLocal不需要支付这样的代价，它只传递状态的引用，并在除了非常高的链路速率之外的所有情况下表现最好，这是由于状态检索/更新操作的开销</li>
+</ul>
+</li>
+<li>总结：对于具有大量函数的DAG，只有在函数调用和响应中携带引用时，状态传播才有效，即StateLocal更有效</li>
+</ul>
 <h2 id="7-%E7%BB%93%E8%AE%BA" tabindex="-1">7 结论</h2>
+<ul>
+<li>在本文中，我们探讨了在分布在边缘节点上的无服务器平台上支持有状态应用程序的问题。</li>
+<li>我们重点关注在链式和DAG工作流中沿函数调用传递状态的问题，并提出了三种不同特性的替代方案。</li>
+<li>我们开发了一个原型实现来验证我们的方法的可行性，并使用真实的协议开销来衡量性能。</li>
+<li>结果表明，在函数调用链中传播状态可以显著减少通信开销。这可以降低端到端的应用程序延迟，尤其是在连接有限的情况下。</li>
+<li>然而，对于大型DAG工作流，再嵌入状态以进行传播就不再有效了：在这些情况下，必须在边缘节点上本地存储状态并传递它们的引用。</li>
+</ul>
 <h2 id="%E4%B8%93%E4%B8%9A%E6%9C%AF%E8%AF%AD" tabindex="-1">专业术语</h2>
 <h3 id="faas-%26-serverless" tabindex="-1">FaaS &amp; Serverless</h3>
 <p>FaaS是一种云计算模型，其中开发者可以编写和部署独立的函数（代码块），并通过云服务提供商的平台执行这些函数。FaaS允许开发者根据需要执行函数，而无需管理底层的服务器和基础设施。每个函数都是独立的、无状态的，以事件驱动的方式触发执行。开发者只需关注函数的实现，而不用担心服务器的管理和扩展性。</p>
@@ -322,6 +470,7 @@ StateProp（应用状态在整个函数链中传播）
 </li>
 <li>总的来说，Kubernetes为容器化应用程序的部署、管理和运维提供了一套完整的解决方案。它可以帮助用户简化复杂的容器编排任务，并提供高可用性、弹性伸缩和自动化管理等功能，使得应用程序能够更加高效和可靠地运行在分布式环境中。</li>
 </ul>
+<h3 id="mininet" tabindex="-1">Mininet</h3>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><em></em><a class="button is-default" href="/2023/06/03/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/P2PFaaS/" title="P2PFaaS"><span class="has-text-weight-semibold">Next: P2PFaaS</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2023</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
