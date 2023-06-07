@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-06-06T02:46:47.799Z</updated>
+  <updated>2023-06-07T01:32:20.967Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RBAC模型学习</title>
+    <link href="http://example.com/2023/06/06/%E5%B7%A5%E5%85%B7/RBAC/"/>
+    <id>http://example.com/2023/06/06/%E5%B7%A5%E5%85%B7/RBAC/</id>
+    <published>2023-06-06T14:37:35.552Z</published>
+    <updated>2023-06-07T01:32:20.967Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="0-rbac-%E5%92%8C-abac" tabindex="-1">0 RBAC 和 ABAC</h2><ul><li><p>RBAC：Role-Based Access Control 基于角色的访问控制</p></li><li><p>ABAC：Attribute-Based Access Control 基于属性的访问控制</p></li><li><p>美国国家标准与技术研究院为RBAC分了4级，为RBAC0-3</p></li></ul><h2 id="1-rbca%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5" tabindex="-1">1 RBCA基础概念</h2><ul><li><p>RBAC：Role-Based Access Control，基于角色的访问控制。</p></li><li><p>通过引入 角色 这一概念，将用户和权限解耦，来满足权限的批量管理。</p></li><li><p>实现最简单的RBAC系统(也就是RBAC0)一共需要五张表：三张信息表和两张关系表。</p><ul><li>三张信息表：用户信息表、角色信息表和权限信息表</li><li>两张关系表：用户-角色关系表、角色-权限关系表</li></ul></li><li><p>模型操作</p><ul><li>授权：通过给用户分配不同的角色，来改变其拥有的权限。<ul><li>例子：管理员应用增删改查四种权限，访问者只有查的权限，对于新增用户老李，直接授予去管理者或者访问者角色，获得对应的权限</li><li>RBAC中只需在用户-角色关系表中增加一个数据即可</li></ul></li><li>鉴权：验证某个是否拥有某个权限<ul><li>过程：<ul><li><ol><li>传入用户和权限信息</li></ol></li><li><ol start="2"><li>根据用户-角色表获得该用户的所有角色</li></ol></li><li><ol start="3"><li>根据角色-权限表获得该用户拥有的所有权限</li></ol></li><li><ol start="4"><li>对比权限数据</li></ol></li></ul></li></ul></li><li>权限变更：收回或者增加权限<ul><li>操作：收回权限只需在角色-权限表中删除对应的一条数据即可，增加同理</li></ul></li></ul></li><li><p>RBAC0的缺点</p><ul><li><ol><li>在复杂的业务场景中，同一个角色在不同的情况下拥有不同的权限。</li></ol></li><li><ol start="2"><li>对于管理员或者超级管理员这类上层角色，拥有很多权限，每当出现一个权限，都要将权限绑定给他们，当这类管理角色增多时，RBAC0的模型成本会上升，这一问题在RBAC1中得到解决</li></ol></li><li><ol start="3"><li>角色爆炸时，RBAC模型难以维护，这是可以转为ABAC模型</li></ol></li></ul></li></ul><h2 id="2-rbac%E8%BF%9B%E9%98%B6" tabindex="-1">2 RBAC进阶</h2><h3 id="2.1-rbac1" tabindex="-1">2.1 RBAC1</h3><ul><li>动机举例：<ul><li>一个企业有老板，主管，员工等角色，则整体结构如下<img src="/images/%E5%B7%A5%E5%85%B7/RBAC/2_1_1.webp" alt></li><li>该结构中上级有下级的所有权限，不同的角色间有着重叠的权限，此时如果新增一条员工的权限，需要同时绑定给主管和老板，否则会出现员工有权限，老板没权限的情况</li><li>为此，RBAC1中引入了角色继承，在RBAC1中，角色之间有层级关系，上级角色默认拥有下级角色的全部权限，于是新的结构如下<img src="/images/%E5%B7%A5%E5%85%B7/RBAC/2_1_2.webp" alt></li><li>此时就不会出现下级角色拥有上级角色所没有的权限了，由于生活中的各种角色也具有类型的层级关系，因此，RBAC1是最常用的权限模型。</li></ul></li><li>模型结构：<img src="/images/%E5%B7%A5%E5%85%B7/RBAC/2_1_3.webp" alt></li><li>实现<ul><li>三张数据表：用户表、角色表、权限表。</li><li>三张关系表：用户-角色关系表、角色-继承关系表、角色-权限关系表。</li></ul></li><li>实现中的一个细节：角色-权限关系表有两种方案<ul><li><ol><li>仅记录与角色直接关联的权限。</li></ol><ul><li>优点：生效快，角色继承关系一旦生效，那么鉴权就能通过</li><li>缺点：权时，需要先拿到用户的所有角色及其子角色(读扩散)，然后对比全部角色的全部权限点。在角色数量比较多的时候，会影响鉴权接口的响应时间。</li><li>优势场景：角色继承关系频繁变动的场景。</li></ul></li><li><ol start="2"><li>记录与角色直接关联的权限，且记录从子角色继承而来的权限。</li></ol><ul><li>优点：鉴权较快，不存在读扩散的问题。</li><li>缺点：每次角色继承关系变动的时候，都需要对上层角色进行大量的权限绑定与解绑操作(写扩散)。</li><li>优势场景：角色继承关系变化很少的场景。</li></ul></li></ul></li><li>两全其美的方法：我全都要<ul><li>使用两张角色权限关系表，一张仅记录直接关联的权限，一张记录全部权限。</li><li>鉴权时：优先查询全部权限关系表，若鉴权失败，则自动降级查询继承关系的鉴权模式。</li></ul></li></ul><h3 id="rbac2" tabindex="-1">RBAC2</h3><ul><li>静态职责分离（SSD）<ul><li>互斥角色：同一用户只能分配到一组互斥角色集合中至多一个角色，比如用户不能同时拥有会计和审计两个角色</li><li>基数约束：一个用户可拥有的角色数目受限；一个角色可被分配的用户数量受限；一个角色对应的权限数目受限</li><li>先决条件角色：用户想要成为上级角色，必须先成为下一级角色，比如游戏中的转职</li></ul></li><li>动态职责分离（DSD）<ul><li>允许一个用户具有多个角色，但在运行时只能激活其中某些角色，比如BOSS直聘，一个用户既可以是招聘者也可以是应聘者，但同时只能选择一种身份进行操作</li></ul></li></ul><h3 id="rbac3" tabindex="-1">RBAC3</h3><p>RBAC1 + RBAC2，既有角色继承，也有各种限制条件。</p><h2 id="3-rbac%E4%B8%AD%E7%9A%84%E7%94%A8%E6%88%B7%E5%88%92%E5%88%86" tabindex="-1">3 RBAC中的用户划分</h2><h3 id="3.1-%E7%94%A8%E6%88%B7%E7%BB%84" tabindex="-1">3.1 用户组</h3><ul><li>用户组是一群用户的组合，而角色是用户和权限之间的桥梁。<ul><li>用户组把相同属性的用户组合起来，比如同一个项目的开发、产品、测试可以是一个用户组，同一个部门的相同职位的员工可以是一个用户组， 一个用户组可以是一个职级，可以是一个部门，可以是一起做事情的来自不同岗位的人。</li></ul></li><li>用户可以分组，权限也可以分组，权限特别多的情况下，可以把一个模块的权限组合起来成为一个权限组，权限组也是解决权限和角色对应关系复杂的问题。</li></ul><p>此时RBAC模型为<img src="/images/%E5%B7%A5%E5%85%B7/RBAC/3_1_1.png" alt></p><h3 id="3.2-%E7%BB%84%E7%BB%87" tabindex="-1">3.2 组织</h3><ul><li>每个公司都有自己的组织架构，很多时候权限的分配可以根据组织架构来划分。统一组织内的人权限大都一样</li><li>按组织分配角色的优势<ul><li>实现权限分配的自动化： 和组织关系打通之后，按照组织来分配角色，如果有新入职的用户，被划分在某个组织下面之后，会自动获取该组织下所有的权限，无需人工分配。又比如有用户调岗，只需要把组织关系调整就可以了，权限会跟着组织关系自动调整，也无需人工干预。这么做首先需要把权限和组织关系打通。</li><li>控制数据权限： 把角色关联到组织，组织里的成员只能看到本组织下的数据，比如市场推广和大客定制，市场推广针对的是零散的客户，大可定制针对的是有一定体量的客户，相互的数据虽然在一个平台，但是只能看自己组织下的数据。</li></ul></li><li>加入组织后的模型图<img src="/images/%E5%B7%A5%E5%85%B7/RBAC/3_1_1.png" alt></li></ul><h3 id="3.3-%E8%81%8C%E4%BD%8D" tabindex="-1">3.3 职位</h3><p>一个组织下面会有很多职位，比如财务管理会有财务总监、财务主管、会计、出纳员等职位，每个职位需要的权限是不一样的，可以像组织那样根据职位来分配不同的角色，由于一个人的职位是固定的，所以用户跟职位的对应关系时一对一的关系，职位跟角色的对应关系可以是多对多的关系。</p><h2 id="4-%E7%90%86%E6%83%B3%E7%9A%84rbac%E6%A8%A1%E5%9E%8B" tabindex="-1">4 理想的RBAC模型</h2><p>把RBAC、RBAC1、RBAC2、用户组、组织、职位汇总起来的模型如下所示：<br><img src="/images/%E5%B7%A5%E5%85%B7/RBAC/4_1.png" alt></p><h2 id="5-%E6%9D%83%E9%99%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A1%A8%E8%AE%BE%E8%AE%A1" tabindex="-1">5 权限系统的表设计</h2><h3 id="5.1-%E6%A0%87%E5%87%86rbac%E6%A8%A1%E5%9E%8B%E8%A1%A8%E8%AE%BE%E8%AE%A1" tabindex="-1">5.1 标准RBAC模型表设计</h3><p><img src="/images/%E5%B7%A5%E5%85%B7/RBAC/5_1.png" alt></p><h3 id="5.2-%E7%90%86%E6%83%B3rbac%E6%A8%A1%E5%9E%8B%E8%A1%A8%E8%AE%BE%E8%AE%A1" tabindex="-1">5.2 理想RBAC模型表设计</h3><p><img src="/images/%E5%B7%A5%E5%85%B7/RBAC/5_2.png" alt></p><h2 id="%E5%8F%82%E8%80%83" tabindex="-1">参考</h2><p><a href="https://zhuanlan.zhihu.com/p/511846624">权限系统设计之RBAC</a><br><a href="https://zhuanlan.zhihu.com/p/516533087">权限系统之RBAC进阶</a><br><a href="https://blog.csdn.net/u010482601/article/details/104989532">全网最全的权限系统设计方案，不接受反驳！</a></p><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;0-rbac-%E5%92%8C-abac&quot; tabindex=&quot;-1&quot;&gt;0 RBAC 和 ABAC&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;RBAC：Role-Based Access Control 基于角色的访问控制&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ABAC</summary>
+      
+    
+    
+    
+    <category term="笔记" scheme="http://example.com/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="RBAC" scheme="http://example.com/tags/RBAC/"/>
+    
+  </entry>
   
   <entry>
     <title>FaaS Execution Models for Edge Applications</title>
@@ -71,11 +101,11 @@
     
     <category term="边缘计算" scheme="http://example.com/tags/%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97/"/>
     
+    <category term="雾计算" scheme="http://example.com/tags/%E9%9B%BE%E8%AE%A1%E7%AE%97/"/>
+    
     <category term="Faas" scheme="http://example.com/tags/Faas/"/>
     
     <category term="ServerLess" scheme="http://example.com/tags/ServerLess/"/>
-    
-    <category term="雾计算" scheme="http://example.com/tags/%E9%9B%BE%E8%AE%A1%E7%AE%97/"/>
     
   </entry>
   
