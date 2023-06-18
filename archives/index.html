@@ -19,7 +19,18 @@ TCP/IP协议族，分为4层
 协议：TCP（Transmission Control Protocol，传输控制协议）和 UDP（User Data Protocol，用户数据报协议）
 
 
-网络层：用来处理在网络上流动的数据包。数据包是网络传输的最小..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/06/18/web/%E5%9B%BE%E8%A7%A3HTTP/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/%E5%B7%A5%E5%85%B7/RBAC/2_1_1.webp" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2023/06/06/%E5%B7%A5%E5%85%B7/RBAC/"><img class="post-cover-img js-img-fadeIn" src="/images/%E5%B7%A5%E5%85%B7/RBAC/2_1_1.webp" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/RBAC"><i class="tag post-item-tag">RBAC</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/06/06/%E5%B7%A5%E5%85%B7/RBAC/">RBAC模型学习</a></h2><time class="has-text-grey" datetime="2023-06-06T14:37:35.552Z">2023-06-06</time><p class="is-flex-grow-2 mt-2">0 RBAC 和 ABAC
+网络层：用来处理在网络上流动的数据包。数据包是网络传输的最小..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/06/18/web/%E5%9B%BE%E8%A7%A3HTTP/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/%E8%AE%BA%E6%96%87/Balancing%20Layer%20and%20Chain%20Sharing%20in%20IIndustrial%20Microservice%20Deployment/3_1.png" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2023/06/17/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Balancing%20Layer%20and%20Chain%20Sharing%20in%20Industrial%20Microservice%20Deployment/"><img class="post-cover-img js-img-fadeIn" src="/images/%E8%AE%BA%E6%96%87/Balancing%20Layer%20and%20Chain%20Sharing%20in%20IIndustrial%20Microservice%20Deployment/3_1.png" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1"><i class="tag post-item-tag">微服务</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/06/17/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Balancing%20Layer%20and%20Chain%20Sharing%20in%20Industrial%20Microservice%20Deployment/">How to Share:Balancing Layer and Chain Sharing in Industrial Microservice Deployment</a></h2><time class="has-text-grey" datetime="2023-06-17T07:38:52.211Z">2023-06-17</time><p class="is-flex-grow-2 mt-2">0 摘要
+
+随着智能制造的快速发展，面向边缘计算的微服务平台正在成为生产控制的重要组成部分。
+在微服务的容器化部署中：
+
+层共享可以减少由于镜像拉取而导致的巨大带宽消耗
+而链共享可以减少微服务之间通信引起的通信开销
+
+
+这两种共享方法利用每个微服务的特性在部署过程中共享资源。然而，由于边缘服务器资源有限，很难同时满足这两种方法的优化目标。因此，通过平衡这两种共享方法来实现提高服务响应效率至关重要。
+本文研究了一种能够平衡微服务的层共享和链共享的最佳微服务部署策略。我们通过模型重构，将最小化微服务镜像拉取延迟和通信开销的问题转化为线性约束整数二次规划问题。通过连续凸近似（SCA）方法得到一个部署策略。
+实验结果表明，所提出的部署策略可以平衡这两种资源共享方法。当两种共享方法被平等考虑时，平均镜像拉取延迟可以降..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/06/17/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Balancing%20Layer%20and%20Chain%20Sharing%20in%20Industrial%20Microservice%20Deployment/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/%E5%B7%A5%E5%85%B7/RBAC/2_1_1.webp" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2023/06/06/%E5%B7%A5%E5%85%B7/RBAC/"><img class="post-cover-img js-img-fadeIn" src="/images/%E5%B7%A5%E5%85%B7/RBAC/2_1_1.webp" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/RBAC"><i class="tag post-item-tag">RBAC</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/06/06/%E5%B7%A5%E5%85%B7/RBAC/">RBAC模型学习</a></h2><time class="has-text-grey" datetime="2023-06-06T14:37:35.552Z">2023-06-06</time><p class="is-flex-grow-2 mt-2">0 RBAC 和 ABAC
 
 
 RBAC：Role-Based Access Control 基于角色的访问控制
@@ -245,40 +256,7 @@ Redis诞生于2009年，全称 Remote Dictionary Server，远程词典服务，�
 ..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/04/04/web/redis/">Read more</a></section></article><article class="post-item-card"><section class="content post-card-content p-4 pb-5"><header><a href="/tags/Latex"><i class="tag post-item-tag">Latex</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/03/31/%E5%B7%A5%E5%85%B7/overleaf%E7%9A%84%E4%BD%BF%E7%94%A8/">overleaf使用（Latex）</a></h2><time class="has-text-grey" datetime="2023-03-31T12:49:12.197Z">2023-03-31</time><p class="is-flex-grow-2 mt-2">这个坑还是晚点再填吧，到时自己看书学学
 
 
-</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/03/31/%E5%B7%A5%E5%85%B7/overleaf%E7%9A%84%E4%BD%BF%E7%94%A8/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/PL/java%E5%9F%BA%E7%A1%80/JDK%E7%9A%84%E7%BB%84%E6%88%90.jpg" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2023/03/29/PL/java%E5%9F%BA%E7%A1%80/"><img class="post-cover-img js-img-fadeIn" src="/images/PL/java%E5%9F%BA%E7%A1%80/JDK%E7%9A%84%E7%BB%84%E6%88%90.jpg" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/java"><i class="tag post-item-tag">java</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/03/29/PL/java%E5%9F%BA%E7%A1%80/">java基础（未完）</a></h2><time class="has-text-grey" datetime="2023-03-29T13:45:55.229Z">2023-03-29</time><p class="is-flex-grow-2 mt-2">视频地址
-基础篇-9天
-进阶篇-19天
-Day1
-
-
-人机交互方式
-
-图形化：速度慢，占内存多
-命令行：速度快，占内存小
-
-
-
-shutdown -s -t 300 计算机在300s后关机，可以坑人
-
-
-java是美国Sun公司(Stanford University Network)在1995年推出的计算机语言，或被Oracle公司偏高
-
-
-Java之父：詹姆斯·高斯林
-
-
-Java三大平台
-
-Java SE
-
-Java语言的(标准版)，用于桌面开发应用，是其它两个版本的基础
-桌面应用：用户只要打开程序，程序的界面会让用户在最短时间内找到它们的需要的功能，同时主动带领用户完成他们的工作并得到最好的体验
-学习Java SE的目的：为今后要从事的Java EE开发，打基础
-
-
-Java ME
-
-java语言的..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/03/29/PL/java%E5%9F%BA%E7%A1%80/">Read more</a></section></article><section class="paginator is-flex is-justify-content-flex-end is-flex-wrap-wrap mt-5"><span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="iconfont icon-next has-text-grey"></i></a></section></section><aside class="column is-hidden-mobile is-4-tablet is-3-widescreen"><div style="position: sticky; top: 50px;"><main class="aside-card-container archives-widget is-in-archive-page"><h3>Archives</h3><section><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a><span class="archive-list-count">2</span></li></ul></section></main></div></aside></div></article><script>$claudia.fadeInImage(null, $claudia.blurBackdropImg)
+</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/03/31/%E5%B7%A5%E5%85%B7/overleaf%E7%9A%84%E4%BD%BF%E7%94%A8/">Read more</a></section></article><section class="paginator is-flex is-justify-content-flex-end is-flex-wrap-wrap mt-5"><span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="iconfont icon-next has-text-grey"></i></a></section></section><aside class="column is-hidden-mobile is-4-tablet is-3-widescreen"><div style="position: sticky; top: 50px;"><main class="aside-card-container archives-widget is-in-archive-page"><h3>Archives</h3><section><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a><span class="archive-list-count">2</span></li></ul></section></main></div></aside></div></article><script>$claudia.fadeInImage(null, $claudia.blurBackdropImg)
 
 window.addEventListener('resize', $claudia.throttle(function () {
     var images = document.querySelectorAll('.js-img-fadeIn')
