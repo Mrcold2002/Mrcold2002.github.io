@@ -1,9 +1,11 @@
 <!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>图解HTTP</title><meta name="description" content="菜"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
-<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="第一章 了解Web及网络基础
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="
+本文章为阅读图解HTTP（上野宣）这一书籍的读书笔记
+第一章 了解Web及网络基础
 
 Web通过一种名为HTTP（HyperText Transfer Protocol，超文本传输协议）作为规范，完成客户端到服务器端的一系列运行流程
 
-TCP/IP
+1 TCP/IP
 
 
 TCP/IP协议族，分为4层
@@ -18,12 +20,14 @@ TCP/IP协议族，分为4层
 协议：TCP（Transmission Control Protocol，传输控制协议）和 UDP（User Data Protocol，用户数据报协议）
 
 
-网络层：用来处理在网络上流动的数据包。数据包是网络传输的最小.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">图解HTTP</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E4%BA%86%E8%A7%A3web%E5%8F%8A%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80"><span class="toc-text">第一章 了解Web及网络基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tcp/ip"><span class="toc-text">TCP&#x2F;IP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8E-http-%E5%85%B3%E7%B3%BB%E5%AF%86%E5%88%87%E7%9A%84%E5%8D%8F%E8%AE%AE%EF%BC%9Aip%E3%80%81tcp-%E5%92%8C-dns"><span class="toc-text">与 HTTP 关系密切的协议：IP、TCP 和 DNS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#uri%E5%92%8Curl"><span class="toc-text">URI和URL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rfc%EF%BC%88request-for-comments%EF%BC%8C%E5%BE%81%E6%B1%82%E4%BF%AE%E6%AD%A3%E6%84%8F%E8%A7%81%E4%B9%A6%EF%BC%89"><span class="toc-text">RFC（Request for Comments，征求修正意见书）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E7%AE%80%E5%8D%95%E7%9A%84http%E5%8D%8F%E8%AE%AE"><span class="toc-text">第二章 简单的HTTP协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-http%E6%8A%A5%E6%96%87%E5%86%85%E7%9A%84http%E4%BF%A1%E6%81%AF"><span class="toc-text">第三章 HTTP报文内的HTTP信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84"><span class="toc-text">报文结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E6%8F%90%E5%8D%87%E4%BC%A0%E8%BE%93%E6%95%88%E7%8E%87"><span class="toc-text">编码提升传输效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E9%80%81%E5%A4%9A%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%9A%84%E5%A4%9A%E9%83%A8%E5%88%86%E5%AF%B9%E8%B1%A1%E9%9B%86%E5%90%88"><span class="toc-text">发送多种数据的多部分对象集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E9%83%A8%E5%88%86%E5%86%85%E5%AE%B9%E7%9A%84%E8%8C%83%E5%9B%B4%E8%AF%B7%E6%B1%82"><span class="toc-text">获取部分内容的范围请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86%E8%BF%94%E5%9B%9E%E6%9C%80%E5%90%88%E9%80%82%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-text">内容协商返回最合适的内容</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E7%9A%84http%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-text">第四章 返回结果的HTTP状态码</span></a></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/web"><i class="tag post-item-tag">web</i></a><a href="/tags/HTTP"><i class="tag post-item-tag">HTTP</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">图解HTTP</h1><time class="has-text-grey" datetime="2023-06-18T08:09:17.551Z">2023-06-18</time><article class="mt-2 post-content"><h2 id="%E7%AC%AC%E4%B8%80%E7%AB%A0-%E4%BA%86%E8%A7%A3web%E5%8F%8A%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80" tabindex="-1">第一章 了解Web及网络基础</h2>
+.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">图解HTTP</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E4%BA%86%E8%A7%A3web%E5%8F%8A%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80"><span class="toc-text">第一章 了解Web及网络基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-tcp/ip"><span class="toc-text">1 TCP&#x2F;IP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%8E-http-%E5%85%B3%E7%B3%BB%E5%AF%86%E5%88%87%E7%9A%84%E5%8D%8F%E8%AE%AE%EF%BC%9Aip%E3%80%81tcp-%E5%92%8C-dns"><span class="toc-text">2 与 HTTP 关系密切的协议：IP、TCP 和 DNS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-uri%E5%92%8Curl"><span class="toc-text">3 URI和URL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-rfc%EF%BC%88request-for-comments%EF%BC%8C%E5%BE%81%E6%B1%82%E4%BF%AE%E6%AD%A3%E6%84%8F%E8%A7%81%E4%B9%A6%EF%BC%89"><span class="toc-text">4 RFC（Request for Comments，征求修正意见书）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E7%AE%80%E5%8D%95%E7%9A%84http%E5%8D%8F%E8%AE%AE"><span class="toc-text">第二章 简单的HTTP协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-http%E6%8A%A5%E6%96%87%E5%86%85%E7%9A%84http%E4%BF%A1%E6%81%AF"><span class="toc-text">第三章 HTTP报文内的HTTP信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84"><span class="toc-text">1 报文结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%BC%96%E7%A0%81%E6%8F%90%E5%8D%87%E4%BC%A0%E8%BE%93%E6%95%88%E7%8E%87"><span class="toc-text">2 编码提升传输效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8F%91%E9%80%81%E5%A4%9A%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%9A%84%E5%A4%9A%E9%83%A8%E5%88%86%E5%AF%B9%E8%B1%A1%E9%9B%86%E5%90%88"><span class="toc-text">3 发送多种数据的多部分对象集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%8E%B7%E5%8F%96%E9%83%A8%E5%88%86%E5%86%85%E5%AE%B9%E7%9A%84%E8%8C%83%E5%9B%B4%E8%AF%B7%E6%B1%82"><span class="toc-text">4 获取部分内容的范围请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86%E8%BF%94%E5%9B%9E%E6%9C%80%E5%90%88%E9%80%82%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-text">5 内容协商返回最合适的内容</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E7%9A%84http%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-text">第四章 返回结果的HTTP状态码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2xx%E6%88%90%E5%8A%9F"><span class="toc-text">1 2XX成功</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3xx%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-text">2 3XX重定向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4xx%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%94%99%E8%AF%AF"><span class="toc-text">3 4XX客户端错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5xx%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%94%99%E8%AF%AF"><span class="toc-text">4 5XX服务器错误</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E4%B8%8Ehttp%E5%8D%8F%E4%BD%9C%E7%9A%84web%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">第五章 与HTTP协作的Web服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%94%A8%E5%8D%95%E5%8F%B0%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E5%AE%9E%E7%8E%B0%E5%A4%9A%E4%B8%AA%E5%9F%9F%E5%90%8D"><span class="toc-text">1 用单台虚拟主机实现多个域名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%80%9A%E4%BF%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8F%91%E7%A8%8B%E5%BA%8F%EF%BC%9A%E4%BB%A3%E7%90%86%EF%BC%8C%E7%BD%91%E5%85%B3%EF%BC%8C%E9%9A%A7%E9%81%93"><span class="toc-text">2 通信数据转发程序：代理，网关，隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%90%86"><span class="toc-text">代理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%91%E5%85%B3"><span class="toc-text">网关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%A7%E9%81%93"><span class="toc-text">隧道</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BF%9D%E5%AD%98%E8%B5%84%E6%BA%90%E7%9A%84%E7%BC%93%E5%AD%98"><span class="toc-text">3 保存资源的缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%9A%84%E6%9C%89%E6%95%88%E6%9C%9F%E9%99%90"><span class="toc-text">缓存的有效期限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9A%84%E7%BC%93%E5%AD%98"><span class="toc-text">客户端的缓存</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-http%E9%A6%96%E9%83%A8"><span class="toc-text">第六章 HTTP首部</span></a></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/web"><i class="tag post-item-tag">web</i></a><a href="/tags/HTTP"><i class="tag post-item-tag">HTTP</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">图解HTTP</h1><time class="has-text-grey" datetime="2023-06-18T08:09:17.551Z">2023-06-18</time><article class="mt-2 post-content"><p><img src="/images/web/%E5%9B%BE%E8%A7%A3HTTP/x_x.jpg" alt></p>
+<p>本文章为阅读图解HTTP（上野宣）这一书籍的读书笔记</p>
+<h2 id="%E7%AC%AC%E4%B8%80%E7%AB%A0-%E4%BA%86%E8%A7%A3web%E5%8F%8A%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80" tabindex="-1">第一章 了解Web及网络基础</h2>
 <ul>
 <li>Web通过一种名为HTTP（HyperText Transfer Protocol，超文本传输协议）作为规范，完成客户端到服务器端的一系列运行流程</li>
 </ul>
-<h3 id="tcp%2Fip" tabindex="-1">TCP/IP</h3>
+<h3 id="1-tcp%2Fip" tabindex="-1">1 TCP/IP</h3>
 <ul>
 <li>
 <p>TCP/IP协议族，分为4层</p>
@@ -59,7 +63,7 @@ TCP/IP协议族，分为4层
 </ul>
 </li>
 </ul>
-<h3 id="%E4%B8%8E-http-%E5%85%B3%E7%B3%BB%E5%AF%86%E5%88%87%E7%9A%84%E5%8D%8F%E8%AE%AE%EF%BC%9Aip%E3%80%81tcp-%E5%92%8C-dns" tabindex="-1">与 HTTP 关系密切的协议：IP、TCP 和 DNS</h3>
+<h3 id="2-%E4%B8%8E-http-%E5%85%B3%E7%B3%BB%E5%AF%86%E5%88%87%E7%9A%84%E5%8D%8F%E8%AE%AE%EF%BC%9Aip%E3%80%81tcp-%E5%92%8C-dns" tabindex="-1">2 与 HTTP 关系密切的协议：IP、TCP 和 DNS</h3>
 <ul>
 <li>
 <p>负责传输的IP协议</p>
@@ -93,7 +97,7 @@ TCP/IP协议族，分为4层
 <p>HTTP协议和各个协议的关系：<img src="/images/web/%E5%9B%BE%E8%A7%A3HTTP/1_3.jpg" alt></p>
 </li>
 </ul>
-<h3 id="uri%E5%92%8Curl" tabindex="-1">URI和URL</h3>
+<h3 id="3-uri%E5%92%8Curl" tabindex="-1">3 URI和URL</h3>
 <ul>
 <li>
 <p>URI（Uniform Resource Identifier，统一资源标识符）</p>
@@ -123,7 +127,7 @@ TCP/IP协议族，分为4层
 </ul>
 </li>
 </ul>
-<h3 id="rfc%EF%BC%88request-for-comments%EF%BC%8C%E5%BE%81%E6%B1%82%E4%BF%AE%E6%AD%A3%E6%84%8F%E8%A7%81%E4%B9%A6%EF%BC%89" tabindex="-1">RFC（Request for Comments，征求修正意见书）</h3>
+<h3 id="4-rfc%EF%BC%88request-for-comments%EF%BC%8C%E5%BE%81%E6%B1%82%E4%BF%AE%E6%AD%A3%E6%84%8F%E8%A7%81%E4%B9%A6%EF%BC%89" tabindex="-1">4 RFC（Request for Comments，征求修正意见书）</h3>
 <p>RFC是互联网的设计文档，一般应用程序要遵照RFC确定的标准实现</p>
 <h2 id="%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E7%AE%80%E5%8D%95%E7%9A%84http%E5%8D%8F%E8%AE%AE" tabindex="-1">第二章 简单的HTTP协议</h2>
 <ul>
@@ -187,12 +191,11 @@ TCP/IP协议族，分为4层
 </li>
 </ul>
 <h2 id="%E7%AC%AC%E4%B8%89%E7%AB%A0-http%E6%8A%A5%E6%96%87%E5%86%85%E7%9A%84http%E4%BF%A1%E6%81%AF" tabindex="-1">第三章 HTTP报文内的HTTP信息</h2>
-<p><img src="/images/web/%E5%9B%BE%E8%A7%A3HTTP/1_1.jpg" alt></p>
 <ul>
 <li>用于 HTTP 协议交互的信息被称为 HTTP 报文。请求端（客户端）的HTTP 报文叫做请求报文，响应端（服务器端）的叫做响应报文。</li>
 <li>HTTP 报文大致可分为报文首部和报文主体两块。两者由最初出现的空行（CR+LF）来划分。通常，并不一定要有报文主体。</li>
 </ul>
-<h3 id="%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84" tabindex="-1">报文结构</h3>
+<h3 id="1-%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84" tabindex="-1">1 报文结构</h3>
 <p><img src="/images/web/%E5%9B%BE%E8%A7%A3HTTP/3_1.jpg" alt><br>
 <img src="/images/web/%E5%9B%BE%E8%A7%A3HTTP/3_2.jpg" alt></p>
 <ul>
@@ -209,7 +212,7 @@ TCP/IP协议族，分为4层
 </ul>
 </li>
 </ul>
-<h3 id="%E7%BC%96%E7%A0%81%E6%8F%90%E5%8D%87%E4%BC%A0%E8%BE%93%E6%95%88%E7%8E%87" tabindex="-1">编码提升传输效率</h3>
+<h3 id="2-%E7%BC%96%E7%A0%81%E6%8F%90%E5%8D%87%E4%BC%A0%E8%BE%93%E6%95%88%E7%8E%87" tabindex="-1">2 编码提升传输效率</h3>
 <ul>
 <li>
 <p>HTTP在传输数据时可以按照数据原貌进行直接传输，也可以通过在传输过程中编码提升传输效率</p>
@@ -240,7 +243,7 @@ TCP/IP协议族，分为4层
 <p>分块传输编码：将实体主体分块传送</p>
 </li>
 </ul>
-<h3 id="%E5%8F%91%E9%80%81%E5%A4%9A%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%9A%84%E5%A4%9A%E9%83%A8%E5%88%86%E5%AF%B9%E8%B1%A1%E9%9B%86%E5%90%88" tabindex="-1">发送多种数据的多部分对象集合</h3>
+<h3 id="3-%E5%8F%91%E9%80%81%E5%A4%9A%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%9A%84%E5%A4%9A%E9%83%A8%E5%88%86%E5%AF%B9%E8%B1%A1%E9%9B%86%E5%90%88" tabindex="-1">3 发送多种数据的多部分对象集合</h3>
 <ul>
 <li>发送邮件时，可以在邮件中写入文字并添加多份附件，这是因为采用了MIME（Multipurpose Internet Mail Extensions，多用途因特网邮件扩展）机制，其允许邮件处理文本，图片，视频等多个不同类型的数据</li>
 <li>HTTP中也采纳了多部份对象集合，发送一份报文主体内可包含多类型实体
@@ -249,7 +252,7 @@ TCP/IP协议族，分为4层
 </ul>
 </li>
 </ul>
-<h3 id="%E8%8E%B7%E5%8F%96%E9%83%A8%E5%88%86%E5%86%85%E5%AE%B9%E7%9A%84%E8%8C%83%E5%9B%B4%E8%AF%B7%E6%B1%82" tabindex="-1">获取部分内容的范围请求</h3>
+<h3 id="4-%E8%8E%B7%E5%8F%96%E9%83%A8%E5%88%86%E5%86%85%E5%AE%B9%E7%9A%84%E8%8C%83%E5%9B%B4%E8%AF%B7%E6%B1%82" tabindex="-1">4 获取部分内容的范围请求</h3>
 <p>执行范围请求时，会使用首部字段Range来指定资源的byte范围</p>
 <ul>
 <li>
@@ -268,7 +271,7 @@ TCP/IP协议族，分为4层
 <p>如果服务器端无法响应范围请求，则会返回状态码 200 OK 和完整的实体内容。</p>
 </li>
 </ul>
-<h3 id="%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86%E8%BF%94%E5%9B%9E%E6%9C%80%E5%90%88%E9%80%82%E7%9A%84%E5%86%85%E5%AE%B9" tabindex="-1">内容协商返回最合适的内容</h3>
+<h3 id="5-%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86%E8%BF%94%E5%9B%9E%E6%9C%80%E5%90%88%E9%80%82%E7%9A%84%E5%86%85%E5%AE%B9" tabindex="-1">5 内容协商返回最合适的内容</h3>
 <ul>
 <li>内容协商机制是指客户端和服务器端就响应的资源内容进行交涉，然后提供给客户端最为适合的资源。内容协商会以响应资源的语言、字符集、编码方式等作为判断的基准。包含在请求报文中的某些首部字段（如下）就是判断的基准。
 <ul>
@@ -300,6 +303,245 @@ TCP/IP协议族，分为4层
 </li>
 </ul>
 <h2 id="%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E7%9A%84http%E7%8A%B6%E6%80%81%E7%A0%81" tabindex="-1">第四章 返回结果的HTTP状态码</h2>
+<p>HTTP状态码负责表示客户端 HTTP请求的返回结果、标记服务器端的处理是否正常、通知出现的错误等工作。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>类别</th>
+<th>原因短语</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1XX</td>
+<td>Informational(信息性状态码)</td>
+<td>接受的请求正在处理</td>
+</tr>
+<tr>
+<td>2XX</td>
+<td>Success（成功状态码）</td>
+<td>请求正常处理完毕</td>
+</tr>
+<tr>
+<td>3XX</td>
+<td>Redirection（重定向状态码）</td>
+<td>需要进行附加操作以完成请求</td>
+</tr>
+<tr>
+<td>4XX</td>
+<td>Client Error（客户端错误状态码）</td>
+<td>服务器无法处理请求</td>
+</tr>
+<tr>
+<td>5XX</td>
+<td>Server Error（服务器错误状态码）</td>
+<td>服务器处理请求错误</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-2xx%E6%88%90%E5%8A%9F" tabindex="-1">1 2XX成功</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200 OK</td>
+<td>表示从客户端发来的请求在服务器端被正常处理了</td>
+</tr>
+<tr>
+<td>204 No Content</td>
+<td>该状态码代表服务器接收的请求已成功处理，但在返回的响应报文中不含实体的主体部分，即服务器没有资源可以返回。</td>
+</tr>
+<tr>
+<td>206 Partial content</td>
+<td>该状态码表示客户端进行了范围请求，而服务器成功执行了这部分的 GET 请求。响应报文中包含由 Content-Range 指定范围的实体内容。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-3xx%E9%87%8D%E5%AE%9A%E5%90%91" tabindex="-1">2 3XX重定向</h3>
+<p>3XX响应结果表明浏览器需要执行某些特殊的处理以正确地处理请求</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>301 Moved Permanently</td>
+<td>永久性重定向。该状态码表示请求的资源已被分配了新的URI，以后应该使用资源现在所指向的URI</td>
+</tr>
+<tr>
+<td>302 Found</td>
+<td>临时重定向。该状态码表示请求的资源已经被分配了新的URI，希望用户使用新的URI访问</td>
+</tr>
+<tr>
+<td>303 See Other</td>
+<td>该状态码表示由于请求对应的资源存在着另一个 URI，应使用 GET方法定向获取请求的资源。<br>303 状态码和 302 Found 状态码有着相同的功能，但 303 状态码明确表示客户端应当采用 GET 方法获取资源，这点与 302 状态码有区别。</td>
+</tr>
+<tr>
+<td>304 Not Modified</td>
+<td>该状态码表示客户端发送附带条件的请求 A 时，服务器端允许请求访问资源，但未满足条件的情况。304 状态码返回时，不包含任何响应的主体部分。304 虽然被划分在 3XX 类别中，但是和重定向没有关系。</td>
+</tr>
+<tr>
+<td>307 Temporary Redirect</td>
+<td>临时重定向。该状态码与 302 Found 有着相同的含义。尽管 302 标准禁止 POST 变换成 GET，但实际使用时大家并不遵守。307 会遵照浏览器标准，不会从 POST 变成 GET。但是，对于处理响应时的行为，每种浏览器有可能出现不同的情况</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-4xx%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%94%99%E8%AF%AF" tabindex="-1">3 4XX客户端错误</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>400 Bad Request</td>
+<td>该状态码表示请求报文中存在语法错误，当错误发生时，需修改请求的内容后再次发送请求</td>
+</tr>
+<tr>
+<td>401 unauthorized</td>
+<td>该状态码表示发送的请求需要有通过HTTP认证（BASIC认证，DIGEST认证）的认证信息。若之前已进行过一次请求，则表示用户认证失败<br>返回含有401的响应必须包含一个使用户被请求资源的WWW-Authenticate首部以质询（challenge）用户信息。当浏览器初次接收到401响应时，会弹出认证用的对话窗口</td>
+</tr>
+<tr>
+<td>403 Forbidden</td>
+<td>该状态码表示对请求资源的访问被服务器拒接了。服务器端没有必要给出拒绝的详细理由，但可以在实体的主体部分对原因进行描述。<br>未获得文件系统的访问权限，访问权限出现问题等情况都有可能发生403</td>
+</tr>
+<tr>
+<td>404 Not Found</td>
+<td>该状态码表示服务器上无法找到请求的资源，除此之外，也可以在服务器端拒绝请求且不想说明理由时使用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4-5xx%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%94%99%E8%AF%AF" tabindex="-1">4 5XX服务器错误</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>500 Internal Server Error</td>
+<td>改状态码表示服务器端在执行请求时发生了错误，可能是Web应用存在的bug或某些临时的故障</td>
+</tr>
+<tr>
+<td>503 Service Unavailable</td>
+<td>该状态码表示服务器暂时处于超负载或真正进行停机维护，现在无法处理请求。如果实现得知解决上述状况需要的时间，最好写入Retry-After首部字段再返回给客户端</td>
+</tr>
+</tbody>
+</table>
+<h2 id="%E7%AC%AC%E4%BA%94%E7%AB%A0-%E4%B8%8Ehttp%E5%8D%8F%E4%BD%9C%E7%9A%84web%E6%9C%8D%E5%8A%A1%E5%99%A8" tabindex="-1">第五章 与HTTP协作的Web服务器</h2>
+<p>一台Web服务器可搭建多个独立域名的Web网站，也可作为通信路径上的中转服务器提升传输效率。</p>
+<h3 id="1-%E7%94%A8%E5%8D%95%E5%8F%B0%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E5%AE%9E%E7%8E%B0%E5%A4%9A%E4%B8%AA%E5%9F%9F%E5%90%8D" tabindex="-1">1 用单台虚拟主机实现多个域名</h3>
+<ul>
+<li>HTTP/1.1规范允许一台HTTP服务器搭建多个Web站点，比如提供Web托管服务的供应商，这里使用了虚拟主机(Virtual Host,又称虚拟服务器)功能</li>
+<li>在相同的IP地址下，由于虚拟主机可以寄存多个不同的主机名和域名的Web网站，因此在HTTP请求中，必须在Host首部内完整指定主机名或域名的URI</li>
+</ul>
+<h3 id="2-%E9%80%9A%E4%BF%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8F%91%E7%A8%8B%E5%BA%8F%EF%BC%9A%E4%BB%A3%E7%90%86%EF%BC%8C%E7%BD%91%E5%85%B3%EF%BC%8C%E9%9A%A7%E9%81%93" tabindex="-1">2 通信数据转发程序：代理，网关，隧道</h3>
+<p>HTTP通信时，除客户端和服务器外，还有一些用于通信数据转发的应用程序，如代理，网关和隧道，其可以配合服务器工作</p>
+<ul>
+<li>代理：是一种具有转发功能的应用程序，扮演了服务器和客户端的“中间人”角色，接受客户端发送的请求并转发给服务器，同时也接收服务器返回的响应转发给客户端</li>
+<li>网关：网关是转发其他服务器通信数据的服务器，接收从客户端发来的请求时，它将像自己拥有资源的源服务器一样对请求进行处理，有时客户端可能不会察觉自己的通信目标是一个网关</li>
+<li>隧道：是在相隔甚远的客户端和服务器两者之间进行中转，并保持双方通信连接的应用程序</li>
+</ul>
+<h4 id="%E4%BB%A3%E7%90%86" tabindex="-1">代理</h4>
+<p><img src="/images/web/%E5%9B%BE%E8%A7%A3HTTP/5_1.jpg" alt></p>
+<ul>
+<li>
+<p>代理服务器的基本行为就是接受客户端发送的请求后转发给其它服务器，代理不改变请求URI，会直接发送给前方持有资源的目标服务器</p>
+</li>
+<li>
+<p>持有资源实体的服务器称为源服务器，从源服务器返回的响应经过代理服务器后再传给客户端</p>
+</li>
+<li>
+<p>在HTTP通信过程中，可以级联多台代理服务器，转发时，需要附加Via首部字段以标记出经过的主机信息</p>
+</li>
+<li>
+<p>使用代理服务器的理由</p>
+<ul>
+<li>
+<ol>
+<li>利用缓存技术减少网络带宽的流量</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>组织内部针对特定网络的访问控制</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>以后去访问日志为主要目的等</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>代理方法基准分类：</p>
+<ul>
+<li>
+<ol>
+<li>是否使用缓存：缓存代理</li>
+</ol>
+<ul>
+<li>代理转发响应时，缓存代理(Caching Proxy)会预先将资源的副本(缓存)保存在代理服务器上</li>
+<li>当代理再次接收到对相同资源的请求时，就可以不从源服务器那里获取资源，而是将缓存的资源返回</li>
+</ul>
+</li>
+<li>
+<ol start="2">
+<li>是否会修改报文：透明代理</li>
+</ol>
+<ul>
+<li>转发请求或响应时，不对报文做任何加工的代理类型称为透明代理(Transparent Proxy)，反之称为非透明代理</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="%E7%BD%91%E5%85%B3" tabindex="-1">网关</h4>
+<p><img src="/images/web/%E5%9B%BE%E8%A7%A3HTTP/5_2.jpg" alt></p>
+<ul>
+<li>网关的工作机制与代理相似，并且网关能使通信线路上的服务器提供非HTTP协议服务</li>
+<li>利用网关可以提高通信的安全性，可以在客户端和网关之间的通信线路上加密以确保连接的安全。
+<ul>
+<li>例如：网关可以连接数据库，使用SQL语句查询数据</li>
+</ul>
+</li>
+</ul>
+<h4 id="%E9%9A%A7%E9%81%93" tabindex="-1">隧道</h4>
+<ul>
+<li>隧道可以按要求建立一条与其它服务器的通信线路，届时使用SSL等加密手段进行通信。</li>
+<li>隧道的目的：确保客户端和服务器能进行安全的通信</li>
+<li>隧道本身不会解析HTTP请求，隧道会在通信双方断开连接时结束</li>
+</ul>
+<h3 id="3-%E4%BF%9D%E5%AD%98%E8%B5%84%E6%BA%90%E7%9A%84%E7%BC%93%E5%AD%98" tabindex="-1">3 保存资源的缓存</h3>
+<ul>
+<li>缓存是指代理服务器或客户端本地磁盘内保存的资源副本。利用缓存可减少对源服务器的访问，节省了通信流量和通信时间</li>
+<li>缓存服务器是代理服务器的一种，属于缓存代理类型</li>
+</ul>
+<h4 id="%E7%BC%93%E5%AD%98%E7%9A%84%E6%9C%89%E6%95%88%E6%9C%9F%E9%99%90" tabindex="-1">缓存的有效期限</h4>
+<ul>
+<li>当源服务器上的资源更新时，如果还是使用不变的缓存，只会返回旧资源</li>
+<li>因此，即使存在缓存，也会因为客户端的要求，缓存的有效期等因素，向源服务器确认资源的有效性，如判断缓存失效，则重新获取</li>
+</ul>
+<h4 id="%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9A%84%E7%BC%93%E5%AD%98" tabindex="-1">客户端的缓存</h4>
+<ul>
+<li>缓存不仅可以在缓存服务器中，也可以在客户端浏览器中</li>
+<li>浏览器缓存如果有效，则不必再向服务器请求相同的资源，可以从本地磁盘直接读取</li>
+</ul>
+<h2 id="%E7%AC%AC%E5%85%AD%E7%AB%A0-http%E9%A6%96%E9%83%A8" tabindex="-1">第六章 HTTP首部</h2>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
-</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><em></em><a class="button is-default" href="/2023/06/17/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Balancing%20Layer%20and%20Chain%20Sharing%20in%20Industrial%20Microservice%20Deployment/" title="How to Share:Balancing Layer and Chain Sharing in Industrial Microservice Deployment"><span class="has-text-weight-semibold">Next: How to Share:Balancing Layer and Chain Sharing in Industrial Microservice Deployment</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2023</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2023/06/18/web/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1/" title="微服务设计"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: 微服务设计</span></a><a class="button is-default" href="/2023/06/17/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Balancing%20Layer%20and%20Chain%20Sharing%20in%20Industrial%20Microservice%20Deployment/" title="How to Share:Balancing Layer and Chain Sharing in Industrial Microservice Deployment"><span class="has-text-weight-semibold">Next: How to Share:Balancing Layer and Chain Sharing in Industrial Microservice Deployment</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2023</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
