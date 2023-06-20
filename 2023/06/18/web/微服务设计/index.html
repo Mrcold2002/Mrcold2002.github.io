@@ -1,5 +1,6 @@
 <!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>微服务设计</title><meta name="description" content="菜"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
-<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="[toc]
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="
+[toc]
 本文章为阅读这 微服务设计[美]Sam Newman 一书籍的读书笔记
 第1章 微服务
 1.1 什么是微服务
@@ -24,8 +25,9 @@
 
 一个微服务就是一个独立的实体。它可以独立地部署在PAAS上，也可以作为一个操作系统进程存在。
 但我们应该尽量避免把多个服务部署到同一个机器上，尽管这种隔离性会引发一些代价，但它能够大大简化分布式系统的构建
-服务之间.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">微服务设计</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC1%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="toc-text">第1章 微服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="toc-text">1.1 什么是微服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1.1.1-%E5%BE%88%E5%B0%8F%EF%BC%8C%E4%B8%93%E6%B3%A8%E4%BA%8E%E5%81%9A%E5%A5%BD%E4%B8%80%E4%BB%B6%E4%BA%8B"><span class="toc-text">1.1.1 很小，专注于做好一件事</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1.1.2-%E8%87%AA%E6%B2%BB%E6%80%A7"><span class="toc-text">1.1.2 自治性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.2-%E4%B8%BB%E8%A6%81%E5%A5%BD%E5%A4%84"><span class="toc-text">1.2 主要好处</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1.2.1-%E6%8A%80%E6%9C%AF%E5%BC%82%E6%9E%84%E5%9E%8B"><span class="toc-text">1.2.1 技术异构型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1.2.2-%E5%BC%B9%E6%80%A7"><span class="toc-text">1.2.2 弹性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1.2.3-%E6%89%A9%E5%B1%95"><span class="toc-text">1.2.3 扩展</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1.2.4-%E7%AE%80%E5%8C%96%E9%83%A8%E7%BD%B2"><span class="toc-text">1.2.4 简化部署</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1.2.5-%E4%B8%8E%E7%BB%84%E7%BB%87%E6%9E%B6%E6%9E%84%E7%9B%B8%E5%8C%B9%E9%85%8D"><span class="toc-text">1.2.5 与组织架构相匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1.2.6-%E5%8F%AF%E7%BB%84%E5%90%88%E6%80%A7"><span class="toc-text">1.2.6 可组合性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1.2.7-%E5%AF%B9%E5%8F%AF%E6%9B%BF%E4%BB%A3%E6%80%A7%E7%9A%84%E4%BC%98%E5%8C%96"><span class="toc-text">1.2.7 对可替代性的优化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3-%E9%9D%A2%E5%90%91%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="toc-text">1.3 面向服务的架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4-%E5%85%B6%E4%BB%96%E5%88%86%E8%A7%A3%E6%8A%80%E6%9C%AF"><span class="toc-text">1.4 其他分解技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1.4.1-%E5%85%B1%E4%BA%AB%E5%BA%93%E6%8A%80%E6%9C%AF"><span class="toc-text">1.4.1 共享库技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1.4.2-%E6%A8%A1%E5%9D%97"><span class="toc-text">1.4.2 模块</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5-%E6%B2%A1%E6%9C%89%E9%93%B6%E5%BC%B9-&-1.6-%E5%B0%8F%E7%BB%93"><span class="toc-text">1.5 没有银弹 &amp; 1.6 小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC2%E7%AB%A0-%E6%BC%94%E5%8C%96%E5%BC%8F%E6%9E%B6%E6%9E%84%E5%B8%88"><span class="toc-text">第2章 演化式架构师</span></a></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1"><i class="tag post-item-tag">微服务</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">微服务设计</h1><time class="has-text-grey" datetime="2023-06-18T14:42:00.451Z">2023-06-18</time><article class="mt-2 post-content"><p>[toc]<br>
+服务之.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">微服务设计</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC1%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="toc-text">第1章 微服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="toc-text">1.1 什么是微服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1.1.1-%E5%BE%88%E5%B0%8F%EF%BC%8C%E4%B8%93%E6%B3%A8%E4%BA%8E%E5%81%9A%E5%A5%BD%E4%B8%80%E4%BB%B6%E4%BA%8B"><span class="toc-text">1.1.1 很小，专注于做好一件事</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1.1.2-%E8%87%AA%E6%B2%BB%E6%80%A7"><span class="toc-text">1.1.2 自治性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.2-%E4%B8%BB%E8%A6%81%E5%A5%BD%E5%A4%84"><span class="toc-text">1.2 主要好处</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1.2.1-%E6%8A%80%E6%9C%AF%E5%BC%82%E6%9E%84%E5%9E%8B"><span class="toc-text">1.2.1 技术异构型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1.2.2-%E5%BC%B9%E6%80%A7"><span class="toc-text">1.2.2 弹性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1.2.3-%E6%89%A9%E5%B1%95"><span class="toc-text">1.2.3 扩展</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1.2.4-%E7%AE%80%E5%8C%96%E9%83%A8%E7%BD%B2"><span class="toc-text">1.2.4 简化部署</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1.2.5-%E4%B8%8E%E7%BB%84%E7%BB%87%E6%9E%B6%E6%9E%84%E7%9B%B8%E5%8C%B9%E9%85%8D"><span class="toc-text">1.2.5 与组织架构相匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1.2.6-%E5%8F%AF%E7%BB%84%E5%90%88%E6%80%A7"><span class="toc-text">1.2.6 可组合性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1.2.7-%E5%AF%B9%E5%8F%AF%E6%9B%BF%E4%BB%A3%E6%80%A7%E7%9A%84%E4%BC%98%E5%8C%96"><span class="toc-text">1.2.7 对可替代性的优化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3-%E9%9D%A2%E5%90%91%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="toc-text">1.3 面向服务的架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.4-%E5%85%B6%E4%BB%96%E5%88%86%E8%A7%A3%E6%8A%80%E6%9C%AF"><span class="toc-text">1.4 其他分解技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1.4.1-%E5%85%B1%E4%BA%AB%E5%BA%93%E6%8A%80%E6%9C%AF"><span class="toc-text">1.4.1 共享库技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1.4.2-%E6%A8%A1%E5%9D%97"><span class="toc-text">1.4.2 模块</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.5-%E6%B2%A1%E6%9C%89%E9%93%B6%E5%BC%B9-&-1.6-%E5%B0%8F%E7%BB%93"><span class="toc-text">1.5 没有银弹 &amp; 1.6 小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC2%E7%AB%A0-%E6%BC%94%E5%8C%96%E5%BC%8F%E6%9E%B6%E6%9E%84%E5%B8%88"><span class="toc-text">第2章 演化式架构师</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.1-%E4%B8%8D%E5%87%86%E7%A1%AE%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-text">2.1 不准确的比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2-%E6%9E%B6%E6%9E%84%E5%B8%88%E7%9A%84%E6%BC%94%E5%8C%96%E8%A7%86%E8%A7%92"><span class="toc-text">2.2 架构师的演化视角</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.3-%E5%88%86%E5%8C%BA"><span class="toc-text">2.3 分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.4-%E4%B8%80%E4%B8%AA%E5%8E%9F%E5%88%99%E6%80%A7%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">2.4 一个原则性的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.5-%E8%A6%81%E6%B1%82%E7%9A%84%E6%A0%87%E5%87%86"><span class="toc-text">2.5 要求的标准</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.6-%E4%BB%A3%E7%A0%81%E6%B2%BB%E7%90%86"><span class="toc-text">2.6 代码治理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.7-%E6%8A%80%E6%9C%AF%E5%80%BA%E5%8A%A1"><span class="toc-text">2.7 技术债务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.8-%E4%BE%8B%E5%A4%96%E7%AE%A1%E7%90%86"><span class="toc-text">2.8 例外管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.9-%E9%9B%86%E4%B8%AD%E6%B2%BB%E7%90%86%E5%92%8C%E9%A2%86%E5%AF%BC"><span class="toc-text">2.9 集中治理和领导</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.10-%E5%BB%BA%E8%AE%BE%E5%9B%A2%E9%98%9F"><span class="toc-text">2.10 建设团队</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.11-%E6%84%BF%E6%99%AF"><span class="toc-text">2.11 愿景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC3%E7%AB%A0-%E5%A6%82%E4%BD%95%E5%BB%BA%E6%A8%A1%E6%9C%8D%E5%8A%A1"><span class="toc-text">第3章 如何建模服务</span></a></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1"><i class="tag post-item-tag">微服务</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">微服务设计</h1><time class="has-text-grey" datetime="2023-06-18T14:42:00.451Z">2023-06-18</time><article class="mt-2 post-content"><p><img src="/images/web/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1/x-x.jpg" alt><br>
+[toc]<br>
 本文章为阅读这 微服务设计[美]Sam Newman 一书籍的读书笔记</p>
 <h2 id="%E7%AC%AC1%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1" tabindex="-1">第1章 微服务</h2>
 <h3 id="1.1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%BE%AE%E6%9C%8D%E5%8A%A1" tabindex="-1">1.1 什么是微服务</h3>
@@ -198,6 +200,213 @@
 <li>后续将讨论如何得到这些好处及如何避免一些常见的陷阱</li>
 </ul>
 <h2 id="%E7%AC%AC2%E7%AB%A0-%E6%BC%94%E5%8C%96%E5%BC%8F%E6%9E%B6%E6%9E%84%E5%B8%88" tabindex="-1">第2章 演化式架构师</h2>
+<ul>
+<li>本章中架构师职责的观点是作者个人简介，其希望能对象牙塔中的定义发起攻击</li>
+</ul>
+<h3 id="2.1-%E4%B8%8D%E5%87%86%E7%A1%AE%E7%9A%84%E6%AF%94%E8%BE%83" tabindex="-1">2.1 不准确的比较</h3>
+<ul>
+<li>计算机行业很年轻，因此社会很难理解我们，我们也不清楚自己到底在干什么</li>
+<li>所以我们尝试借鉴其他行业，把自己称作软件“工程师”或建筑师，然而，建筑师和工程师所具有的精确性和纪律性是遥不可及的。在英国至少需要7年才能成为建筑师，而很多IT证书并没有什么价值。</li>
+<li>有些人想要得到认可，所以借鉴了这些广为人知的行业中的名词，这样借鉴也会造成两个问题
+<ul>
+<li>首先，这么做的前提是我们应该清楚自己应该是干什么的，而事实并非如此
+<ul>
+<li>建筑和桥梁倒塌的次数远比程序崩溃的次数少，所以和工程师比是不公平的</li>
+</ul>
+</li>
+<li>其次，这种类比很奇怪
+<ul>
+<li>如果将桥梁建筑和编程类似的话，那么建到一半可能会发现对岸比预想的要远50米，而且材质是花岗岩而不是泥土。</li>
+</ul>
+</li>
+<li>事实上，我们要创造的东西从设计上来说就要足够灵活，有很好的适应性，并且能够根据用户的需求进行演化</li>
+</ul>
+</li>
+<li>如今架构师的定义逐渐被人接受，本书将尽力去重定义它</li>
+</ul>
+<h3 id="2.2-%E6%9E%B6%E6%9E%84%E5%B8%88%E7%9A%84%E6%BC%94%E5%8C%96%E8%A7%86%E8%A7%92" tabindex="-1">2.2 架构师的演化视角</h3>
+<ul>
+<li>与建筑师相比，在软件中有大量的需求变更，使用的工具和技术既有多样性。</li>
+<li>一个角色可以和架构师相类比：城市规划师</li>
+<li>架构师的职责之一就是保证该系统的开发人员适合在其上工作</li>
+</ul>
+<h3 id="2.3-%E5%88%86%E5%8C%BA" tabindex="-1">2.3 分区</h3>
+<ul>
+<li>与城市规划师类比
+<ul>
+<li>区域-服务</li>
+<li>应更多关注服务之间的事情，而不是服务内部</li>
+</ul>
+</li>
+</ul>
+<h3 id="2.4-%E4%B8%80%E4%B8%AA%E5%8E%9F%E5%88%99%E6%80%A7%E7%9A%84%E6%96%B9%E6%B3%95" tabindex="-1">2.4 一个原则性的方法</h3>
+<ul>
+<li>
+<p>做系统设计方面的决定通常是在取舍，而在微服务架构中，需要更多的取舍</p>
+</li>
+<li>
+<p>战略目标：架构师不需要定义战略目标，战略目标关心的是公司的走向以及如何让公司满意，这些目标的层次都比较高，但通常不会涉及技术层面</p>
+</li>
+<li>
+<p>原则：为了和大目标保持一致，我们会指定一些具体的规则，称为原则，但原则并不是一成不变的</p>
+</li>
+<li>
+<p>实践：我们通过实践来保证原则能够得到实施，这些实践能指导我们如何完成任务。</p>
+<ul>
+<li>通常实践是技术相关的，而且是底层的，包括代码规范，日志数据集集中捕获等</li>
+<li>实践应该巩固原则</li>
+</ul>
+</li>
+<li>
+<p>将原则和实践相结合</p>
+<ul>
+<li>原则和实践是相对的，比如，可以把使用HTTP/REST作为原则而不是实践，但关键是要有一些重要的原则来指导系统的演化</li>
+</ul>
+</li>
+<li>
+<p>真实世界的例子<img src="/images/web/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1/2-1.jpg" alt></p>
+<ul>
+<li>几年间，时间变动很频繁，而原则基本没有变</li>
+<li>上面提到的名词可以使用文档来职场，也可以提供示例代码，搞好的方法是创造工具保证事情的正确性</li>
+</ul>
+</li>
+</ul>
+<h3 id="2.5-%E8%A6%81%E6%B1%82%E7%9A%84%E6%A0%87%E5%87%86" tabindex="-1">2.5 要求的标准</h3>
+<ul>
+<li>
+<p>系统应该由很多小但有生命周期的组件构成，这些组件之间有着紧密的联系。</p>
+</li>
+<li>
+<p>所以在优化单个服务自治性的同时，也要兼顾全局，一种能帮我们实现平衡的方法就是，清楚地定义出一个好服务应有的属性</p>
+</li>
+<li>
+<p>监控</p>
+<ul>
+<li>能够清晰地描绘出跨服务系统的健康状态十分关键，这必须在系统级别而非单个服务级别进行考虑</li>
+<li>建议所有的服务使用同样的方式报告健康状态及其监控的数据</li>
+</ul>
+</li>
+<li>
+<p>接口：选用少数几种明确的接口技术有助于使用者的集成。</p>
+</li>
+<li>
+<p>架构安全性：一个运行异常的服务可能毁了整个系统，因此要保证每个服务可以应对下游服务的错误请求。</p>
+</li>
+</ul>
+<h3 id="2.6-%E4%BB%A3%E7%A0%81%E6%B2%BB%E7%90%86" tabindex="-1">2.6 代码治理</h3>
+<ul>
+<li>
+<p>达成共识的方法：</p>
+</li>
+<li>
+<p>范例：提供代码范例，当系统中有好的代码范例时，开发人员也不会错得离谱</p>
+<ul>
+<li>理想情况下，提供的优秀范例应当来自真是项目，而不是专门实现的完美例子</li>
+</ul>
+</li>
+<li>
+<p>裁剪服务代码模板</p>
+<ul>
+<li>当开发人员想要实现一个新的服务时，所有实现核心属性的那些代码应该是现成的</li>
+<li>针对自己的开发实践裁剪出一个服务代码模板，不但可以开发出开发速度，还可以保证服务的质量
+<ul>
+<li>针对不同技术栈，都需要一个服务代码模板</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2.7-%E6%8A%80%E6%9C%AF%E5%80%BA%E5%8A%A1" tabindex="-1">2.7 技术债务</h3>
+<ul>
+<li>有时为了实现紧急的特性，可能会忽略一些约束，短期内可能会获得利益，但长期是会付出代价的，这就是技术债务。</li>
+<li>系统的目标发生变化时，且与现有事实不符，此时也会产生技术债务</li>
+</ul>
+<h3 id="2.8-%E4%BE%8B%E5%A4%96%E7%AE%A1%E7%90%86" tabindex="-1">2.8 例外管理</h3>
+<ul>
+<li>当系统偏离指导会发生什么？
+<ul>
+<li>有时候我们会针对某个规则破一次例，然后把他们记录下来。如果这个例外出现了很多次，那就可以通过修改原则和实践的方法把我们的理解固化下来。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2.9-%E9%9B%86%E4%B8%AD%E6%B2%BB%E7%90%86%E5%92%8C%E9%A2%86%E5%AF%BC" tabindex="-1">2.9 集中治理和领导</h3>
+<ul>
+<li>
+<p>架构师的部分职责时治理：</p>
+<ul>
+<li>治理通过评估干系人的需求，当前情况及下一步的可能性来确保企业目标的达成，通过排优先级和做决策来设定方向，对于已经达成一致的方向和目标进行监督</li>
+</ul>
+</li>
+<li>
+<p>架构师的一个职责是确保有一个技术愿景，那么治理就是要确保我们构建的系统符合这个愿景，必要时应对愿景进行演化。</p>
+</li>
+<li>
+<p>架构师需要确保有一组可以指导开发的原则，且这些原则要与组织的战略相符</p>
+<ul>
+<li>他们还需要确保，以这些原则为指导衍生出来的实践不会给开发人员带来痛苦。</li>
+</ul>
+</li>
+<li>
+<p>此时可以成立一个治理小组，小组由技术专家领导，且有一线人员</p>
+<ul>
+<li>一种模式是架构师领导这个小组，每个交付团队都有人参加，架构师负责确保该组织的正常运作，整个小组对治理负责</li>
+</ul>
+</li>
+</ul>
+<h3 id="2.10-%E5%BB%BA%E8%AE%BE%E5%9B%A2%E9%98%9F" tabindex="-1">2.10 建设团队</h3>
+<ul>
+<li>
+<p>对于一个系统技术愿景的主要负责人来说，执行愿景不仅仅等同于做技术决定，和你在一起工作的人自然会做出技术决定</p>
+</li>
+<li>
+<p>对于技术领导者来说，更重要的是帮助你的队友成长，帮助他们理解这个愿景，并保证他们可以积极地参与到愿景的实现和调整中去。</p>
+</li>
+<li>
+<p>在单块系统中，人们为某些事情负责的机会非常少，而在微服务架构种存在多个自治的代码看，每个代码库有自己独立的生命周期，这给更多人提供了对单个服务负责的机会。帮助他们成长，同时通过分担责任也可以防止某一个人负担过重</p>
+</li>
+</ul>
+<h3 id="2.11-%E6%84%BF%E6%99%AF" tabindex="-1">2.11 愿景</h3>
+<ul>
+<li>
+<p>本书认为一个演进式架构师应承担的责任</p>
+<ul>
+<li>愿景
+<ul>
+<li>确保在系统级有一个经过充分沟通的技术愿景，这个愿景应该可以帮助你满足客户和组织的需求</li>
+</ul>
+</li>
+<li>同理心
+<ul>
+<li>理解你所做的决定的客户和同时带来的影响</li>
+</ul>
+</li>
+<li>合作
+<ul>
+<li>和尽量多的同事进行沟通，从而更好地对愿景进行定义，修订及执行</li>
+</ul>
+</li>
+<li>适应性
+<ul>
+<li>确保在你的客户和组织需要的时候调整技术愿景</li>
+</ul>
+</li>
+<li>自治性
+<ul>
+<li>在标准化和团队自制之间寻找一个正确的平衡点</li>
+</ul>
+</li>
+<li>治理
+<ul>
+<li>确保系统按照技术愿景执行</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>在下一章，让我们带着对架构师的认识开始寻找微服务之间的正确边界</p>
+</li>
+</ul>
+<h2 id="%E7%AC%AC3%E7%AB%A0-%E5%A6%82%E4%BD%95%E5%BB%BA%E6%A8%A1%E6%9C%8D%E5%8A%A1" tabindex="-1">第3章 如何建模服务</h2>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><em></em><a class="button is-default" href="/2023/06/18/web/%E5%9B%BE%E8%A7%A3HTTP/" title="图解HTTP"><span class="has-text-weight-semibold">Next: 图解HTTP</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2023</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
