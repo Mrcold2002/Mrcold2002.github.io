@@ -40,7 +40,7 @@ class Soap &amp;#123;
 
 public class Bath &amp;#123;
   private Str.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">On java 8 基础卷（8-14章）</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%A4%8D%E7%94%A8"><span class="toc-text">8 复用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8.1-%E7%BB%84%E5%90%88%E8%AF%AD%E6%B3%95"><span class="toc-text">8.1 组合语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.2-%E7%BB%A7%E6%89%BF%E8%AF%AD%E6%B3%95"><span class="toc-text">8.2 继承语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%9F%BA%E7%B1%BB"><span class="toc-text">初始化基类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.3-%E5%A7%94%E6%89%98"><span class="toc-text">8.3 委托</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.4-%E7%BB%84%E5%90%88%E4%B8%8E%E7%BB%A7%E6%89%BF%E7%9B%B8%E7%BB%93%E5%90%88"><span class="toc-text">8.4 组合与继承相结合</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/java"><i class="tag post-item-tag">java</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">On java 8 基础卷（8-14章）</h1><time class="has-text-grey" datetime="2023-08-16T13:48:11.624Z">2023-08-16</time><article class="mt-2 post-content"><p><img src="/images/PL/OnJava8/x_x.jpg" alt></p>
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">On java 8 基础卷（8-14章）</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%A4%8D%E7%94%A8"><span class="toc-text">8 复用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8.1-%E7%BB%84%E5%90%88%E8%AF%AD%E6%B3%95"><span class="toc-text">8.1 组合语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.2-%E7%BB%A7%E6%89%BF%E8%AF%AD%E6%B3%95"><span class="toc-text">8.2 继承语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%9F%BA%E7%B1%BB"><span class="toc-text">初始化基类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.3-%E5%A7%94%E6%89%98"><span class="toc-text">8.3 委托</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.4-%E7%BB%84%E5%90%88%E4%B8%8E%E7%BB%A7%E6%89%BF%E7%9B%B8%E7%BB%93%E5%90%88"><span class="toc-text">8.4 组合与继承相结合</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8.4.1-%E7%A1%AE%E4%BF%9D%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%B8%85%E7%90%86"><span class="toc-text">8.4.1 确保正确的清理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8.4.2-%E5%90%8D%E7%A7%B0%E9%9A%90%E8%97%8F"><span class="toc-text">8.4.2 名称隐藏</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.5-%E9%80%89%E6%8B%A9%E7%BB%84%E5%90%88%E8%BF%98%E6%98%AF%E7%BB%A7%E6%89%BF"><span class="toc-text">8.5 选择组合还是继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.6-protected%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">8.6 protected关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.7-%E5%90%91%E4%B8%8A%E8%BD%AC%E5%9E%8B"><span class="toc-text">8.7 向上转型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.8-final%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">8.8 final关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8.8.1-final-%E6%95%B0%E6%8D%AE"><span class="toc-text">8.8.1 final 数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8.8.2"><span class="toc-text">8.8.2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8.8.3"><span class="toc-text">8.8.3</span></a></li></ol></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/java"><i class="tag post-item-tag">java</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">On java 8 基础卷（8-14章）</h1><time class="has-text-grey" datetime="2023-08-16T13:48:11.624Z">2023-08-16</time><article class="mt-2 post-content"><p><img src="/images/PL/OnJava8/x_x.jpg" alt></p>
 <h2 id="8-%E5%A4%8D%E7%94%A8" tabindex="-1">8 复用</h2>
 <h3 id="8.1-%E7%BB%84%E5%90%88%E8%AF%AD%E6%B3%95" tabindex="-1">8.1 组合语法</h3>
 <ul>
@@ -200,6 +200,282 @@ castile = Constructed
 &#125;
 </code></pre>
 <h3 id="8.4-%E7%BB%84%E5%90%88%E4%B8%8E%E7%BB%A7%E6%89%BF%E7%9B%B8%E7%BB%93%E5%90%88" tabindex="-1">8.4 组合与继承相结合</h3>
+<h4 id="8.4.1-%E7%A1%AE%E4%BF%9D%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%B8%85%E7%90%86" tabindex="-1">8.4.1 确保正确的清理</h4>
+<ul>
+<li>Java中没有C++中析构函数的概念,析构函数会在对象被销毁时自动调用,而Java中有GC,会在需要时回收内存</li>
+<li>然而,类可能需要自己执行一些清理活动,因为你不知道GC什么时候被调用,所以此时必须明确地编写一个特殊的方法来实现
+<ul>
+<li>该方法与构造器方法类似,需要显式的声明,顺序与构造器顺序相反</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-java">package reuse;
+
+class Shape &#123;
+  Shape(int i) &#123;
+    System.out.println(&quot;Shape constructor&quot;);
+  &#125;
+  void dispose() &#123;
+    System.out.println(&quot;Shape dispose&quot;);
+  &#125;
+&#125;
+
+class Circle extends Shape &#123;
+  Circle(int i) &#123;
+    super(i);
+    System.out.println(&quot;Drawing Circle&quot;);
+  &#125;
+  @Override void dispose() &#123;
+    System.out.println(&quot;Erasing Circle&quot;);
+    super.dispose();
+  &#125;
+&#125;
+
+class Triangle extends Shape &#123;
+  Triangle(int i) &#123;
+    super(i);
+    System.out.println(&quot;Drawing Triangle&quot;);
+  &#125;
+  @Override void dispose() &#123;
+    System.out.println(&quot;Erasing Triangle&quot;);
+    super.dispose();
+  &#125;
+&#125;
+
+class Line extends Shape &#123;
+  private int start, end;
+  Line(int start, int end) &#123;
+    super(start);
+    this.start = start;
+    this.end = end;
+    System.out.println(
+      &quot;Drawing Line: &quot; + start + &quot;, &quot; + end);
+  &#125;
+  @Override void dispose() &#123;
+    System.out.println(
+      &quot;Erasing Line: &quot; + start + &quot;, &quot; + end);
+    super.dispose();
+  &#125;
+&#125;
+
+public class CADSystem extends Shape &#123;
+  private Circle c;
+  private Triangle t;
+  private Line[] lines = new Line[3];
+  public CADSystem(int i) &#123;
+    super(i + 1);
+    for(int j = 0; j &lt; lines.length; j++)
+      lines[j] = new Line(j, j*j);
+    c = new Circle(1);
+    t = new Triangle(1);
+    System.out.println(&quot;Combined constructor&quot;);
+  &#125;
+  @Override public void dispose() &#123;
+    System.out.println(&quot;CADSystem.dispose()&quot;);
+    // The order of cleanup is the reverse
+    // of the order of initialization:
+    t.dispose();
+    c.dispose();
+    for(int i = lines.length - 1; i &gt;= 0; i--)
+      lines[i].dispose();
+    super.dispose();
+  &#125;
+  public static void main(String[] args) &#123;
+    CADSystem x = new CADSystem(47);
+    try &#123;
+      // Code and exception handling...
+    &#125; finally &#123;
+      x.dispose();
+    &#125;
+  &#125;
+&#125;
+/* Output:
+Shape constructor
+Shape constructor
+Drawing Line: 0, 0
+Shape constructor
+Drawing Line: 1, 1
+Shape constructor
+Drawing Line: 2, 4
+Shape constructor
+Drawing Circle
+Shape constructor
+Drawing Triangle
+Combined constructor
+CADSystem.dispose()
+Erasing Triangle
+Shape dispose
+Erasing Circle
+Shape dispose
+Erasing Line: 2, 4
+Shape dispose
+Erasing Line: 1, 1
+Shape dispose
+Erasing Line: 0, 0
+Shape dispose
+Shape dispose
+*/
+</code></pre>
+<h4 id="8.4.2-%E5%90%8D%E7%A7%B0%E9%9A%90%E8%97%8F" tabindex="-1">8.4.2 名称隐藏</h4>
+<ul>
+<li>如果Java基类的方法名称被多次重载,则在子类中重新定义该方法名称不会隐藏任何基类版本.无论方法实在子类还是基类中定义,重载都有效
+<ul>
+<li>即基类的方法名重载后,子类中依然可以进行方法名重载,均可以使用</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-java">class Homer &#123;
+  char doh(char c) &#123;
+    System.out.println(&quot;doh(char)&quot;);
+    return 'd';
+  &#125;
+  float doh(float f) &#123;
+    System.out.println(&quot;doh(float)&quot;);
+    return 1.0f;
+  &#125;
+&#125;
+
+class Milhouse &#123;&#125;
+
+class Bart extends Homer &#123;
+  void doh(Milhouse m) &#123;
+    System.out.println(&quot;doh(Milhouse)&quot;);
+  &#125;
+  /*
+  以下这种写法是错的,不是重写函数而是正常的同一函数名不同参数的重载函数,本质是同名的不同函数,相当于在子类中新造乐一个函数
+  @Override void doh(Milhouse m) &#123;
+    System.out.println(&quot;doh(Milhouse)&quot;);
+  &#125;
+  */
+&#125;
+
+public class Hide &#123;
+  public static void main(String[] args) &#123;
+    Bart b = new Bart();
+    b.doh(1);
+    b.doh('x');
+    b.doh(1.0f);
+    b.doh(new Milhouse());
+  &#125;
+&#125;
+/* Output:
+doh(float)
+doh(char)
+doh(float)
+doh(Milhouse)
+*/
+</code></pre>
+<h3 id="8.5-%E9%80%89%E6%8B%A9%E7%BB%84%E5%90%88%E8%BF%98%E6%98%AF%E7%BB%A7%E6%89%BF" tabindex="-1">8.5 选择组合还是继承</h3>
+<ul>
+<li>
+<p>组合和继承都会将对象放在新类中(组合是显式执行,继承是隐式执行)</p>
+</li>
+<li>
+<p>新类中使用现有类的功能而不是接口时,使用<strong>组合</strong>,即在心累中嵌入一个对象来实现自己的特性(多是private),新类的用户看到的是新类的定义而不是嵌入对象的接口.</p>
+<ul>
+<li>又是组合的成员对象也可以为public(类似一种半委托)</li>
+</ul>
+</li>
+<li>
+<p>当使用<strong>继承</strong>时,通过现有的类生成一个特殊版本,意味着对通用类进行定制.</p>
+</li>
+<li>
+<p><strong>继承</strong>是&quot;is-a&quot;关系,<strong>组合</strong>是&quot;has-a&quot;关系</p>
+</li>
+</ul>
+<h3 id="8.6-protected%E5%85%B3%E9%94%AE%E5%AD%97" tabindex="-1">8.6 protected关键字</h3>
+<ul>
+<li>protected:包访问权限和子类访问权限</li>
+</ul>
+<pre><code class="language-java">class Villain &#123;
+  private String name;
+  protected void set(String nm) &#123; name = nm; &#125;
+  Villain(String name) &#123; this.name = name; &#125;
+  @Override public String toString() &#123;
+    return &quot;I'm a Villain and my name is &quot; + name;
+  &#125;
+&#125;
+
+public class Orc extends Villain &#123;
+  private int orcNumber;
+  public Orc(String name, int orcNumber) &#123;
+    super(name);
+    this.orcNumber = orcNumber;
+  &#125;
+  public void change(String name, int orcNumber) &#123;
+    set(name); // 这里change函数可以调用set,因为set是protected型的
+    this.orcNumber = orcNumber;
+  &#125;
+  @Override public String toString() &#123;
+    return &quot;Orc &quot; + orcNumber + &quot;: &quot; + super.toString();
+  &#125;
+  public static void main(String[] args) &#123;
+    Orc orc = new Orc(&quot;Limburger&quot;, 12);
+    System.out.println(orc);
+    orc.change(&quot;Bob&quot;, 19);
+    System.out.println(orc);
+  &#125;
+&#125;
+/* Output:
+Orc 12: I'm a Villain and my name is Limburger
+Orc 19: I'm a Villain and my name is Bob
+*/
+</code></pre>
+<h3 id="8.7-%E5%90%91%E4%B8%8A%E8%BD%AC%E5%9E%8B" tabindex="-1">8.7 向上转型</h3>
+<ul>
+<li>继承最重要的是可以表达新类和基类的关系:<strong>新类是现有类的一种类型</strong></li>
+<li>这种描述可以直接由语言支持,如下面的例子,乐器类Instrument为基类,Wind为子类,乐器类有一个play方法,那么Wind乐器也会有,即Wind乐器是一种乐器</li>
+<li>以下代码中,tune()方法接受一个Instrument引用,当传入一个Wind引用时,实际Wind类就是一种Instrument类,而且tune()方法调用的Instrument对象的所有属性和方法Wind均具有.因此代码可以正常运行.这种将子类引用转换为基类引用的行为称为<strong>向上转型(upcasting)</strong></li>
+</ul>
+<pre><code class="language-java">class Instrument &#123;
+ public void play() &#123;&#125;
+ static void tune(Instrument i) &#123;
+ // ...
+ i.play();
+ &#125;
+&#125;
+// Wind 对象也是 instrument，因为它们有相同的接口：
+public class Wind extends Instrument &#123;
+ public static void main(String[] args) &#123;
+ Wind flute = new Wind();
+ Instrument.tune(flute); // 向上转型
+ &#125;
+&#125;
+</code></pre>
+<ul>
+<li>确定使用继承或组合的方法:新类是否要向上转型到基类</li>
+</ul>
+<h3 id="8.8-final%E5%85%B3%E9%94%AE%E5%AD%97" tabindex="-1">8.8 final关键字</h3>
+<ul>
+<li>final:表示无法更改的</li>
+<li>使用final出于两个原因:设计或效率,这两个原因差距很大,因此final可能被误用</li>
+</ul>
+<h4 id="8.8.1-final-%E6%95%B0%E6%8D%AE" tabindex="-1">8.8.1 final 数据</h4>
+<ul>
+<li>
+<p>许多编程语言有常量的定义,标识某个数据是恒定的,有以下两个原因</p>
+<ul>
+<li>
+<ol>
+<li>它是一个永远不会改变的<strong>编译时常量</strong>:编译器可以将常量值&quot;折叠&quot;在计算中,即计算在编译时进行,节省运行开销.Java中使用final进行修饰,一个既是static也是final字段指挥分配一块不能改变的存储空间</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>它可以使在运行时初始化的值,而你不希望被更改</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>final对于基本类型,使得其值更定不变;但对于对象引用,final使得<strong>引用</strong>恒定不变,一旦引用被初始化一个对象,它就不能再指其它对象了,但对象本身是可以修改的.</p>
+<ul>
+<li>Java没有提供使对象恒定不变的方法,但用户可以自己编写类实现</li>
+</ul>
+</li>
+</ul>
+<h4 id="8.8.2" tabindex="-1">8.8.2</h4>
+<h4 id="8.8.3" tabindex="-1">8.8.3</h4>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2023/08/16/%E6%9D%82%E8%AE%B0/%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/" title="面试记录"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: 面试记录</span></a><a class="button is-default" href="/2023/06/25/PL/On%20java8%E5%9F%BA%E7%A1%80%E5%8D%B71-7/" title="On java 8 基础卷（1-7章）"><span class="has-text-weight-semibold">Next: On java 8 基础卷（1-7章）</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2023</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
