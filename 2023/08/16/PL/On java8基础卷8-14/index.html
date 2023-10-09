@@ -40,7 +40,7 @@ class Soap &amp;#123;
 
 public class Bath &amp;#123;
   private Str.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">On java 8 基础卷（8-14章）</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%A4%8D%E7%94%A8"><span class="toc-text">8 复用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8.1-%E7%BB%84%E5%90%88%E8%AF%AD%E6%B3%95"><span class="toc-text">8.1 组合语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.2-%E7%BB%A7%E6%89%BF%E8%AF%AD%E6%B3%95"><span class="toc-text">8.2 继承语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%9F%BA%E7%B1%BB"><span class="toc-text">初始化基类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.3-%E5%A7%94%E6%89%98"><span class="toc-text">8.3 委托</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.4-%E7%BB%84%E5%90%88%E4%B8%8E%E7%BB%A7%E6%89%BF%E7%9B%B8%E7%BB%93%E5%90%88"><span class="toc-text">8.4 组合与继承相结合</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8.4.1-%E7%A1%AE%E4%BF%9D%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%B8%85%E7%90%86"><span class="toc-text">8.4.1 确保正确的清理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8.4.2-%E5%90%8D%E7%A7%B0%E9%9A%90%E8%97%8F"><span class="toc-text">8.4.2 名称隐藏</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.5-%E9%80%89%E6%8B%A9%E7%BB%84%E5%90%88%E8%BF%98%E6%98%AF%E7%BB%A7%E6%89%BF"><span class="toc-text">8.5 选择组合还是继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.6-protected%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">8.6 protected关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.7-%E5%90%91%E4%B8%8A%E8%BD%AC%E5%9E%8B"><span class="toc-text">8.7 向上转型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.8-final%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">8.8 final关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8.8.1-final-%E6%95%B0%E6%8D%AE"><span class="toc-text">8.8.1 final 数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8.8.2-final-%E6%96%B9%E6%B3%95"><span class="toc-text">8.8.2 final 方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8.8.3-final-%E7%B1%BB"><span class="toc-text">8.8.3 final 类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.9-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD"><span class="toc-text">8.9 初始化和类的加载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E5%A4%9A%E6%80%81"><span class="toc-text">9 多态</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9.1-%E5%86%8D%E8%AE%BA%E5%90%91%E4%B8%8A%E8%BD%AC%E5%9E%8B"><span class="toc-text">9.1 再论向上转型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9.2-%E9%9A%BE%E7%82%B9"><span class="toc-text">9.2 难点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9.2.1-%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E7%BB%91%E5%AE%9A"><span class="toc-text">9.2.1 方法调用绑定</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9.2.2-%E4%BA%A7%E7%94%9F%E6%AD%A3%E7%A1%AE%E7%9A%84%E8%A1%8C%E4%B8%BA"><span class="toc-text">9.2.2 产生正确的行为</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9.2.3-%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7"><span class="toc-text">9.2.3 可扩展性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9.2.4-%E9%99%B7%E9%98%B1:%22%E9%87%8D%E5%86%99%22private%E6%96%B9%E6%B3%95"><span class="toc-text">9.2.4 陷阱:&quot;重写&quot;private方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9.2.5-%E9%99%B7%E9%98%B1:%E5%AD%97%E6%AE%B5%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="toc-text">9.2.5 陷阱:字段和静态方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9.3-%E6%9E%84%E9%80%A0%E5%99%A8%E5%92%8C%E5%A4%9A%E6%80%81"><span class="toc-text">9.3 构造器和多态</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9.3.1-%E6%9E%84%E9%80%A0%E5%99%A8%E7%9A%84%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F"><span class="toc-text">9.3.1 构造器的调用顺序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9.3.2-%E7%BB%A7%E6%89%BF%E4%B8%8E%E6%B8%85%E7%90%86"><span class="toc-text">9.3.2 继承与清理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9.3.3-%E6%9E%84%E9%80%A0%E5%99%A8%E5%86%85%E9%83%A8%E7%9A%84%E5%A4%9A%E6%80%81%E6%96%B9%E6%B3%95%E7%9A%84%E8%A1%8C%E4%B8%BA"><span class="toc-text">9.3.3 构造器内部的多态方法的行为</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9.4-%E5%8D%8F%E5%8F%98%E8%BF%94%E5%9B%9E%E7%B1%BB%E5%9E%8B"><span class="toc-text">9.4 协变返回类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9.5-%E7%94%A8%E7%BB%A7%E6%89%BF%E8%BF%9B%E8%A1%8C%E8%AE%BE%E8%AE%A1"><span class="toc-text">9.5 用继承进行设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9.5.1-%E6%9B%BF%E6%8D%A2%E5%92%8C%E6%89%A9%E5%B1%95"><span class="toc-text">9.5.1 替换和扩展</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9.5.2"><span class="toc-text">9.5.2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9.5.3"><span class="toc-text">9.5.3</span></a></li></ol></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/java"><i class="tag post-item-tag">java</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">On java 8 基础卷（8-14章）</h1><time class="has-text-grey" datetime="2023-08-16T13:48:11.624Z">2023-08-16</time><article class="mt-2 post-content"><p><img src="/images/PL/OnJava8/x_x.jpg" alt></p>
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">On java 8 基础卷（8-14章）</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%A4%8D%E7%94%A8"><span class="toc-text">8 复用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8.1-%E7%BB%84%E5%90%88%E8%AF%AD%E6%B3%95"><span class="toc-text">8.1 组合语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.2-%E7%BB%A7%E6%89%BF%E8%AF%AD%E6%B3%95"><span class="toc-text">8.2 继承语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%9F%BA%E7%B1%BB"><span class="toc-text">初始化基类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.3-%E5%A7%94%E6%89%98"><span class="toc-text">8.3 委托</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.4-%E7%BB%84%E5%90%88%E4%B8%8E%E7%BB%A7%E6%89%BF%E7%9B%B8%E7%BB%93%E5%90%88"><span class="toc-text">8.4 组合与继承相结合</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8.4.1-%E7%A1%AE%E4%BF%9D%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%B8%85%E7%90%86"><span class="toc-text">8.4.1 确保正确的清理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8.4.2-%E5%90%8D%E7%A7%B0%E9%9A%90%E8%97%8F"><span class="toc-text">8.4.2 名称隐藏</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.5-%E9%80%89%E6%8B%A9%E7%BB%84%E5%90%88%E8%BF%98%E6%98%AF%E7%BB%A7%E6%89%BF"><span class="toc-text">8.5 选择组合还是继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.6-protected%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">8.6 protected关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.7-%E5%90%91%E4%B8%8A%E8%BD%AC%E5%9E%8B"><span class="toc-text">8.7 向上转型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.8-final%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">8.8 final关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8.8.1-final-%E6%95%B0%E6%8D%AE"><span class="toc-text">8.8.1 final 数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8.8.2-final-%E6%96%B9%E6%B3%95"><span class="toc-text">8.8.2 final 方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8.8.3-final-%E7%B1%BB"><span class="toc-text">8.8.3 final 类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8.9-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD"><span class="toc-text">8.9 初始化和类的加载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E5%A4%9A%E6%80%81"><span class="toc-text">9 多态</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9.1-%E5%86%8D%E8%AE%BA%E5%90%91%E4%B8%8A%E8%BD%AC%E5%9E%8B"><span class="toc-text">9.1 再论向上转型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9.2-%E9%9A%BE%E7%82%B9"><span class="toc-text">9.2 难点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9.2.1-%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E7%BB%91%E5%AE%9A"><span class="toc-text">9.2.1 方法调用绑定</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9.2.2-%E4%BA%A7%E7%94%9F%E6%AD%A3%E7%A1%AE%E7%9A%84%E8%A1%8C%E4%B8%BA"><span class="toc-text">9.2.2 产生正确的行为</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9.2.3-%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7"><span class="toc-text">9.2.3 可扩展性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9.2.4-%E9%99%B7%E9%98%B1:%22%E9%87%8D%E5%86%99%22private%E6%96%B9%E6%B3%95"><span class="toc-text">9.2.4 陷阱:&quot;重写&quot;private方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9.2.5-%E9%99%B7%E9%98%B1:%E5%AD%97%E6%AE%B5%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="toc-text">9.2.5 陷阱:字段和静态方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9.3-%E6%9E%84%E9%80%A0%E5%99%A8%E5%92%8C%E5%A4%9A%E6%80%81"><span class="toc-text">9.3 构造器和多态</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9.3.1-%E6%9E%84%E9%80%A0%E5%99%A8%E7%9A%84%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F"><span class="toc-text">9.3.1 构造器的调用顺序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9.3.2-%E7%BB%A7%E6%89%BF%E4%B8%8E%E6%B8%85%E7%90%86"><span class="toc-text">9.3.2 继承与清理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9.3.3-%E6%9E%84%E9%80%A0%E5%99%A8%E5%86%85%E9%83%A8%E7%9A%84%E5%A4%9A%E6%80%81%E6%96%B9%E6%B3%95%E7%9A%84%E8%A1%8C%E4%B8%BA"><span class="toc-text">9.3.3 构造器内部的多态方法的行为</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9.4-%E5%8D%8F%E5%8F%98%E8%BF%94%E5%9B%9E%E7%B1%BB%E5%9E%8B"><span class="toc-text">9.4 协变返回类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9.5-%E7%94%A8%E7%BB%A7%E6%89%BF%E8%BF%9B%E8%A1%8C%E8%AE%BE%E8%AE%A1"><span class="toc-text">9.5 用继承进行设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9.5.1-%E6%9B%BF%E6%8D%A2%E5%92%8C%E6%89%A9%E5%B1%95"><span class="toc-text">9.5.1 替换和扩展</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9.5.2-%E5%90%91%E4%B8%8B%E8%BD%AC%E5%9E%8B%E5%92%8C%E5%8F%8D%E5%B0%84"><span class="toc-text">9.5.2 向下转型和反射</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E6%8E%A5%E5%8F%A3"><span class="toc-text">10 接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#10.1-%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95"><span class="toc-text">10.1 抽象类和抽象方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10.2-%E6%8E%A5%E5%8F%A3%E5%AE%9A%E4%B9%89"><span class="toc-text">10.2 接口定义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#10.2.1-%E9%BB%98%E8%AE%A4%E6%96%B9%E6%B3%95"><span class="toc-text">10.2.1 默认方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10.2.2-%E5%A4%9A%E9%87%8D%E7%BB%A7%E6%89%BF"><span class="toc-text">10.2.2 多重继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10.2.3-%E6%8E%A5%E5%8F%A3%E4%B8%AD%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="toc-text">10.2.3 接口中的静态方法</span></a></li></ol></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/java"><i class="tag post-item-tag">java</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">On java 8 基础卷（8-14章）</h1><time class="has-text-grey" datetime="2023-08-16T13:48:11.624Z">2023-08-16</time><article class="mt-2 post-content"><p><img src="/images/PL/OnJava8/x_x.jpg" alt></p>
 <h2 id="8-%E5%A4%8D%E7%94%A8" tabindex="-1">8 复用</h2>
 <h3 id="8.1-%E7%BB%84%E5%90%88%E8%AF%AD%E6%B3%95" tabindex="-1">8.1 组合语法</h3>
 <ul>
@@ -716,11 +716,193 @@ class WheatMill extends Mill &#123;
 </ul>
 <h4 id="9.5.1-%E6%9B%BF%E6%8D%A2%E5%92%8C%E6%89%A9%E5%B1%95" tabindex="-1">9.5.1 替换和扩展</h4>
 <ul>
-<li>纯粹的&quot;is-a&quot;关系,子类的接口与基类相同,但可以进行重写.例子:<br>
-<img src=".../images/PL/OnJava8/9_5_1.png" alt></li>
+<li>
+<p>纯粹的&quot;is-a&quot;关系,子类的接口与基类相同,但可以进行重写.例子:<br>
+<img src="/images/PL/OnJava8/9_5_1.png" alt></p>
+</li>
+<li>
+<p>&quot;is-like-a&quot;关系,子类的接口比基类更丰富,向上转型后,无法调用子类的新的方法.例子:<br>
+<img src="/images/PL/OnJava8/9_5_1_1.png" alt></p>
+</li>
 </ul>
-<h4 id="9.5.2" tabindex="-1">9.5.2</h4>
-<h4 id="9.5.3" tabindex="-1">9.5.3</h4>
+<h4 id="9.5.2-%E5%90%91%E4%B8%8B%E8%BD%AC%E5%9E%8B%E5%92%8C%E5%8F%8D%E5%B0%84" tabindex="-1">9.5.2 向下转型和反射</h4>
+<ul>
+<li>
+<p>向上转型会丢失特定类型的信息,自然可以通过向下转型重新获取类型信息</p>
+</li>
+<li>
+<p>向上转型总是安全的,因为基类不可能会比有更多的接口,基类接口发送的信息子类总能接收,向下转型非也</p>
+</li>
+<li>
+<p>某些语言(如C++)要执行特殊操作才能获得类型安全的向下转型,Java中每个转型都会被检查,如果转型是不合法的,则会抛出ClassCastException异常,这种运行时检查的行为是<strong>Java反射</strong>的一部分,例子:</p>
+</li>
+</ul>
+<pre><code class="language-java">class Useful &#123;
+ public void f() &#123;&#125;
+ public void g() &#123;&#125;
+&#125;
+class MoreUseful extends Useful &#123;
+ @Override public void f() &#123;&#125;
+ @Override public void g() &#123;&#125;
+ public void u() &#123;&#125;
+ public void v() &#123;&#125;
+ public void w() &#123;&#125;
+&#125;
+public class Reflect &#123;
+ public static void main(String[] args) &#123;
+ Useful[] x = &#123;
+ new Useful(),
+ new MoreUseful()
+ &#125;;
+ x[0].f();
+ x[1].g();
+ // 编译时错误：无法在 Useful 中发现方法 :
+ //- x[1].u();
+ ((MoreUseful)x[1]).u(); // 向下转型 / 反射
+ ((MoreUseful)x[0]).u(); // 抛出异常
+ &#125;
+&#125;
+</code></pre>
+<h2 id="10-%E6%8E%A5%E5%8F%A3" tabindex="-1">10 接口</h2>
+<h3 id="10.1-%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95" tabindex="-1">10.1 抽象类和抽象方法</h3>
+<ul>
+<li>
+<p>抽象类:介于普通类和接口之间的类,抽象类不能被实例化,只能被继承,抽象类中可以包含<strong>抽象方法</strong>,也可以没有,抽象方法只有声明,没有实现,抽象方法必须被子类实现</p>
+</li>
+<li>
+<p>例子:Instrument可以称为抽象类,为所有的子类创建了一个共同的接口,但是Instrument类本身不能被实例化,因为它是抽象的,而且Instrument类中的play方法是抽象的,因此必须被子类实现</p>
+</li>
+</ul>
+<pre><code class="language-java">abstract class Instrument &#123;
+ private int i; 
+ public abstract void play(Note n);
+ public String what() &#123; return &quot;Instrument&quot;; &#125;
+ public abstract void adjust();
+&#125;
+</code></pre>
+<ul>
+<li>可实例化类继承抽象类后,要为所有的抽象方法提供定义</li>
+</ul>
+<pre><code class="language-java">abstract class Uninstantiable &#123;
+  abstract void f();
+  abstract int g();
+&#125;
+
+public class Instantiable extends Uninstantiable &#123;
+  @Override void f() &#123; System.out.println(&quot;f()&quot;); &#125;//@Override表示重写了基类的方法,如果该注解,其实编译器会自动判断抽象方法是否已经被实现,所以可以去掉
+  @Override int g() &#123; return 22; &#125;
+  public static void main(String[] args) &#123;
+    Uninstantiable ui = new Instantiable();ui.f();
+  &#125;
+&#125;
+</code></pre>
+<ul>
+<li>
+<p>接口只允许有public方法,抽象类对访问权限没有限制(private方法除外,因为无法被继承)</p>
+</li>
+<li>
+<p>抽象类和抽象方法很有用</p>
+<ul>
+<li>明确了类的抽象性,告诉用户和编译器自己的预期用途</li>
+<li>有用的重构工具,让你轻松地将公共方法上移至抽象基类中,以便于在继承类中重用</li>
+</ul>
+</li>
+</ul>
+<h3 id="10.2-%E6%8E%A5%E5%8F%A3%E5%AE%9A%E4%B9%89" tabindex="-1">10.2 接口定义</h3>
+<ul>
+<li>
+<p>interface关键字创建一个完全抽象的类,不代表任何实现,接口描述了一个类应该是什么样子和做什么的,而不是如何做.其确定了方法名,参数列表和返回类型,但不提供方法主体.</p>
+</li>
+<li>
+<p>接口允许默认方法和静态方法,可以包含字段(隐式static和final)</p>
+</li>
+<li>
+<p>接口和抽象类显著的区别是两者的惯用方式:</p>
+<ul>
+<li>接口通常暗示&quot;类的类型&quot;,作为形容词使用,如Comparable接口</li>
+<li>抽象类通常表示&quot;类的成员&quot;,作为名词使用,如AbstractList类</li>
+</ul>
+</li>
+<li>
+<p>创建接口使用interface关键字,前面可以加public或默认包访问权限</p>
+</li>
+<li>
+<p>创建符合接口的类,使用implements关键字,一个类可以实现多个接口,接口中的方法必须被实现,否则编译报错.同时方法默认为public,同时实现类中的方法也必须为public,加上@Override注解可以检查是否正确重写了接口中的方法</p>
+</li>
+</ul>
+<pre><code class="language-java">interface Concept &#123; // 包访问
+ void idea1();
+ void idea2();
+&#125;
+class Implementation implements Concept &#123;
+ @Override public void idea1() &#123;
+ System.out.println(&quot;idea1&quot;);
+ &#125;
+ @Override public void idea2() &#123;
+ System.out.println(&quot;idea2&quot;);
+ &#125;
+&#125;
+</code></pre>
+<h4 id="10.2.1-%E9%BB%98%E8%AE%A4%E6%96%B9%E6%B3%95" tabindex="-1">10.2.1 默认方法</h4>
+<ul>
+<li>接口中,允许使用default关键字创建一个方法体,实现该接口的类可以在不定义方法的情况下直接替换为该默认方法体</li>
+</ul>
+<pre><code class="language-java">interface InterfaceWithDefault &#123;
+ void firstMethod();
+ void secondMethod();
+ default void newMethod() &#123;
+ System.out.println(&quot;newMethod&quot;);
+ &#125;
+&#125;
+public class Implementation2
+implements InterfaceWithDefault &#123;
+ @Override public void firstMethod() &#123;
+ System.out.println(&quot;firstMethod&quot;);
+ &#125;
+ @Override public void secondMethod() &#123;
+ System.out.println(&quot;secondMethod&quot;);
+ &#125;
+ public static void main(String[] args) &#123;
+ InterfaceWithDefault i = new Implementation2();
+ i.firstMethod();
+ i.secondMethod();
+ i.newMethod();
+ &#125;
+&#125;
+</code></pre>
+<ul>
+<li>添加默认方法的原因:允许向现有接口中添加方法,而不会破坏已经在使用该接口的所有代码</li>
+<li>默认方法也称 防御方法 或 虚拟扩展方法</li>
+</ul>
+<h4 id="10.2.2-%E5%A4%9A%E9%87%8D%E7%BB%A7%E6%89%BF" tabindex="-1">10.2.2 多重继承</h4>
+<ul>
+<li>Java是严格的单继承语言,只能继承一个类(或抽象类)</li>
+<li>但接口有多重继承的一些特性,即一个类可以实现多个接口,这样就可以实现多重继承的效果,只要所有基类方法都有不同的名称和参数列表,代码就能正常工作,否则会报错
+<ul>
+<li>如果两个接口中有相同的方法,可以通过在实现类中重写该方法来解决</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-java">interface Jim1 &#123;
+ default void jim() &#123;
+ System.out.println(&quot;Jim1::jim&quot;);
+ &#125;
+&#125;
+interface Jim2 &#123;
+ default void jim() &#123;
+ System.out.println(&quot;Jim2::jim&quot;);
+ &#125;
+&#125;
+public class Jim implements Jim1, Jim2 &#123;
+ @Override public void jim() &#123;
+ Jim2.super.jim();
+ &#125;
+ public static void main(String[] args) &#123;
+ new Jim().jim();
+ &#125;
+&#125;
+</code></pre>
+<h4 id="10.2.3-%E6%8E%A5%E5%8F%A3%E4%B8%AD%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95" tabindex="-1">10.2.3 接口中的静态方法</h4>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2023/08/16/%E6%9D%82%E8%AE%B0/%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/" title="面试记录"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: 面试记录</span></a><a class="button is-default" href="/2023/06/25/PL/On%20java8%E5%9F%BA%E7%A1%80%E5%8D%B71-7/" title="On java 8 基础卷（1-7章）"><span class="has-text-weight-semibold">Next: On java 8 基础卷（1-7章）</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2023</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
