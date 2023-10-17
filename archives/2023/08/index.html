@@ -1,6 +1,45 @@
 <!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>Mr_cold's blog</title><meta name="description" content="菜"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
 <!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/widget-post-list.css"><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><span>Archives · 2023</span></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><article class="post-container is-flex is-justify-content-center section container is-max-widescreen pt-4 px-2"><div class="columns is-variable is-1-tablet is-3-desktop-only is-2-widescreen is-full-width"><section class="column"><article class="post-item-card"><section class="content post-card-content p-4 pb-5"><header><a href="/tags/%E9%9D%A2%E8%AF%95"><i class="tag post-item-tag">面试</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/08/16/%E6%9D%82%E8%AE%B0/%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/">面试记录</a></h2><time class="has-text-grey" datetime="2023-08-16T13:48:11.669Z">2023-08-16</time><p class="is-flex-grow-2 mt-2">阿里
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><span>Archives · 2023</span></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><article class="post-container is-flex is-justify-content-center section container is-max-widescreen pt-4 px-2"><div class="columns is-variable is-1-tablet is-3-desktop-only is-2-widescreen is-full-width"><section class="column"><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/%E8%AE%BA%E6%96%87/P2PFaaS/%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2023/08/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/P2PFaaS/"><img class="post-cover-img js-img-fadeIn" src="/images/%E8%AE%BA%E6%96%87/P2PFaaS/%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97"><i class="tag post-item-tag">边缘计算</i></a><a href="/tags/Faas"><i class="tag post-item-tag">Faas</i></a><a href="/tags/ServerLess"><i class="tag post-item-tag">ServerLess</i></a><a href="/tags/%E9%9B%BE%E8%AE%A1%E7%AE%97"><i class="tag post-item-tag">雾计算</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/08/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/P2PFaaS/">P2PFaaS</a></h2><time class="has-text-grey" datetime="2023-08-16T13:48:11.677Z">2023-08-16</time><p class="is-flex-grow-2 mt-2">论文连接
+0 摘要
+在边缘和雾计算环境中，通常会设计和测试实施调度和负载均衡解决方案的分布式算法。通常适用于该环境的操作范式要求用户调用最近的节点来执行任务，并且由于服务必须在一组节点之间分布，使用FaaS（函数即服务）的无服务器范式是最有前景的策略。基于这些前提条件，我们设计并实现了一个名为P2PFaaS的框架。该框架基于Docker容器构建，允许在一组节点之间实现完全分散的调度或负载均衡算法。通过依赖三个基本服务，即调度服务、发现服务和学习器服务，该框架允许实现任何类型的调度解决方案，即使基于强化学习。最后，该框架提供了一个即插即用的解决方案，可以在x86服务器和基于ARM的边缘节点（例如树莓派）上安装和测试。
+软件描述
+1.1 软件架构
+
+
+调度器服务在端口18080上监听，并作为框架的入口，客户端可..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/08/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/P2PFaaS/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="https://arxiv.org/pdf/2111.06595.pdf" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2023/08/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/FaaS%20Execution%20Models%20for%20Edge%20Applications/"><img class="post-cover-img js-img-fadeIn" src="https://arxiv.org/pdf/2111.06595.pdf" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97"><i class="tag post-item-tag">边缘计算</i></a><a href="/tags/Faas"><i class="tag post-item-tag">Faas</i></a><a href="/tags/ServerLess"><i class="tag post-item-tag">ServerLess</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/08/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/FaaS%20Execution%20Models%20for%20Edge%20Applications/">FaaS Execution Models for Edge Applications</a></h2><time class="has-text-grey" datetime="2023-08-16T13:48:11.674Z">2023-08-16</time><p class="is-flex-grow-2 mt-2">
+0 摘要
+
+
+在这篇论文中，我们解决了在边缘网络中支持基于函数即服务（FaaS）模型的有状态工作流的问题。
+
+
+特别是我们关注数据传输问题，由于某些边缘场景中通信链路速度有限，这可能成为性能瓶颈。为此，我们提出了三种不同的方案：
+
+纯FaaS实现
+StateProp（应用状态在整个函数链中传播）
+以及StateLocal（状态仅保留在运行函数的工作节点上，需要时进行检索）。
+
+
+
+然后，我们将提出的方案扩展到应用程序建模为有向无环图（DAG）的更一般情况，这种建模方法涵盖了广泛的实际应用场景，例如物联网（IoT）领域。
+
+
+我们的贡献通过原型实现进行了验证。在模拟条件下的实验表明，应用数据本地化原则显著减少了所需的网络流量并改善了端到端的延迟性能，尤其是在边缘节点上进行本地缓存和低链路速度的情况下。
+
+
+..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/08/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/FaaS%20Execution%20Models%20for%20Edge%20Applications/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/%E8%AE%BA%E6%96%87/Balancing%20Layer%20and%20Chain%20Sharing%20in%20IIndustrial%20Microservice%20Deployment/3_1.png" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2023/08/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Balancing%20Layer%20and%20Chain%20Sharing%20in%20Industrial%20Microservice%20Deployment/"><img class="post-cover-img js-img-fadeIn" src="/images/%E8%AE%BA%E6%96%87/Balancing%20Layer%20and%20Chain%20Sharing%20in%20IIndustrial%20Microservice%20Deployment/3_1.png" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1"><i class="tag post-item-tag">微服务</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/08/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Balancing%20Layer%20and%20Chain%20Sharing%20in%20Industrial%20Microservice%20Deployment/">How to Share:Balancing Layer and Chain Sharing in Industrial Microservice Deployment</a></h2><time class="has-text-grey" datetime="2023-08-16T13:48:11.673Z">2023-08-16</time><p class="is-flex-grow-2 mt-2">0 摘要
+
+随着智能制造的快速发展，面向边缘计算的微服务平台正在成为生产控制的重要组成部分。
+在微服务的容器化部署中：
+
+层共享可以减少由于镜像拉取而导致的巨大带宽消耗
+而链共享可以减少微服务之间通信引起的通信开销
+
+
+这两种共享方法利用每个微服务的特性在部署过程中共享资源。然而，由于边缘服务器资源有限，很难同时满足这两种方法的优化目标。因此，通过平衡这两种共享方法来实现提高服务响应效率至关重要。
+本文研究了一种能够平衡微服务的层共享和链共享的最佳微服务部署策略。我们通过模型重构，将最小化微服务镜像拉取延迟和通信开销的问题转化为线性约束整数二次规划问题。通过连续凸近似（SCA）方法得到一个部署策略。
+实验结果表明，所提出的部署策略可以平衡这两种资源共享方法。当两种共享方法被平等考虑时，平均镜像拉取延迟可以降..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/08/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/Balancing%20Layer%20and%20Chain%20Sharing%20in%20Industrial%20Microservice%20Deployment/">Read more</a></section></article><article class="post-item-card"><section class="content post-card-content p-4 pb-5"><header><a href="/tags/%E9%9D%A2%E8%AF%95"><i class="tag post-item-tag">面试</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/08/16/%E6%9D%82%E8%AE%B0/%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/">面试记录</a></h2><time class="has-text-grey" datetime="2023-08-16T13:48:11.669Z">2023-08-16</time><p class="is-flex-grow-2 mt-2">阿里
 2023实习阿里C++客户端
 笔试
 408+ACM算法
@@ -54,47 +93,117 @@ github看过的项目那个最有趣，修的课那个最有趣
 C++和JAVA
 聊天
 
-这次感觉还行，没问八股啥的，总体..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/08/16/%E6%9D%82%E8%AE%B0/%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/PL/OnJava8/x_x.jpg" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2023/08/16/PL/On%20java8%E5%9F%BA%E7%A1%80%E5%8D%B78-14/"><img class="post-cover-img js-img-fadeIn" src="/images/PL/OnJava8/x_x.jpg" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/java"><i class="tag post-item-tag">java</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/08/16/PL/On%20java8%E5%9F%BA%E7%A1%80%E5%8D%B78-14/">On java 8 基础卷（8-14章）</a></h2><time class="has-text-grey" datetime="2023-08-16T13:48:11.624Z">2023-08-16</time><p class="is-flex-grow-2 mt-2">
-8 复用
-8.1 组合语法
+这次感觉还行，没问八股啥的，总体..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/08/16/%E6%9D%82%E8%AE%B0/%E9%9D%A2%E8%AF%95%E7%BB%8F%E9%AA%8C/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/%E6%9C%AC%E7%A7%91/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E6%9C%9F%E6%9C%AB%E7%AA%81%E5%87%BB/2_3_0.jpg" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2023/08/16/%E6%9C%AC%E7%A7%91/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E6%9C%9F%E6%9C%AB%E7%AA%81%E5%87%BB/"><img class="post-cover-img js-img-fadeIn" src="/images/%E6%9C%AC%E7%A7%91/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E6%9C%9F%E6%9C%AB%E7%AA%81%E5%87%BB/2_3_0.jpg" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B"><i class="tag post-item-tag">软件工程</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/08/16/%E6%9C%AC%E7%A7%91/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E6%9C%9F%E6%9C%AB%E7%AA%81%E5%87%BB/">软件工程期末突击</a></h2><time class="has-text-grey" datetime="2023-08-16T13:48:11.663Z">2023-08-16</time><p class="is-flex-grow-2 mt-2">[toc]
+第一章 从程序到软件
+1 何为程序及程序的质量要求
+（1）何为程序
 
-组合:将对象引用放入新类中即可
-初始化引用有以下4中方式
+程序（Program）是由程序设计语言所描述的、能为计算机所理解和处理的一组语句序列
+程序严格遵循程序设计语言的各项语法和语义规定
+程序代码可表现为二种形式
 
-
-
-在定义时立刻初始化
-
-
-
-
-在类的构造器中
+源代码（Source Code）：用程序设计语言所描述的代码
+可执行代码（Executable Code）：可执行的二进制或中间码
 
 
 
+（2） 程序组成
 
-在对象实际使用之前
+语句：声明、定义、控制、计算等；实现特定的功能；
+模块：包，类，方法；每个模块实现特定功能
+
+（3）程序的二类利益相关者
+
+用户：
+
+程序的运行展示 功能和性能
+满足和实现用户的需求
+
+
+程序员
+
+编写，阅读维护程序
+发现和修改程序中的缺陷
+
+
+用户和程序员对程序有这不同的质量需求
+
+（4）程序质量的内在和外在体现..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/08/16/%E6%9C%AC%E7%A7%91/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E6%9C%9F%E6%9C%AB%E7%AA%81%E5%87%BB/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/meitu/6.jpg" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2023/08/16/%E6%9C%AC%E7%A7%91/%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/"><img class="post-cover-img js-img-fadeIn" src="/images/meitu/6.jpg" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B"><i class="tag post-item-tag">软件工程</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/08/16/%E6%9C%AC%E7%A7%91/%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/">软件分析（未完）</a></h2><time class="has-text-grey" datetime="2023-08-16T13:48:11.661Z">2023-08-16</time><p class="is-flex-grow-2 mt-2">
+本笔记参考视频
+01介绍
+
+PL and Static Analysis
+Why We Learn Static Analysis?
+What is Static Analysis?
+Static Analysis Features and Examples
+Teaching Plan
+Evaluation Criteria
+
+1 PL and Static Analysis
+PL：Programming Languages程序语言
+2 Why We Learn Static Analysis?
+3 What is Static Analysis?
+4 Static Analysis Features and Examples
+5 Teaching Plan
+6 Evaluation Criteria
+0..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/08/16/%E6%9C%AC%E7%A7%91/%E8%BD%AF%E4%BB%B6%E5%88%86%E6%9E%90/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/%E6%9C%AC%E7%A7%91/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E8%AF%BE%E7%A8%8B/%E6%96%87%E6%B3%95%E7%9A%84%E5%88%86%E7%B1%BB.jpg" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2023/08/16/%E6%9C%AC%E7%A7%91/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86_%E8%AF%BE%E7%A8%8B/"><img class="post-cover-img js-img-fadeIn" src="/images/%E6%9C%AC%E7%A7%91/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E8%AF%BE%E7%A8%8B/%E6%96%87%E6%B3%95%E7%9A%84%E5%88%86%E7%B1%BB.jpg" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86"><i class="tag post-item-tag">编译原理</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/08/16/%E6%9C%AC%E7%A7%91/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86_%E8%AF%BE%E7%A8%8B/">编译原理</a></h2><time class="has-text-grey" datetime="2023-08-16T13:48:11.659Z">2023-08-16</time><p class="is-flex-grow-2 mt-2">[toc]
+2文法和语言的形式定义
+1 文法及其分类
+
+
+文法是产生式的又穷非空的集合
+
+
+文法GGG是一个四元组，G[S]=(VN,VT,P,S)G[S]=(V_N,V_T,P,S)G[S]=(VN​,VT​,P,S)
+
+VN:V_N:VN​:非终结符号集
+VT:V_T:VT​:终结符号集
+P:P:P:表示产生式的有穷非空集合
+S:S:S:开始符号（识别符号），至少在一条产生式中作为左部
 
 
 
+文法分类：
 
-使用实例初始化
+乔姆斯基(Chomsky)把文法分成四种类型：0型、1型、2型和3型
+0型文法 短语结构文法 Phrase Structure Gramma
+1型文法 上下文有关文法 Context-Sensitive Gramma
+2型文法 上下文无关文法 Context Free Gram
+3型文法 正规(正则)..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/08/16/%E6%9C%AC%E7%A7%91/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86_%E8%AF%BE%E7%A8%8B/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/meitu/2.jpg" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2023/08/16/%E6%9C%AC%E7%A7%91/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0/"><img class="post-cover-img js-img-fadeIn" src="/images/meitu/2.jpg" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93"><i class="tag post-item-tag">数据库</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/08/16/%E6%9C%AC%E7%A7%91/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0/">数据库系统复习</a></h2><time class="has-text-grey" datetime="2023-08-16T13:48:11.654Z">2023-08-16</time><p class="is-flex-grow-2 mt-2">
+主要观看 数据库系统实现网课1700后的内容所成笔记。
+与 数据库系统实现（机械工业出版社）所讲内容基本吻合，但在具体部分所讲的顺序有略有不同，但考虑到啃书（尤其是机翻工业出版社的书）有些困难，所以先过一边网课再啃书。
+网课中得顺序有些与书中不同，这里需要注意。
+[toc]
+第二章 辅助存储管理
+01 存储体系回顾
+（1）数据组织的基础–存储体系
+将不同性价比的存储器组织在一起，满足高速度，大容量，低价格需求
+CPU与内存直接交换信息，按存储单元（字）进行访问
+外存按存储块进行访问，其信息先装入内存，才能被CPU处理。
+（2）操作系统对数据的组织
+FAT-目录-磁盘块/簇
+FAT（文件分配表 File Allocation Table）
+（3）内存管理
+一条记录的地址=存储单元的地址=内存地址=页面：页面..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/08/16/%E6%9C%AC%E7%A7%91/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/meitu/5.jpg" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2023/08/16/%E6%9C%AC%E7%A7%91/%E6%95%B0%E6%8D%AE%E5%BA%93PostgreSQL%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"><img class="post-cover-img js-img-fadeIn" src="/images/meitu/5.jpg" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93"><i class="tag post-item-tag">数据库</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/08/16/%E6%9C%AC%E7%A7%91/%E6%95%B0%E6%8D%AE%E5%BA%93PostgreSQL%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">数据库试验--PostgreSQL源码分析--遗传算法的使用</a></h2><time class="has-text-grey" datetime="2023-08-16T13:48:11.652Z">2023-08-16</time><p class="is-flex-grow-2 mt-2">[toc]
 
+源码地址
+1 PostgreSQL的体系结构
+PostgreSQL数据库由连接管理系统(系统控制器)、编译执行系统、存储管理系统、事务系统、系统表五大部分组成
 
+连接管理系统接受外部操作对系统的请求，对操作请求进行预处理和分发，起系统逻辑控制作用
+编译执行系统由查询编译器、查询执行器组成，完成操作请求在数据库中的分析处理和转化工作，最终实现物理存储介质中数据的操作
+存储管理系统由索引管理器、内存管理器、外存管理器组成，负责存储和管理物理数据，提供对编译查询系统的支持;
+事务系统囱事务管理器、日志管理器、并发控制、锁管理器组成，日志管理器和事务管理器完成对操作请求处理的事务一致性支持，锁管理器和并发控制提供对并发访问数据的一致性支持
+系统表是 PostgreSQL 数据库的元信息管理中心，包括数..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/08/16/%E6%9C%AC%E7%A7%91/%E6%95%B0%E6%8D%AE%E5%BA%93PostgreSQL%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/meitu/4.jpg" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2023/08/16/%E6%9C%AC%E7%A7%91/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%95%E9%AA%8C/"><img class="post-cover-img js-img-fadeIn" src="/images/meitu/4.jpg" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><i class="tag post-item-tag">操作系统</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/08/16/%E6%9C%AC%E7%A7%91/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%95%E9%AA%8C/">操作系统试验--在linux环境下复现操作系统</a></h2><time class="has-text-grey" datetime="2023-08-16T13:48:11.649Z">2023-08-16</time><p class="is-flex-grow-2 mt-2">[toc]
 
+本次操作系统实验根据`Orange's 一个操作系统的实现`一书进行操作。在此记录试验的过程及心得
+第一章&amp;amp;第二章 Hello，OS world
+这两章通过在windows使用虚拟机运行Ubuntu操作系统，在Ubuntu上使用bochs虚拟机来完成操作系统。
+1 使用vm运行Ubuntu
+我这里虚拟机运行的是Ubuntu20.04，但因为这本书是老书了，64位机运行结果会有问题，因此还是用了Ubuntu16.04的32位虚拟机,安装虚拟机时主要遇到的问题有：
 
-
-class Soap &amp;#123;
-  private String s;
-  Soap() &amp;#123;//2 构造器初始化
-    System.out.println(&amp;quot;Soap()&amp;quot;);
-    s = &amp;quot;Constructed&amp;quot;;
-  &amp;#125;
-  @Override public String toString() &amp;#123; return s; &amp;#125;
-&amp;#125;
-
-public class Bath &amp;#123;
-  private Str..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/08/16/PL/On%20java8%E5%9F%BA%E7%A1%80%E5%8D%B78-14/">Read more</a></section></article></section><aside class="column is-hidden-mobile is-4-tablet is-3-widescreen"><div style="position: sticky; top: 50px;"><main class="aside-card-container archives-widget is-in-archive-page"><h3>Archives</h3><section><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">June 2023</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a><span class="archive-list-count">2</span></li></ul></section></main></div></aside></div></article><script>$claudia.fadeInImage(null, $claudia.blurBackdropImg)
+虚拟机连不上网，但在瞎搞之后能连上了，选择的时NAT连接
+VM Tools 自动安装不上，会报错。VMtools可以实现Windows环境和Linux环境直接的文件交换，还是有必要安装的。解决方法是手动下载VM Tools，尽..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/08/16/%E6%9C%AC%E7%A7%91/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%95%E9%AA%8C/">Read more</a></section></article><section class="paginator is-flex is-justify-content-flex-end is-flex-wrap-wrap mt-5"><span class="page-number current">1</span><a class="page-number" href="/archives/2023/08/page/2/">2</a><a class="page-number" href="/archives/2023/08/page/3/">3</a><a class="extend next" rel="next" href="/archives/2023/08/page/2/"><i class="iconfont icon-next has-text-grey"></i></a></section></section><aside class="column is-hidden-mobile is-4-tablet is-3-widescreen"><div style="position: sticky; top: 50px;"><main class="aside-card-container archives-widget is-in-archive-page"><h3>Archives</h3><section><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/10/">October 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">22</span></li></ul></section></main></div></aside></div></article><script>$claudia.fadeInImage(null, $claudia.blurBackdropImg)
 
 window.addEventListener('resize', $claudia.throttle(function () {
     var images = document.querySelectorAll('.js-img-fadeIn')

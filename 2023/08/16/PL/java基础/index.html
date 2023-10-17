@@ -1,0 +1,659 @@
+<!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>java基础（未完）</title><meta name="description" content="菜"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="
+视频地址
+基础篇-9天
+进阶篇-19天
+基础篇
+Day1
+
+
+人机交互方式
+
+图形化：速度慢，占内存多
+命令行：速度快，占内存小
+
+
+
+shutdown -s -t 300 计算机在300s后关机，可以坑人
+
+
+java是美国Sun公司(Stanford University Network)在1995年推出的计算机语言，或被Oracle公司偏高
+
+
+Java之父：詹姆斯·高斯林
+
+
+Java三大平台
+
+Java SE
+
+Java语言的(标准版)，用于桌面开发应用，是其它两个版本的基础
+桌面应用：用户只要打开程序，程序的界面会让用户在最短时间内找到它们的需要的功能，同时主动带领用户完成他们的工作并得到最好的体验
+学习Java SE的目的：为今后要从事的Java EE开发，打基础
+
+
+Java ME
+
+ja.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">java基础（未完）</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%AF%87"><span class="toc-text">基础篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#day1"><span class="toc-text">Day1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#day2"><span class="toc-text">Day2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#day3"><span class="toc-text">Day3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#day4"><span class="toc-text">Day4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#day5"><span class="toc-text">Day5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#day6"><span class="toc-text">Day6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#day7"><span class="toc-text">Day7</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#day8"><span class="toc-text">Day8</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#day9"><span class="toc-text">day9</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E9%98%B6%E7%AF%87"><span class="toc-text">进阶篇</span></a></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/java"><i class="tag post-item-tag">java</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">java基础（未完）</h1><time class="has-text-grey" datetime="2023-08-16T13:48:11.619Z">2023-08-16</time><article class="mt-2 post-content"><p><img src="/images/PL/java%E5%9F%BA%E7%A1%80/xx.jpg" alt><br>
+<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Fv4y1q7ZH/?vd_source=240b8edf72530a8ec2d9f48cc6514072">视频地址</a></p>
+<p>基础篇-9天<br>
+进阶篇-19天</p>
+<h2 id="%E5%9F%BA%E7%A1%80%E7%AF%87" tabindex="-1">基础篇</h2>
+<h3 id="day1" tabindex="-1">Day1</h3>
+<ul>
+<li>
+<p>人机交互方式</p>
+<ul>
+<li>图形化：速度慢，占内存多</li>
+<li>命令行：速度快，占内存小</li>
+</ul>
+</li>
+<li>
+<p>shutdown -s -t 300 计算机在300s后关机，可以坑人</p>
+</li>
+<li>
+<p>java是美国Sun公司(Stanford University Network)在1995年推出的计算机语言，或被Oracle公司偏高</p>
+</li>
+<li>
+<p>Java之父：詹姆斯·高斯林</p>
+</li>
+<li>
+<p>Java三大平台</p>
+<ul>
+<li>Java SE
+<ul>
+<li>Java语言的(标准版)，用于桌面开发应用，是其它两个版本的基础</li>
+<li>桌面应用：用户只要打开程序，程序的界面会让用户在最短时间内找到它们的需要的功能，同时主动带领用户完成他们的工作并得到最好的体验</li>
+<li>学习Java SE的目的：为今后要从事的Java EE开发，打基础</li>
+</ul>
+</li>
+<li>Java ME
+<ul>
+<li>java语言的(小型版)，用于嵌入式消费类电子设备</li>
+</ul>
+</li>
+<li>Java EE
+<ul>
+<li>java语言的企业版，用于Web方向的网站开发</li>
+<li>网页：用于数据展示</li>
+<li>网站：网页+后台服务器</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>java跨平台（即跨多操作系统）</p>
+<ul>
+<li>原理：在需要运行Java的应用程序的操作系统上，安装一个与Java对应的Java虚拟机(JVM Java Virtual Machine)</li>
+</ul>
+</li>
+<li>
+<p>下载JDK</p>
+<ul>
+<li>Java 8，11，17为：LTS（long-term suppor长期支持版）</li>
+<li><a target="_blank" rel="noopener" href="http://www.oracle.com">官网下载</a></li>
+</ul>
+</li>
+<li>
+<p>JDK的组成<img src="/images/PL/java%E5%9F%BA%E7%A1%80/JDK%E7%9A%84%E7%BB%84%E6%88%90.jpg" alt="JDK的组成"></p>
+</li>
+<li>
+<p>IDEA概述</p>
+<ul>
+<li>目前业界公认的最好的Java集成开发环境</li>
+<li>IDEA项目结构介绍
+<ul>
+<li>project</li>
+<li>moudle</li>
+<li>package</li>
+<li>class</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="day2" tabindex="-1">Day2</h3>
+<ul>
+<li>
+<p>标识符命名规范</p>
+<ul>
+<li>小驼峰命名法
+<ul>
+<li>
+<ol>
+<li>标识符是一个单词的时候，所有字母小写</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>标识符由多个单词组成的时候，从第二个单词开始，首字母大写</li>
+</ol>
+</li>
+<li>该命名法多用于变量</li>
+</ul>
+</li>
+<li>大驼峰命名法
+<ul>
+<li>
+<ol>
+<li>标识符是一个单词的时候，首字母大写</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>标识符由多个单词组成的时候，每个单词的首字母大写</li>
+</ol>
+</li>
+<li>该命名用于类的命名</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>整数类型，首选int，定义long类型变量需要加入L的标识</p>
+</li>
+<li>
+<ol>
+<li>基本得隐式转换</li>
+</ol>
+<ul>
+<li>把一个取值范围小的数值或变量，赋值给另一个取值范围更大的变量</li>
+</ul>
+</li>
+<li>
+<ol start="2">
+<li>运算中的隐式变换</li>
+</ol>
+<ul>
+<li>取值范围小的数据，和取值范围大得数据进行运算，小的会提升为大的再进行运算</li>
+<li>byte，short，char，三种数据在运算时，会提升为int，再进行运算</li>
+</ul>
+</li>
+<li>
+<p>计算机中进制分类</p>
+<ul>
+<li>10进制：默认</li>
+<li>2进制 ：0b开头</li>
+<li>8进制 ：0开头</li>
+<li>16进制：0x开头</li>
+</ul>
+</li>
+</ul>
+<h3 id="day3" tabindex="-1">Day3</h3>
+<ul>
+<li>方法(函数)
+<ul>
+<li>方法调用内存
+<ul>
+<li>方法没有被调用的时候，在<code>方法区</code>字节码文件中存放</li>
+<li>方法被调用时，需要进入到<code>栈内存</code>中运行</li>
+</ul>
+</li>
+<li>方法重载
+<ul>
+<li>在同一个类中，定义了多个同名的方法，但每个方法具有不同的参数类型或参数个数，这些同名的方法，就构成了重载关系</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="day4" tabindex="-1">Day4</h3>
+<ul>
+<li>jdk14后，case后面允许编写多个数据，多个数据之间用逗号隔开</li>
+</ul>
+<pre><code class="language-java">switch(week)&#123;
+    case 1,2,3,4,5 -&gt; System.out.println(&quot;&quot;);
+    case 6,7 -&gt; System.out.println(&quot;&quot;);
+    default -&gt; System.out.println();
+&#125;
+</code></pre>
+<h3 id="day5" tabindex="-1">Day5</h3>
+<ul>
+<li>
+<p>数组遍历快捷键：<code>数组名.fori</code></p>
+</li>
+<li>
+<p>数组初始化</p>
+<ul>
+<li>动态初始化：初始化时只指定数组长度，由系统为数组分配初始值</li>
+<li>格式：<code>数据类型[] 数组名 = new 数据类型[数组长度]</code></li>
+</ul>
+</li>
+<li>
+<p>ctrl+alt+M：抽取方法的快捷键</p>
+</li>
+<li>
+<p>Java内存分配</p>
+<ul>
+<li>方法去：字节码文件加载时进入的内存</li>
+<li>栈内存：方法运行时进入的内存</li>
+<li>堆内存：new出来的东西会在这块内存中开辟空间并产生地址</li>
+</ul>
+</li>
+<li>
+<p>Java二维数组</p>
+<ul>
+<li>二维数组在存储一维数组时，具体存储的是一维数组的地址</li>
+</ul>
+</li>
+</ul>
+<h3 id="day6" tabindex="-1">Day6</h3>
+<p>讲习题，跳！</p>
+<h3 id="day7" tabindex="-1">Day7</h3>
+<ul>
+<li>
+<p>面向对象：并不是一种技术，而是一种编程的指导思想</p>
+</li>
+<li>
+<p>面向对象程序设计(Object Oriented Programming)，OOP</p>
+</li>
+<li>
+<p>Java中想要创建对象，必须先要有类的存在</p>
+</li>
+<li>
+<p>类指的是一组相关属性和行为的集合，我们可以理解为是一张对象的设计图，一个类可以创建无限的对象</p>
+</li>
+<li>
+<p>类的组成</p>
+<ul>
+<li>属性：成员变量
+<ul>
+<li>跟之前定义变量的格式一样，但位置需要放在方法外面</li>
+</ul>
+</li>
+<li>行为：成员方法
+<ul>
+<li>跟之前定义方法格式一样，但需要去掉static</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>类的本质：对事物进行的描述</p>
+</li>
+<li>
+<p>打印对象名，可以看到对象的内存地址</p>
+<ul>
+<li>全类名：包名+类名</li>
+</ul>
+</li>
+</ul>
+<table>
+  <thead>
+    </thead><td>区别</td>
+    <td>成员变量</td>
+    <td>局部变量</td>
+  
+  <tr><td>类中位置不同</td>
+    <td>方法外</td>
+    <td>方法中</td></tr>
+  <tr><td>初始值不同</td>
+    <td>有默认初始值</td>
+    <td>没有，使用之前需要赋值</td></tr>
+  <tr><td>内存位置不同</td>
+    <td>堆内存</td>
+    <td>栈内存</td></tr>
+  <tr><td>生命周期不同</td>
+    <td>随着对象的创建而存在，随着对象的消失而消失</td>
+    <td>随着方法的调用而存在，随着方法的运行结束而结束</td></tr>
+  <tr><td>作用域</td>
+    <td>在自己所属的打括号中</td>
+    <td>在自己所属的打括号中</td></tr>
+</table>
+<ul>
+<li>
+<p>this关键字</p>
+<ul>
+<li>局部变量和成员变量重名时，使用就近原则</li>
+<li>this关键字可以调用本类成员</li>
+<li>this代表当前对象的引用</li>
+</ul>
+</li>
+<li>
+<p>构造方法</p>
+<ul>
+<li>初始化一个新建的对象，创建和构造对象的时候所调用的方法</li>
+<li>格式
+<ul>
+<li>
+<ol>
+<li>方法名与类名相同</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>没有返回值类型</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>没有具体的返回值</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>作用
+<ul>
+<li>
+<ol>
+<li>本质作用：创建对象</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>结合执行时机：可以在创建对象的时候，给对象中的数据初始化</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>注意事项
+<ul>
+<li>
+<ol>
+<li>构造方法的创建：如果没有定义构造方法，系统会给出一个默认的无参的构造方法</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>构造方法的重载：构造方法也是方法，允许重载</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>推荐使用方式：无参和有参的构造方法均自己给出</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>面向对象三大特征：封装，继承，多态</p>
+</li>
+<li>
+<p>封装：使用类设计对象时：将需要处理的数据，以及处理这些数据的方法，设计到对象中</p>
+<ul>
+<li>更好的维护数据</li>
+<li>使用者无需关心内部实现，只要知道如何使用即可</li>
+<li>封装的设计规范：合理隐藏，合理暴露</li>
+<li>权限修饰符
+<ul>
+<li>private：同一个类中
+<ul>
+<li>
+<ol>
+<li>私有成员变量（保证数据安全性）</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>针对私有成员变量，提供setxxx，getxxx方法</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>（default）：同一个类中，同一个包中</li>
+<li>protected：同一个类中，同一个包中，不同包的子类中</li>
+<li>public：任意位置访问</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>标准JavaBean</p>
+<ul>
+<li>
+<ol>
+<li>这个类的成员变量都要私有，并提供对应的set和get方法</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>提供带参和无参的构造方法</li>
+</ol>
+</li>
+<li>JavaBean是一个实体类</li>
+</ul>
+</li>
+<li>
+<p>实体类：实体类只负责数据存取，而对数据的处理交由其它类来完成，实现数据和数据业务处理相分离</p>
+</li>
+</ul>
+<h3 id="day8" tabindex="-1">Day8</h3>
+<ul>
+<li>
+<p>常用API（Application Programming Interface：应用编程接口）</p>
+<ul>
+<li>使用JDK的API帮助文档
+<ul>
+<li>
+<ol>
+<li>看索引位置搜索自己要查看的类</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>看包，目的是看是不是Java.lang包（核心包），核心包不需要编写导包代码(import)</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>看这个类的介绍：弄清楚类的作用</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>看这个类的构造方法：为了创造该类的对象</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>看这个类的成员方法：方法名，参数，返回值，介绍</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>String类</p>
+<ul>
+<li>
+<ol>
+<li>String是java核心包，所有程序中的双引号字符串都是String这个类的对象</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>字符串一旦被创建，就不可以被更改，字符串内容不可变更，想要更改只能使用新的对象，做替换</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>String字符串虽然不可以更改，但可以被共享</li>
+</ol>
+<ul>
+<li>字符串常量池：当我们使用双引号创建字符串对象时，会检查常量池中是否存在该数据：不存在则创建，否则复用
+<ul>
+<li>jdk7之前：StringTable在方法去，7之后在堆内存</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>字符串的两种构造方式
+<ul>
+<li>
+<ol>
+<li>双引号直接创建</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>通过构造方法</li>
+</ol>
+</li>
+<li>方法区别：双引号直接创建会在String Table中进行维护，而通过构造方法时，new方法会在堆中新开辟出一块内存</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-java">String s=new String();//创建一个空白字符串
+String s=new String(char[] chs);//根据传入的字符数组，创建字符串对象
+String s=new String(&quot;abs&quot;);//根据传入的字符串来创建字符对象
+</code></pre>
+<ul>
+<li>String中的比较方法</li>
+</ul>
+<pre><code class="language-java">public boolean equals(Object anObject) //将此字符串与指定字符串进行比较
+public boolean equalsIgnoreCase(String anotherString) //忽略大小写进行字符串比较
+</code></pre>
+<ul>
+<li>String字符串的遍历
+<ul>
+<li>char[] toCharArray(); 将字符串转化为字符数组</li>
+<li>char charAt(int index); 根据指定索引返回对应位置字符</li>
+<li>int length(); 返回字符串的长度，这是一个方法</li>
+</ul>
+</li>
+<li>String的截取方法 类似C++的
+<ul>
+<li>String substring(int beginIndex);</li>
+<li>String substring(int beginIndex,int endIndex); 这个方法左闭右开</li>
+</ul>
+</li>
+<li>String的替换方法
+<ul>
+<li>String replace(CharSequence target,CharSequence replacement)
+<ul>
+<li>参数1为旧值，参数二为新值，自动将旧值替换为新值</li>
+</ul>
+</li>
+<li>String replaceAll(String regex,String replacement)
+<ul>
+<li>使用replacement替换所有符合regex<strong>正则表达式</strong>的字符串</li>
+</ul>
+</li>
+<li>String replaceFirst(String regex,String replacement)
+<ul>
+<li>使用replacement替换第一个符合regex<strong>正则表达式</strong>的字符串</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>String的拆分方法
+<ul>
+<li>Sting[] split(String regex) 根据给定<strong>正则表达式</strong>的匹配拆分字符串</li>
+</ul>
+<pre><code class="language-java">String s=&quot;192,168,1,1&quot;;
+String[] sArr=s.split(&quot;,&quot;);
+//如果要匹配字符 &quot;.&quot; 需要转义字符 &quot;//.&quot;
+sAA=&#123;&quot;192&quot;,&quot;168&quot;,&quot;1&quot;,&quot;1&quot;&#125;;
+</code></pre>
+</li>
+</ul>
+<pre><code class="language-java">long time = System.currentTimeMillis();获取从19700101 0时0分到现在有多少毫秒  
+</code></pre>
+<ul>
+<li>StringBuilder的引入
+<ul>
+<li>作用：提高字符串的操作效率</li>
+<li>介绍：
+<ul>
+<li>
+<ol>
+<li>一个可变的字符序列</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>StringBuilder是字符串缓冲区，可以理解为容器，这个容器可以存储任意数据，但其里面自动转为字符串</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>构造方法
+<ul>
+<li>public StringBuilder(); 创建一个空白字符串缓冲区，初始容量16个字符</li>
+<li>public StringBuilder(String str);</li>
+</ul>
+</li>
+<li>常用成员方法
+<ul>
+<li>public StringBuilder append(任意类型): 添加数据返回对象自己
+<ul>
+<li>s.append(“a”).append(“b”)：链式编程：调用的方法，返回的结果是对象，就可以继续向下调用方法</li>
+</ul>
+</li>
+<li>public StringBuilder reverse():将缓冲区中的内容进行反转</li>
+<li>public int length()</li>
+<li>public toString() 将缓冲区的内容以String类型返回</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>StringBuilder和StringBuffer
+<ul>
+<li>方法都一样</li>
+<li>但是StringBuilder是线程不安全的，StringBuffer是线程安全的，因此StringBuilder效率高一些，而StringBuffer效率慢一些</li>
+</ul>
+</li>
+</ul>
+<h3 id="day9" tabindex="-1">day9</h3>
+<ul>
+<li>
+<p>集合基础</p>
+<ul>
+<li>集合是一种容器，装数据，类似数组</li>
+<li>数组的局限：数组定义并启动后，长度即固定</li>
+<li>但是集合大小可变</li>
+</ul>
+</li>
+<li>
+<p>Array长度可变原理</p>
+<ul>
+<li>
+<ol>
+<li>当创建Array集合容器的时候，底层会存在一个长度为10个大小的空数组</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>随后扩容原数组1.5倍大小的新数组</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>将原数组拷贝到新数组种</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>将新元素添加到新数组</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>ArrayList</p>
+<ul>
+<li>
+<ol>
+<li>构造方法：<code>public ArrayList()</code> 创建一个空的集合容器</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>指定类型的构造方法 <code>ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;()</code> <code>&lt;&gt;</code>是一个泛型</li>
+</ol>
+</li>
+<li>常用方法<img src="/images/PL/java%E5%9F%BA%E7%A1%80/ArrayList%E9%9B%86%E5%90%88%E5%B8%B8%E7%94%A8%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0.jpg" alt></li>
+</ul>
+</li>
+</ul>
+<h2 id="%E8%BF%9B%E9%98%B6%E7%AF%87" tabindex="-1">进阶篇</h2>
+<p>进阶篇转战看书 On java 8 了，感觉自己也不是很急，不如稳稳地看书系统地学习java，<a target="_blank" rel="noopener" href="https://mrcold2002.github.io/2023/06/25/PL/On%20java8/">博客地址</a></p>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2023/08/16/PL/On%20java8%E5%9F%BA%E7%A1%80%E5%8D%B71-7/" title="On java 8 基础卷（1-7章）"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: On java 8 基础卷（1-7章）</span></a><a class="button is-default" href="/2023/08/16/hello-world/" title="Hello Hexo World"><span class="has-text-weight-semibold">Next: Hello Hexo World</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2023</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>

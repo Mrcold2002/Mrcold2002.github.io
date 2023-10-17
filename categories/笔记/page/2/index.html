@@ -1,40 +1,130 @@
 <!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>Mr_cold's blog</title><meta name="description" content="菜"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
 <!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/widget-post-list.css"><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><span>Categories · 笔记</span></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><article class="post-container is-flex is-justify-content-center section container is-max-widescreen pt-4 px-2"><div class="columns is-variable is-1-tablet is-3-desktop-only is-2-widescreen is-full-width"><section class="column"><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/meitu/5.jpg" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2023/03/06/%E6%9C%AC%E7%A7%91/%E6%95%B0%E6%8D%AE%E5%BA%93PostgreSQL%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"><img class="post-cover-img js-img-fadeIn" src="/images/meitu/5.jpg" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93"><i class="tag post-item-tag">数据库</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/03/06/%E6%9C%AC%E7%A7%91/%E6%95%B0%E6%8D%AE%E5%BA%93PostgreSQL%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">数据库试验--PostgreSQL源码分析--遗传算法的使用</a></h2><time class="has-text-grey" datetime="2023-03-06T09:20:30.100Z">2023-03-06</time><p class="is-flex-grow-2 mt-2">[toc]
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><span>Categories · 笔记</span></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><article class="post-container is-flex is-justify-content-center section container is-max-widescreen pt-4 px-2"><div class="columns is-variable is-1-tablet is-3-desktop-only is-2-widescreen is-full-width"><section class="column"><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/web/%E5%88%9D%E5%85%A5%E5%90%8E%E7%AB%AF/DQL0.jpg" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2023/08/16/web/%E5%88%9D%E5%85%A5%E5%90%8E%E7%AB%AF/"><img class="post-cover-img js-img-fadeIn" src="/images/web/%E5%88%9D%E5%85%A5%E5%90%8E%E7%AB%AF/DQL0.jpg" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/%E5%90%8E%E7%AB%AF"><i class="tag post-item-tag">后端</i></a><a href="/tags/web"><i class="tag post-item-tag">web</i></a><a href="/tags/IDEA"><i class="tag post-item-tag">IDEA</i></a><a href="/tags/spring,springboot"><i class="tag post-item-tag">spring,springboot</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/08/16/web/%E5%88%9D%E5%85%A5%E5%90%8E%E7%AB%AF/">初入后端（未完）</a></h2><time class="has-text-grey" datetime="2023-08-16T13:48:11.629Z">2023-08-16</time><p class="is-flex-grow-2 mt-2">[toc]
+Maven
+视频地址
+01 Maven概述
 
-源码地址
-1 PostgreSQL的体系结构
-PostgreSQL数据库由连接管理系统(系统控制器)、编译执行系统、存储管理系统、事务系统、系统表五大部分组成
+Maven 时apache 旗下的一个开源软件，是一款用于管理和构建java项目的工具
+他基于项目对象模型（POM）的概念，通过一小段描述信息来管理项目的构建
+作用
 
-连接管理系统接受外部操作对系统的请求，对操作请求进行预处理和分发，起系统逻辑控制作用
-编译执行系统由查询编译器、查询执行器组成，完成操作请求在数据库中的分析处理和转化工作，最终实现物理存储介质中数据的操作
-存储管理系统由索引管理器、内存管理器、外存管理器组成，负责存储和管理物理数据，提供对编译查询系统的支持;
-事务系统囱事务管理器、日志管理器、并发控制、锁管理器组成，日志管理器和事务管理器完成对操作请求处理的事务一致性支持，锁管理器和并发控制提供对并发访问数据的一致性支持
-系统表是 PostgreSQL 数据库的元信息管理中心，包括数..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/03/06/%E6%9C%AC%E7%A7%91/%E6%95%B0%E6%8D%AE%E5%BA%93PostgreSQL%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/meitu/4.jpg" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2023/03/03/%E6%9C%AC%E7%A7%91/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%95%E9%AA%8C/"><img class="post-cover-img js-img-fadeIn" src="/images/meitu/4.jpg" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><i class="tag post-item-tag">操作系统</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/03/03/%E6%9C%AC%E7%A7%91/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%95%E9%AA%8C/">操作系统试验--在linux环境下复现操作系统</a></h2><time class="has-text-grey" datetime="2023-03-03T08:58:13.121Z">2023-03-03</time><p class="is-flex-grow-2 mt-2">[toc]
+依赖管理：方便快件的管理项目依赖的资源(jar包)，避免版本冲突
+统一项目结构：提供标准，同一的项目结构
+项目构建：标准跨平台（Linux，Windows，MacOS）的自动化项目构建方式
 
-本次操作系统实验根据`Orange's 一个操作系统的实现`一书进行操作。在此记录试验的过程及心得
-第一章&amp;amp;第二章 Hello，OS world
-这两章通过在windows使用虚拟机运行Ubuntu操作系统，在Ubuntu上使用bochs虚拟机来完成操作系统。
-1 使用vm运行Ubuntu
-我这里虚拟机运行的是Ubuntu20.04，但因为这本书是老书了，64位机运行结果会有问题，因此还是用了Ubuntu16.04的32位虚拟机,安装虚拟机时主要遇到的问题有：
 
-虚拟机连不上网，但在瞎搞之后能连上了，选择的时NAT连接
-VM Tools 自动安装不上，会报错。VMtools可以实现Windows环境和Linux环境直接的文件交换，还是有必要安装的。解决方法是手动下载VM Tools，尽..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/03/03/%E6%9C%AC%E7%A7%91/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%95%E9%AA%8C/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/meitu/2.jpg" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2023/02/28/%E6%9C%AC%E7%A7%91/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0/"><img class="post-cover-img js-img-fadeIn" src="/images/meitu/2.jpg" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93"><i class="tag post-item-tag">数据库</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/02/28/%E6%9C%AC%E7%A7%91/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0/">数据库系统复习</a></h2><time class="has-text-grey" datetime="2023-02-28T12:08:14.993Z">2023-02-28</time><p class="is-flex-grow-2 mt-2">
-主要观看 数据库系统实现网课1700后的内容所成笔记。
-与 数据库系统实现（机械工业出版社）所讲内容基本吻合，但在具体部分所讲的顺序有略有不同，但考虑到啃书（尤其是机翻工业出版社的书）有些困难，所以先过一边网课再啃书。
-网课中得顺序有些与书中不同，这里需要注意。
-[toc]
-第二章 辅助存储管理
-01 存储体系回顾
-（1）数据组织的基础–存储体系
-将不同性价比的存储器组织在一起，满足高速度，大容量，低价格需求
-CPU与内存直接交换信息，按存储单元（字）进行访问
-外存按存储块进行访问，其信息先装入内存，才能被CPU处理。
-（2）操作系统对数据的组织
-FAT-目录-磁盘块/簇
-FAT（文件分配表 File Allocation Table）
-（3）内存管理
-一条记录的地址=存储单元的地址=内存地址=页面：页面..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/02/28/%E6%9C%AC%E7%A7%91/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A0/">Read more</a></section></article><section class="paginator is-flex is-justify-content-flex-end is-flex-wrap-wrap mt-5"><a class="extend prev" rel="prev" href="/categories/%E7%AC%94%E8%AE%B0/"><i class="iconfont icon-prev has-text-grey"></i></a><a class="page-number" href="/categories/%E7%AC%94%E8%AE%B0/">1</a><span class="page-number current">2</span></section></section><aside class="column is-hidden-mobile is-4-tablet is-3-widescreen"><div style="position: sticky; top: 50px;"><main class="aside-card-container categories-widget category-page"><h3>Categories</h3><section><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%87%E7%AB%A0/">文章</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87/">论文</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a><span class="category-list-count">5</span></li></ul></section></main></div></aside></div></article><script>$claudia.fadeInImage(null, $claudia.blurBackdropImg)
+官网
+
+Maven介绍
+02 IDEA集成Maven
+
+
+Maven安装：按视频走即可
+
+
+根据视频进行maven的配置。
+
+
+IDEA创建Maven项目
+
+创建模块，选择Maven，点击Next
+填写模块名称，坐标信息，点击Finish，创建完成
+编写程序运行
+
+
+
+Maven坐标
+
+什么是坐..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/08/16/web/%E5%88%9D%E5%85%A5%E5%90%8E%E7%AB%AF/">Read more</a></section></article><article class="post-item-card"><section class="content post-card-content p-4 pb-5"><header><a href="/tags/Redis"><i class="tag post-item-tag">Redis</i></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93"><i class="tag post-item-tag">数据库</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/08/16/web/redis/">Redis学习（未完）</a></h2><time class="has-text-grey" datetime="2023-08-16T13:48:11.627Z">2023-08-16</time><p class="is-flex-grow-2 mt-2">[toc]
+视频地址
+初识Redis
+1 认识NoSQL
+
+
+
+
+SQL(关系型数据库)
+NoSQL(非关系型数据库)
+
+
+
+
+数据结构
+结构化
+非结构化（键值型Redis，图类型Neo4j，文档型MongoDB，列类型HBase）
+
+
+数据关联
+关联的
+无关联的
+
+
+查询方式
+SQL查询
+非SQL
+
+
+事务特性
+ACID
+BASE（基本满足ACID）
+
+
+存储方式
+磁盘
+内存
+
+
+扩展性
+垂直
+水平
+
+
+使用场景
+(1)数据结构固定(2)相关事务对数据安全性，一致性要求较高
+(1)数据结构不固定(2)对一致性，安全性要求不高(3)对性能要求
+
+
+
+2 认识Redis
+Redis诞生于2009年，全称 Remote Dictionary Server，远程词典服务，是一个基于内存的键值型NoSQL数据库
+
+..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/08/16/web/redis/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/PL/java%E5%9F%BA%E7%A1%80/xx.jpg" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2023/08/16/PL/java%E5%9F%BA%E7%A1%80/"><img class="post-cover-img js-img-fadeIn" src="/images/PL/java%E5%9F%BA%E7%A1%80/xx.jpg" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/java"><i class="tag post-item-tag">java</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2023/08/16/PL/java%E5%9F%BA%E7%A1%80/">java基础（未完）</a></h2><time class="has-text-grey" datetime="2023-08-16T13:48:11.619Z">2023-08-16</time><p class="is-flex-grow-2 mt-2">
+视频地址
+基础篇-9天
+进阶篇-19天
+基础篇
+Day1
+
+
+人机交互方式
+
+图形化：速度慢，占内存多
+命令行：速度快，占内存小
+
+
+
+shutdown -s -t 300 计算机在300s后关机，可以坑人
+
+
+java是美国Sun公司(Stanford University Network)在1995年推出的计算机语言，或被Oracle公司偏高
+
+
+Java之父：詹姆斯·高斯林
+
+
+Java三大平台
+
+Java SE
+
+Java语言的(标准版)，用于桌面开发应用，是其它两个版本的基础
+桌面应用：用户只要打开程序，程序的界面会让用户在最短时间内找到它们的需要的功能，同时主动带领用户完成他们的工作并得到最好的体验
+学习Java SE的目的：为今后要从事的Java EE开发，打基础
+
+
+Java ME
+
+ja..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2023/08/16/PL/java%E5%9F%BA%E7%A1%80/">Read more</a></section></article><section class="paginator is-flex is-justify-content-flex-end is-flex-wrap-wrap mt-5"><a class="extend prev" rel="prev" href="/categories/%E7%AC%94%E8%AE%B0/"><i class="iconfont icon-prev has-text-grey"></i></a><a class="page-number" href="/categories/%E7%AC%94%E8%AE%B0/">1</a><span class="page-number current">2</span></section></section><aside class="column is-hidden-mobile is-4-tablet is-3-widescreen"><div style="position: sticky; top: 50px;"><main class="aside-card-container categories-widget category-page"><h3>Categories</h3><section><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%96%87%E7%AB%A0/">文章</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BA%E6%96%87/">论文</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a><span class="category-list-count">4</span></li></ul></section></main></div></aside></div></article><script>$claudia.fadeInImage(null, $claudia.blurBackdropImg)
 
 window.addEventListener('resize', $claudia.throttle(function () {
     var images = document.querySelectorAll('.js-img-fadeIn')
