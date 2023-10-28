@@ -3252,15 +3252,19 @@ public class ProduceFunction &#123;
 </code></pre>
 <ul>
 <li>接收使用函数时需要主要正确描述函数的类型,同时在函数中可以生成一个新的函数</li>
+<li>下面例子中,transform()接受一个方法同时也生成一个方法
+<ul>
+<li>这里使用了Function 接口中的一个叫作andThen()的默认（default）方法，该方法<br>
+是为操作函数而设计。andThen()会在in函数调用<strong>之后</strong>调用(还有一个compose的方法,可以在in函数之前应用新函数)</li>
+</ul>
+</li>
 </ul>
 <pre><code class="language-java">class I &#123;
   @Override public String toString() &#123; return &quot;I&quot;; &#125;
 &#125;
-
 class O &#123;
   @Override public String toString() &#123; return &quot;O&quot;; &#125;
 &#125;
-
 public class TransformFunction &#123;
   static Function&lt;I,O&gt; transform(Function&lt;I,O&gt; in) &#123;
     return in.andThen(o -&gt; &#123;
