@@ -14,7 +14,7 @@ Software Debloating
 
 我们再常见的基准上进行测试,同时也在真实的应用上进行测试,包括 火狐浏览器,闭源PDF阅读器FoxitReader,结果显式RAZOR可以在二进制上减少超过70%的代码
 RAZOR简化了代码,并.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Software Debloating 论文阅读 (4)</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#razor:-a-framework-for-post-deployment"><span class="toc-text">Razor: A Framework for Post-deployment</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E6%91%98%E8%A6%81"><span class="toc-text">0 摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%97%AE%E9%A2%98"><span class="toc-text">2 问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.1-motivating-example"><span class="toc-text">2.1 Motivating Example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2-program-debloating"><span class="toc-text">2.2 Program Debloating</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.3-%E6%8C%91%E6%88%98%E5%92%8C%E6%8E%AA%E6%96%BD"><span class="toc-text">2.3 挑战和措施</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1"><span class="toc-text">3 系统设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3.1-%E8%BF%90%E8%A1%8C%E8%B7%AF%E5%BE%84%E6%94%B6%E9%9B%86"><span class="toc-text">3.1 运行路径收集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.2-%E5%9F%BA%E4%BA%8E%E5%90%AF%E5%8F%91%E5%BC%8F%E7%9A%84%E8%B7%AF%E5%BE%84%E6%8E%A8%E6%96%AD-heuristic-based-path-inference"><span class="toc-text">3.2 基于启发式的路径推断 Heuristic-based Path Inference</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#(1)-%E9%9B%B6%E4%BB%A3%E7%A0%81%E5%90%AF%E5%8F%91%E5%BC%8F-zero-code-heuristic-(zcode)"><span class="toc-text">(1) 零代码启发式 Zero-code heuristic (zCode)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#(2)-%E9%9B%B6%E8%B0%83%E7%94%A8%E5%90%AF%E5%8F%91%E5%BC%8F-zero-call-heuristic-(zcall)"><span class="toc-text">(2) 零调用启发式 Zero-call heuristic (zCall)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#(3)-%E9%9B%B6%E5%BA%93%E8%B0%83%E7%94%A8%E5%90%AF%E5%8F%91%E5%BC%8F-zero-libcall-heuristic-(zlib)"><span class="toc-text">(3) 零库调用启发式 Zero-libcall heuristic (zLib)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#(4)-zero-functionality-heuristic-(zfunc)"><span class="toc-text">(4) Zero-functionality heuristic (zFunc)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#(5)-%E7%AE%97%E6%B3%95"><span class="toc-text">(5) 算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.3-%E5%8E%BB%E8%86%A8%E8%83%80%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%90%88%E6%88%90-debloated-binary-synthesization"><span class="toc-text">3.3 去膨胀二进制合成 Debloated Binary Synthesization</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3.3.1-%E5%9F%BA%E6%9C%AC%E5%9D%97%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="toc-text">3.3.1 基本块的表示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.3.2-%E8%B7%B3%E8%BD%AC%E7%9A%84%E5%85%B7%E4%BD%93%E5%8C%96"><span class="toc-text">3.3.2 跳转的具体化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.3.3-%E6%95%85%E9%9A%9C%E5%A4%84%E7%90%86%E4%BB%A3%E7%A0%81"><span class="toc-text">3.3.3 故障处理代码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%AE%9E%E7%8E%B0"><span class="toc-text">4 实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4.1-tracer-implementations"><span class="toc-text">4.1 Tracer Implementations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.2-%E6%9B%B4%E6%96%B0elf%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86-update-elf-exception-handler"><span class="toc-text">4.2 更新ELF异常处理 Update ELF Exception Handler</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%AF%84%E4%BC%B0"><span class="toc-text">5 评估</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5.1-%E4%BB%A3%E7%A0%81%E7%AE%80%E5%8C%96%E7%A8%8B%E5%BA%A6"><span class="toc-text">5.1 代码简化程度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2-%E5%8A%9F%E8%83%BD%E6%9C%89%E6%95%88%E6%80%A7"><span class="toc-text">5.2 功能有效性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.3-%E8%B7%AF%E5%BE%84%E5%AF%BB%E6%89%BE%E7%9A%84%E6%95%88%E7%8E%87"><span class="toc-text">5.3 路径寻找的效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.4-%E5%9C%A8%E5%AE%89%E5%85%A8%E6%96%B9%E9%9D%A2%E5%B8%A6%E6%9D%A5%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="toc-text">5.4 在安全方面带来的好处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.5-%E6%80%A7%E8%83%BD%E5%BC%80%E9%94%80"><span class="toc-text">5.5 性能开销</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.6-%E5%9C%A8%E7%8E%B0%E5%AE%9E%E7%A8%8B%E5%BA%8F%E4%B8%8A%E7%9A%84%E5%8E%BB%E8%86%A8%E8%83%80"><span class="toc-text">5.6 在现实程序上的去膨胀</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E8%AE%A8%E8%AE%BA"><span class="toc-text">6 讨论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%BD%E6%9C%80%E5%A4%A7%E5%8F%AF%E8%83%BD%E7%9A%84%E8%B7%AF%E5%BE%84%E6%8E%A8%E6%96%AD-best-effort-path-inference"><span class="toc-text">尽最大可能的路径推断 Best-effort path inference</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cfi-and-deblaoting"><span class="toc-text">CFI and deblaoting</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%BA%93%E7%9A%84%E5%8E%BB%E8%86%A8%E8%83%80"><span class="toc-text">基于库的去膨胀</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%8E%9F%E5%A7%8B%E4%BB%A3%E7%A0%81"><span class="toc-text">删除原始代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AA%E6%9D%A5%E5%B7%A5%E4%BD%9C"><span class="toc-text">未来工作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-text">7 相关工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#library-debloating:%E5%9F%BA%E4%BA%8E%E5%BA%93%E7%9A%84%E5%8E%BB%E8%86%A8%E8%83%80"><span class="toc-text">Library debloating:基于库的去膨胀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#delta-debugging-%E5%A2%9E%E9%87%8F%E8%B0%83%E8%AF%95%E6%B3%95"><span class="toc-text">Delta debugging 增量调试法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%BA%90%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8E%BB%E8%86%A8%E8%83%80"><span class="toc-text">基于源代码的去膨胀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%AE%B9%E5%99%A8%E7%9A%84%E5%8E%BB%E8%86%A8%E8%83%80"><span class="toc-text">基于容器的去膨胀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%A1%AC%E4%BB%B6%E7%9A%84%E5%8E%BB%E8%86%A8%E8%83%80"><span class="toc-text">基于硬件的去膨胀</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E7%BB%93%E8%AE%BA"><span class="toc-text">8 结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E9%98%85%E8%AF%BB%E6%80%BB%E7%BB%93"><span class="toc-text">9 阅读总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E5%A4%8D%E7%8E%B0"><span class="toc-text">10 复现</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/Software%20Engineering"><i class="tag post-item-tag">Software Engineering</i></a><a href="/tags/Software%20Debloating"><i class="tag post-item-tag">Software Debloating</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">Software Debloating 论文阅读 (4)</h1><time class="has-text-grey" datetime="2023-11-06T08:19:02.870Z">2023-11-06</time><article class="mt-2 post-content"><p><img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(4)_x.png" alt></p>
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Software Debloating 论文阅读 (4)</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#razor:-a-framework-for-post-deployment"><span class="toc-text">Razor: A Framework for Post-deployment</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E6%91%98%E8%A6%81"><span class="toc-text">0 摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%97%AE%E9%A2%98"><span class="toc-text">2 问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.1-motivating-example"><span class="toc-text">2.1 Motivating Example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2-program-debloating"><span class="toc-text">2.2 Program Debloating</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.3-%E6%8C%91%E6%88%98%E5%92%8C%E6%8E%AA%E6%96%BD"><span class="toc-text">2.3 挑战和措施</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1"><span class="toc-text">3 系统设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3.1-%E8%BF%90%E8%A1%8C%E8%B7%AF%E5%BE%84%E6%94%B6%E9%9B%86"><span class="toc-text">3.1 运行路径收集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.2-%E5%9F%BA%E4%BA%8E%E5%90%AF%E5%8F%91%E5%BC%8F%E7%9A%84%E8%B7%AF%E5%BE%84%E6%8E%A8%E6%96%AD-heuristic-based-path-inference"><span class="toc-text">3.2 基于启发式的路径推断 Heuristic-based Path Inference</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#(1)-%E9%9B%B6%E4%BB%A3%E7%A0%81%E5%90%AF%E5%8F%91%E5%BC%8F-zero-code-heuristic-(zcode)"><span class="toc-text">(1) 零代码启发式 Zero-code heuristic (zCode)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#(2)-%E9%9B%B6%E8%B0%83%E7%94%A8%E5%90%AF%E5%8F%91%E5%BC%8F-zero-call-heuristic-(zcall)"><span class="toc-text">(2) 零调用启发式 Zero-call heuristic (zCall)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#(3)-%E9%9B%B6%E5%BA%93%E8%B0%83%E7%94%A8%E5%90%AF%E5%8F%91%E5%BC%8F-zero-libcall-heuristic-(zlib)"><span class="toc-text">(3) 零库调用启发式 Zero-libcall heuristic (zLib)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#(4)-zero-functionality-heuristic-(zfunc)"><span class="toc-text">(4) Zero-functionality heuristic (zFunc)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#(5)-%E7%AE%97%E6%B3%95"><span class="toc-text">(5) 算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.3-%E5%8E%BB%E8%86%A8%E8%83%80%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%90%88%E6%88%90-debloated-binary-synthesization"><span class="toc-text">3.3 去膨胀二进制合成 Debloated Binary Synthesization</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3.3.1-%E5%9F%BA%E6%9C%AC%E5%9D%97%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="toc-text">3.3.1 基本块的表示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.3.2-%E8%B7%B3%E8%BD%AC%E7%9A%84%E5%85%B7%E4%BD%93%E5%8C%96"><span class="toc-text">3.3.2 跳转的具体化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.3.3-%E6%95%85%E9%9A%9C%E5%A4%84%E7%90%86%E4%BB%A3%E7%A0%81"><span class="toc-text">3.3.3 故障处理代码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%AE%9E%E7%8E%B0"><span class="toc-text">4 实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4.1-tracer-implementations"><span class="toc-text">4.1 Tracer Implementations</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#(1)-%E9%87%87%E7%94%A8%E8%BD%AF%E4%BB%B6%E6%8F%92%E8%A3%85%E8%BF%9B%E8%A1%8C%E8%B7%9F%E8%B8%AA"><span class="toc-text">(1) 采用软件插装进行跟踪</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#(2)-%E4%BD%BF%E7%94%A8%E7%A1%AC%E4%BB%B6%E7%89%B9%E6%80%A7%E8%BF%9B%E8%A1%8C%E8%BF%BD%E8%B8%AA"><span class="toc-text">(2) 使用硬件特性进行追踪</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.2-%E6%9B%B4%E6%96%B0elf%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86-update-elf-exception-handler"><span class="toc-text">4.2 更新ELF异常处理 Update ELF Exception Handler</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%AF%84%E4%BC%B0"><span class="toc-text">5 评估</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5.1-%E4%BB%A3%E7%A0%81%E7%AE%80%E5%8C%96%E7%A8%8B%E5%BA%A6"><span class="toc-text">5.1 代码简化程度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.2-%E5%8A%9F%E8%83%BD%E6%9C%89%E6%95%88%E6%80%A7"><span class="toc-text">5.2 功能有效性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.3-%E8%B7%AF%E5%BE%84%E5%AF%BB%E6%89%BE%E7%9A%84%E6%95%88%E7%8E%87"><span class="toc-text">5.3 路径寻找的效率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.4-%E5%9C%A8%E5%AE%89%E5%85%A8%E6%96%B9%E9%9D%A2%E5%B8%A6%E6%9D%A5%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="toc-text">5.4 在安全方面带来的好处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.5-%E6%80%A7%E8%83%BD%E5%BC%80%E9%94%80"><span class="toc-text">5.5 性能开销</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5.6-%E5%9C%A8%E7%8E%B0%E5%AE%9E%E7%A8%8B%E5%BA%8F%E4%B8%8A%E7%9A%84%E5%8E%BB%E8%86%A8%E8%83%80"><span class="toc-text">5.6 在现实程序上的去膨胀</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%BC%A9%E5%87%8F%E5%92%8C%E5%8A%9F%E8%83%BD%E6%80%A7"><span class="toc-text">代码缩减和功能性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E6%B6%88%E8%80%97"><span class="toc-text">性能消耗</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF:%E6%AF%8F%E4%B8%AA%E7%BD%91%E7%AB%99%E7%9A%84%E6%B5%8F%E8%A7%88%E5%99%A8%E9%9A%94%E7%A6%BB"><span class="toc-text">应用场景:每个网站的浏览器隔离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8F%91%E5%BC%8F%E6%96%B9%E6%B3%95%E7%9A%84n%E6%8A%98%E4%BA%A4%E5%8F%89%E6%A3%80%E9%AA%8C"><span class="toc-text">启发式方法的N折交叉检验</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E8%AE%A8%E8%AE%BA"><span class="toc-text">6 讨论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%BD%E6%9C%80%E5%A4%A7%E5%8F%AF%E8%83%BD%E7%9A%84%E8%B7%AF%E5%BE%84%E6%8E%A8%E6%96%AD-best-effort-path-inference"><span class="toc-text">尽最大可能的路径推断 Best-effort path inference</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cfi-and-deblaoting"><span class="toc-text">CFI and deblaoting</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%BA%93%E7%9A%84%E5%8E%BB%E8%86%A8%E8%83%80"><span class="toc-text">基于库的去膨胀</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%8E%9F%E5%A7%8B%E4%BB%A3%E7%A0%81"><span class="toc-text">删除原始代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AA%E6%9D%A5%E5%B7%A5%E4%BD%9C"><span class="toc-text">未来工作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-text">7 相关工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#library-debloating:%E5%9F%BA%E4%BA%8E%E5%BA%93%E7%9A%84%E5%8E%BB%E8%86%A8%E8%83%80"><span class="toc-text">Library debloating:基于库的去膨胀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#delta-debugging-%E5%A2%9E%E9%87%8F%E8%B0%83%E8%AF%95%E6%B3%95"><span class="toc-text">Delta debugging 增量调试法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%BA%90%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8E%BB%E8%86%A8%E8%83%80"><span class="toc-text">基于源代码的去膨胀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%AE%B9%E5%99%A8%E7%9A%84%E5%8E%BB%E8%86%A8%E8%83%80"><span class="toc-text">基于容器的去膨胀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%A1%AC%E4%BB%B6%E7%9A%84%E5%8E%BB%E8%86%A8%E8%83%80"><span class="toc-text">基于硬件的去膨胀</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E7%BB%93%E8%AE%BA"><span class="toc-text">8 结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E9%98%85%E8%AF%BB%E6%80%BB%E7%BB%93"><span class="toc-text">9 阅读总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E5%A4%8D%E7%8E%B0"><span class="toc-text">10 复现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E7%8E%B0chiselbenchmark"><span class="toc-text">复现ChiselBenchmark</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E7%8E%B0lsir"><span class="toc-text">复现LSIR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E7%8E%B0%E5%85%B6%E5%AE%83%E5%A4%A7%E7%A8%8B%E5%BA%8F"><span class="toc-text">复现其它大程序</span></a></li></ol></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/Software%20Engineering"><i class="tag post-item-tag">Software Engineering</i></a><a href="/tags/Software%20Debloating"><i class="tag post-item-tag">Software Debloating</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">Software Debloating 论文阅读 (4)</h1><time class="has-text-grey" datetime="2023-11-06T08:19:02.870Z">2023-11-06</time><article class="mt-2 post-content"><p><img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(4)_x.png" alt></p>
 <h1 id="razor%3A-a-framework-for-post-deployment" tabindex="-1">Razor: A Framework for Post-deployment</h1>
 <p>Software Debloating</p>
 <p>28th USENIX Security Symposium　CCFA会</p>
@@ -354,7 +354,8 @@ RAZOR简化了代码,并.."><meta name="generator" content="Hexo 5.4.2"><link re
 </ol>
 <h3 id="3.3-%E5%8E%BB%E8%86%A8%E8%83%80%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%90%88%E6%88%90-debloated-binary-synthesization" tabindex="-1">3.3 去膨胀二进制合成 Debloated Binary Synthesization</h3>
 <ul>
-<li>通过原始的膨胀二进制代码和扩展的CFG,<code>Generator</code>生成一个简化的二进制文件并包括所有的功能
+<li>
+<p>通过原始的膨胀二进制代码和扩展的CFG,<code>Generator</code>生成一个简化的二进制文件并包括所有的功能</p>
 <ul>
 <li>
 <ol>
@@ -388,13 +389,57 @@ RAZOR简化了代码,并.."><meta name="generator" content="Hexo 5.4.2"><link re
 </li>
 </ul>
 </li>
+<li>
+<p>该部分需要底层知识,很费时间,如之后需要再细看</p>
+</li>
 </ul>
 <h4 id="3.3.1-%E5%9F%BA%E6%9C%AC%E5%9D%97%E7%9A%84%E8%A1%A8%E7%A4%BA" tabindex="-1">3.3.1 基本块的表示</h4>
 <h4 id="3.3.2-%E8%B7%B3%E8%BD%AC%E7%9A%84%E5%85%B7%E4%BD%93%E5%8C%96" tabindex="-1">3.3.2 跳转的具体化</h4>
 <h4 id="3.3.3-%E6%95%85%E9%9A%9C%E5%A4%84%E7%90%86%E4%BB%A3%E7%A0%81" tabindex="-1">3.3.3 故障处理代码</h4>
 <h2 id="4-%E5%AE%9E%E7%8E%B0" tabindex="-1">4 实现</h2>
+<ul>
+<li>我们使用1085行C代码、514行C++代码和4034行Python代码实现了RAZOR的原型,如下图所示<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(4)_13.png" alt></li>
+<li>该原型只支持x86-64 ELF二进制文件</li>
+</ul>
 <h3 id="4.1-tracer-implementations" tabindex="-1">4.1 Tracer Implementations</h3>
+<ul>
+<li>我们为用户提供了三种不同的跟踪器,用户可以根据自己的需求选择最好的,甚至可以将多个工具的跟踪信息合并来获得更好的代码覆盖率.</li>
+<li>在我们的评估中，我们使用基于软件的插桩技术来收集简单程序的完整跟踪信息，并使用基于硬件的方法来高效地获取大型程序的跟踪信息。</li>
+</ul>
+<h4 id="(1)-%E9%87%87%E7%94%A8%E8%BD%AF%E4%BB%B6%E6%8F%92%E8%A3%85%E8%BF%9B%E8%A1%8C%E8%B7%9F%E8%B8%AA" tabindex="-1">(1) 采用软件插装进行跟踪</h4>
+<ul>
+<li>使用动态插装工具Dynamorio [7]和Pin [25]来监测程序. 这两个工具都提供了在函数级别、基本块级别和指令级别的插装接口</li>
+<li>我们通过三个插装步骤来收集控制流信息
+<ul>
+<li>
+<ol>
+<li>在每个基本块的开始处记录起始地址</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>在每个条件分支指令,在指令和其两个目标之间插入两段代码来监听跳转的信息</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>在每个间接调用和跳转指令前,记录每次调用的具体目标</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>当基本块和条件分支指令运行后即可移除插装,保留间接跳转和调用指令的插装,以此减少不必要的开销</li>
+</ul>
+<h4 id="(2)-%E4%BD%BF%E7%94%A8%E7%A1%AC%E4%BB%B6%E7%89%B9%E6%80%A7%E8%BF%9B%E8%A1%8C%E8%BF%BD%E8%B8%AA" tabindex="-1">(2) 使用硬件特性进行追踪</h4>
+<ul>
+<li>考虑到软件插装的开销,我们提供了一个基于Intel处理器跟踪（Intel PT）的高效Tracer。</li>
+<li>Intel PT以高度压缩的方式记录流信息的变化：TNT数据包描述了一个条件分支是否被执行；TIP数据包记录了间接分支的目标，例如间接调用和返回。</li>
+<li>由于Intel PT直接将跟踪信息写入物理内存，而无需触及页表或内存缓存，因此它实现了最高效的跟踪。</li>
+<li>可以使用不同平台上其它硬件功能实现更高效的Tracer,如Intel CPU上的分支跟踪存储（BTS）或在ARM CPU上的程序流跟踪（PTM）。</li>
+</ul>
 <h3 id="4.2-%E6%9B%B4%E6%96%B0elf%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86-update-elf-exception-handler" tabindex="-1">4.2 更新ELF异常处理 Update ELF Exception Handler</h3>
+<p>emmm… 看得不是很懂呢,且跟汇编有关,略</p>
 <h2 id="5-%E8%AF%84%E4%BC%B0" tabindex="-1">5 评估</h2>
 <ul>
 <li>
@@ -452,10 +497,184 @@ RAZOR简化了代码,并.."><meta name="generator" content="Hexo 5.4.2"><link re
 <li>需要注意的是Chisel更倾向于移除代码,只要满足输入即可</li>
 </ul>
 <h3 id="5.2-%E5%8A%9F%E8%83%BD%E6%9C%89%E6%95%88%E6%80%A7" tabindex="-1">5.2 功能有效性</h3>
+<ul>
+<li>
+<p>使用chiselBenchmark,运行原始二进制文件,使用chisel后的二进制文件,使用razor后的二进制文件进行测试,以确定所需功能是否保留,结果如下图示<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(4)_8.png" alt="5.2"></p>
+</li>
+<li>
+<p>RAZOR在使用保留更多代码的启发式时,最终都会通过功能验证. 而哈人的,Chisel自己只通过了3个,其主要有以下四个问题</p>
+<ul>
+<li>
+<ol>
+<li>错误的操作:因过拟合输入导致,如bzip2</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>无限循环:因为删除了循环的边界检查,如gzip</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>崩溃:删除了参数为空检查,如bzip2,date</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>遗漏输出:CHISEL删除了用于在stdout和stderr上打印输出的代码，导致结果丢失。如grep</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
 <h3 id="5.3-%E8%B7%AF%E5%BE%84%E5%AF%BB%E6%89%BE%E7%9A%84%E6%95%88%E7%8E%87" tabindex="-1">5.3 路径寻找的效率</h3>
+<ul>
+<li>
+<p>使用两组实验评估 <code>PathFinder</code>在寻找所需功能的相关代码时的有效性</p>
+<ul>
+<li>
+<ol>
+<li>使用从低到多不同启发式等级的RAZOR来去膨胀程序,找到对每个程序最小的启发式等级</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>使用N折交叉验证启发式方法的鲁棒性(在5.6中)</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>按照以下方法在ChiselBench上测试RAZOR</p>
+<ul>
+<li>
+<ol>
+<li>设计覆盖相同功能集的训练输入和测试输入</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>使用训练输入跟踪程序,并用不同等级的启发式进行去膨胀 none, zCode, zCall, zLib, zFunc</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>在测试输入上使用去膨胀后的程序,记录失败情况</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><code>PathFinder</code>配置见附录Table7,我们使用相同的选项构造训练集和测试集,但二者间具体的参数不同</p>
+</li>
+</ul>
+<p><img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(4)_9.png" alt></p>
+<ul>
+<li>
+<p>上图展示了结果,可以明显看出,随着启发式等级的增加,失败的测试用例显著下降,而简化率的下降却不明显.</p>
+</li>
+<li>
+<p>请注意，zCode启发式方法稍微增加了代码的减小幅度，因为它使得条件跳转的分支更多，从而减少了失败分支的插装。</p>
+</li>
+<li>
+<p>四种启发式作用的例子:略,见论文</p>
+</li>
+<li>
+<p>结论:<code>PathFinder</code>可以有效识别与训练输入线管的代码,并完备由训练输入出发的功能. 它强化了去膨胀二进制文件的同时保持了简化的效率</p>
+</li>
+</ul>
 <h3 id="5.4-%E5%9C%A8%E5%AE%89%E5%85%A8%E6%96%B9%E9%9D%A2%E5%B8%A6%E6%9D%A5%E7%9A%84%E5%A5%BD%E5%A4%84" tabindex="-1">5.4 在安全方面带来的好处</h3>
+<ul>
+<li>
+<p>通过统计减少的bug数来评估去膨胀带来的安全性</p>
+</li>
+<li>
+<p>在ChiselBenchmark中统计其历史bug和如今bug</p>
+<ul>
+<li>对于历史bug,我们探究其补丁是否在去膨胀程序中</li>
+<li>对于如今bug,我们探究其问题代码是否仍存在</li>
+</ul>
+</li>
+<li>
+<p>下图展示了评估结果,当前版本有13个bug,有10个在Chisel中被评估,3个bug存在在老版本<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(4)_10.png" alt></p>
+<ul>
+<li>图中bzip, date, gzip,mkdir, rm, and tar 的六个漏洞仍然存在，因为测试用例执行了相关的有漏洞代码</li>
+<li>另外六个漏洞并非由二进制文件本身引起。例如，CVE-2011-4089是由bash脚本bzexe的竞态条件引起的，而不是由bzip2二进制文件引起的。因此，RAZOR不会禁用此类漏洞。</li>
+</ul>
+</li>
+<li>
+<p>Chisel与RAZOR相比</p>
+<ul>
+<li>Chisel比较激进,在移除了更多漏洞的同时也引入了旧的.</li>
+<li>Razor比较保守,阻碍移除漏洞,但有助于避免新的漏洞</li>
+</ul>
+</li>
+<li>
+<p>同时测量了ROP（Return-Oriented Programming）gadgets的减少情况. 一旦攻击者能够改变控制流,可重用的ROP gadgets的数量将使得程序更易受控制流劫持的攻击</p>
+<ul>
+<li>RAZOR平均减少了 61.9%的ROP gadgets,而Chisel减少了 85.1%</li>
+<li>结果在预期内,我们潜在的有意防止 forward-edge control-flow attacks,即攻击者通过破坏函数指针而不是返回地址来改变控制流</li>
+<li>同时使用新技术可以进一步实现完整的控制流完整性</li>
+</ul>
+</li>
+</ul>
 <h3 id="5.5-%E6%80%A7%E8%83%BD%E5%BC%80%E9%94%80" tabindex="-1">5.5 性能开销</h3>
+<ul>
+<li><strong>时间</strong>
+<ul>
+<li>RAZOR
+<ul>
+<li>ChiselBenchmark上平均1.78s</li>
+<li>Firefox 8.51s</li>
+<li>FoxitReader 50.42</li>
+</ul>
+</li>
+<li>Chisel:在ChiselBenchmark上要11hours+</li>
+</ul>
+</li>
+<li><strong>运行时开销</strong>
+<ul>
+<li>与SPEC基准测试进行比较,平均而言,RAZOR为去膨胀程序引入1.7%的运行时开销,表明其在现实世界不是是高效的.</li>
+<li>间接调用是开销的主要来源,这里可以进一步优化</li>
+</ul>
+</li>
+</ul>
 <h3 id="5.6-%E5%9C%A8%E7%8E%B0%E5%AE%9E%E7%A8%8B%E5%BA%8F%E4%B8%8A%E7%9A%84%E5%8E%BB%E8%86%A8%E8%83%80" tabindex="-1">5.6 在现实程序上的去膨胀</h3>
+<ul>
+<li>
+<p>对于Firefox浏览器，我们使用RAZOR加载了排名前50的Alexa网站[28]。我们随机选择了25个网站作为训练输入，并将另外25个网站作为测试输入。</p>
+</li>
+<li>
+<p>对于Foxit Reader，我们使用RAZOR打开并滚动了包含表格、图形和JavaScript代码的55个不同的PDF文件。我们随机选择了其中的15个文件作为训练输入，并将另外40个文件作为测试输入</p>
+</li>
+</ul>
+<h4 id="%E4%BB%A3%E7%A0%81%E7%BC%A9%E5%87%8F%E5%92%8C%E5%8A%9F%E8%83%BD%E6%80%A7" tabindex="-1">代码缩减和功能性</h4>
+<p><img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(4)_11.png" alt></p>
+<p>如上图示,当启发式等级达到zLib时,可以通过所有的测试用例</p>
+<h4 id="%E6%80%A7%E8%83%BD%E6%B6%88%E8%80%97" tabindex="-1">性能消耗</h4>
+<ul>
+<li>在几个基准测试上与运行了去膨胀的Firefox浏览器(启发式等级zLib)并发现RAZOR对Octane [33]、SunSpider [34]、Dromaeo-JS [30]和Dromaeo-DOM [29]基准测试引入了-2.1%、1.6%、0%和2.1%的开销</li>
+<li>对于Foxit Reader未找到基准测试,但打开和滚动pdf未发现明显减速</li>
+</ul>
+<h4 id="%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%3A%E6%AF%8F%E4%B8%AA%E7%BD%91%E7%AB%99%E7%9A%84%E6%B5%8F%E8%A7%88%E5%99%A8%E9%9A%94%E7%A6%BB" tabindex="-1">应用场景:每个网站的浏览器隔离</h4>
+<ul>
+<li>在传统的浏览器环境中，所有打开的标签页和窗口都在同一个进程和内存空间中运行。这意味着一个恶意网站可以通过注入脚本或其他攻击手段来访问和修改同一进程中的其他站点的内容。这可能导致用户数据泄露、会话劫持和其他安全问题。</li>
+<li>每个网站的浏览器隔离,作为浏览器去除臃肿的一个应用，我们可以创建仅支持特定网站的最小化版本
+<ul>
+<li>例如，银行可以为其客户提供一个只支持其网站所需功能的最小化浏览器，同时暴露最少的攻击面。</li>
+</ul>
+</li>
+<li>们在三个受欢迎且安全敏感的网站集合上应用了RAZOR：银行网站、电子商务网站和社交媒体网站。可以看出可以带来一定的收益<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(4)_12.png" alt></li>
+</ul>
+<h4 id="%E5%90%AF%E5%8F%91%E5%BC%8F%E6%96%B9%E6%B3%95%E7%9A%84n%E6%8A%98%E4%BA%A4%E5%8F%89%E6%A3%80%E9%AA%8C" tabindex="-1">启发式方法的N折交叉检验</h4>
+<ul>
+<li>首先，我们将Alexa的前50个网站随机分成五组，每组10个网站。我们从中挑选了两组（共20个网站）进行训练，剩下的30个网站用于测试。我们进行了10次这样的评估. 结果略</li>
+<li>其次，我们将Alexa的前50个网站随机分成10组，每组五个网站。我们从中随机挑选了五组（共25个网站）进行训练，剩下的25个网站用于测试。我们进行了10次这样的评估。结果略</li>
+<li>结果表明，我们的启发式方法对于推断具有类似训练输入功能的未执行代码是有效的</li>
+</ul>
 <h2 id="6-%E8%AE%A8%E8%AE%BA" tabindex="-1">6 讨论</h2>
 <h4 id="%E5%B0%BD%E6%9C%80%E5%A4%A7%E5%8F%AF%E8%83%BD%E7%9A%84%E8%B7%AF%E5%BE%84%E6%8E%A8%E6%96%AD-best-effort-path-inference" tabindex="-1">尽最大可能的路径推断 Best-effort path inference</h4>
 <ul>
@@ -627,13 +846,20 @@ RAZOR简化了代码,并.."><meta name="generator" content="Hexo 5.4.2"><link re
 </li>
 <li>
 <ol start="2">
-<li>方法基于二进制,可以无视软件是否开源直接使用,但相应的需要对应的底层代码知识,不方便开发人员进行二次改造(大概)</li>
+<li>方法基于二进制,可以无视软件是否开源直接使用,但相应的需要对应的底层代码知识,不方便开发人员进行二次改造(大概),并且这涉及用户的信任度,真敢用吗</li>
 </ol>
 </li>
 </ul>
 </li>
 </ul>
 <h2 id="10-%E5%A4%8D%E7%8E%B0" tabindex="-1">10 复现</h2>
+<ul>
+<li>使用docker进行复现</li>
+</ul>
+<h3 id="%E5%A4%8D%E7%8E%B0chiselbenchmark" tabindex="-1">复现ChiselBenchmark</h3>
+<p>按照 <a target="_blank" rel="noopener" href="https://github.com/cxreet/razor/wiki/Exercises">github网站指示</a> 即可</p>
+<h3 id="%E5%A4%8D%E7%8E%B0lsir" tabindex="-1">复现LSIR</h3>
+<h3 id="%E5%A4%8D%E7%8E%B0%E5%85%B6%E5%AE%83%E5%A4%A7%E7%A8%8B%E5%BA%8F" tabindex="-1">复现其它大程序</h3>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
 </article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2023/11/12/PL/On%20java8%E5%9F%BA%E7%A1%80%E5%8D%B715-21/" title="On java 8 基础卷（15-21章）"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: On java 8 基础卷（15-21章）</span></a><a class="button is-default" href="/2023/10/31/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(3)/" title="Software Debloating 论文阅读 (3)"><span class="has-text-weight-semibold">Next: Software Debloating 论文阅读 (3)</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2023</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
