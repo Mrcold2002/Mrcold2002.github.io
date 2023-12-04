@@ -1,0 +1,591 @@
+<!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>Software Debloating 论文阅读 (7)(8)</title><meta name="description" content="菜"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="BLADE: Scalable Source Code Debloating Framework
+2023 IEEE Secure Development Conference
+0 摘要
+
+现有的源代码精简工具在动态云环境中应用时存在可扩展性低和运行时开销高的问题，其中实例会即时启动 （指明场景）
+为了解决这一挑战，我们提出了BLADE，它利用常见的编码习惯和语言限制构建简单而有效的启发式方法，以实现更快的源代码精简
+
+例如：通常在使用之前定义变量，因此删除节点时，其在语法树的位置越深，破坏代码的概率越低；
+例如：在精简某些功能时，基本块中的语句可能会被一起删除
+
+
+为此，Blade使用分层源代码简化，通过反向谦虚遍历选择简化候选，以便在定义之前删除使用
+低运行开销使得BLADE能够实际应用于大型工作负载的.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Software Debloating 论文阅读 (7)(8)</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#blade:-scalable-source-code-debloating-framework"><span class="toc-text">BLADE: Scalable Source Code Debloating Framework</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0-%E6%91%98%E8%A6%81"><span class="toc-text">0 摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1 介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%8A%A8%E6%9C%BA%E5%92%8C%E8%A7%81%E8%A7%A3"><span class="toc-text">2 动机和见解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1"><span class="toc-text">3 系统设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#a-%E8%AF%AD%E5%8F%A5%E6%A0%91"><span class="toc-text">A 语句树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#b-%E7%AE%80%E5%8C%96%E7%AE%97%E6%B3%95"><span class="toc-text">B 简化算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#c-%E5%B9%B6%E8%A1%8C%E6%93%8D%E4%BD%9C"><span class="toc-text">C 并行操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#d-%E6%B5%8B%E8%AF%95oracle"><span class="toc-text">D 测试Oracle</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%AF%84%E4%BC%B0"><span class="toc-text">4 评估</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#a-%E6%A0%87%E5%87%86"><span class="toc-text">A 标准</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#b-%E8%AF%84%E4%BC%B0%E9%A1%BA%E5%BA%8F"><span class="toc-text">B 评估顺序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#c-%E8%AF%84%E4%BC%B0%E7%8E%AF%E5%A2%83"><span class="toc-text">C 评估环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#d-%E8%AF%84%E4%BC%B0%E9%85%8D%E7%BD%AE"><span class="toc-text">D 评估配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#e-%E5%88%86%E6%9E%90%E6%95%88%E7%8E%87%E8%AF%84%E4%BC%B0"><span class="toc-text">E 分析效率评估</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#f-%E7%AE%80%E5%8C%96%E8%AF%84%E4%BC%B0"><span class="toc-text">F 简化评估</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#g-%E5%AE%89%E5%85%A8%E8%AF%84%E4%BC%B0"><span class="toc-text">G 安全评估</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#h-%E9%80%9A%E7%94%A8%E6%80%A7%E8%AF%84%E4%BC%B0"><span class="toc-text">H 通用性评估</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E8%BF%9B%E4%B8%80%E6%AD%A5:%E5%AF%B9%E5%A4%A7%E5%9E%8B%E5%BA%94%E7%94%A8%E8%BF%9B%E8%A1%8C%E7%B2%BE%E7%AE%80"><span class="toc-text">更进一步:对大型应用进行精简</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%AE%A8%E8%AE%BA"><span class="toc-text">5 讨论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-text">6 相关工作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E7%BB%93%E8%AE%BA"><span class="toc-text">7 结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#carve:-practical-security-focused-software-debloating-using-simple-feature-set-mappings"><span class="toc-text">CARVE: Practical Security-Focused Software Debloating Using Simple Feature Set Mappings</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0-%E6%91%98%E8%A6%81-1"><span class="toc-text">0 摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D-1"><span class="toc-text">1 介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1.1-%E5%8A%A8%E6%9C%BA"><span class="toc-text">1.1 动机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1.2-%E8%B4%A1%E7%8C%AE"><span class="toc-text">1.2 贡献</span></a></li></ol></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/Software%20Engineering"><i class="tag post-item-tag">Software Engineering</i></a><a href="/tags/Software%20Debloating"><i class="tag post-item-tag">Software Debloating</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">Software Debloating 论文阅读 (7)(8)</h1><time class="has-text-grey" datetime="2023-11-27T14:17:34.614Z">2023-11-27</time><article class="mt-2 post-content"><h2 id="blade%3A-scalable-source-code-debloating-framework" tabindex="-1">BLADE: Scalable Source Code Debloating Framework</h2>
+<p>2023 IEEE Secure Development Conference</p>
+<h3 id="0-%E6%91%98%E8%A6%81" tabindex="-1">0 摘要</h3>
+<ul>
+<li>现有的源代码精简工具在动态云环境中应用时存在可扩展性低和运行时开销高的问题，其中实例会即时启动 （指明场景）</li>
+<li>为了解决这一挑战，我们提出了BLADE，它利用常见的编码习惯和语言限制构建简单而有效的启发式方法，以实现更快的源代码精简
+<ul>
+<li>例如：通常在使用之前定义变量，因此删除节点时，其在语法树的位置越深，破坏代码的概率越低；</li>
+<li>例如：在精简某些功能时，基本块中的语句可能会被一起删除</li>
+</ul>
+</li>
+<li>为此，Blade使用分层源代码简化，通过反向谦虚遍历选择简化候选，以便在定义之前删除使用</li>
+<li>低运行开销使得BLADE能够实际应用于大型工作负载的代码精简</li>
+<li>我们的评估表明，与现有的源代码精简工具相比，BLADE运行更快。
+<ul>
+<li>与 Chisel 相比，BLADE平均快2.3倍，并在代码大小和攻击面的减小方面提供可比较的效果。</li>
+<li>与另一款源代码精简工具 Debop 相比，BLADE平均快2.75倍。</li>
+<li>（然而这两款都很慢）</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-%E4%BB%8B%E7%BB%8D" tabindex="-1">1 介绍</h3>
+<ul>
+<li>
+<p>简化工具需要的性质</p>
+<ul>
+<li>
+<ol>
+<li>快速且可拓展,同时不损害通用性</li>
+</ol>
+<ul>
+<li>动态云环境中,实例会即时启动,因此需要快速的精简工具</li>
+<li>CI/CD中,需要即时提供更新的构建</li>
+</ul>
+</li>
+<li>
+<ol start="2">
+<li>可审计性:</li>
+</ol>
+<ul>
+<li>允许在精简后检查生成的代码是否存在任何意外的副作用。不在源代码级别操作的精简工具[2]，[4]–[6] 对于这种用例不太理想。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>基于源代码简化方案的工作原理</p>
+<ul>
+<li>
+<ol>
+<li>创建测试规范描述所需的功能</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>迭代地选择要从代码库中删除的一组代码语句的候选集</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>将剩余的代码与规范进行测试。</li>
+</ol>
+<ul>
+<li>如果通过，就永久性地删除所选的语句。然后继续对剩余的代码进行搜索。</li>
+<li>如果测试失败，将那些选定的语句放回代码库，并考虑一个新的候选语句集，直到所有集合都用尽。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>当今的简化方法很慢,甚至超时[1]，[7]–[9],它们常规地使用Delta-Debugging进行搜索,复杂度为 <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></eq> ;而Debop[7]使用随机优化进行搜索,然而其精简效率较低</p>
+</li>
+<li>
+<p>为此我们提出BLADE,支持快速且可扩展的代码精简</p>
+<ul>
+<li>BLADE采用了一个结构感知的代码精简过程，其运行时间为 <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></eq>,这使得将 BLADE 用于精简大型代码库（例如 nginx、sqlite3）变得实际可行。</li>
+<li>BLADE在源代码级别上操作，以实现可审计性。</li>
+</ul>
+</li>
+<li>
+<p>评估表明,BLADE比 Chisel 快 2.3 倍，比 Debop 快 2.75 倍.</p>
+</li>
+<li>
+<p>总的来说, 高度的代码精简、安全强化和低运行时开销的通用潜力使得 BLADE 在现代动态精简使用案例中更具有优势。</p>
+</li>
+<li>
+<p>本文贡献如下</p>
+<ul>
+<li>
+<ol>
+<li><strong>新颖方法</strong>：BLADE利用其快速算法，有效地扩展到大型工作负载（例如，nginx、sqlite3）。这使得BLADE成为现实工作负载的实际解决方案。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li><strong>全面评估</strong>：与现有的精简框架进行的比较评估显示，BLADE在精简时间上相比其他方案有显著改进，而不会牺牲代码精简。</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li><strong>开源</strong>:<a target="_blank" rel="noopener" href="https://github.com/pawnsac/BLADE-deb">仓库地址</a></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-%E5%8A%A8%E6%9C%BA%E5%92%8C%E8%A7%81%E8%A7%A3" tabindex="-1">2 动机和见解</h3>
+<ul>
+<li>
+<p>DD算法低效的两个原因</p>
+<ul>
+<li>
+<ol>
+<li>可以被简化的语句可能分散而不是成片出现.因此,搜索可移除代码的最大片段所需的时间潜在地可能超过实际删除大块代码所带来的可能时间优势</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>没有考虑编程语言的语法规则</li>
+</ol>
+<ul>
+<li>例如:在候选删除集中包含一个定义语句,在未删除的代码中有其应用,此时不能够删除该定义语句. 这样会产生语法错误,且编译这样的代码也是不必要的,编译这样代码浪费的时间可以通过在删除语句的定义之前优先删除其应用来避免</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>见解1:利用先定义后使用的结构</p>
+<ul>
+<li>通常,变量先定义后使用,因此在语法树中,被删除的语句未知越深,出现错误概率越低</li>
+<li>因此BLADE利用这一见解优化迭代次数,因为DD是优删除前部分的定义语句,而BLADE优先删除后部分的定义语句</li>
+</ul>
+</li>
+<li>
+<p>见解2:利用语法树层次结构</p>
+<ul>
+<li>给定一个包含多个语句的代码块,可以在考虑其中单个语句之前先把整个语句删除</li>
+<li>而DD采用二分搜索移除大块,BLADE利用这一见解可以加快速度</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1" tabindex="-1">3 系统设计</h3>
+<ul>
+<li>形式化定义:类似Chisel等</li>
+<li>简化流程如下</li>
+</ul>
+<ol>
+<li>识别并从程序中删除一组候选语句。</li>
+<li>编译剩余的程序。</li>
+<li>测试 Oracle 执行程序所需的功能。</li>
+<li>测试 Oracle 比较程序输出与预期输出。</li>
+<li>根据测试 Oracle 的结果，候选语句要么被永久性地删除（精简），要么重新引入到程序中。这个过程重复进行，直到精简算法无法进一步精简程序。</li>
+</ol>
+<ul>
+<li>系统总体设计如下,下面进行详细介绍<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(7)_1.png" alt></li>
+</ul>
+<h4 id="a-%E8%AF%AD%E5%8F%A5%E6%A0%91" tabindex="-1">A 语句树</h4>
+<ul>
+<li>对于给定的程序简历语句树,不同于AST,其叶子节点是完整的语句,中心节点是代码块(如函数,循环,if-else语句或结构体).</li>
+<li>BLADE将语句块保留为内部节点以进行分层简化:删除内部节点及其子树等效删除整个代码块,删除后如未通过测试,则将该块重新放回1,并在该块中反向遍历进行DD</li>
+<li>下图为一个语句树例子<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(7)_2.png" alt="语句树"></li>
+<li>构建语句树使用LLVM的前端Clang [12]提取原始代码的token,随后使用这些token构建语句数,并分类为块或语句</li>
+</ul>
+<h4 id="b-%E7%AE%80%E5%8C%96%E7%AE%97%E6%B3%95" tabindex="-1">B 简化算法</h4>
+<ul>
+<li>简化算法以语句树为输入,递归地进行简化. 其以后序遍历语句树,没有并行优化的基本算法如下</li>
+<li><img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(7)_3.png" alt="基本算法">
+<ul>
+<li>首先尝试删除整个树来简化(第2行),否则回复树(第5行)</li>
+<li>该算法对于每个节点只遍历一遍,因此复杂度是 <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></eq></li>
+</ul>
+</li>
+</ul>
+<h4 id="c-%E5%B9%B6%E8%A1%8C%E6%93%8D%E4%BD%9C" tabindex="-1">C 并行操作</h4>
+<ol>
+<li><strong>同时多节点简化</strong>:在一次迭代中同时处理给定节点下的多个子节点</li>
+</ol>
+<ul>
+<li>具体来说在多个进程中运行算法1,并行移除不同组合的子节点,通过测试集的删除最多的是最佳状态,此外永久删除节点更新全局状态</li>
+<li>算法如下图所示 <img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(7)_4.png" alt="并行算法">
+<ul>
+<li>第5,6行为进程分配节点</li>
+<li>第7行进程并行删除分配的节点,并测试</li>
+<li>最佳简化在15行确定</li>
+<li>n是节点的子节点数,有 <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">2^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6644em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></eq> 种组合,我们依据 <strong>见解1</strong> 进行排序.在原型实现种,我们只考虑前n种组合</li>
+<li>在给定节点，BLADE选择第一个即将到来的节点作为第一个进程的候选集；第二个进程获得前两个即将到来的节点，依此类推，第n个进程获取前n个即将到来的节点作为运行算法1的候选集。</li>
+</ul>
+</li>
+<li>多节点并行主要有两个好处
+<ul>
+<li>
+<ol>
+<li>速度:可以在一次迭代种删除更大的代码块,例如并行5个进程可一次删除5个节点.下图标明,在67.6%的情况下,一次迭代删除的语句多余一个 <img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(7)_5.png" alt="并行删除"></li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>简化:允许多节点组合简化,这在移除具有中和作用代码时有帮助</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li><strong>次级减小</strong>:</li>
+</ol>
+<ul>
+<li>BLADE仅使用一组优先级高的组合,因此始终存在次级迭代能产生更多的简化.</li>
+<li>为此,我们运行另外一组进程执行次级同时遍历,有以下目的
+<ul>
+<li>
+<ol>
+<li>在第一轮简化后制作 新一轮的简化组合</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>死代码清除(包括删除标签定义,不遵循先定义后使用原则)</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>这些次级迭代使用不同程度的语句树执行算法2,然而保持至少一个函数的并行迭代器之间的距离是重要的,原因有两个
+<ul>
+<li>
+<ol>
+<li>使得多个迭代器的简化路径不重叠</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>允许迭代器为下一个迭代器创建新的简化组合之前能够全面搜索函数.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>BLADE提供了调整并行迭代器及其调整进程数量的功能.使用多个迭代器减少了对程序执行多次完整遍历的需求,显著提高了代码简化水平</li>
+</ul>
+<h4 id="d-%E6%B5%8B%E8%AF%95oracle" tabindex="-1">D 测试Oracle</h4>
+<ul>
+<li><strong>功能检查器</strong>:
+<ul>
+<li>使用一组测试脚本(bash脚本),测试脚本需要完全覆盖核心功能</li>
+<li>程序相对于给定功能的通用性被定义为程序处理指定功能的一般范围输入的适应性. 为了增加通用性会增加输入,导致时间增加,通过优化迭代次数,BLADE使得更好的通用性称为可能</li>
+</ul>
+</li>
+<li><strong>适应检查器</strong>:
+<ul>
+<li>维系简化程序的质量,如安全性评估等</li>
+<li>目前实现种,使用Clang静态分析来保证简化适应度如[1]中所实现。
+<ul>
+<li>控制流完整性（Control Flow Integrity）Sanitizer</li>
+<li>地址（Address）Sanitizer</li>
+<li>内存（Memory）Sanitizer</li>
+<li>未定义行为（Undefined Behavior）Sanitizer</li>
+<li>泄漏（Leak）Sanitizer，</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-%E8%AF%84%E4%BC%B0" tabindex="-1">4 评估</h3>
+<ul>
+<li>与Chisel,Razor,Debop比较</li>
+</ul>
+<h4 id="a-%E6%A0%87%E5%87%86" tabindex="-1">A 标准</h4>
+<ul>
+<li><strong>分析效率</strong>:运行时间表现对比</li>
+<li><strong>简化</strong>:</li>
+<li><strong>安全</strong>:</li>
+<li><strong>通用性</strong></li>
+</ul>
+<h4 id="b-%E8%AF%84%E4%BC%B0%E9%A1%BA%E5%BA%8F" tabindex="-1">B 评估顺序</h4>
+<ul>
+<li>
+<ol>
+<li>在小程序上对比</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>在大的应用程序上对比,着重体现了BLADE的优势:在实际工作负载上的可扩展性</li>
+</ol>
+</li>
+</ul>
+<h4 id="c-%E8%AF%84%E4%BC%B0%E7%8E%AF%E5%A2%83" tabindex="-1">C 评估环境</h4>
+<ul>
+<li>Linux Server</li>
+<li>2个 Xeon Silver 4210 CPU@2.20GHz处理器</li>
+<li>512GB DDR4</li>
+<li>操作系统为Ubuntu 20.04.4 LTS</li>
+</ul>
+<h4 id="d-%E8%AF%84%E4%BC%B0%E9%85%8D%E7%BD%AE" tabindex="-1">D 评估配置</h4>
+<ol>
+<li><strong>目标程序和功能选择</strong>:</li>
+</ol>
+<ul>
+<li>使用 nginx、sqlite3、make 和 tar 作为大型程序样本，以衡量可扩展性。</li>
+<li>使用ChiselBench作为小程序样本</li>
+<li>选择每个程序的核心参数,需要保证功能检查其全面覆盖了程序的各种输入范围.
+<ul>
+<li>例如:对于sort,uniq,输入包括文本,二进制,图像和压缩文件</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li><strong>设置BLADE,Chisel,Debop和Razor</strong></li>
+</ol>
+<ul>
+<li>使用相同测试Oracle对于所有工具,并针对各自修改
+<ul>
+<li>Razor需要Oracle为python</li>
+<li>Debop要求每次结束时输出一组测量值,还要两个参数</li>
+</ul>
+</li>
+</ul>
+<h4 id="e-%E5%88%86%E6%9E%90%E6%95%88%E7%8E%87%E8%AF%84%E4%BC%B0" tabindex="-1">E 分析效率评估</h4>
+<ul>
+<li>ChiselBench种,BLADE平均比Chisel快2.3倍,比Debop快2.75倍;</li>
+<li>这使得它能够扩展到大型代码库，并鼓励添加更复杂的测试用例到测试 Oracle 中。</li>
+</ul>
+<h4 id="f-%E7%AE%80%E5%8C%96%E8%AF%84%E4%BC%B0" tabindex="-1">F 简化评估</h4>
+<ul>
+<li>从4个维度出发
+<ul>
+<li>二进制大小:
+<ul>
+<li>BLADE平均减少 67%</li>
+<li>Chisel 67%</li>
+<li>Debop 7%</li>
+<li>Razor -19%:因为razor会将之前的设为只读而添入新的代码块<br>
+<img src="../../../images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(7)_6.png" alt="二进制大小"></li>
+</ul>
+</li>
+<li>运行代码大小:
+<ul>
+<li>BLADE减少 83%</li>
+<li>Chisel 86%</li>
+<li>Razor 50%</li>
+<li>Debop 10%<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(7)_7.png" alt="运行代码大小"></li>
+</ul>
+</li>
+<li>静态块
+<ul>
+<li>BLADE减少 86%</li>
+<li>Chisel 88%</li>
+<li>Razor 45%</li>
+<li>Debop 7%<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(7)_8.png" alt="静态块"></li>
+</ul>
+</li>
+<li>代码行
+<ul>
+<li>BLADE减少 83%</li>
+<li>Chisel 76%</li>
+<li>Debop 1%</li>
+<li>注意到从Chisel到BLADE代码行数有显著的减少,主要有以下BLADE考虑了但Chisel没有的两个原因
+<ul>
+<li>
+<ol>
+<li>未使用声明的减少</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>结构体的减少<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(7)_9.png" alt="代码行数"></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="g-%E5%AE%89%E5%85%A8%E8%AF%84%E4%BC%B0" tabindex="-1">G 安全评估</h4>
+<ul>
+<li>从三个方面考虑
+<ul>
+<li>
+<ol>
+<li>ROP Gadgets:使用Salwan的ROP Gadget工具[13]计算总共的唯一ROP gadgets.</li>
+</ol>
+<ul>
+<li>BLADE减少 83%</li>
+<li>Chisel 84%</li>
+<li>Razor 52%</li>
+<li>Debop 4%<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(7)_10.png" alt="ROP Gadgets"></li>
+</ul>
+</li>
+<li>
+<ol start="2">
+<li>内存泄漏:使用名为Saber [14]的静态分析工具评估给定程序的内存泄漏</li>
+</ol>
+<ul>
+<li>BLADE和Chisel处理内存泄漏能力是相当的,某些情况下BLADE引入了新的泄漏,这是因为BLADE的适应性检查其使用Clang的静态分析其,存在漏检情况<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(7)_11.png" alt="内存泄漏"></li>
+</ul>
+</li>
+<li>
+<ol start="3">
+<li>CVEs:Common Vulnerabilities and Exposures:是特定程序已知的漏洞,这些漏洞被识别然后与公众分享</li>
+</ol>
+<ul>
+<li>BLADE在9个中删了5个,与Chisel相同</li>
+<li>Razor从9个中删了4个</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="h-%E9%80%9A%E7%94%A8%E6%80%A7%E8%AF%84%E4%BC%B0" tabindex="-1">H 通用性评估</h4>
+<ul>
+<li>
+<p>程序相对于给定功能的通用性定义为程序处理指定功能/在精简后保留的参数的一般输入范围的能力。</p>
+<ul>
+<li>例如:bzip2对于-fc参数,为了测试通用性，我们为每个目标程序设计了一组新的测试用例，这些测试用例不属于功能检查器的预定义测试用例. 结果如下<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(7)_12.png" alt="通用性"></li>
+</ul>
+</li>
+<li>
+<p><strong>通用性和训练用例的数量</strong>:下图展示了训练用例数量和验证集数量之间的关系<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(7)_13.png" alt="通用性和训练用例的数量"></p>
+<ul>
+<li>其粗略表明:随着训练用例数量的增加,通用性也会增加</li>
+<li>对于多样化输入的程序,需要更多的训练用例以保证通用性</li>
+</ul>
+</li>
+<li>
+<p>总结:BLADE的通用性与SOTA相当,并且可以增加训练集进一步增强通用性</p>
+</li>
+</ul>
+<h4 id="%E6%9B%B4%E8%BF%9B%E4%B8%80%E6%AD%A5%3A%E5%AF%B9%E5%A4%A7%E5%9E%8B%E5%BA%94%E7%94%A8%E8%BF%9B%E8%A1%8C%E7%B2%BE%E7%AE%80" tabindex="-1">更进一步:对大型应用进行精简</h4>
+<ul>
+<li>
+<p>两个大的:nginx:76k 行,sqlite3-manager 75k 行</p>
+</li>
+<li>
+<p>两个中的:tar 31k,make 27k</p>
+</li>
+<li>
+<p>效果如下<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(7)_14.png" alt></p>
+</li>
+<li>
+<p><strong>现有方法在大型应用上</strong>:</p>
+<ul>
+<li>DEBOP表现不好,在大程序上不用</li>
+<li>Chisel在24h内无法完成简化,且在简化中出现错误</li>
+<li>Razor不是基于源代码的,我们没有再次耗费太多精力</li>
+</ul>
+</li>
+<li>
+<p><strong>nginx</strong>:</p>
+<ul>
+<li>选择原因:(1)大程序(2)CVE中的漏洞</li>
+<li>BLADE移除了6个CVE,因为简化删除了易受攻击的功能</li>
+<li>对简化后的二进制文件进行通用性测试,托管了20个不同的html界面,18个运行成功</li>
+</ul>
+</li>
+<li>
+<p><strong>sqlite3-manager</strong>:因其大程序,可解释如何通过移除功能增加安全性(移除update和delete可去除SQL注入)</p>
+</li>
+</ul>
+<h3 id="5-%E8%AE%A8%E8%AE%BA" tabindex="-1">5 讨论</h3>
+<ul>
+<li><strong>通用性和训练样例</strong>
+<ul>
+<li>BLADE的通用性与训练样例的全面性有关</li>
+<li>然而蚕蛹少量训练数据达到更好通用性仍是一个开放问题</li>
+</ul>
+</li>
+<li><strong>编程语言</strong>
+<ul>
+<li>目前BLADE面向C/C++程序,但理论上可以面向任何 先定义后使用 的结构,然而原始的DD确实可以应用于所有程序</li>
+<li>为了应对更广泛的语言,BLADE可以以LLVM IR为输入,这是一种中间代码,任何语言编写的程序都可以首先编译为LLVM IR的形式,然后使用BLADE简化啊</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C" tabindex="-1">6 相关工作</h3>
+<ul>
+<li><strong>基于源代码的简化器</strong>:
+<ul>
+<li>有很多 :C-reduce [8], Perses [9],Chisel [1], Debop [7], DomGad [25], and Cov-A/F [26]</li>
+<li>大部分使用了Delta Debugging (DD) algorithm [10]:该算法最初是为了确定在程序中起作用的“昨天”（工作模板程序）但在“今天”（错误程序）不起作用的最小故障诱导代码. DD就是发现有问题的代码,然后去掉这些代码将是程序正确;这与代码简化有着相似的原理
+<ul>
+<li>基于DD,C-reduce[8] 对源代码应用一系列变换（更改标识符、变量范围、合并定义和用函数体替换函数调用）以减小源代码. 这不仅费时间,也不可行,且代码难以审计. 而BLADE很快,同时保持源代码的可审计行和可读性</li>
+<li>基于DD,语法指导的方法Perse[9],利用语言的语法减少了无效输出,但仍然会超时,而BLADE为线性算法</li>
+<li>Chisel(被认为是SOTA),基于强化学习优化DD,而BLADE平均比其块2.3倍</li>
+</ul>
+</li>
+<li>上述方法都基于DD,而BLADE不基于DD,而是用新的算法选择候选集,进行简化;</li>
+<li>DomGad和Debop使用随即优化消除对DD的依赖,实现简化和通用性之间的权衡</li>
+<li>而BLADE侧重速度,这反过来促进更多的训练数据来实现高通用性,这种高速可以应用于实际工作负载</li>
+<li>[26]也提出了使用模糊测试和静态分析方法来阻止输入过拟合,相同的方法也可以应用于BLADE来强化训练数据</li>
+</ul>
+</li>
+<li><strong>基于 IR和 binary 的简化器</strong>
+<ul>
+<li>JShrink[27] 对Java字节码 构造静态和动态的扩展调用图 来及逆行转化</li>
+<li>J-Reduce[28] 使用DD有效减少Java字节码</li>
+<li>Trimmer[5]和OCCAM[4]基于IR,使用如输入特化、循环展开和常量传播等技术，在程序的LLVM IR [24]上执行减小</li>
+<li>RAZOR[2]在二进制可执行文件上进行简化</li>
+<li>上述方法的主要缺点就是不支持可审计性</li>
+</ul>
+</li>
+<li><strong>基于库的简化</strong>
+<ul>
+<li>Nibber[6] 通过删除共享库中未使用的函数来简化的放啊</li>
+<li>PieceWise[29] 针对 共享库和静态库的代码,识别模块间的依赖关系并删除它们之间未使用的代码</li>
+<li>这类技术是见解的,可以和BLADE和其它基于源码码的简化技术结合使用</li>
+</ul>
+</li>
+<li><strong>杂项</strong>
+<ul>
+<li>一系列工作在不同的起点进行简化[30]-[40] (如JS,浏览器,app,配置文件)</li>
+<li>有一项工作对简化进行了比较[41]</li>
+</ul>
+</li>
+</ul>
+<h3 id="7-%E7%BB%93%E8%AE%BA" tabindex="-1">7 结论</h3>
+<ul>
+<li>我们提出了BLADE简化框架,利用程序语言的结构实现更高效的简化,使其可以应用于大的程序上</li>
+<li>它满足了一个有效的减小工具所设定的所有目标（减小代码大小和攻击面，快速减小，维护正确性以及可审计性）</li>
+<li>与先前方法相比,我们BLADE在大的程序负载上有了很大的提升</li>
+</ul>
+<h2 id="carve%3A-practical-security-focused-software-debloating-using-simple-feature-set-mappings" tabindex="-1">CARVE: Practical Security-Focused Software Debloating Using Simple Feature Set Mappings</h2>
+<p>FEAST’19: Proceedings of the 3rd ACM Workshop on Forming an Ecosystem Around Software</p>
+<h3 id="0-%E6%91%98%E8%A6%81-1" tabindex="-1">0 摘要</h3>
+<ul>
+<li>现有技术对普通用户不实用存在创造不稳定程序和引入漏洞的风险，而且不适用于debloating网络协议实现等复杂软件</li>
+<li>本文我们提出了CARVE，这是一种简单而有效的以安全为重点的debloating技术
+<ul>
+<li>采用静态源代码注释来映射软件特性源代码,在debloating过程中消除了对高级软件分析的需求，降低了用户所需的整体技术水平</li>
+<li>CARVE通过引入替代debloating技术超越了现有技术，该技术能够保留软件的互操作性并减轻创建不稳定程序或引入漏洞的风险</li>
+<li>我们在12个debloating场景中评估了CARVE，并展示了满足或超过现有技术的安全性和性能改进。</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-%E4%BB%8B%E7%BB%8D-1" tabindex="-1">1 介绍</h3>
+<ul>
+<li>软件膨胀对几乎所有软件都产生负面影响，在安全性和性能方面产生各种问题[1,6,7]</li>
+<li>膨胀的主要来源是功能蔓延，即软件包随着时间的推移积累新功能的趋势[8]</li>
+<li>膨胀的另一个来源是软件工程实践，这些实践倾向于重用模块化的软件库。程序通常仅使用每个外部库提供的功能的一个小子集[1]，然而，在运行时，整个库都加载到程序的内存空间中。</li>
+<li>现有技术[2-5,9-10,18]存在限制</li>
+</ul>
+<h4 id="1.1-%E5%8A%A8%E6%9C%BA" tabindex="-1">1.1 动机</h4>
+<ul>
+<li>基于功能的简化方法基于复杂的规范和先进的分析技术,有很高的技术门槛,一般用户难以使用
+<ul>
+<li>Chisel[3]需要用户提供测试脚本,脚本需要编译源代码并包含对生成程序的测试,且消耗时间长</li>
+<li>TOSS[2]和TRIMMER[4]要求用户和LLVM,angr,TEMU等复杂工具进行交互以简化</li>
+</ul>
+</li>
+<li>以上技术只能删除代码,无法保留良好的软件属性,如优雅的错误处理、用户体验、规范合规性和互操作性
+<ul>
+<li>如ChiselBench中Chisel的简化结果会产生无意义的输出</li>
+<li>TOSS简化的服务器软件对请求无法以规范协议响应</li>
+</ul>
+</li>
+<li>现有方法在安全性上也存在限制
+<ul>
+<li>使用动态分析引导去膨胀的技术，如 CHISEL 和 TOSS，由于对与功能相关的代码识别的不精确方式，可能导致产生不稳定的程序并引入新的漏洞 [18]</li>
+<li>在源代码级别操作且只能进行代码删除的去膨胀工具（例如 CHISEL）也可能由于功能特定代码与与功能无关的代码之间的交互而引入新的漏洞</li>
+<li>正如 Brown 和 Pande [22] 所示,改变程序的表示会以不可预测的方式引入新的Gadget,产生安全影响,多次简化和分析迭代可以减缓这种影响,而简化慢的工具不适合这项任务(如Chisel)</li>
+</ul>
+</li>
+</ul>
+<h4 id="1.2-%E8%B4%A1%E7%8C%AE" tabindex="-1">1.2 贡献</h4>
+<ul>
+<li>提出CARVE:一种简单有效以安全为中的的简化方法</li>
+</ul>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><em></em><a class="button is-default" href="/2023/11/27/%E6%9D%82%E8%AE%B0/win11+ubuntu20%E5%8F%8C%E7%B3%BB%E7%BB%9F(1)/" title="笔记本win11+ubuntu20双系统配置(包括显卡驱动和双显示器显示问题)"><span class="has-text-weight-semibold">Next: 笔记本win11+ubuntu20双系统配置(包括显卡驱动和双显示器显示问题)</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2023</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
