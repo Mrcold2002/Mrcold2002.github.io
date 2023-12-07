@@ -1,0 +1,234 @@
+<!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>Software Debloating 论文阅读 (9)(10)</title><meta name="description" content="菜"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="(9) Software Bloat Analysis: Finding, Removing, and Preventing Performance Problems in Modern Large-Scale Object-Oriented Applications
+FoSER 2010, November 7–8, 2010, Santa Fe, New Mexico, USA.
+Copyright 2010 ACM 978-1-4503-0427-6/10/11
+0 摘要
+我们将解释软件膨胀的原因,解析软件膨胀分析现状,为未来的工作提供帮助
+1 介绍
+
+
+Myhrvold 的定律:
+
+Software is a gas. Software always expands to fit whatever .."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Software Debloating 论文阅读 (9)(10)</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#(9)-software-bloat-analysis:-finding,-removing,-and-preventing-performance-problems-in-modern-large-scale-object-oriented-applications"><span class="toc-text">(9) Software Bloat Analysis: Finding, Removing, and Preventing Performance Problems in Modern Large-Scale Object-Oriented Applications</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0-%E6%91%98%E8%A6%81"><span class="toc-text">0 摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1 介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-sota"><span class="toc-text">2 SOTA</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2.1-%E5%8F%97%E7%AE%A1%E5%88%B6%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F"><span class="toc-text">2.1 受管制语言中的内存泄漏</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.2-%E5%AD%98%E5%82%A8%E8%86%A8%E8%83%80%E6%A3%80%E6%B5%8B"><span class="toc-text">2.2 存储膨胀检测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.3-%E8%BF%90%E8%A1%8C%E8%86%A8%E8%83%80%E6%A3%80%E6%B5%8B"><span class="toc-text">2.3 运行膨胀检测</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9C%AA%E6%9D%A5%E6%96%B9%E5%90%91"><span class="toc-text">3 未来方向</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#thin-patterns"><span class="toc-text">Thin patterns</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E9%87%8D%E6%80%A7%E8%83%BD%E7%9A%84%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80%E5%92%8C%E5%B7%A5%E5%85%B7"><span class="toc-text">注重性能的建模语言和工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E5%85%83%E6%A3%80%E6%B5%8B/%E8%86%A8%E8%83%80%E6%A3%80%E6%B5%8B"><span class="toc-text">单元检测&#x2F;膨胀检测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E7%B3%BB%E7%BB%9F%E5%92%8C%E7%A8%8B%E5%BA%8F%E5%90%88%E6%88%90"><span class="toc-text">自动化系统和程序合成</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%BB%93%E8%AE%BA"><span class="toc-text">4 结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text"></span></a></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/Software%20Engineering"><i class="tag post-item-tag">Software Engineering</i></a><a href="/tags/Software%20Debloating"><i class="tag post-item-tag">Software Debloating</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">Software Debloating 论文阅读 (9)(10)</h1><time class="has-text-grey" datetime="2023-12-06T06:56:57.689Z">2023-12-06</time><article class="mt-2 post-content"><h2 id="(9)-software-bloat-analysis%3A-finding%2C-removing%2C-and-preventing-performance-problems-in-modern-large-scale-object-oriented-applications" tabindex="-1">(9) Software Bloat Analysis: Finding, Removing, and Preventing Performance Problems in Modern Large-Scale Object-Oriented Applications</h2>
+<p>FoSER 2010, November 7–8, 2010, Santa Fe, New Mexico, USA.<br>
+Copyright 2010 ACM 978-1-4503-0427-6/10/11</p>
+<h3 id="0-%E6%91%98%E8%A6%81" tabindex="-1">0 摘要</h3>
+<p>我们将解释软件膨胀的原因,解析软件膨胀分析现状,为未来的工作提供帮助</p>
+<h3 id="1-%E4%BB%8B%E7%BB%8D" tabindex="-1">1 介绍</h3>
+<ul>
+<li>
+<p>Myhrvold 的定律:</p>
+<ul>
+<li>Software is a gas. Software always expands to fit whatever container it is stored in.</li>
+<li>Software grows until it becomes limited by Moore’s law. The growth of software is initially rapid, like gas expanding, but is inevitably limited by the rate of increase in hardware speed.</li>
+<li>Software growth makes Moore’s law possible. People buy new hardware because the software requires it.</li>
+<li>Software is limited only by human ambition and expectation. We will always find new algorithms, new applications, and new users.</li>
+</ul>
+</li>
+<li>
+<p><strong>运行时膨胀</strong></p>
+<ul>
+<li>许多情况下是大型程序性能问题的根源,并不是硬件速度不够快,而是软件膨胀导致的</li>
+<li>两种运行时膨胀
+<ul>
+<li>内存膨胀:空间效率低下
+<ul>
+<li>如Java程序中内存泄漏,因保留了不再使用的引用,尽管不影响程序的执行,但会消耗堆空间最后导致程序崩溃</li>
+</ul>
+</li>
+<li>执行膨胀:执行了不必要的操作
+<ul>
+<li>如在算法/设计上选择不恰当,在大型数据库中使用冒泡排序而不是快排等</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>多CPU带来的影响</strong></p>
+<ul>
+<li>随着核数增加,膨胀问题更痛苦</li>
+<li>因为每个核心的平均内存带块下降,CPU性能的提升远高于内存带宽的提升</li>
+</ul>
+</li>
+<li>
+<p><strong>为什么是一个软件工程问题</strong></p>
+<ul>
+<li>解决膨胀问题的方法可以涵盖开发的所有阶段</li>
+<li>程序员被教导使用抽象和模式,来重用代码和代码可读性,此时性能会交给编译器和运行时系统,如 即时编译器 JIT 和 垃圾回收期 GC. 但当抽象变得深层和嵌套,优化器将会吃力. 这里就需要对 效率和通用的权衡</li>
+<li>膨胀的定义是相对的,如果存在更优的方法,那么目前的方法就是膨胀的. 发现膨胀可以被视为一个测试问题,来对实现进行效率评估</li>
+<li>发现膨胀后,下一步是去除,程序分析可以发挥作用消除膨胀</li>
+<li>在长期研究中,膨涨分析成为 资源约束 程序 的关键任务,因为这样的程序是移动计算的主流</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-sota" tabindex="-1">2 SOTA</h3>
+<p>介绍SOTA膨涨分析和面临的挑战</p>
+<h4 id="2.1-%E5%8F%97%E7%AE%A1%E5%88%B6%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F" tabindex="-1">2.1 受管制语言中的内存泄漏</h4>
+<ul>
+<li>managed language: 管制语言,有运行时垃圾回收的语言</li>
+<li>静态分析可以检测内存泄漏,但会受到 可伸缩和精确的 引用/对模型,反射,多线程等问题限制,因此实践中更多使用动态分析来识别内存泄漏</li>
+<li>目前大多数工作采用&quot;从症状到原因&quot;的诊断方法,寻找可疑对象,随后从这些对象中找到泄漏的原因.
+<ul>
+<li>可疑对象和原因的检测都是基于启发式的
+<ul>
+<li>如[23,17]的工作使用某些类型实例数量的增加作为泄露对象的指示器</li>
+<li>[16,4,25]的工作则识别一段时间没有使用的陈旧对象</li>
+</ul>
+</li>
+<li>接下来从可疑对象后续遍历对象图来定位原因,然而启发式的限制在于 如果存在大量对象和极其复杂的引用关系时的不准确性</li>
+<li>为了克服这个问题,来自[40]的工作采用了一种以容器为中心的视图,通过建模和分析容器行为来检测泄漏. 该方法基于一个重要观察结果,即Java中许多内存泄漏是由于对容器的误用,因此这项工作的局限在于,不是由容器引起的泄漏将被忽略.</li>
+</ul>
+</li>
+<li>与Java内存泄漏相关研究还包括:开发能够将陈旧对象交换到磁盘[5,36] 或 仅回收极不可能再次使用的对象[6]. 这些技术可以保持性能和稳定性,从而在内存泄漏的情况下延长运行时间</li>
+</ul>
+<h4 id="2.2-%E5%AD%98%E5%82%A8%E8%86%A8%E8%83%80%E6%A3%80%E6%B5%8B" tabindex="-1">2.2 存储膨胀检测</h4>
+<ul>
+<li>[24]的工作引入健康签名来评估一个应用程序是否在必要的内存消耗和数据结构内存开销之间取得了良好的平衡。该工作的重点是Java集合对象。
+<ul>
+<li>如,分析显示,一个包含2字符字符串的HashMap将其29%的空间用于指针开销，而HashSet对象的开销甚至可能更高</li>
+<li>报告显示了一个实际应用程序，将其74%的内存用于集合的固定和每个元素的成本，这个百分比足以引起我们采取措施来避免膨胀。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2.3-%E8%BF%90%E8%A1%8C%E8%86%A8%E8%83%80%E6%A3%80%E6%B5%8B" tabindex="-1">2.3 运行膨胀检测</h4>
+<ul>
+<li>
+<p>大多数检测执行膨胀的工作都基于膨胀表现出的副作用（即可疑行为）。已经考虑的副作用类别包括大量的临时（短暂）对象、纯堆值拷贝和不适当的容器行为。</p>
+</li>
+<li>
+<p><strong>临时对象</strong></p>
+<ul>
+<li>[9] 提出混合问题分析技术,对动态收集的调用结果区 进行静态分析以观察性能问题</li>
+<li>[27]开发了一种基于JVM的工具Jolt,识别出使用大量临时对象的区域,该工具强制JVM中的JIT在这些区域执行激进的方法内联,仪表JIT可以找到更多的优化机会</li>
+</ul>
+</li>
+<li>
+<p><strong>纯拷贝</strong></p>
+<ul>
+<li>没有计算的序列纯堆拷贝 很可能出现多于操作</li>
+<li>如 相同数据多个表示的存在,这些表示会不断的进行包装和解包</li>
+<li>[38]的工作提出了一种拷贝分析方式,通过识别拷贝密集的区域来检测膨胀,已经证明这对于准确定位具有直接从其他数据结构复制数据的堆数据结构是有帮助的</li>
+</ul>
+</li>
+<li>
+<p><strong>容器膨胀</strong></p>
+<ul>
+<li>膨胀的一个重要来源是对容器的不当使用.</li>
+<li>不同类型和实现的容器是为不同的使用场景设计的，因此在不了解其成本和收益的情况下选择容器可能导致显著的内存和执行膨胀。
+<ul>
+<li>如HashSet适用于存储大量元素并提供快速成员测试，如果元素数量相对较小，则不应使用</li>
+</ul>
+</li>
+<li>[26]提出了一种动态技术,该技术对程序进行分析以提出容器选择建议</li>
+<li>[41]识别了两种特定类型的容器效率低下，即未充分利用的容器和过度填充的容器。该工作提出了第一种用于识别膨胀的静态分析：这种分析自动提取容器语义，不需要用户注释。</li>
+<li>[39]的工作提出了一种动态成本和效益分析，通过捕获构造昂贵但对前向执行效益低的数据结构来检测膨胀</li>
+</ul>
+</li>
+<li>
+<p><strong>膨胀移除</strong></p>
+<ul>
+<li>在构建和初始化跨循环迭代保持不变的数据结构方面可能非常昂贵。</li>
+<li>我们目前在进行一项静态分析,试图将这种数据结构提升出循环。该分析工作在两个方面展开：
+<ul>
+<li>首先识别循环不变的逻辑数据结构，然后通过尝试提升访问它的语句来检查是否可以提升。</li>
+<li>对于不能安全提升的数据结构，它计算提升可行性的度量，并呈现给用户进行进一步检查</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>尽管我们的工作取得了一些进展,但仍有以下三个挑战</p>
+</li>
+<li>
+<p><strong>挑战1:动态分析的准确性</strong></p>
+<ul>
+<li>动态膨胀检测器生成的报告有大量误报,几乎所有的动态检测器都有这样的问题,因为很难定义 一个选择规则,来描述问题程序实体的唯一特征</li>
+<li>可能的解决方案是将我们的期望从检测一般类别的问题降低到一个非常具体的类别，对于该类别可以定义更精确的症状,如[40]的工作,这一小类问题经常出现,以便可以忽略其它问题</li>
+</ul>
+</li>
+<li>
+<p><strong>挑战2:静态和动态分析的对比</strong></p>
+<ul>
+<li>[41]中的容器效率检测使用静态分析来检测动态分析的报错率,因为静态分析可以利用代表程序员意图或程序中固有错误的源代码属性.</li>
+<li>传统中的测试和调试中,动态分析更精确,而在检测膨胀时,静态分析更精确.
+<ul>
+<li>这种差异来自对分析的不同用途,即推断和用于检查</li>
+<li>尚待研究的是是否有其它类型的膨胀检测或混合使用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>挑战3:基于规范的膨胀检测</strong></p>
+<ul>
+<li>现有工具不够精确的主要原因是缺乏定义膨胀的精确规范</li>
+<li>如果在开发过程中使用一些规范,膨胀检测可以更容易</li>
+<li>这种规范可以弥合非功能性性能分析与现有检查和测试程序功能属性的大量工作之间的差距，从而使完全自动化性能调整过程成为可能。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-%E6%9C%AA%E6%9D%A5%E6%96%B9%E5%90%91" tabindex="-1">3 未来方向</h3>
+<h4 id="thin-patterns" tabindex="-1">Thin patterns</h4>
+<ul>
+<li>尽管设计模式[10] 在编写易于管理的代码方面很成功,但也是许多 运行时膨胀的根本原因
+<ul>
+<li>如访问者模式,需要使用内部类表示不同的访问者,而这些访问者只有一个visit方法,会被实例化很多次,并且创建的对象都是相同的:它们没有数据,仅用于动态调度.</li>
+</ul>
+</li>
+<li>未来关于模式的研究可能为现有模式创建一些专业化版本(如thin patterns),意在 达到效率和模块化之间的权衡</li>
+<li>编译器方面,可以基于模式的特征进行进一步优化</li>
+</ul>
+<h4 id="%E6%B3%A8%E9%87%8D%E6%80%A7%E8%83%BD%E7%9A%84%E5%BB%BA%E6%A8%A1%E8%AF%AD%E8%A8%80%E5%92%8C%E5%B7%A5%E5%85%B7" tabindex="-1">注重性能的建模语言和工具</h4>
+<ul>
+<li>目前的许多性能设计集中在高层次的体系结构和流程而不是程序效率问题</li>
+<li>因此,未来的工作可能会将性能建模语言和工具集成到现有的软件工程实践中,以便在设计阶段就可以考虑性能问题</li>
+<li>粗心的设计会导致显著的运行时膨胀,特别是当使用建模工具后自动生成代码框架时
+<ul>
+<li>如,当建模时粗心的关联会导致膨胀,考虑几个类之间的关系,这些关系包括方向性和多重性,尽管代码上有等效的实现,但却忽视了其性能影响. 更多的时候,程序员根本没有注意,只是建模工具选择默认的数据模型</li>
+</ul>
+</li>
+</ul>
+<h4 id="%E5%8D%95%E5%85%83%E6%A3%80%E6%B5%8B%2F%E8%86%A8%E8%83%80%E6%A3%80%E6%B5%8B" tabindex="-1">单元检测/膨胀检测</h4>
+<ul>
+<li>在早期的开发阶段就开始避免低效是很重要的,以防止低效的累积,这就需要新颖的程序分析和测试技术</li>
+<li>目前如何使得单元测试验证非功能属性尚不清楚
+<ul>
+<li>如,不容器为单元测试写断言,因单元级的冗余不明显</li>
+</ul>
+</li>
+<li>但这其实本质困难是: 非功能性规范问题. 除了运行时间和空间,还能对性能做哪些断言?
+<ul>
+<li>好的规范必须与某种膨胀问题密切相关，而不仅仅描述问题表现出的症状。</li>
+<li>如果设计和评估了这样的规范，性能分析的研究可能会取得显著的进展。</li>
+</ul>
+</li>
+</ul>
+<h4 id="%E8%87%AA%E5%8A%A8%E5%8C%96%E7%B3%BB%E7%BB%9F%E5%92%8C%E7%A8%8B%E5%BA%8F%E5%90%88%E6%88%90" tabindex="-1">自动化系统和程序合成</h4>
+<ul>
+<li>JVM中基于反馈的编译技术可能足够强大，可以在执行期间减少“大堆积” [20]
+<ul>
+<li>例如,动态对象内联可能是减少指针开销的有效方法</li>
+</ul>
+</li>
+<li>为了消除容器的低效性，运行时系统可以在观察到大部分空间未被使用时自动缩小为容器分配的空间</li>
+<li>程序合成的最新进展为解决执行膨胀问题带来了新的希望。
+<ul>
+<li>在给定用户定义的规范的情况下，程序合成工具可以自动从算法空间中选择最有效的算法。</li>
+<li>这可以自然地应用于膨胀检测的研究中，以找到高效的实现，并且可能进一步用于生成满足性能要求的性能关键任务的实现。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-%E7%BB%93%E8%AE%BA" tabindex="-1">4 结论</h3>
+<ul>
+<li>论文中,我们描述了软件膨胀，这是一个逐渐对大规模面向对象应用产生负面影响的新兴问题.</li>
+<li>我们认为这本质上是一个软件工程问题，是时候让软件工程社区为其提供新的解决方案了。</li>
+<li>我们对一些现有的膨胀分析工作进行了调查，描述了其中的挑战，并勾勒了一些有前景的未来方向</li>
+<li>我们相信，软件工程社区有比以往任何时候都更大的机会使软件更加高效，而这完全可以在应用程序级别实现，无需依赖不断增强的硬件能力。</li>
+</ul>
+<h2 id tabindex="-1"></h2>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><em></em><a class="button is-default" href="/2023/11/27/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(7)(8)/" title="Software Debloating 论文阅读 (7)(8)"><span class="has-text-weight-semibold">Next: Software Debloating 论文阅读 (7)(8)</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2023</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
