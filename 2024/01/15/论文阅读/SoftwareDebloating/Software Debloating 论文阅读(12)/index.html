@@ -1,0 +1,755 @@
+<!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>Software Debloating 论文阅读 （12）</title><meta name="description" content="菜"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="SoK: A Broad Comparative Evaluation of Software Debloating Tools
+SOK2.0
+0 摘要
+
+
+软件简化工具旨在通过删除被称为“膨胀”（bloat）的不必要的代码来提高程序的安全性和性能。尽管已经提出了许多技术，但它们的应用还存在一些障碍。
+
+瘦身工具高度专业化，这使得采用者难以找到符合他们需求的合适工具
+同时缺乏统一的评估标准，这使得采用者难以评估工具的优劣
+
+
+
+为了弥补则以差距，我们对近简化文献和集中目前正在商业开发的工具进行了广泛的调查
+
+
+随后我们的10种简化工具进行了评估，确定其优势和劣势。我们的评估是在20个不同基准程序的多样化集合上进行的，涵盖了16个性能、安全性、正确性和可用性指标
+
+
+我们的评估揭示了一些令人担忧的发现，这些发.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Software Debloating 论文阅读 （12）</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#sok:-a-broad-comparative-evaluation-of-software-debloating-tools"><span class="toc-text">SoK: A Broad Comparative Evaluation of Software Debloating Tools</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0-%E6%91%98%E8%A6%81"><span class="toc-text">0 摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1 介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BD%AF%E4%BB%B6%E7%AE%80%E5%8C%96%E5%B7%A5%E5%85%B7%E8%B0%83%E7%A0%94"><span class="toc-text">2 软件简化工具调研</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2.1-%E8%86%A8%E8%83%80%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-text">2.1 膨胀的类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.2-%E7%AE%80%E5%8C%96%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%92%8C%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-text">2.2 简化工作流和使用案例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.3-%E7%AE%80%E5%8C%96%E6%8A%80%E6%9C%AF%E5%88%86%E7%B1%BB"><span class="toc-text">2.3 简化技术分类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#source-to-source-(s2s)"><span class="toc-text">Source-to-Source (S2S)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#compiler-based-specializers-(cbs)"><span class="toc-text">Compiler-Based Specializers (CBS)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#binary-to-binary-(b2b)"><span class="toc-text">Binary-to-Binary (B2B)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%A5%E4%B8%8A%E4%B8%89%E7%B1%BB%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93"><span class="toc-text">以上三类工具总结</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#static-library-(sl)"><span class="toc-text">Static Library (SL)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#runtime"><span class="toc-text">Runtime</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.4-%E7%AE%80%E5%8C%96%E7%9A%84%E5%88%86%E6%9E%90%E6%8C%87%E6%A0%87"><span class="toc-text">2.4 简化的分析指标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.5-benchmark"><span class="toc-text">2.5 Benchmark</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AF%84%E4%BC%B0%E6%96%B9%E6%B3%95%E8%AE%BA"><span class="toc-text">3 评估方法论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3.1-%E5%B7%A5%E5%85%B7%E9%80%89%E6%8B%A9"><span class="toc-text">3.1 工具选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.2-%E5%9F%BA%E5%87%86%E9%80%89%E6%8B%A9"><span class="toc-text">3.2 基准选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.3-%E7%AE%80%E5%8C%96%E9%85%8D%E7%BD%AE"><span class="toc-text">3.3 简化配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.4-%E6%8C%87%E6%A0%87%E9%80%89%E6%8B%A9"><span class="toc-text">3.4 指标选择</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%AF%84%E4%BC%B0%E7%BB%93%E6%9E%9C"><span class="toc-text">4 评估结果</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4.1-%E5%B7%A5%E5%85%B7%E5%8F%AF%E7%94%A8%E6%80%A7%E5%92%8C%E6%80%A7%E8%83%BD"><span class="toc-text">4.1 工具可用性和性能</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#usability-1%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%B7%A5%E5%85%B7%E7%9A%84%E6%97%B6%E9%97%B4"><span class="toc-text">Usability-1：配置工具的时间</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#usability-2%EF%BC%9A%E5%9F%BA%E5%87%86%E4%BD%BF%E7%94%A8%E6%97%B6%E9%97%B4"><span class="toc-text">Usability-2：基准使用时间</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#performance-1%EF%BC%8C2%EF%BC%9A%E5%B7%A5%E5%85%B7%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E5%92%8C%E5%B3%B0%E5%80%BC%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8"><span class="toc-text">Performance-1，2：工具运行时间和峰值内存使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#usability-3%EF%BC%9A%E6%93%8D%E4%BD%9C%E5%91%98%E6%89%80%E9%9C%80%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86"><span class="toc-text">Usability-3：操作员所需专业知识</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#usability-4%EF%BC%9A%E7%BB%B4%E6%8A%A4%E9%9A%BE%E5%BA%A6"><span class="toc-text">Usability-4：维护难度</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.2-%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD"><span class="toc-text">4.2 程序性能</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#performance-5%EF%BC%9A%E9%9D%99%E6%80%81%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%A4%A7%E5%B0%8F"><span class="toc-text">Performance-5：静态二进制大小</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#performance-6%EF%BC%9A%E9%93%BE%E6%8E%A5%E5%BA%93%E6%95%B0%E9%87%8F"><span class="toc-text">Performance-6：链接库数量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#performance-3%EF%BC%8C4%EF%BC%9A%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E5%92%8C%E5%B3%B0%E5%80%BC%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8"><span class="toc-text">Performance-3，4：程序运行时间和峰值内存使用</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.3-%E7%A8%8B%E5%BA%8F%E5%AE%89%E5%85%A8"><span class="toc-text">4.3 程序安全</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#security-1%EF%BC%8C2-%E5%B0%8F%E5%B7%A5%E5%85%B7%E9%9B%86%E7%9A%84%E8%A1%A8%E8%BE%BE%E8%83%BD%E5%8A%9B%E5%92%8C%E8%B4%A8%E9%87%8F"><span class="toc-text">Security-1，2 小工具集的表达能力和质量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#security-3-%E5%B0%8F%E5%B7%A5%E5%85%B7%E9%9B%86%E5%B1%80%E9%83%A8%E6%80%A7"><span class="toc-text">Security-3 小工具集局部性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#security-4-%E5%8F%AF%E4%BE%9B%E9%80%89%E6%8B%A9%E7%9A%84%E7%89%B9%E6%AE%8A%E7%94%A8%E9%80%94%E5%B0%8F%E5%B7%A5%E5%85%B7%E7%B1%BB%E5%9E%8B"><span class="toc-text">Security-4 可供选择的特殊用途小工具类型</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.4-%E6%AD%A3%E7%A1%AE%E6%80%A7%E5%92%8C%E9%B2%81%E6%A3%92%E6%80%A7"><span class="toc-text">4.4 正确性和鲁棒性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#correctness/robustness-1-executes-retained-functions"><span class="toc-text">Correctness&#x2F;Robustness-1 Executes Retained Functions</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#correctness/robustness-2-errors-/-crashes-during-differential-testing"><span class="toc-text">Correctness&#x2F;Robustness-2 Errors &#x2F; Crashes during Differential Testing</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%AE%A8%E8%AE%BA%E5%92%8C%E5%85%B3%E9%94%AE%E5%8F%91%E7%8E%B0"><span class="toc-text">5 讨论和关键发现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E7%BB%93%E8%AE%BA"><span class="toc-text">6 结论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-availability"><span class="toc-text">7 availability</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/SoftwareEngineering"><i class="tag post-item-tag">SoftwareEngineering</i></a><a href="/tags/SoftwareDebloating"><i class="tag post-item-tag">SoftwareDebloating</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">Software Debloating 论文阅读 （12）</h1><time class="has-text-grey" datetime="2024-01-15T07:10:43.874Z">2024-01-15</time><article class="mt-2 post-content"><h2 id="sok%3A-a-broad-comparative-evaluation-of-software-debloating-tools" tabindex="-1">SoK: A Broad Comparative Evaluation of Software Debloating Tools</h2>
+<p>SOK2.0</p>
+<h3 id="0-%E6%91%98%E8%A6%81" tabindex="-1">0 摘要</h3>
+<ul>
+<li>
+<p>软件简化工具旨在通过删除被称为“膨胀”（bloat）的不必要的代码来提高程序的安全性和性能。尽管已经提出了许多技术，但它们的应用还存在一些障碍。</p>
+<ul>
+<li>瘦身工具高度专业化，这使得采用者难以找到符合他们需求的合适工具</li>
+<li>同时缺乏统一的评估标准，这使得采用者难以评估工具的优劣</li>
+</ul>
+</li>
+<li>
+<p>为了弥补则以差距，我们对近简化文献和集中目前正在商业开发的工具进行了广泛的调查</p>
+</li>
+<li>
+<p>随后我们的10种简化工具进行了评估，确定其优势和劣势。我们的评估是在20个不同基准程序的多样化集合上进行的，涵盖了16个性能、安全性、正确性和可用性指标</p>
+</li>
+<li>
+<p>我们的评估揭示了一些令人担忧的发现，这些发现与debloating文献中的主流叙述相矛盾</p>
+<ul>
+<li>首先，简化工具缺乏在实际软件中的使用，在中高复杂性基准的的成功率仅有21%</li>
+<li>其次，简化工具的健壮还曾度存在问题，通过我们的差异模糊检测工具DIFFER，只有13%的简化生成了强壮的简化工具</li>
+<li>最后，我们的结果表明，简化工具通常无法显著改善膨胀程序的性能或安全状况</li>
+</ul>
+</li>
+<li>
+<p>我们相信本文的贡献将会帮助潜在的使用者更好的理解工具，并激发未来对简化的研究和开发，为此我们开源了我们的基准集，数据和自定义工具</p>
+</li>
+</ul>
+<h3 id="1-%E4%BB%8B%E7%BB%8D" tabindex="-1">1 介绍</h3>
+<ul>
+<li>
+<p>软件简化是一个新兴的领域，关注于通过删除程序中不必要的代码（即膨胀）来增强程序的安全性和性能，这些不必要的代码通常以<strong>不必要的功能</strong>和<strong>多余的库代码</strong>的形式出现。</p>
+</li>
+<li>
+<p>由于entrenched的软件实践（如 可重用性代码）和 一些趋势（范围蔓延），现代程序中普遍存在<strong>膨胀</strong>。为了面对这一问题，许多简化方法已经被提出，针对软件生命周期的各个阶段，然而由于一些原因，这些技术实际的实用没有跟上研究</p>
+<ul>
+<li>
+<ol>
+<li><strong>简化工具高度特化</strong>：每个工具面向不同类型的膨胀，软件类型（编译，解释，内核等），生命周期的阶段（源码，中间代码，二进制），并且有自己独特的分析方法。这使得使用者不能根据具体问题选择具体方法</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li><strong>缺乏统一度量标准</strong>：这将导致关于不同方法如何提高性能和安全性的声明不清晰，不完整，且可能具有误导性，这是因为作者使用或创建的方法本身就是有问题的[12,48]，最终，使用者难以理解可以获得哪些期望的好处，因为看不出哪些度量标准是有用的或相关的。这一问题被相关简化文献中对健全性风险的肤浅讨论加剧，使得使用者更难以理解简化结果之间的权衡。</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li><strong>缺少工具的比较评估</strong>：这使得使用者难以理解工具的优劣，尽管之前有研究在 膨胀的普遍性[14,50,51],简化权衡[73],安全度量标准研究[8,12,21]，但最近只有一项研究评估了软件简化工具本身，且只有4个工具[4]</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>动机</strong>：迄今为止，在软件简化生态中没有工具，度量标注你，基准集，使用案例的全面回顾，分类，分析和评估。我们弥补通过进行一项调查和比较软件简化工具来弥补这一差距，并完成以下研究问题</p>
+<ul>
+<li>
+<ol>
+<li>软件简化工具如何分类？</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>哪些安全性，健全性，性能 指标是有用的？还需要什么新指标？</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>哪些基准测试和配置提供了对去膨胀工具的全面评估？</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>同一类别内的工具如何比较？</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>不同类别之间的去膨胀工具如何比较？</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>贡献总结</strong>：</p>
+<ul>
+<li>第二节介绍我们对简化文献的调查结果</li>
+<li>第三节描述我们评估简化工具及结果的实验方法</li>
+<li>第四节展示评估结果</li>
+<li>第五节讨论我们研究的主要发现</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-%E8%BD%AF%E4%BB%B6%E7%AE%80%E5%8C%96%E5%B7%A5%E5%85%B7%E8%B0%83%E7%A0%94" tabindex="-1">2 软件简化工具调研</h3>
+<ul>
+<li>
+<p>我们调查了从2013年至今超过60篇关于软件简化，特化和定制化的学术文章。此外，为了全面覆盖该领域的广度，我们还调查了各个开发阶段的各种商用技术和正在使用的技术。在我们调查的早期阶段，使用了一个广义的“软件简化”定义。因此，我们调查了许多许多传统上不视为软件的技术成果的简化方法，如容器[53],操作系统及其API[23,24,27,37]，测试用例[34,55,64]，硬件[16,76]，依赖构建[45]和其它[29,41,43,49,77]。</p>
+</li>
+<li>
+<p>在接下来的部分中，我们建立了一个简化分类方法，该分类定义了膨胀的类型，简化工作流，简化技术，度量标准和基准测试。</p>
+</li>
+</ul>
+<h4 id="2.1-%E8%86%A8%E8%83%80%E7%9A%84%E7%B1%BB%E5%9E%8B" tabindex="-1">2.1 膨胀的类型</h4>
+<ul>
+<li>总体上，简化工具尝试移除或终合两种类型的不必要代码，我们定义为I型膨胀和Ⅱ型膨胀
+<ul>
+<li><strong>I型膨胀</strong>：是普遍不必要的，可以在不影响最终程序行为的情况下移除。最常见表现是在运行时动态加载到进程地址空间的库代码，但永远不会被调用。尽管比较罕见，但一些针对OS的简化工具中的I型膨胀，可以通过删除来防止恶意使用。四代码和不可达代码也属于I型膨胀，但是这些代码通常在编译时被删除，简化工具并不过多过关注</li>
+<li><strong>Ⅱ型膨胀</strong>：该类型膨胀与最终用途相关，代码是否为Ⅱ型膨胀取决于用户如何使用程序。类型Ⅱ通常为不必要功能代码的形式，例如在图像处理软件中支持混淆或过时文件格式。处理操作系统和Web浏览器交互中的平台相关代码是Ⅱ型膨胀的一种形式，这种膨胀通常由构建系统和脚本引擎解决而不是简化工具</li>
+</ul>
+</li>
+</ul>
+<h4 id="2.2-%E7%AE%80%E5%8C%96%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%92%8C%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B" tabindex="-1">2.2 简化工作流和使用案例</h4>
+<ul>
+<li>
+<p>尽管在技术上存在差异，但几乎所有简化工具都共享一个通用的高级六级段用户工作流</p>
+<ul>
+<li>
+<ol>
+<li>规范化（Specification）：用户创建一个特定于工具的规范，概述应该保留或消除的程序行为。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>输入（Input）：用户提供规范和程序给去膨胀工具。</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>分析（Analysis）：工具使用规范中的信息来分析程序，并标记代码（例如，是否为不必要的，或作为某一功能的一部分）。</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>转换（Transformation）：工具修改程序，将膨胀代码与有用代码分开（例如，剪切、重构、附加标签）。</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>输出（Output）：工具产生一个修改后的程序，该程序要么不包含膨胀，要么包含必要的标签，以在运行时删除膨胀。</li>
+</ol>
+</li>
+<li>
+<ol start="6">
+<li>验证（Validation）：用户通过手动测试或他们选择的自动化工具（例如，模糊测试器）验证修改后的程序是否健全并按预期行为。如果输出无效，用户可能会重新开始工作流程。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>尽管存在一个共同的高级工作流程，但许多工具为潜在的用户提供了不同的使用案例。</p>
+<ul>
+<li>针对I型膨胀：尽可能地消除膨胀</li>
+<li>针对Ⅱ型膨胀，包含三个常用案例
+<ul>
+<li>
+<ol>
+<li><strong>Arrressive</strong>：除所需要的单个功能外删除所有其它功能，例如，激进地简化一个文件压缩工具可能被定义为删除不必要的代码，只留下压缩文件并将结果写入磁盘的部分</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li><strong>Miderate</strong>：保留几个核心和外围功能，简化其它部分。对于文件压缩工具该案例会保留压缩，解压缩和测试压缩文件完整性的代码</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li><strong>Conservative</strong>：只删除少数外围功能</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2.3-%E7%AE%80%E5%8C%96%E6%8A%80%E6%9C%AF%E5%88%86%E7%B1%BB" tabindex="-1">2.3 简化技术分类</h4>
+<p>我们将调查的软件简化工具分为5个类别，这些类别主要是通过在简化过程中各个阶段所做的设计进行分类的</p>
+<h5 id="source-to-source-(s2s)" tabindex="-1">Source-to-Source (S2S)</h5>
+<ul>
+<li>S2S工具简化源代码，他们呢主要针对类型Ⅱ膨胀，尽管他们可以很容易的移除库中的I型膨胀。</li>
+<li>简化 信息丰富 的源代码 与 其它级别表示（即IR和二进制）相比有<strong>两个优点</strong>
+<ul>
+<li>
+<ol>
+<li>开发者在分析阶段可以有很多选择：S2S简化器可以使用代码覆盖率[30,71–73]、模糊测试[9]、构建系统分析[28,69]和手动注释[11]技术来产生特性与代码的映射</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>源代码更容易进行转换，而不损坏程序完好性，因为编译器还未剥离高级信息并用及其语义代替它，在源代码转换后，编译器在这种情况下检查错误和优化也非常有用</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>尽管有以上优点，但由于其表达的灵活性（如syntactic sugar）编译器不支持直接转换源代码，转换源代码可能在技术上变得复杂。</li>
+</ul>
+<h5 id="compiler-based-specializers-(cbs)" tabindex="-1">Compiler-Based Specializers (CBS)</h5>
+<ul>
+<li>与S2S类似，接收源代码为输入，主要针对Ⅱ型膨胀。</li>
+<li>但与之间简化源代码不同，CBS [2,3,38,39,42,58,61]在分析和转换阶段使用编译器（如LLVM）将源码降级为IR，根据用户的规范将关键输入参数或值替换为编译时常量，通过内置的编译器优化（如常量椽笔，循环展开和死代码去除）简化。</li>
+<li>这种方法通过使用高可靠的编译通道而不是自定义转化程序来解决完整性。</li>
+<li>作为一种权衡，CBS只支持arrgessive简化用例，不适合另外两种，或者在运行时触发功能的场景</li>
+</ul>
+<h5 id="binary-to-binary-(b2b)" tabindex="-1">Binary-to-Binary (B2B)</h5>
+<ul>
+<li>概念上与S2S相似，但B2B只针对二进制文件(ELF,Java字节码[13,32,33,65])</li>
+<li>仅二进制的方法容易除左且充满挑战，但其具有简化旧的或闭源二进制文件的<strong>优势</strong>。</li>
+<li>B2B方法简化器在分析阶段的选择有限，它们必须以来固有的不准确的二进制分析技术，例如执行测试用例的执行跟踪[5,15,22,26,40,48,57,67,74]和二进制提升[5,22,26,40,57,70,74]以及启发式[40,48]来生成特性到代码的映射。</li>
+<li>由于二进制格式的独特性（例如，程序指令和数据的混合，简介分支等），转化阶段同样困难，因为在一般情况下回复一个二进制是不可判定的，B2B简化器必须小心地处理二进制输入，而不违反原始布局，通过空出没有操作或无效的代码[15,74]或将去膨胀版本的程序作为新的代码部分放在原始代码旁边[5,67]。</li>
+<li>最终，B2B简化器的<strong>主要缺点</strong>也是二进制分析限制的后果：很难产生完整的简化二进制，并且需要高质量的二进制恢复才能有效（例如，Egalito [70]需要position-independent code以确保恢复）。</li>
+</ul>
+<h5 id="%E4%BB%A5%E4%B8%8A%E4%B8%89%E7%B1%BB%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93" tabindex="-1">以上三类工具总结</h5>
+<ul>
+<li>对于这三类工具，有<strong>两个常见的限制和挑战</strong>
+<ul>
+<li>
+<ol>
+<li><strong>验证简化程序是留给用户的任务</strong>：一些工具包含验证例程[67,75]，但只验证保留的功能，并未验证是否确实去除了多余的特性和/或尝试调用这些特性是否得到了妥善处理。 验证和重要，因为简化可能会引入额外的漏洞，这些漏洞的引入大于简化带来的潜在安全好处。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li><strong>在实际场景使用是困难的</strong>：需要额外的人工努力，通常是列举测试用例，对于复杂的程序，需要用例来确保保留所有所需的功能、错误处理和边缘情况。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="static-library-(sl)" tabindex="-1">Static Library (SL)</h5>
+<ul>
+<li>SL工具针对I型膨胀</li>
+<li>由于工具在静态的情况下可以直接分析计算目标程序的调用图并识别所需要库函数集合，这类工具不需要规范。</li>
+<li>SL简化器使用各种转换方法，包括通过重写创建专用库以删除[7,31,35,54,62,66,75,78]或使用无操作或无效指令空出未使用的函数[1,59]，对库进行分片[51]，对可执行文件进行重写以静态链接库函数[26]，以及使用存根替换不必要的库函数[68]。</li>
+<li><strong>优势</strong>：通过将其范围限制在Type I膨胀上，SL简化器避免了其他类工具所经历的许多挑战。
+<ul>
+<li>
+<ol>
+<li>SL不会有创建不健全程序的风险，尽管有些工具可能无法处理如反射和间接引用等编程方法。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>除目标程序外，SL简化器几乎不需要使用额外的人工，但这种设计导致这类工具不适用于Ⅱ型膨胀</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="runtime" tabindex="-1">Runtime</h5>
+<ul>
+<li>运行时简化器和SL相似，主要区别在它们的转换和输出阶段</li>
+<li>为了避免对库进行永久性更改，运行时简化器记录所需的库函数作为程序元数据，并在执行期间干预动态链接过程，以从进程内存中去除不必要的库函数。</li>
+<li>方法各不相同
+<ul>
+<li>Piecewise Compilation and Loading (PCL) [52] 在二进制文件中嵌入调用图信息，并使用自定义加载器在运行时将不必要的函数重写为无效指令</li>
+<li>BlankIt [47] 和Decker [46] 则采用相反的方法，根据当前执行点将仅必要的函数加载到程序的运行时内存中。</li>
+<li>其他方法使用来自构建系统的信息，如配置选项 [36] 和包依赖性 [44] 来去除膨胀。</li>
+</ul>
+</li>
+<li>除了SL去膨胀器的优点外，运行时去膨胀器还具有不干扰静态代码的优点，从而对结果的健全性有很高的信心。代价是管理进程内存需要的高运行时开销。</li>
+</ul>
+<h4 id="2.4-%E7%AE%80%E5%8C%96%E7%9A%84%E5%88%86%E6%9E%90%E6%8C%87%E6%A0%87" tabindex="-1">2.4 简化的分析指标</h4>
+<ul>
+<li>
+<p>没有统一的指标，一般情况下这些指标都是从类似的程序转化技术中适应过来的（如代码优化），但在一些情况也引入了新的指标</p>
+</li>
+<li>
+<p>总体上，我们注意到了30种不同的指标，我们将其分为三类在本节描述。这些指标包含了大多数典型的功能性和非功能性软件数据。</p>
+</li>
+<li>
+<p>然而目前没有作品尝试衡量工具可用性，我们这位这个维度很重要，因为仅供专业人士使用的工具不会被主流采纳</p>
+</li>
+<li>
+<p><strong>性能</strong>：</p>
+<ul>
+<li>衡量简化本身及产生的简化程序的资源消耗。</li>
+<li>在衡量简化后的程序时，性能需要与源程序相比。</li>
+<li>常用指标包括：CPU运行时间、内存开销、静态二进制大小、所需的外部资源数量，使用工具所需的人工努力。</li>
+</ul>
+</li>
+<li>
+<p><strong>正确性和鲁棒性</strong></p>
+<ul>
+<li>衡量简化后程序的稳定性和鲁棒性</li>
+<li>通常，使用测试套件或模糊器来运行简化后程序，来识别错误的输出，崩溃及其它不良结果。 有趣的是我们看到的工作仅对简化后程序收集了它们，并未对原程序使用，然而正确性和鲁棒性的问题可能在原程序就存在，这里需要对比试验。</li>
+<li>Crystal和Casinghino的[20]比较二进制分析工具使用基于SMT的最弱前置条件方法来证明两个程序二进制的等价性或突出它们行为上的差异，为简化场景提供了一个高保证度的正确性指标。</li>
+</ul>
+</li>
+<li>
+<p><strong>安全性</strong></p>
+<ul>
+<li>衡量简化后程序的安全性改进，在我们的调查中我们注意到了两个主要的安全类别：<strong>漏洞消除和代码重用预防code-reuse prevention</strong>。表面上，这些指标用于宣称结果的理想，如消除潜在的漏洞、减少程序的攻击面和减少代码重用攻击。然而，这些指标在实际应用中的实用性仍有待商榷。</li>
+<li><strong>漏洞消除措施</strong>
+<ul>
+<li>可以为简化有已知漏洞的旧版本（如在MITRE的CVE数据库[17]中报告的漏洞）并显示该漏洞已删除。虽然这样展示了简化带来的好处，但没有预测能力，不具有普遍性，不能用于在实际场景中证明对未知漏洞的安全一处。</li>
+<li>可以提出一个论点：已知漏洞对于难以修补的系统构成风险，但修补远比简化简单，侵入性小，风险小。</li>
+<li>此外，使用这类指标可能会导致不准确或不完整，例如
+<ul>
+<li>Qian等人[48]表明，之前声称在Type II膨胀[30]中消除漏洞的工作也重新引入了其他历史漏洞。</li>
+<li>PCL [52]声称在Type I膨胀中消除已知的漏洞。但是，这些漏洞位于程序静态不可达的库函数中</li>
+</ul>
+</li>
+<li>因此，它们只在极端或刻意的情况下是可利用的。</li>
+</ul>
+</li>
+<li><strong>代码重用预防</strong>
+<ul>
+<li>工具面减少和代码重用预防度量单位：代码重用小工具（是存在于被攻击程序中的链式代码小片段，攻击者在被阻止直接使用shell时，可以利用小工具注入攻击）</li>
+<li>常用的衡量安全改进的指标是减少攻击者可用的小工具总数，然而Brown和Pande [12]已经证明这不恰当，因为许多简化工具在大量减少小工具数量的同时，以很高的速率引入新的小工具，而大幅度减少小工具数量很可能对攻击者影响有限</li>
+<li>反过来，Brown和Pande提出了用于衡量对攻击者实施利用施加的成本的定性小工具集度量标准（例如，小工具集表达能力、可组合性、特殊功能和局部性）以及一个用于计算它们的静态分析工具，即GSA（小工具集分析器）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2.5-benchmark" tabindex="-1">2.5 Benchmark</h4>
+<ul>
+<li>大多数研究采用了在程序分析中常用的基准测试集，例如GNU Coreutils [25]、SPEC CPU 2006/2017 [18,19]和DaCapo[10]。此外，还有几项工作提供了自己的基准如CHISELBench [6]和OCCAM基准测试 [63]，这些基准可能互有交叉。</li>
+<li>大多数基准复杂度不高，它们具有命令行用户界面，很少使用多线程，网络接口等，并且通常只使用一组输入运行到终止。这些基准程序amenable（经得起）简化所需的复杂跟踪和转换操作</li>
+<li>许多工作还在bfptd、cUrl和httpd等中等复杂性基准上评估了他们的工具，但数量和频率较少。这样的基准测试的特点是使用复杂的输入、多线程、网络套接字等。尽管很少见，但一些工作 [48,49] 也在高复杂性软件上评估了他们的工具，如网络浏览器和文档阅读器。</li>
+</ul>
+<h3 id="3-%E8%AF%84%E4%BC%B0%E6%96%B9%E6%B3%95%E8%AE%BA" tabindex="-1">3 评估方法论</h3>
+<p>详细说明方法，配置，指标，基准在评估中的选择</p>
+<h4 id="3.1-%E5%B7%A5%E5%85%B7%E9%80%89%E6%8B%A9" tabindex="-1">3.1 工具选择</h4>
+<ul>
+<li>由于简化工具系统的多样性和规模，我们首先将我们的评估范围限定为支持用户空间C/C++程序和x86/x86-64机器的库的工具。这个基准配置是最广泛支持的，并且拥有最多的候选工具。</li>
+<li>总共，我们在过滤掉继任者工具（例如，OCCAM-v2 [42] 相对于 OCCAM-v1 [39]）后确定了31个候选工具。
+<ul>
+<li>我们通过公共仓库或向作者请求，成功地获得了24个工具的源代码，并能够成功地构建和运行其中的17个。我们为七个失败的工具付出了大量的努力来解决问题，但由于不可调和的技术问题 [9,44,52,72]或未响应的作者[15,61,74]，我们没有成功。</li>
+<li>剩下17个中
+<ul>
+<li>因需要IDA Pro [51]的商业许可证排除一个。</li>
+<li>因一个工具将其基准硬编码 [69]而排除</li>
+<li>四个工具需要耗时且需要手动预处理步骤来适应新的基准 [11,46,47,73]</li>
+<li>以及一个工具有技术限制 [22]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>最后下表中展示了我们选择的10个工具，其中3个工具是商业公司开发的学术工具的专门版本。为了避免混淆，我们在工具标题中使用商业公司的缩写并用连字符连接：CHISEL-GT (GrammaTech, Inc.)、BinRec-ToB (Trail of Bits) 和 LMCAS-SIFT (Smart Information Flow Technologies)。<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(12)_1.png" alt></li>
+<li>对于每个工具，我们都准备了一个隔离的环境（即虚拟机或docker容器），配置有工具支持的最新操作系统和所有使用工具及操作我们基准程序所需的必要资源。</li>
+</ul>
+<h4 id="3.2-%E5%9F%BA%E5%87%86%E9%80%89%E6%8B%A9" tabindex="-1">3.2 基准选择</h4>
+<ul>
+<li>我们选择了20个基准程序程序（表2），在在大小、复杂性和功能上都有所不同
+<ul>
+<li>为了代表低复杂性基准，我们使用了CHISELBench [6]，因为它在去膨胀文献中常常被使用，并为之前的工作提供了一个常见的比较点。</li>
+<li>我们进一步添加了六个中等复杂性和四个高复杂性的基准，这些基准来自其他基准集 [56,63]。</li>
+</ul>
+</li>
+<li>为了为这些基准构建64位ELF二进制文件，我们在Ubuntu Linux v20上使用了Clang/LLVM v10，并指定了两个构建选项：位置无关代码（-fPIC）和优化级别3（-O3）。</li>
+<li>然而，由于各种工具和基准的特定限制，我们使用了不同的方法来构建一些参考二进制文件。我们在Debian Buster上为RAZOR和CHISEL构建了参考二进制文件。构建ImageMagick需要使用GCC v9.4 (Ubuntu)和GCC v8.3 (Debian Buster)而不是Clang/LLVM。最后，我们为BinRec-ToB构建了32位ELF二进制文件，因为它不支持64位程序。</li>
+</ul>
+<p><img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(12)_2.png" alt></p>
+<h4 id="3.3-%E7%AE%80%E5%8C%96%E9%85%8D%E7%BD%AE" tabindex="-1">3.3 简化配置</h4>
+<ul>
+<li>由于各工具对简化用例的支持各不相同，我们使用三种策略进行配置
+<ul>
+<li>
+<ol>
+<li>对于SL工具，不需要规范</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>采用中等去膨胀案例，这在文献中最为普遍，用于S2S和B2B简化器</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>采用了arrgessive激进，因为这是CBS简化其唯一支持的</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>对于每个基准程序，我们创建一个通用的与工具无关的简化规范
+<ul>
+<li>包括要保留的几个核心和外围功能（即moderate中等使用案例）</li>
+<li>我们为每个功能定义了一个描述性名称和一个或多个样本指令（即测试用例），该基准程序可以执行该功能</li>
+<li>随后我们可以进一步简化该规范，向激进版本靠近</li>
+</ul>
+</li>
+<li>使用通用规范作为指南，我们然后为每个基准程序创建了工具特定的配置文件。</li>
+<li>总的来说，我们为评估创建了160个不同的简化规范。</li>
+</ul>
+<h4 id="3.4-%E6%8C%87%E6%A0%87%E9%80%89%E6%8B%A9" tabindex="-1">3.4 指标选择</h4>
+<ul>
+<li>我们选择了16个指标（表3），来评估去简化器本身以及它们产生的去膨胀程序/库
+<ul>
+<li>其中12个指标来自于第2.4节中概述的三个类别中常用的指标。通常我们选择从程序二进制文件的分析中计算的指标，因为这是所有去膨胀工具的共同程序表示
+<ul>
+<li>值得注意的是，由于其较差的预测能力（不具有普遍性），我们选择不在我们的评估中使用CVE消除作为安全指标。</li>
+</ul>
+</li>
+<li>我们进一步添加了四个工具可用性指标，以记录配置和使用去膨胀工具的主要差异。我们在第4节中提供了每个指标是如何计算以及我们的评估结果的详细信息。<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(12)_3.png" alt></li>
+</ul>
+</li>
+</ul>
+<h3 id="4-%E8%AF%84%E4%BC%B0%E7%BB%93%E6%9E%9C" tabindex="-1">4 评估结果</h3>
+<ul>
+<li>我们按照指标类别组织了我们的评估结果。
+<ul>
+<li>首先，我们展示了工具本身的可用性和性能结果</li>
+<li>然后是通过分析它们产生的去膨胀程序的性能、正确性和安全性指标。</li>
+</ul>
+</li>
+<li>请注意，我们在本节中讨论了每个指标的重要发现和结果，但将整体和跨类别的分析留给第5节。</li>
+</ul>
+<h4 id="4.1-%E5%B7%A5%E5%85%B7%E5%8F%AF%E7%94%A8%E6%80%A7%E5%92%8C%E6%80%A7%E8%83%BD" tabindex="-1">4.1 工具可用性和性能</h4>
+<ul>
+<li>简化工具的一个主要目标是非专家用户可以使用来转换软件。
+<ul>
+<li>每个工具的设计和用户界面影响其实现此目标的能力。我们提供的前六个指标，集中在简化工具的面向用户的方向：它们的可用性和性能。</li>
+<li>我们假设用户已在适当的计算环境中为其安装了该工具，部署去膨胀的程序不再我们评估的范围</li>
+<li>我们认为软件简化所需的所有工作都在面向用户的评估范围内
+<ul>
+<li>
+<ol>
+<li>配置工具</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>使用基准集</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>运行工具</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>维护程序的简化版本以面对未来的变化</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="usability-1%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%B7%A5%E5%85%B7%E7%9A%84%E6%97%B6%E9%97%B4" tabindex="-1">Usability-1：配置工具的时间</h5>
+<p>-为了比较用户配置简化的体验，我们记录了每个工具创建和验证具体简化规范所需的时间。在创建规范之前，我们通过它们的文档和示例熟悉了这些工具及其规范格式。这些测量只旨在为生成规范所需的努力提供大致的估计。</p>
+<ul>
+<li>表4显示了创建规范所需的平均时间，四舍五入到最近的分钟。我们根据第3.2节定义的三个基准复杂性级别计算平均值。
+<ul>
+<li>在针对Type II膨胀的工具中，CBS工具生成规格所需的时间最短，因为其为激进的用例，规范仅包括一个测试用例。</li>
+<li>B2B简化工具通常要15min到1h，其时间与测试用例数量成比例</li>
+<li>S2S对于低复杂度基准配置简单，而中高复杂度需要几个小时。
+<ul>
+<li>这主要由Chisel的设计引起，Chisel为了确定可删除代码，通过ML引导的Delta Debugging算法迭代地删除代码片段，然后编译运行修改后的代码看是否能通过测试用例。正确的Oracle是关键，因为会生成可以编译但运行错误的程序</li>
+</ul>
+</li>
+<li>这些工具还需要额外的测试用例，来确保不删除必要的但不影响通过测试用例（例如安全控制和错误处理）的代码。其他工作已经提出了这样的问题，并显示当它们的补丁未被执行时，CHISEL会重新引入历史上的CVE[48]。<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(12)_4.png" alt></li>
+</ul>
+</li>
+</ul>
+<h5 id="usability-2%EF%BC%9A%E5%9F%BA%E5%87%86%E4%BD%BF%E7%94%A8%E6%97%B6%E9%97%B4" tabindex="-1">Usability-2：基准使用时间</h5>
+<ul>
+<li>三个简化工具需要用户的额外努力来使用基准程序，我们认为这与创建规范无关的，将其单独提出来。
+<ul>
+<li>Chisel和Chisel-GT在中高复杂度基准集中无法在48h内结束运行，这是其代码设计的问题。为了评估这些工具超出ChiselBench（即低复杂度基准集）的表现，我们与工具的开发者何坐，实现了一个并行化框架以提高性能，使其满足我们对合理运行时的标准（48h）。最后需要26h完成</li>
+<li>LMCAS-SIFT引入了一个“程序颈”的概念，定义为程序的配置逻辑（即 命令行 或/和 配置文件解析代码）和主逻辑（程序的其余部分）之间的边界。 LMCAS-SIFT要求在简化前识别一个合适的“颈”，并为此提供了一个叫neck miner的工具，然而这个工具不总是成功识别颈，导致简化失败，此时用户必须手动识别。
+<ul>
+<li>在我们的评估中，neck miner未能自动为gzip、mkdir、sort、tar和uniq放置颈，并且平均需要8分钟手动放置它。8min发生在低复杂度基准测试上。在更复杂的基准测试上手动放置颈部可能需要更多时间</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="performance-1%EF%BC%8C2%EF%BC%9A%E5%B7%A5%E5%85%B7%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E5%92%8C%E5%B3%B0%E5%80%BC%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8" tabindex="-1">Performance-1，2：工具运行时间和峰值内存使用</h5>
+<ul>
+<li>在完成工具配置和手动调整基准集后，接下来测量工具在基准上测试时的性能。</li>
+<li>我们在表5中总结了这些工具在每个复杂度级别的所有基准测试上的平均CPU运行时间（以分钟为单位）和峰值内存使用情况。
+<ul>
+<li>请注意，我们在这些计算中包括了失败的去膨胀操作。我们仅排除那些与该工具不兼容的基准测试，原因可能是该工具不支持C++代码、多线程程序等。</li>
+<li>表5中的第一组列显示了每个复杂度级别上每个工具的兼容基准测试数量，总共有10个低复杂度、6个中等复杂度和4个高复杂度的基准测试。</li>
+<li>除明显的异常值（objdump）外，所有简化工具在平均20min内完成简化。</li>
+<li>CHISEL和CHISEL-GT分别需要CPU小时和CPU天来运行，因为其方法设计原因。</li>
+<li>在内存小号方面，简化工具通常需要与目标程序相当的内存，除了使用RAZOR简化高复杂度程序需要使用31GB外，所有其他工具峰值为6GB甚至更少<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(12)_5.png" alt></li>
+</ul>
+</li>
+</ul>
+<h5 id="usability-3%EF%BC%9A%E6%93%8D%E4%BD%9C%E5%91%98%E6%89%80%E9%9C%80%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86" tabindex="-1">Usability-3：操作员所需专业知识</h5>
+<ul>
+<li>配置工具，运行工具，调试基准集都需要不同的专业知识，我们根据以下三个定义定义该指标
+<ul>
+<li><strong>Low</strong>：操作员不需要了解工具或软件的内部工作原理就可以有效地进行去膨胀。</li>
+<li><strong>Medium</strong>：操作员需要了解软件的内部工作原理，但不需要了解工具就可以有效地进行去膨胀。</li>
+<li><strong>High</strong>：操作员需要了解工具和目标软件的内部工作原理才能有效地进行去膨胀</li>
+</ul>
+</li>
+<li>我们在表6中展示了评估结果
+<ul>
+<li>SL简化工具需要的专业只是最少，因为其不需要规范</li>
+<li>CBS简化工具需要低级的专业知识，因为用户只需要熟悉软件的运行方式，但由于技术限制（即，OCCAM需要枚举链接库的构建选项，LMCAS-SIFT可能需要手动放置“neck”），实际上只有TRIMMER需要低级别的专业知识。</li>
+<li>B2B简化工具需要枚举测试用例，以确保在分析阶段使用的动态跟踪具有足够的覆盖范围，从而产生合适的简化文件，所以需要中等级别的专业知识</li>
+<li>Chisel和Chisel-GT由于需要专业的测试用例和验证脚本，需要最高级别的专业知识<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(12)_6.png" alt></li>
+</ul>
+</li>
+</ul>
+<h5 id="usability-4%EF%BC%9A%E7%BB%B4%E6%8A%A4%E9%9A%BE%E5%BA%A6" tabindex="-1">Usability-4：维护难度</h5>
+<ul>
+<li>评估简化后的程序长期维护的影响，主要考虑更新后修改简化规范并重新运行简化工具的难度，同时也考虑简化后的程序本身是否可以维护（例如，直接将补丁用于简化后的版本），我们定义这个指标如下
+<ul>
+<li><strong>Low</strong>：工具可以在每次构建时运行，对用户来说成本微乎其微（即编译时间）。</li>
+<li><strong>Medium</strong>：工具对程序表示进行了永久性更改，可以在去膨胀后进行维护。</li>
+<li><strong>High</strong>：工具可能需要重新配置，并且每次原始程序更改时都必须完全重新运行。</li>
+</ul>
+</li>
+<li>结果在表6中
+<ul>
+<li>SL简化工具具有低维护难度，因为其对用户可以完全透明，并在程序更新时轻松重新运行</li>
+<li>CBS去膨胀工具同样易于维护，因为它们对编译器施加了影响，但由于可能需要对原始程序的更改进行工具重新配置，我们评估它们的维护难度为中等。</li>
+<li>CHISEL和CHISEL-GT评为中等维护难度，因为它们产生的是简化的源代码输出，这些代码可以在简化后直接修补或更新。</li>
+<li>B2B简化工具标记为高难度，因为当原始程序进行上游更改时，它们必须重新配置和重新运行。值得注意的是，B2B去膨胀工具主要用于与旧版二进制文件一起使用，因此它们的维护难度可能不是它们使用的主要缺点。</li>
+</ul>
+</li>
+</ul>
+<h4 id="4.2-%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD" tabindex="-1">4.2 程序性能</h4>
+<ul>
+<li>软件简化旨在再进，或者至少移除代码后不会对程序的性能产生负面影响。<strong>主要期望</strong>是简化后的程序再磁盘上和运行时内存都占用更少空间。如果简化的程序结构得到，其中不必要的代码经常被执行，那么简化后执行的更快是不切实际的。相反，简化操作可能降低运行时性能。</li>
+<li>本节提供了四个性能指标，这些指标基于使用这些工具产生的简化二进制文件和库</li>
+</ul>
+<h5 id="performance-5%EF%BC%9A%E9%9D%99%E6%80%81%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%A4%A7%E5%B0%8F" tabindex="-1">Performance-5：静态二进制大小</h5>
+<ul>
+<li>我们记录了每个成功简化的二进制文件在磁盘上的大小，并将其与原始程序的二进制文件大小进行比较。
+<ul>
+<li>由于LMCAS-SIFT和SL简化工具在实现上的差异，我们对计算进行了修改。</li>
+<li>Libfilter生成了基准程序的链接库的新的精简版本；因此，我们将简化后的库的总大小与原始库进行比较。</li>
+<li>由LMCAS-SIFT和Binary Reduce (Static)创建的简化程序都是静态链接的二进制文件。对于这些文件，我们将静态链接二进制文件的大小与原始二进制文件及其动态链接库的总大小进行比较。</li>
+</ul>
+</li>
+<li>我们用百分比表示大小变化，低于100%即大小减小。我们计算了3个复杂度基准下二进制文件大小变化，如图7示,第一组列为成功简化的程序数量。BinRec-ToB无法成功地去膨胀任何基准程序，因此我们在评估中从这个和所有后续表格中排除了它。<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(12)_7.png" alt></li>
+<li>上表揭示了一些有趣的结果
+<ul>
+<li>在所有复杂性级别上，RAZOR和Libfilter产生的去膨胀二进制文件平均较大。因为RAZOR将程序的去膨胀版本缝合到原始二进制文件的新代码部分，并标记原始代码部分为非可执行，而不是真正删除它。同样，Libfilter将不可达函数重写为HLT指令，而不是删除它们</li>
+<li>总体上，其他工具对低复杂度基准实现了大幅减少，但在高复杂性基准上效果差异明显。这与在高复杂性基准程序上的低成功率（只有10个工具中的3个成功处理了所有四个）相结合，表明这些工具可能过度拟合于低和中复杂性基准程序。</li>
+</ul>
+</li>
+</ul>
+<h5 id="performance-6%EF%BC%9A%E9%93%BE%E6%8E%A5%E5%BA%93%E6%95%B0%E9%87%8F" tabindex="-1">Performance-6：链接库数量</h5>
+<ul>
+<li>记录简化前后基准程序链接的外部库数量。
+<ul>
+<li>我们在这次评估中排除了LMCAS-SIFT和SL去膨胀工具，因为它们直接操作库。我们的结果仅供参考，因为通过去膨胀消除库在很大程度上取决于规范。</li>
+<li>Binary Reduce (Dynamic)、CHISEL和CHISEL-GT在中等和高复杂性基准程序中通常成功地消除了一个或多个库，基于其设计，这是合理的</li>
+<li>然而在TRIMMER和OCCAM在简化后的程序中引入了新的库。引入的库通常是libc++、libgcc和libm，这可能是由于工具使用其自定义的LLVM编译器转换通道对程序进行的更改所导致的。这些库相当大且计算复杂。根据用户简化的目标（例如，最小化代码大小或可重用性），引入这样的新依赖可能会适得其反。</li>
+</ul>
+</li>
+</ul>
+<h5 id="performance-3%EF%BC%8C4%EF%BC%9A%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E5%92%8C%E5%B3%B0%E5%80%BC%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8" tabindex="-1">Performance-3，4：程序运行时间和峰值内存使用</h5>
+<ul>
+<li>
+<p>为每个基准程序创建测试套件，根据我们的规范（中等和激进）对保留的功能进行测试。这些测试套件旨在尽可能地进行严格和长时间的运行。</p>
+</li>
+<li>
+<p>我们对每个基准程序的参考二进制文件以及每个成功简化的二进制文件运行这些测试套件，记录总运行时间（以CPU秒为单位）和峰值内存消耗（以MB为单位）。</p>
+</li>
+<li>
+<p>在许多情况下，简化的程序由于崩溃，无限执行或运行时错误无法完成测试，我们排除了这些失败</p>
+</li>
+<li>
+<p>我们计算运行时间和峰值内存的变化百分比，其中值低于100%表示减少。然后我们计算了每个复杂度级别的平均值，如图8所示。第一列显示了每个工具在每个复杂性级别上成功完成性能测试的去膨胀基准程序数量。注意到我们排除了CHISEL的3个中等复杂性和2个高复杂性基准程序，因为CHISEL在没有修改源代码的情况下“成功”处理了这些基准程序（大概是没跑出结果）。<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(12)_8.png" alt></p>
+</li>
+<li>
+<p>我们的评估揭示了一些重要的发现：</p>
+<ul>
+<li>对于中高复杂度的基准程序，所有的简化工具失败率都很高。总体上，简化的成功率只有22%，这对用于实际软件的简化技术提出了疑问</li>
+<li>对于低复杂度的基准程序成功率也低于预期，尽管CHISELBench在文献中被广泛使用，但只有OCCAM和RAZOR成功地简化了所有的低复杂性基准程序。相反，BinRecToB和Binary Reduce (Dynamic)没有成功简化任何低复杂性基准程序。</li>
+</ul>
+</li>
+<li>
+<p>关于我们的性能指标，我们观察到只有少数简化的程序的性能明显差于其未修改的对应程序。</p>
+<ul>
+<li>除了CHISEL的一个异常值外，只有TRIMMER和OCCAM在多个复杂性级别上都显示出了一致且显著的（&gt;4%）对运行时间或内存消耗的负面影响。</li>
+<li>其中最显著的是TRIMMER简化高复杂性基准程序运行时间增加了29.4%，以及OCCAM简化的低复杂性基准程序运行时间增加了18.3%。</li>
+</ul>
+</li>
+</ul>
+<h4 id="4.3-%E7%A8%8B%E5%BA%8F%E5%AE%89%E5%85%A8" tabindex="-1">4.3 程序安全</h4>
+<ul>
+<li>除性能改进外，简化文献经常提及程序安全的改进（如攻击面的减少）作为一个主要激励目标。然而攻击面减少的具体定义有很大的差异，并缺乏合理有效的标准来度量。鉴于其它常用度量标准的缺陷（如消除已知的漏洞），我们采用了四个度量指标，重点关注code re-usability prevention（代码重用预防）。</li>
+<li>我们使用GSA[12]来分析我们简化二进制文件及未修改的对应部分，计算我们的度量指标，这些指标反映了在 W⊕X 和 ASLR 等常见安全控制存在的情况下，攻击者可以如何轻易地重复使用程序及其链接库中的代码来制造漏洞。</li>
+<li>在没有事先知道程序中实际存在的漏洞的情况下，这些度量标准为简化的卫全好处提供了定性评估。</li>
+</ul>
+<h5 id="security-1%EF%BC%8C2-%E5%B0%8F%E5%B7%A5%E5%85%B7%E9%9B%86%E7%9A%84%E8%A1%A8%E8%BE%BE%E8%83%BD%E5%8A%9B%E5%92%8C%E8%B4%A8%E9%87%8F" tabindex="-1">Security-1，2 小工具集的表达能力和质量</h5>
+<ul>
+<li>
+<p>前两个度量标准关注于程序二进制文件中可用的功能代码重用小工具的集合属性。攻击者会像在编程语言中的指令那样，将功能代码重用小工具链接在一起，以编写并启动一个攻击，而无需注入代码。</p>
+</li>
+<li>
+<p><strong>小工具集表达能力</strong>：度量了二进制文件中功能小工具的集体表达能力，以确定它们是否足以启动实用的攻击。</p>
+<ul>
+<li>GSA 定义了 11 种不同的功能类别，小工具集中的小工具必须满足这些类别才能达到这一标准，并以满足类别的数量来报告表达能力</li>
+</ul>
+</li>
+<li>
+<p><strong>小工具集质量</strong>：度量了集合中小工具的平均链式能力，以确定它们可以多么容易地组合。</p>
+<ul>
+<li>对于攻击者有用的小工具，它们通常包含对其目的无关的机器指令，但可能对创建小工具链产生副约束（即，改变堆栈指针）。</li>
+<li>GSA通过使用0.0的起始分数并为每个检测到的副约束增加这个分数来度量每个小工具的质量。整体集质量是计算为所有小工具的平均分数。</li>
+</ul>
+</li>
+<li>
+<p>对于这两个度量标准，GSA将简化的二进制文件与原始文件进行比较，并报告值变化。</p>
+<ul>
+<li>对于LMCAS-SIFT和SL，我们在比较中包括了库</li>
+<li>表达性的负值表示负面结果：简化二进制文件中的小工具集满足的表达性类别比原始文件更多。</li>
+<li>对于小工具集的质量，则相反
+<ul>
+<li>正值表示去膨胀后，每个小工具的平均副约束数量减少了。</li>
+<li>但是，值在任何方向上小于0.5都不足以表示显著性，因为GSA的质量评分系统将次要的副约束值设为0.5，而将主要的副约束值设为3.0。</li>
+<li>我们对GSA报告的度量标准进行了平均处理，显示在表9中。第一组列显示了每个工具在每个复杂性级别上成功去膨胀的基准数量<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(12)_9.png" alt></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>总体而言，根据这两个度量标准，我们评估的简化工具对安全性<strong>没有产生显著影响</strong></p>
+<ul>
+<li>多数情况下，我们的数据表明，某些工具和复杂性级别的表现性和链式能力都有所提高</li>
+<li>只有TRIMMER在四个高复杂性基准测试上的表现显著不好，平均提高了3.5个表达性类别</li>
+</ul>
+</li>
+</ul>
+<h5 id="security-3-%E5%B0%8F%E5%B7%A5%E5%85%B7%E9%9B%86%E5%B1%80%E9%83%A8%E6%80%A7" tabindex="-1">Security-3 小工具集局部性</h5>
+<h5 id="security-4-%E5%8F%AF%E4%BE%9B%E9%80%89%E6%8B%A9%E7%9A%84%E7%89%B9%E6%AE%8A%E7%94%A8%E9%80%94%E5%B0%8F%E5%B7%A5%E5%85%B7%E7%B1%BB%E5%9E%8B" tabindex="-1">Security-4 可供选择的特殊用途小工具类型</h5>
+<p><img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(12)_10.png" alt></p>
+<h4 id="4.4-%E6%AD%A3%E7%A1%AE%E6%80%A7%E5%92%8C%E9%B2%81%E6%A3%92%E6%80%A7" tabindex="-1">4.4 正确性和鲁棒性</h4>
+<h5 id="correctness%2Frobustness-1-executes-retained-functions" tabindex="-1">Correctness/Robustness-1 Executes Retained Functions</h5>
+<h5 id="correctness%2Frobustness-2-errors-%2F-crashes-during-differential-testing" tabindex="-1">Correctness/Robustness-2 Errors / Crashes during Differential Testing</h5>
+<ul>
+<li>
+<p>简化转换是复杂的，确保转换不损害程序健壮性是具有挑战性的，无论是在生产前（即，S2S）、生产过程中（即，CBS）还是生产后（即，B2B、SL）实施的。</p>
+</li>
+<li>
+<p>有缺陷或不完整的转换会对程序产生负面影响，表现为辑错误、运行时错误、崩溃，有时还可能引入新的漏洞。</p>
+<ul>
+<li>我们在基准性能测试（第4.2节）中，我们发现了大量的证据，其中36.6%的在我们的评估中生成的去膨胀二进制文件未能执行其保留的功能。</li>
+</ul>
+</li>
+<li>
+<p>这突显了简化后验证的重要性，这是简化工作流程中经常被忽视或完全留给用户的一个阶段，尤其是针对Type II膨胀的工具。</p>
+<ul>
+<li>一定程度上是由于缺乏有效的测试工具，如回归测试和模糊测试，并不自然地支持测试去膨胀程序与其原始版本之间的差异</li>
+<li>为此，我们创建了一个针对转换后程序的差异测试工具，名为DIFFER，该工具结合了差异、回归和模糊测试方法的元素。</li>
+</ul>
+</li>
+<li>
+<p>DIFFER 允许用户指定与保留和简化功能对应的种子输入。它使用这些输入运行原始程序及其一个或多个简化变体，并比较它们的输出。</p>
+<ul>
+<li>DIFFER 期望对于保留功能的输入，原始程序和去膨胀程序的输出应该相同。</li>
+<li>相反，它期望对于去膨胀功能的输入，原始程序和去膨胀程序的输出应该不同。</li>
+<li>如果 DIFFER 检测到意外的匹配、差异或崩溃，它会向用户报告，供其检查。DIFFER 的报告可以帮助用户识别去膨胀工具配置中的错误或去膨胀程序不健全的实例。与所有动态分析工具一样，DIFFER 的报告可能存在误报的可能性。为了将误报率降到最低，DIFFER 允许用户定义自定义输出比较器，以考虑输出中的预期差异（例如，程序会为其控制台输出添加时间戳）。</li>
+<li>此外，DIFFER 支持基于模板的变异模糊测试种子输入，以确保对去膨胀和保留功能的输入空间进行最大覆盖。</li>
+<li>DIFFER 不能为去膨胀工具或其生成的去膨胀程序提供正式的健壮性保证。且不能对复杂程序的输入空间进行详细测试，但在验证中非常有用，因为其对用户友好，只需要适中的用户专业知识</li>
+</ul>
+</li>
+<li>
+<p>使用我们在第3.3节中创建的通用简化规范作为起点，我们配置了 DIFFER 来测试每个基准程序的保留和简化掉的功能。我们对成功完成性能测试的每个简化基准程序（共90个变体）运行了 DIFFER，最长达12小时，以识别简化过程中引入的崩溃、不一致性或错误，以及未能去除应该去除的功能。我们的<strong>结果令人担忧</strong>：</p>
+<ul>
+<li>DIFFER 发现了27.8%（90个中的25个）的简化基准中存在错误或崩溃</li>
+<li>简化工具在其余的简化基准中未能去除应该简化掉的的功能，占60%（65个中的39个）。</li>
+<li>在 DIFFER 的测试中通过的最终26个去膨胀基准中，有13个是由 Binary Reduce（静态）产生的，七个是由 libfilter 产生的，四个是由 LMCAS-SIFT 产生的，而 OCCAM 和 CHISEL 各自产生了一个。</li>
+</ul>
+</li>
+<li>
+<p>我们的评估中，50%（40个中的20个）的去除 Type I 膨胀尝试最终成功，而只有3.3%的去除 Type II 膨胀尝试成功（180个中的6个）。我们的结果表明，文献中对简化后验证的普遍忽视导致了对成功简化的过度报告。</p>
+</li>
+</ul>
+<h3 id="5-%E8%AE%A8%E8%AE%BA%E5%92%8C%E5%85%B3%E9%94%AE%E5%8F%91%E7%8E%B0" tabindex="-1">5 讨论和关键发现</h3>
+<ul>
+<li><strong>工具成熟度</strong>
+<ul>
+<li>简化工具缺乏在实际软件上所需的成熟度
+<ul>
+<li>所有工具在所有基准简化后上只有42.5%的成功率通过性能测试</li>
+<li>在中高复杂基准上只有21%的成功率</li>
+</ul>
+</li>
+<li>这表明当前的简化工具可能过于适应较低复杂性的基准，之后新的方法应该重点关注更复杂的软件和编程语言特性/范式</li>
+</ul>
+</li>
+<li><strong>Soundness Issues</strong>
+<ul>
+<li>使用DIFFER进行正确性和健壮性测试时，在我们评估的十个工具中，只有两个工具，即静态和动态的简化二进制，没有产生不健全的简化二进制文件（即，DIFFER没有检测到任何崩溃、失败或在保留功能中的错误）。然而，之所以是健全的，是因为该工具没有成功地去膨胀任何功能，这得到了这个二进制文件在去膨胀后增加了大小的事实的支持。</li>
+<li>其余的工具每个都产生了比原始程序更多的错误（除了BinRec-ToB，它没有产生任何去膨胀的二进制文件）</li>
+<li>虽然我们的性能测试和DIFFER检测到的大部分健全性问题都是与保留功能有关的问题，但我们的结果还揭示了与简化功能相关的严重程序健全性问题。新的方法必须发展起来，以缝合被切除代码留下的空洞。在我们的调查中，我们只观察到一个具有此能力的工具：CARVE[11]</li>
+</ul>
+</li>
+<li><strong>边际效益和安全收益</strong>
+<ul>
+<li>我们评估的所有工具都没有在除了小工具局部性外的性能或安全性上实现改进</li>
+<li>一些工具确实缩小了静态二进制大小，但这些改进是通过激进的简化和去除静态链接实现的，这限制了缩小的实用性</li>
+<li>考虑到上述成熟度和Soundness问题，我们认为用户可能会发现简化的好处没有超过成本和潜在风险</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-%E7%BB%93%E8%AE%BA" tabindex="-1">6 结论</h3>
+<ul>
+<li>本文中，我们对软件简化生态进行了调查，在调查中我们创建了
+<ul>
+<li>一个简化工具分类方法</li>
+<li>16个评估指标</li>
+<li>包含20个不同复杂性的基准程序</li>
+</ul>
+</li>
+<li>我们评估比较了4类中10个不同的工具，评估标明
+<ul>
+<li>当前一代简化工具存在缺陷，使之不能再实际软件上应用，具体来说
+<ul>
+<li>简化工具对于中高复杂度的程序支持有限</li>
+<li>简化过程中难以维系健全性和健壮性</li>
+<li>在提高程序的性能和安全上成果有限</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>我们已经公开了我们的基准集，数据和自定义工具，以推动简化工具的进一步发展</li>
+</ul>
+<h3 id="7-availability" tabindex="-1">7 availability</h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/trailofbits/debloater-eval">评估</a><br>
+<a target="_blank" rel="noopener" href="https://github.com/trailofbits/differ">Differ工具</a></p>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2024/01/15/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(2)/" title="Software Debloating 论文阅读 (2)"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: Software Debloating 论文阅读 (2)</span></a><a class="button is-default" href="/2024/01/15/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(11)/" title="Software Debloating 论文阅读 （11）"><span class="has-text-weight-semibold">Next: Software Debloating 论文阅读 （11）</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2024</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
