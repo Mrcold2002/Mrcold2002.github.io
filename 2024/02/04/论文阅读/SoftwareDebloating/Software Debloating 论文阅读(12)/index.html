@@ -18,7 +18,7 @@ SOK2.0
 
 
 我们的评估揭示了一些令人担忧的发现，这些发.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Software Debloating 论文阅读 （12）</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#sok:-a-broad-comparative-evaluation-of-software-debloating-tools"><span class="toc-text">SoK: A Broad Comparative Evaluation of Software Debloating Tools</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0-%E6%91%98%E8%A6%81"><span class="toc-text">0 摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1 介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BD%AF%E4%BB%B6%E7%AE%80%E5%8C%96%E5%B7%A5%E5%85%B7%E8%B0%83%E7%A0%94"><span class="toc-text">2 软件简化工具调研</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2.1-%E8%86%A8%E8%83%80%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-text">2.1 膨胀的类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.2-%E7%AE%80%E5%8C%96%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%92%8C%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-text">2.2 简化工作流和使用案例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.3-%E7%AE%80%E5%8C%96%E6%8A%80%E6%9C%AF%E5%88%86%E7%B1%BB"><span class="toc-text">2.3 简化技术分类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#source-to-source-(s2s)"><span class="toc-text">Source-to-Source (S2S)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#compiler-based-specializers-(cbs)"><span class="toc-text">Compiler-Based Specializers (CBS)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#binary-to-binary-(b2b)"><span class="toc-text">Binary-to-Binary (B2B)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%A5%E4%B8%8A%E4%B8%89%E7%B1%BB%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93"><span class="toc-text">以上三类工具总结</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#static-library-(sl)"><span class="toc-text">Static Library (SL)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#runtime"><span class="toc-text">Runtime</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.4-%E7%AE%80%E5%8C%96%E7%9A%84%E5%88%86%E6%9E%90%E6%8C%87%E6%A0%87"><span class="toc-text">2.4 简化的分析指标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.5-benchmark"><span class="toc-text">2.5 Benchmark</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AF%84%E4%BC%B0%E6%96%B9%E6%B3%95%E8%AE%BA"><span class="toc-text">3 评估方法论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3.1-%E5%B7%A5%E5%85%B7%E9%80%89%E6%8B%A9"><span class="toc-text">3.1 工具选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.2-%E5%9F%BA%E5%87%86%E9%80%89%E6%8B%A9"><span class="toc-text">3.2 基准选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.3-%E7%AE%80%E5%8C%96%E9%85%8D%E7%BD%AE"><span class="toc-text">3.3 简化配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.4-%E6%8C%87%E6%A0%87%E9%80%89%E6%8B%A9"><span class="toc-text">3.4 指标选择</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%AF%84%E4%BC%B0%E7%BB%93%E6%9E%9C"><span class="toc-text">4 评估结果</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4.1-%E5%B7%A5%E5%85%B7%E5%8F%AF%E7%94%A8%E6%80%A7%E5%92%8C%E6%80%A7%E8%83%BD"><span class="toc-text">4.1 工具可用性和性能</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#usability-1%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%B7%A5%E5%85%B7%E7%9A%84%E6%97%B6%E9%97%B4"><span class="toc-text">Usability-1：配置工具的时间</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#usability-2%EF%BC%9A%E5%9F%BA%E5%87%86%E4%BD%BF%E7%94%A8%E6%97%B6%E9%97%B4"><span class="toc-text">Usability-2：基准使用时间</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#performance-1%EF%BC%8C2%EF%BC%9A%E5%B7%A5%E5%85%B7%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E5%92%8C%E5%B3%B0%E5%80%BC%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8"><span class="toc-text">Performance-1，2：工具运行时间和峰值内存使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#usability-3%EF%BC%9A%E6%93%8D%E4%BD%9C%E5%91%98%E6%89%80%E9%9C%80%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86"><span class="toc-text">Usability-3：操作员所需专业知识</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#usability-4%EF%BC%9A%E7%BB%B4%E6%8A%A4%E9%9A%BE%E5%BA%A6"><span class="toc-text">Usability-4：维护难度</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.2-%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD"><span class="toc-text">4.2 程序性能</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#performance-5%EF%BC%9A%E9%9D%99%E6%80%81%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%A4%A7%E5%B0%8F"><span class="toc-text">Performance-5：静态二进制大小</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#performance-6%EF%BC%9A%E9%93%BE%E6%8E%A5%E5%BA%93%E6%95%B0%E9%87%8F"><span class="toc-text">Performance-6：链接库数量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#performance-3%EF%BC%8C4%EF%BC%9A%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E5%92%8C%E5%B3%B0%E5%80%BC%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8"><span class="toc-text">Performance-3，4：程序运行时间和峰值内存使用</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.3-%E7%A8%8B%E5%BA%8F%E5%AE%89%E5%85%A8"><span class="toc-text">4.3 程序安全</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#security-1%EF%BC%8C2-%E5%B0%8F%E5%B7%A5%E5%85%B7%E9%9B%86%E7%9A%84%E8%A1%A8%E8%BE%BE%E8%83%BD%E5%8A%9B%E5%92%8C%E8%B4%A8%E9%87%8F"><span class="toc-text">Security-1，2 小工具集的表达能力和质量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#security-3-%E5%B0%8F%E5%B7%A5%E5%85%B7%E9%9B%86%E5%B1%80%E9%83%A8%E6%80%A7"><span class="toc-text">Security-3 小工具集局部性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#security-4-%E5%8F%AF%E4%BE%9B%E9%80%89%E6%8B%A9%E7%9A%84%E7%89%B9%E6%AE%8A%E7%94%A8%E9%80%94%E5%B0%8F%E5%B7%A5%E5%85%B7%E7%B1%BB%E5%9E%8B"><span class="toc-text">Security-4 可供选择的特殊用途小工具类型</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.4-%E6%AD%A3%E7%A1%AE%E6%80%A7%E5%92%8C%E9%B2%81%E6%A3%92%E6%80%A7"><span class="toc-text">4.4 正确性和鲁棒性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#correctness/robustness-1-executes-retained-functions"><span class="toc-text">Correctness&#x2F;Robustness-1 Executes Retained Functions</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#correctness/robustness-2-errors-/-crashes-during-differential-testing"><span class="toc-text">Correctness&#x2F;Robustness-2 Errors &#x2F; Crashes during Differential Testing</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%AE%A8%E8%AE%BA%E5%92%8C%E5%85%B3%E9%94%AE%E5%8F%91%E7%8E%B0"><span class="toc-text">5 讨论和关键发现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E7%BB%93%E8%AE%BA"><span class="toc-text">6 结论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-availability"><span class="toc-text">7 availability</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/SoftwareEngineering"><i class="tag post-item-tag">SoftwareEngineering</i></a><a href="/tags/SoftwareDebloating"><i class="tag post-item-tag">SoftwareDebloating</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">Software Debloating 论文阅读 （12）</h1><time class="has-text-grey" datetime="2024-01-15T07:10:43.874Z">2024-01-15</time><article class="mt-2 post-content"><h2 id="sok%3A-a-broad-comparative-evaluation-of-software-debloating-tools" tabindex="-1">SoK: A Broad Comparative Evaluation of Software Debloating Tools</h2>
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Software Debloating 论文阅读 （12）</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#sok:-a-broad-comparative-evaluation-of-software-debloating-tools"><span class="toc-text">SoK: A Broad Comparative Evaluation of Software Debloating Tools</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0-%E6%91%98%E8%A6%81"><span class="toc-text">0 摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1 介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BD%AF%E4%BB%B6%E7%AE%80%E5%8C%96%E5%B7%A5%E5%85%B7%E8%B0%83%E7%A0%94"><span class="toc-text">2 软件简化工具调研</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2.1-%E8%86%A8%E8%83%80%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-text">2.1 膨胀的类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.2-%E7%AE%80%E5%8C%96%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%92%8C%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-text">2.2 简化工作流和使用案例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.3-%E7%AE%80%E5%8C%96%E6%8A%80%E6%9C%AF%E5%88%86%E7%B1%BB"><span class="toc-text">2.3 简化技术分类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#source-to-source-(s2s)"><span class="toc-text">Source-to-Source (S2S)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#compiler-based-specializers-(cbs)"><span class="toc-text">Compiler-Based Specializers (CBS)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#binary-to-binary-(b2b)"><span class="toc-text">Binary-to-Binary (B2B)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%A5%E4%B8%8A%E4%B8%89%E7%B1%BB%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93"><span class="toc-text">以上三类工具总结</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#static-library-(sl)"><span class="toc-text">Static Library (SL)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#runtime"><span class="toc-text">Runtime</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.4-%E7%AE%80%E5%8C%96%E7%9A%84%E5%88%86%E6%9E%90%E6%8C%87%E6%A0%87"><span class="toc-text">2.4 简化的分析指标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.5-benchmark"><span class="toc-text">2.5 Benchmark</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AF%84%E4%BC%B0%E6%96%B9%E6%B3%95%E8%AE%BA"><span class="toc-text">3 评估方法论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3.1-%E5%B7%A5%E5%85%B7%E9%80%89%E6%8B%A9"><span class="toc-text">3.1 工具选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.2-%E5%9F%BA%E5%87%86%E9%80%89%E6%8B%A9"><span class="toc-text">3.2 基准选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.3-%E7%AE%80%E5%8C%96%E9%85%8D%E7%BD%AE"><span class="toc-text">3.3 简化配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.4-%E6%8C%87%E6%A0%87%E9%80%89%E6%8B%A9"><span class="toc-text">3.4 指标选择</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%AF%84%E4%BC%B0%E7%BB%93%E6%9E%9C"><span class="toc-text">4 评估结果</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4.1-%E5%B7%A5%E5%85%B7%E5%8F%AF%E7%94%A8%E6%80%A7%E5%92%8C%E6%80%A7%E8%83%BD"><span class="toc-text">4.1 工具可用性和性能</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#usability-1%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%B7%A5%E5%85%B7%E7%9A%84%E6%97%B6%E9%97%B4"><span class="toc-text">Usability-1：配置工具的时间</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#usability-2%EF%BC%9A%E5%9F%BA%E5%87%86%E4%BD%BF%E7%94%A8%E6%97%B6%E9%97%B4"><span class="toc-text">Usability-2：基准使用时间</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#performance-1%EF%BC%8C2%EF%BC%9A%E5%B7%A5%E5%85%B7%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E5%92%8C%E5%B3%B0%E5%80%BC%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8"><span class="toc-text">Performance-1，2：工具运行时间和峰值内存使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#usability-3%EF%BC%9A%E6%93%8D%E4%BD%9C%E5%91%98%E6%89%80%E9%9C%80%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86"><span class="toc-text">Usability-3：操作员所需专业知识</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#usability-4%EF%BC%9A%E7%BB%B4%E6%8A%A4%E9%9A%BE%E5%BA%A6"><span class="toc-text">Usability-4：维护难度</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.2-%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD"><span class="toc-text">4.2 程序性能</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#performance-5%EF%BC%9A%E9%9D%99%E6%80%81%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%A4%A7%E5%B0%8F"><span class="toc-text">Performance-5：静态二进制大小</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#performance-6%EF%BC%9A%E9%93%BE%E6%8E%A5%E5%BA%93%E6%95%B0%E9%87%8F"><span class="toc-text">Performance-6：链接库数量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#performance-3%EF%BC%8C4%EF%BC%9A%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E5%92%8C%E5%B3%B0%E5%80%BC%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8"><span class="toc-text">Performance-3，4：程序运行时间和峰值内存使用</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.3-%E7%A8%8B%E5%BA%8F%E5%AE%89%E5%85%A8"><span class="toc-text">4.3 程序安全</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#security-1%EF%BC%8C2-%E5%B0%8F%E5%B7%A5%E5%85%B7%E9%9B%86%E7%9A%84%E8%A1%A8%E8%BE%BE%E8%83%BD%E5%8A%9B%E5%92%8C%E8%B4%A8%E9%87%8F"><span class="toc-text">Security-1，2 小工具集的表达能力和质量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#security-3-%E5%B0%8F%E5%B7%A5%E5%85%B7%E9%9B%86%E5%B1%80%E9%83%A8%E6%80%A7"><span class="toc-text">Security-3 小工具集局部性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#security-4-%E5%8F%AF%E4%BE%9B%E9%80%89%E6%8B%A9%E7%9A%84%E7%89%B9%E6%AE%8A%E7%94%A8%E9%80%94%E5%B0%8F%E5%B7%A5%E5%85%B7%E7%B1%BB%E5%9E%8B"><span class="toc-text">Security-4 可供选择的特殊用途小工具类型</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.4-%E6%AD%A3%E7%A1%AE%E6%80%A7%E5%92%8C%E9%B2%81%E6%A3%92%E6%80%A7"><span class="toc-text">4.4 正确性和鲁棒性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#correctness/robustness-1-executes-retained-functions"><span class="toc-text">Correctness&#x2F;Robustness-1 Executes Retained Functions</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#correctness/robustness-2-errors-/-crashes-during-differential-testing"><span class="toc-text">Correctness&#x2F;Robustness-2 Errors &#x2F; Crashes during Differential Testing</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%AE%A8%E8%AE%BA%E5%92%8C%E5%85%B3%E9%94%AE%E5%8F%91%E7%8E%B0"><span class="toc-text">5 讨论和关键发现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E7%BB%93%E8%AE%BA"><span class="toc-text">6 结论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-availability"><span class="toc-text">7 availability</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E4%BB%93%E5%BA%93%E5%AD%A6%E4%B9%A0"><span class="toc-text">8 仓库学习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E5%88%86%E6%9E%90"><span class="toc-text">目录分析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#benchmarks"><span class="toc-text">benchmarks</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#metrics"><span class="toc-text">metrics</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#results"><span class="toc-text">results</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#scripts"><span class="toc-text">scripts</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#tools"><span class="toc-text">tools</span></a></li></ol></li></ol></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/SoftwareEngineering"><i class="tag post-item-tag">SoftwareEngineering</i></a><a href="/tags/SoftwareDebloating"><i class="tag post-item-tag">SoftwareDebloating</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">Software Debloating 论文阅读 （12）</h1><time class="has-text-grey" datetime="2024-02-04T08:13:57.509Z">2024-02-04</time><article class="mt-2 post-content"><h2 id="sok%3A-a-broad-comparative-evaluation-of-software-debloating-tools" tabindex="-1">SoK: A Broad Comparative Evaluation of Software Debloating Tools</h2>
 <p>SOK2.0</p>
 <h3 id="0-%E6%91%98%E8%A6%81" tabindex="-1">0 摘要</h3>
 <ul>
@@ -750,6 +750,172 @@ SOK2.0
 <h3 id="7-availability" tabindex="-1">7 availability</h3>
 <p><a target="_blank" rel="noopener" href="https://github.com/trailofbits/debloater-eval">评估</a><br>
 <a target="_blank" rel="noopener" href="https://github.com/trailofbits/differ">Differ工具</a></p>
+<h3 id="8-%E4%BB%93%E5%BA%93%E5%AD%A6%E4%B9%A0" tabindex="-1">8 仓库学习</h3>
+<p><a target="_blank" rel="noopener" href="https://github.com/trailofbits/debloater-eval">仓库地址</a></p>
+<h4 id="%E7%9B%AE%E5%BD%95%E5%88%86%E6%9E%90" tabindex="-1">目录分析</h4>
+<h5 id="benchmarks" tabindex="-1">benchmarks</h5>
+<p>benchmarks：包含基准程序和基准工具（包括人工改造版本）</p>
+<ul>
+<li>benchmarks-debloated:基准工具（因为每个基准程序能用到的基准工具不同，所以按照基准程序分的文件夹,具体在result的表格中可以看到针对特定基准软件哪些工具无法使用）
+<ul>
+<li>high</li>
+<li>low</li>
+<li>medium</li>
+</ul>
+</li>
+<li>benchmarks:基准程序
+<ul>
+<li>high
+<ul>
+<li>imagemagick-7.0.1-0</li>
+<li>nginx-1.23.3</li>
+<li>nmap-7.93</li>
+<li>poppler-0.60</li>
+</ul>
+</li>
+<li>low：就是chiselbench中的10个util-core程序，指举一个例子
+<ul>
+<li>bzip2-1.0.5
+<ul>
+<li>binaries:包含其各个形式的二进制文件</li>
+<li>lmcas，occam_x64_bin,trimmer_x64_bin:针对各个工具的特殊二进制</li>
+<li>source：源代码
+<ul>
+<li>merged：将源代码项目合成一个文件</li>
+<li>original：原始源代码项目</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>medium
+<ul>
+<li>bftpd-6.1</li>
+<li>binutils-2.27</li>
+<li>lighttpd-1.4</li>
+<li>make-4.2</li>
+<li>memcached-1.6.18</li>
+<li>tcpdump-4.99.3</li>
+<li>wget-1.20.3</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="metrics" tabindex="-1">metrics</h5>
+<p>metrics: 包括评估脚本（基准程序需要跑得）和评估性能指标</p>
+<ul>
+<li>performance-test
+<ul>
+<li>original：这个目录包含在原始基准测试上运行性能测试并收集指标的文件。指标将保存到 binary_metrics.csv 中。 有README
+<ul>
+<li>Dockerfile:镜像构造</li>
+<li>run_perf_tests.py 自动化测试脚本（TODO分析）</li>
+</ul>
+</li>
+<li>performance-benchmarks：基准使用的脚本，包含不同场景。 有README
+<ul>
+<li>inputs 文件夹：包含各个软件的测试用例输入</li>
+<li>lib 文件夹：包含各个软件的功能各个场景脚本，每个脚本名字即<code>基准名字.sh</code>，一个场景即脚本中的一个函数</li>
+<li>剩余脚本为测试脚本，名字为<code>benchmark_&lt;基准名字&gt;.sh</code>,大多数脚本需要一个参数，即二进制文件路径，少部分脚本需要其他参数，可以使用<code>-h</code>查看详情
+<ul>
+<li>测试脚本还包括激进版本，即<code>benchmark_aggressive_&lt;基准名字&gt;.sh</code>，即只包含单个功能</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="results" tabindex="-1">results</h5>
+<p>results：包含原始和精简的评估结果以及创建它们的脚本。</p>
+<ul>
+<li>
+<p>Debloater Eval Results.xlsx : 包括所有评测结果的表格</p>
+</li>
+<li>
+<p>Debloater Evaluation Knowledge Base.xlsx : 包含作者科研的知识步骤</p>
+</li>
+<li>
+<p>metrics-calcs：包含与简化评估相关的脚本和数据，包括 GSA，DIFFER，Dynamic libraries and File Size</p>
+<ul>
+<li>scripts:用于运行实验和评估结果的通用Python脚本。</li>
+<li>results
+<ul>
+<li>gsa：包含GSA评估的结果</li>
+<li>differ：包含DIFFER评估的结果</li>
+<li>file-stats:动态连接库和文件大小的结果</li>
+</ul>
+</li>
+<li>batches：只能每个批次运行的配置文件</li>
+<li>eval-scripts：包含特定实验运行的脚本</li>
+<li>environment：包含配置实验环境的脚本和dockerfile</li>
+</ul>
+</li>
+<li>
+<p>differ实验结果</p>
+</li>
+</ul>
+<h5 id="scripts" tabindex="-1">scripts</h5>
+<p>scripts：包含用于自动化评估不同部分的各种脚本（未维护）。</p>
+<ul>
+<li>build-binaries：包含用于构建二进制文件的脚本，使用py脚本，在docker中进行构建</li>
+<li>debloater_eval:收集评估结果的脚本，输出为csv</li>
+<li>tests：TODO了解</li>
+</ul>
+<h5 id="tools" tabindex="-1">tools</h5>
+<p>tools：包括可重复构建的环境，用于托管工具和评估中使用的简化规范。</p>
+<ul>
+<li>
+<ol>
+<li>GTIRB To Static：用于静态地剪裁掉不可达的库和代码，利用了&quot;Reachable Reduce&quot;。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>LMCAS-METIS：使用一个规范（spec）以及对源代码的修改来对其进行简化。</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>OCCAM：根据其 GitHub 描述，这是一个针对 LLVM 位代码的“整体程序偏特化器（whole-program partial evaluator）”，旨在对在特定部署环境中运行的程序和共享/静态库进行简化。</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>Trimmer</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>chisel-2：需要token</li>
+</ol>
+</li>
+<li>
+<ol start="6">
+<li>chisel：源代码简化工具，它使用一个 oracle 来引导基于增量调试的减小过程。</li>
+</ol>
+</li>
+<li>
+<ol start="7">
+<li>GTIRB To Dynamic：使用 gtirb-block-trace。</li>
+</ol>
+</li>
+<li>
+<ol start="8">
+<li>Libfilter(Nibbler):采用静态分析来检测程序及其共享库中未使用的函数调用。随后，它删除这些未使用的函数，生成一个精简的二进制文件。</li>
+</ol>
+</li>
+<li>
+<ol start="9">
+<li>razor：用DynamoRIO对二进制文件进行插装，从而删除测试套件未执行的指令。</li>
+</ol>
+</li>
+<li>
+<p>tool-debloating-specs：包含已经写好的规范</p>
+</li>
+</ul>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
-</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2024/01/15/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(2)/" title="Software Debloating 论文阅读 (2)"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: Software Debloating 论文阅读 (2)</span></a><a class="button is-default" href="/2024/01/15/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(11)/" title="Software Debloating 论文阅读 （11）"><span class="has-text-weight-semibold">Next: Software Debloating 论文阅读 （11）</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2024</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2024/02/04/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/%E7%A8%8B%E5%BA%8F%E4%B8%AD%E4%B8%8D%E5%8F%98%E9%87%8F%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" title="程序中不变量论文阅读"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: 程序中不变量论文阅读</span></a><a class="button is-default" href="/2024/02/04/%E6%9C%AC%E7%A7%91/%E6%9C%AC%E7%A7%91%E6%AF%95%E4%B8%9A%E8%AE%BA%E6%96%87/%E5%A4%8D%E6%9D%82%E8%BD%AF%E4%BB%B6%E7%AE%80%E5%8C%96%E5%88%86%E6%9E%90%E5%AE%9E%E9%AA%8C/" title="复杂软件简化分析实验"><span class="has-text-weight-semibold">Next: 复杂软件简化分析实验</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2024</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
