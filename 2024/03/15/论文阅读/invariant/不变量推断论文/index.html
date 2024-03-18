@@ -1,17 +1,318 @@
 <!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>不变量推断论文</title><meta name="description" content="菜"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
-<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="1 Searching for invariants using genetic programming and mutation testing
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="1 The Daikon system for dynamic detection of likely invariants
 
-引用：Ratcliff S, White D R, Clark J A. Searching for invariants using genetic programming and mutation testing[C]//Proceedings of the 13th annual conference on Genetic and evolutionary computation. 2011: 1907-1914.
-CCF C GECCO
-链接
+引用：Ernst M D, Perkins J H, Guo P J, et al. The Daikon system for dynamic detection of likely invariants[J]. Science of computer programming, 2007, 69(1-3): 35-45.
 
-1.0 摘要
+0 摘要
 
-本文贡献
-
-进化搜索可以用来找到程序不变量，就像Daikon发现的那样
-进化搜索能够考虑比基.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">不变量推断论文</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-searching-for-invariants-using-genetic-programming-and-mutation-testing"><span class="toc-text">1 Searching for invariants using genetic programming and mutation testing</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.0-%E6%91%98%E8%A6%81"><span class="toc-text">1.0 摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.1-%E4%B8%BB%E8%A6%81%E5%86%85%E5%AE%B9"><span class="toc-text">1.1 主要内容</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dig"><span class="toc-text">Dig</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#feedback-driven-dynamic-invariant-discovery"><span class="toc-text">Feedback-driven dynamic invariant discovery</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dysy:-dynamic-symbolic-execution-for-invariant-inference"><span class="toc-text">Dysy: Dynamic symbolic execution for invariant inference</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9F%BA%E4%BA%8E%E6%90%9C%E7%B4%A2%E6%9D%A5%E5%AF%BB%E6%89%BE%E4%B8%8D%E5%8F%98%E9%87%8F"><span class="toc-text">使用基于搜索来寻找不变量</span></a></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/InVariant"><i class="tag post-item-tag">InVariant</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">不变量推断论文</h1><time class="has-text-grey" datetime="2024-03-14T16:40:54.806Z">2024-03-15</time><article class="mt-2 post-content"><h2 id="1-searching-for-invariants-using-genetic-programming-and-mutation-testing" tabindex="-1">1 Searching for invariants using genetic programming and mutation testing</h2>
+Daikon是一个动态检测不变量的工具
+不变量是在程序的某个点或点上保持的属性；这些通常用于assert语句、文档和形式规范。例如包括常数（x = a）、非零（x ≠ 0）、处于范围内（a ≤ x ≤ b）、线性关系（y = ax + b）、排序（.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">不变量推断论文</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-the-daikon-system-for-dynamic-detection-of-likely-invariants"><span class="toc-text">1 The Daikon system for dynamic detection of likely invariants</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0-%E6%91%98%E8%A6%81"><span class="toc-text">0 摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1 介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-example"><span class="toc-text">2 example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-daikon%E7%9A%84%E5%85%B3%E9%94%AE%E7%89%B9%E5%BE%81"><span class="toc-text">3 Daikon的关键特征</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3.1-%E8%AE%B8%E5%A4%9A%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E5%92%8C%E5%85%B6%E5%AE%83%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%BE%93%E5%85%A5"><span class="toc-text">3.1 许多编程语言和其它数据格式的输入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.2-%E4%B8%B0%E5%AF%8C%E7%9A%84%E8%BE%93%E5%87%BA"><span class="toc-text">3.2 丰富的输出</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.3-scalable-%E6%89%A9%E5%B1%95%E6%80%A7"><span class="toc-text">3.3 Scalable 扩展性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.4-%E4%B8%8D%E5%8F%98%E9%87%8F%E7%AD%9B%E9%80%89"><span class="toc-text">3.4 不变量筛选</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.5-%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F"><span class="toc-text">3.5 输出格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.6-%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%80%A7"><span class="toc-text">3.6 可移植性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8"><span class="toc-text">4 使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4.1-documentation"><span class="toc-text">4.1 Documentation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.2-avoid-bugs"><span class="toc-text">4.2 avoid bugs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.3-debugging"><span class="toc-text">4.3 Debugging</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.4-testing"><span class="toc-text">4.4 Testing</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.5-verification"><span class="toc-text">4.5 Verification</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.6-data-structure-and-control-structure-repair"><span class="toc-text">4.6 Data structure and control structure repair</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-architecture"><span class="toc-text">5 Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5.1-instrumenters%EF%BC%88%E6%8F%92%E6%A1%A9%E5%B7%A5%E5%85%B7%EF%BC%89"><span class="toc-text">5.1 Instrumenters（插桩工具）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2-inference-engine"><span class="toc-text">5.2 Inference engine</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.3-extensibility"><span class="toc-text">5.3 Extensibility</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B"><span class="toc-text">6 开发过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7%E6%AF%94%E8%BE%83"><span class="toc-text">7 相关工具比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E7%BB%93%E8%AE%BA"><span class="toc-text">8 结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-searching-for-invariants-using-genetic-programming-and-mutation-testing"><span class="toc-text">2 Searching for invariants using genetic programming and mutation testing</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.0-%E6%91%98%E8%A6%81"><span class="toc-text">1.0 摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.1-%E4%B8%BB%E8%A6%81%E5%86%85%E5%AE%B9"><span class="toc-text">1.1 主要内容</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3.-automatic-requirement-extraction-from-test-cases"><span class="toc-text">3. Automatic Requirement Extraction from Test Cases</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0-%E6%91%98%E8%A6%81-1"><span class="toc-text">0 摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D-1"><span class="toc-text">1 介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%83%8C%E6%99%AF"><span class="toc-text">2 背景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2.1-%E4%BB%8E%E8%BF%90%E8%A1%8C%E4%B8%AD%E6%8E%A8%E6%96%AD%E4%B8%8D%E5%8F%98%E9%87%8F"><span class="toc-text">2.1 从运行中推断不变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.3-%E5%9F%BA%E4%BA%8E%E4%BB%AA%E5%99%A8%E7%9A%84%E9%AA%8C%E8%AF%81"><span class="toc-text">2.3 基于仪器的验证</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%8F%90%E5%8F%96%E9%9C%80%E6%B1%82"><span class="toc-text">3 提取需求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-text">6 相关工作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E7%BB%93%E8%AE%BA"><span class="toc-text">7 结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-dig"><span class="toc-text">4 Dig</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-feedback-driven-dynamic-invariant-discovery"><span class="toc-text">5 Feedback-driven dynamic invariant discovery</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-dysy:-dynamic-symbolic-execution-for-invariant-inference"><span class="toc-text">6 Dysy: Dynamic symbolic execution for invariant inference</span></a></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/InVariant"><i class="tag post-item-tag">InVariant</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">不变量推断论文</h1><time class="has-text-grey" datetime="2024-03-14T16:40:54.806Z">2024-03-15</time><article class="mt-2 post-content"><h2 id="1-the-daikon-system-for-dynamic-detection-of-likely-invariants" tabindex="-1">1 The Daikon system for dynamic detection of likely invariants</h2>
+<ul>
+<li>引用：Ernst M D, Perkins J H, Guo P J, et al. The Daikon system for dynamic detection of likely invariants[J]. Science of computer programming, 2007, 69(1-3): 35-45.</li>
+</ul>
+<h3 id="0-%E6%91%98%E8%A6%81" tabindex="-1">0 摘要</h3>
+<ul>
+<li>Daikon是一个动态检测不变量的工具</li>
+<li>不变量是在程序的某个点或点上保持的属性；这些通常用于assert语句、文档和形式规范。例如包括常数（x = a）、非零（x ≠ 0）、处于范围内（a ≤ x ≤ b）、线性关系（y = ax + b）、排序（x ≤ y）、来自库的函数（x = fn(y)）、包含（x ∈ y）、排序（x 已排序）等。用户可以扩展Daikon以检查其他不变量。</li>
+<li>动态不变量检测运行程序，观察程序计算的值，然后报告在观察到的执行中为真的属性。动态不变量检测是一种可以应用于任意数据的机器学习技术。Daikon可以检测C、C++、Java和Perl程序中的不变量，以及记录结构化数据源；很容易将Daikon扩展到其他应用程序中</li>
+<li>不变量在程序理解和一系列其他应用中非常有用，Daikon的输出已经被用于生成测试用例，预测组建集成中的不完备出，自动化定理证明，修复不一致数据，检查数据流的有效性等</li>
+<li>Daikon完全开源，有广泛的文档 <a target="_blank" rel="noopener" href="http://pag.csail.mit.edu/daikon/">网址</a></li>
+</ul>
+<h3 id="1-%E4%BB%8B%E7%BB%8D" tabindex="-1">1 介绍</h3>
+<ul>
+<li>本文介绍Daikon：一个功能齐全，稳健的不变量检测工具</li>
+<li>不变量可以阐释数据结构和算法，对手动和自动的变成人物，从设计到维护都是有用的，例如
+<ul>
+<li>它们识别了在修改代码时必须保留的程序属性 （<strong>这里和debloating的联系？</strong>）</li>
+</ul>
+</li>
+<li>尽管不变量有很多有点，但他们通常在程序中缺失。期望程序员完全使用不变量对代码进行注释的另一种选择是从程序执行中自动推断可能的不变量。对于某些重要的人物，动态推断的属性比人工编写的规范更可取</li>
+<li>Diakon的输出是一组由执行跟踪在统计上证明的可能的的不变量。其结果可以用作文档，添加到程序源码作为断言，或用作其它工具的输入（见Section 4）</li>
+</ul>
+<h3 id="2-example" tabindex="-1">2 example</h3>
+<ul>
+<li>考虑一个名为<code>StackAr</code>的Java类，实习了一个具有固定大小的栈，其实现如下</li>
+</ul>
+<pre><code class="language-java">
+Object[] theArray; // Array that contains the stack elements.
+int topOfStack; // Index of top element. -1 if stack is empty.
+// 实现方法
+void push(Object x) // Insert x
+void pop() // Remove most recently inserted item
+Object top() // Return most recently inserted item
+Object topAndPop() // Remove and return most recently inserted item
+boolean isEmpty() // Return true if empty; else false
+boolean isFull() // Return true if full; else false
+void makeEmpty() // Remove all items
+</code></pre>
+<ul>
+<li>使用<code>StackTester</code>类对该类进行测试，如</li>
+</ul>
+<pre><code class="language-bash">java DataStructures.StackArTester
+</code></pre>
+<ul>
+<li>随后使用Daikon在java的前端产生运行轨迹</li>
+</ul>
+<pre><code class="language-bash">java daikon.Chicory --daikon DataStructures.StackArTester
+</code></pre>
+<ul>
+<li>Daikon的输出包括过程的前置条件，后置条件，包括对象不变量，这些条件在每个公共方法的入口和出口出均成立。 下面为输出的部分内容，包括对象不变量和构造函数以及<code>ifFull</code>的方法的过程不变量</li>
+</ul>
+<pre><code class="language-java">    /* Object invariants for StackAr*/
+this.theArray != null  //在构造函数后，theArray不为null，可以安全地使用
+this.theArray.getClass() == java.lang.Object[].class // theArray的运行时类型是Object[]，ava允许运行时类型是声明类型的子类，但在StackAr中从未发生过这种情况。
+this.topOfStack &gt;= -1
+this.topOfStack &lt;= this.theArray.length - 1 // topOfStack的值在数组的范围内
+this.theArray[0..this.topOfStack] elements != null //所有的栈元素都不为null，这是因为测试套件的结果，而不是StackAr的实现，这是有意义的，指出了测试套件的不足
+this.theArray[this.topOfStack+1..] elements == null // 不在栈中的元素都是null，我们可以推断pop后的元素会置为null，方便垃圾回收
+    /* Pre-conditions for the StackAr constructor*/
+capacity &gt;= 0 // 在构造函数前，为使用负容量创建StackAr
+    /* Post-conditions for the StackAr constructor*/
+orig(capacity) == this.theArray.length //包含栈的数组的大小等于指定的容量。
+this.topOfStack == -1 // 初始化后，栈为空
+this.theArray[] elements == null// 初始化后，数组中的所有元素都是null
+    /* Post-conditions for the isFull method*/
+this.theArray == orig(this.theArray) //数组的引用没有被修改，仍然与方法调用前相同。
+this.theArray[] == orig(this.theArray[])//数组的内容没有被修改，仍然与方法调用前相同。
+this.topOfStack == orig(this.topOfStack)//索引没有被修改，仍然与方法调用前相同。
+(return == false) &lt;==&gt; (this.topOfStack &lt; this.theArray.length - 1)
+(return == true) &lt;==&gt; (this.topOfStack == this.theArray.length - 1)
+// 返回值成立的条件
+</code></pre>
+<h3 id="3-daikon%E7%9A%84%E5%85%B3%E9%94%AE%E7%89%B9%E5%BE%81" tabindex="-1">3 Daikon的关键特征</h3>
+<h4 id="3.1-%E8%AE%B8%E5%A4%9A%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E5%92%8C%E5%85%B6%E5%AE%83%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E7%9A%84%E8%BE%93%E5%85%A5" tabindex="-1">3.1 许多编程语言和其它数据格式的输入</h4>
+<ul>
+<li>Daikon可以处理C、C++、Java和Perl程序计算可能的不变量（见5.1）</li>
+<li>Daikon还可以处理来自电子表格（如Excel）的数据，使用CSV（逗号分隔值）格式</li>
+<li>当在非由程序生成的数据上运行Daikon是很方便的</li>
+<li>Daikon支持新的编程语言和数据格式，已经有几个用户这样做了（见第5.3节）。</li>
+</ul>
+<h4 id="3.2-%E4%B8%B0%E5%AF%8C%E7%9A%84%E8%BE%93%E5%87%BA" tabindex="-1">3.2 丰富的输出</h4>
+<ul>
+<li>
+<p>Daikon的主要目标是报告具有表现力和有用的输出。报告的不变量取决于不变量检测器表达的不变量语法，检测的变量，以及检测不变量的程序点。接下来讨论每个因素</p>
+</li>
+<li>
+<p><strong>Grammar of properties 属性语法</strong>：Daikon检查75中不同的不变量，包括摘要中的，同时用户可以轻松的扩展。检查大量的不变量可以增添人工或工具使用不变量的可能性，同时也增加了不变量检查的世界爱你。Daikon进行了性能优化以支持大量的不变量</p>
+</li>
+<li>
+<p>Daikon还包括条件不变量或蕴含式，如 <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mi>h</mi><mi>i</mi><mi>s</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mo mathvariant="normal">≠</mo><mi>n</mi><mi>u</mi><mi>l</mi><mi>l</mi><mtext>  </mtext><mo>⟹</mo><mtext>  </mtext><mi>t</mi><mi>h</mi><mi>i</mi><mi>s</mi><mi mathvariant="normal">.</mi><mi>l</mi><mi>e</mi><mi>f</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi><mo>≤</mo><mi>t</mi><mi>h</mi><mi>i</mi><mi>s</mi><mi mathvariant="normal">.</mi><mi>v</mi><mi>a</mi><mi>l</mi><mi>u</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">this.left \neq null \implies this.left.value \leq this.value</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">hi</span><span class="mord mathnormal">s</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel"><span class="mrel"><span class="mord vbox"><span class="thinbox"><span class="rlap"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="inner"><span class="mord"><span class="mrel"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel">=</span></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7184em;vertical-align:-0.024em;"></span><span class="mord mathnormal">n</span><span class="mord mathnormal">u</span><span class="mord mathnormal" style="margin-right:0.01968em;">ll</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">⟹</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">hi</span><span class="mord mathnormal">s</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">t</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">u</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">hi</span><span class="mord mathnormal">s</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">u</span><span class="mord mathnormal">e</span></span></span></span></eq>. Daikon具有某些内置谓词，用于查找蕴含式；例如，哪个return语句在过程中被执行以及布尔过程是否返回true和false。此外，Daikon可以从文件中读取谓词，并根据这些谓词查找蕴涵关系[1]。这些谓词可以通过手动或使用Daikon配备的工具生成，例如通过对程序的静态分析或对执行跟踪的值进行集群分析</p>
+</li>
+<li>
+<p><strong>Grammer of variables</strong>：不变量检测器可以表达的不变量必须被实例化为特定的值或其它值。例如 <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>∈</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x\in y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></eq> 是在两个变量上实例化的，那么第二个必须是集合，Daikon可以处理以下类型不变量</p>
+<ul>
+<li>过程参数和返回值</li>
+<li>前状态值（用orig表示），这运行报告过程副作用和输入输出关系</li>
+<li>全局变量</li>
+<li>字段（给定对象a，有用的附加信息出现在a.f,a.g等中）</li>
+<li>对没有副作用的（pure，observer）的方法，如size()</li>
+<li>衍生变量（共25个），如给定数组a和整数lasti，则对a[lasti]的不变量可能是感兴趣的，即使它不是一个变量，甚至可能不会出现在程序中
+<ul>
+<li>这些变量类型可以组合使用，例如 a.b[myObject.getX()]。</li>
+<li>Daikon可以控制是否仅考虑公共字段/方法（提供数据结构的外部，客户端试图），或者包括四有字段，方法（提供数据结构内部，实现试图）</li>
+<li>另一个开关控制检查字段和纯方法的调用深度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>程序点</strong>：Daikon在程序的入口和出口检查不变量，从而产生与前置条件和后值条件相对应的可能不变量。</p>
+<ul>
+<li>它在每个过程出口处（即返回语句），和通过个别出口进行概括从而聚合出口处（由客户端视角查看）处计算不变量</li>
+<li>可能的对象或类不变量也在聚合程序点（对象点）处计算，对象点概括了在类的公共方法的入口和出口出观察到的所有对象，在传递到其他类的方法中或从其他类的方法返回的对象，或者存储在对象字段中的对象。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3.3-scalable-%E6%89%A9%E5%B1%95%E6%80%A7" tabindex="-1">3.3 Scalable 扩展性</h4>
+<ul>
+<li>尽管在3.2描述了丰富的输出，Diakon可以扩展到非平凡程序。</li>
+<li>例如，Daikon被用于为 美国宇航局阿姆斯研究中心开发的Center-TRACON自动化系统（CTAS）生成部分一致性规范（见第4.6节）[2]。CTAS是一套超过100万行C和C++代码的空中交通管制工具。</li>
+<li>将Daikon应用到大型程序上，往往需要将其集中在程序的子集上，后减少Daikon考虑的派生变量甚至不变量的数量。所有这些可以通过命令行完成</li>
+</ul>
+<h4 id="3.4-%E4%B8%8D%E5%8F%98%E9%87%8F%E7%AD%9B%E9%80%89" tabindex="-1">3.4 不变量筛选</h4>
+<ul>
+<li>动态不变量检测技术针对观察到的运行时值测试不变性。 与任何动态分析或机器学习技术一样，存在过拟合（泛化过度）的可能性，即在训练中运行为真但在一般情况下不为真的属性。
+<ul>
+<li>例如，如果对特定变量的观察次数不够，那么观察到的模式可能只是巧合。</li>
+<li>Diakon通过计算零假设测试（一个属性在随机输入中的概率），然后仅在其概率小于用户定义的置信参数时报告该属性，来缓解这个问题。</li>
+</ul>
+</li>
+<li><strong>Redundant invarints</strong>:可以被其它不变量逻辑推出的不变量可以从输出中删除，而不会丢失信息。Daikon尽可能的不计算冗余不变量，这样可以提高性能（见5.2）。 某些优化无法处理的冗余项将在通过post-processing阶段删除。</li>
+<li><strong>Abstract types</strong>：程序中的许多变量之间没有关系。例如。变量temp可能为当前温度，而time为自1970年以来的秒数，尽管存在 temp&lt; time 这个不变量，但这并没有什么意义。Daikon可以使用抽象类型信息[3]将不变量限制为相关变量，Daikon包里包括了计算抽象类型的工具</li>
+</ul>
+<h4 id="3.5-%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F" tabindex="-1">3.5 输出格式</h4>
+<ul>
+<li>Daikon支持多种输出格式，也可以添加新的格式(见5.3)
+<ul>
+<li>Daikon：默认格式，带有两次和其它功能</li>
+<li>DBC。为Parasoft的Jtest工具设计的契约格式[4]。</li>
+<li>ESC。用于ESC/Java工具的扩展静态检查器格式[5]。</li>
+<li>IOA。用于建模输入/输出自动机的IOA语言，也可以转换为Isabelle定理证明器的语言。</li>
+<li>Java。可在Java程序中使用的Java表达式，例如作为断言。</li>
+<li>JML。Java建模语言[6]格式，被许多工具[7]使用。</li>
+<li>Repair。自动数据结构修复工具[2]使用的格式。</li>
+<li>Simplify。Simplify自动定理证明器的格式[8]。</li>
+</ul>
+</li>
+<li>Daikon附带的annotate工具将可能的不变性插入源代码作为注释。</li>
+</ul>
+<h4 id="3.6-%E5%8F%AF%E7%A7%BB%E6%A4%8D%E6%80%A7" tabindex="-1">3.6 可移植性</h4>
+<ul>
+<li>Daikon可以在各种平台上轻松移植
+<ul>
+<li>Daikon的推理引擎和Java工具由Java编写</li>
+<li>Perl工具是用Perl编写的，这两种语言非常易于移植。</li>
+<li>一个C工具限定Linux/x86平台，另一个可以在任何可用Purify的平台上移植，包括Windows、Linux和几种商业Unix变体。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-%E4%BD%BF%E7%94%A8" tabindex="-1">4 使用</h3>
+<ul>
+<li>Daion生成的不变量时程序规范的一种动态特征。</li>
+<li>特征被广泛地认为在程序开发过程中是很有价值的，包括设计，编码，验证，测试，优化和维护。它们还增强了程序员对数据结构，算法，和程序操作的理解。然而在实践中，正式的特征规范很少可用，因为他们写起来费时费力，而且即使可用，也无法捕获程序正确执行所依赖的所有属性。</li>
+<li>动态生成的特征与理想静态特征规范不同。动态规范不仅会揭示有关目标行为的信息，还会揭示关于特定实现和在程序运行环境（输入）下的信息。对于许多任务（如改进测试套间或某些调试任务），动态信息甚至比静态信息更有帮助</li>
+</ul>
+<h4 id="4.1-documentation" tabindex="-1">4.1 Documentation</h4>
+<ul>
+<li>不变量表示程序运行的某些方面，并提供了对程序操作，算法，数据结构的文档化。因此，他们可以帮助程序理解,而对程序理解的程度是与每个变成任务的先决条件。而从运行中自动提取的信息一定是最新的。</li>
+<li>即使对已经用注释，断言语句或规范文档化的代码，自动推断不变量也是有用的。推断出的不变量可以检查或细化程序员提供的不变量；程序自我检查通常是过时的，无效的或不正确的[9]</li>
+</ul>
+<h4 id="4.2-avoid-bugs" tabindex="-1">4.2 avoid bugs</h4>
+<ul>
+<li>不变量可以保护程序员对程序正确行为所依赖的假设进行意外更改产生的影响。如果原始不变量没有被记录，更不用说依赖了，那么程序员就很容易违反它们，从而在程序的远程部分引入错误</li>
+<li>程序维护引入的错误[10,11],其中其多是由违反程序不变量引起的。而当程序员参照Daikon输出，可以尽可能的避免破坏这些不变量[12]</li>
+</ul>
+<h4 id="4.3-debugging" tabindex="-1">4.3 Debugging</h4>
+<ul>
+<li>尽管最好是在第一次就避免错误，不变量也可以帮助调试。
+<ul>
+<li>Raz等人使用Daikon检查数据流中的一致性输入[13]</li>
+<li>许多作者利用 训练运行和实际运行之间推断的不变量的不一致性作为程序错误的指标，应该引起人们的注意[14-16]</li>
+</ul>
+</li>
+<li>动态检测到的不变量也可以帮助理解或定位错误。
+<ul>
+<li>Groce使用连续成功和失败的运行之间的差异来简介解释测试失败[17]</li>
+<li>Xie比较内部组件的行为，以定位程序版本之间的差异并格里错误[18]</li>
+<li>Libit提供了一种轻量级的方法来确定哪些属性表明存在错误[19]</li>
+<li>Brun使用正确和错误的程序上的机器学习来预测不同程序中最有可能出现的错误[20]</li>
+</ul>
+</li>
+</ul>
+<h4 id="4.4-testing" tabindex="-1">4.4 Testing</h4>
+<ul>
+<li>动态检测到的不变量可以像测试套件一样揭示程序自身，因为这些属性显示了程序在测试套件上的执行情况。这些信息在测试中是有用的。
+<ul>
+<li>如果测试套件覆盖了程序的每个语句或路径，但对程序值覆盖不足，则存在缺陷。例如，“x&gt;0”可以表示从未尝试过零和副值，“x&lt;10”表明从未尝试过大值</li>
+<li>此外，这些属性还准确指示了测试套件需要改进的输入。 推断的不变量还可以作为一种覆盖度度量指标，例如用于测试选择和优先级排序；更多的覆盖度量指标会产生更好的测试套件[21,22]。动态检测到的不变量还可以帮助删除无意义的测试（违反前提条件）并推断何时失败（违反后置条件）[23]</li>
+</ul>
+</li>
+</ul>
+<h4 id="4.5-verification" tabindex="-1">4.5 Verification</h4>
+<ul>
+<li>动态不变量检测基于程序执行提出可能的不变量，但由此得到的属性不能保证在所有可能的执行中都为真。静态检查可以验证属性是否始终为真，但为静态检查器选择输入目标并注释程序会变得很困难和繁琐。将两种技术结合起来可以克服每种技术的缺点，动态检测到的不变量可以为程序进行注释或提供静态验证的目标，而静态验证可以确认动态工具提出的属性是否正确。</li>
+<li>我们已经尝试过几种程序验证器，对于Java程序和ESC/Java[5]，Daikon的精度（可以证明的属性的百分比）超过95%，其中不能证明的属性通常是由于证明器的不完备性，其召回率（找到用于程序验证的属性百分比）超过90%[24]。此外，使用Daikon输出的用户在程序验证任务上统计表现更好[25]。对于证明助手工具，约90%的引理和策略是自动生成的[26]，用于三种分布式算法的证明。</li>
+</ul>
+<h4 id="4.6-data-structure-and-control-structure-repair" tabindex="-1">4.6 Data structure and control structure repair</h4>
+<ul>
+<li>损坏的数据结构导致程序执行不正确或不可预测。
+<ul>
+<li>数据结构修复可以更新损坏的数据结构，使得程序能够继续以可接受的方式执行。然而，这需要用户提供规范</li>
+<li>Daikon的输出使得整个过程可以自动化，同时允许人工审查。相对于手动生成而言，使用Daikon可以使得程序更加健壮，成本更低。</li>
+</ul>
+</li>
+<li>另一个相关用途是在根据环境输入动态选择模式的程序中。
+<ul>
+<li>来自训练集中的运行动态监测到的不变量可以指示哪些模式与外部条件相关联</li>
+<li>在运行时，偶尔覆盖程序（不一致）的行为，在现实世界中可以将性能提升50%以上[27]。</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-architecture" tabindex="-1">5 Architecture</h3>
+<ul>
+<li>Daikon通过对程序进行插装，跟踪特定变量，随后运行程序推断关于插装变量和程序中未显现的衍生变量的不变量。</li>
+<li>所有的步骤都是完全自动（除过运行程序的要求，例如其输入），所以实际上用户只需要发出一个类似于运行原始程序的命令（见 2）</li>
+</ul>
+<h4 id="5.1-instrumenters%EF%BC%88%E6%8F%92%E6%A1%A9%E5%B7%A5%E5%85%B7%EF%BC%89" tabindex="-1">5.1 Instrumenters（插桩工具）</h4>
+<ul>
+<li>Instrumenters是针对特定语言，现在的Daikon提供了对C/C++，Java和Perl的Instrumenters。
+<ul>
+<li>其中一些Instrumenters是基于源代码的：其会创建一个新版本的源代码，随后进行编译，连接和运行。</li>
+<li>其它的Instrumenters直接操作可执行文件，其更易使用，但更会基于特定平台</li>
+</ul>
+</li>
+<li>Instrumenters的基本任务是向目标程序添加指令，以便它输出变量的值。这些跟踪信息直接传送到推理引擎，避免了磁盘存储的紧张。或者跟踪信息也可以输出到文件中（见3.2），允许对多次运行进行重复处理或组合处理</li>
+<li>为了获得良好的覆盖率，有时需要对目标程序使用多个输入进行多次运行。在类似C/C++语言中，无法仅通过检查指针或数组索引来确定其是否有效。这种情况下，Instrumenters必须增强目标程序，以确定每个指针是否引用了有效的内存以及每个数组的范围。</li>
+</ul>
+<h4 id="5.2-inference-engine" tabindex="-1">5.2 Inference engine</h4>
+<ul>
+<li>
+<p>推理引擎读取Instrumenters输出的跟踪信息，随后推断可能的不变量。将特定与语言的Instrumenters和推理引擎分开使其具有可移植性，并且还使得Daikon可以轻松扩展到新的语言和数据格式。需要注意的是，虽然Daikon是整个系统的命令，但也可以特指推理引擎</p>
+</li>
+<li>
+<p>其基本思想是使用生成和检查算法来针对跟踪数据测试一组潜在的不变量。Daikon报告那些在经过足够检验而没有被推翻的不变量。与其它动态方法（如性能分析）一样，结果的准确性部分取决于测试用例的质量和完整性。即使是一般的测试套件在实践中也能产生良好的结果[25,24]，并且存在创造好的测试套件来推断不变量的方法[21,28,22]。</p>
+</li>
+<li>
+<p>一种简单的动态不变量检测算法明确地将不变量语法中每个不变量表示出来：它最初假设所有潜在不变量都为真，并针对每个样本的每个不变量进行测试。任何被否定的不变量都会丢弃。在处理结束时报告剩余的不变量。然而这种算法的可扩展性步枪</p>
+</li>
+<li>
+<p>Daikon经过一系列优化使其能够适用于大量不变量和复杂程序，这些优化基于一个事实：简单的算法检查并报告了许多不必要的不变量。许多不变量是冗余的，无需检查，这些优化将需要检查的不变量数量减少了99%</p>
+</li>
+<li>
+<p>有四个主要优化：</p>
+</li>
+<li>
+<p><strong>Equql variables 相等变量</strong>:如果两个或多个变量始终相等，则对于其中一个变量为真的任何不变量也适用于其它。如x=y,则对于任何不变量f，f(x)=f(y)</p>
+</li>
+<li>
+<p><strong>Dynamically constant variables 动态常量变量</strong>：动态常量变量在每个观察样本具有相同的值。不变量x=a（a为常量）使得对x的任何其它不变量都是多余的。如x=5，则odd(x),x&gt;=5。对于变量组合也是如此：x=5,y=6,则x&lt;y,x=y-1</p>
+</li>
+<li>
+<p><strong>Variable Hierarchy 变量的层次结构</strong>某些变量值会对多个程序点的不变量产生影响。例如，在(公共)方法退出时观察到的值不仅影响方法后值条件，还影响对象不变量。对于两个程序点A和B，如果B的样本也出现在A，则A为真的任何不变量在B处也为真，则在B处是多余的</p>
+</li>
+<li>
+<p><strong>Suppression of weaker invariants 抑制较弱的不变量</strong>：如果一个不变量在逻辑上被其它不变量蕴含，则该不变量会被抑制（前三个例子都是该条件的特里）。例如x&gt;y则x&gt;=y,及0&lt;x&lt;y和z=0则x div y = 0</p>
+</li>
+</ul>
+<h4 id="5.3-extensibility" tabindex="-1">5.3 Extensibility</h4>
+<ul>
+<li>Daikon的主要设计目标就是可扩展性，因为动态不变量检测是一个新型活跃的领域，Daikon以以下方式进行扩展</li>
+<li><strong>Instrumenters 插装工具</strong>：对于新语言或其它数据，只需要输出Daikon输入格式的文件即可。例如，已经为电子表格数据，Linux库调用[30],Java PathFinder模型检查器[17]和在线数据源[13]添加了插装工具</li>
+<li><strong>不变量</strong>：Diakon不变量语法中的每个属性都作为Invariant抽象基类的子类实现，进一步的子类将相似不变量分组。这些子类提供了不变量所需的大部分代码。一个新的不变量必须提供基本功能，例如check modified方法，该方法检查一个元组的值是否和不变量一致</li>
+<li><strong>派生变量</strong>：是Daikon视为变量的表达式，见3.2。与不变量一样，类结构使得通过几个方法即可添加新的派生变量</li>
+<li><strong>输出格式</strong>：新的输出格式(见3.5)只需为每个不变量添加一个新的格式方法即可</li>
+<li><strong>抑制</strong>：如5.2所述，如果某个不变量在逻辑上蕴含了其它不变量，则被蕴涵的不变量被抑制。每种不变量都可以指定一组可能的抑制。每个抑制都是一组前提不变量，共同推出一个结论不变量。通过列出勾成抑制的前提不变量，则不变量被抑制</li>
+<li><strong>模块化</strong>：Daion的设计使其易于作为另一个工具的另一部分使用。其入口处都有一个相应的mainHelper方法，可以以编程方式调用，且永远不会调用System.exit。肯呢个的不变量被写入序列化文件，便于编程使用。有超过100个配置选项可以控制Daikon的行为，Daikon为开源的，允许用户进行更改，并向Daikon贡献新的代码</li>
+</ul>
+<h3 id="6-%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B" tabindex="-1">6 开发过程</h3>
+<ul>
+<li>Daikon被设计为一个长期的，功能健全的，健壮的研究工具。尽管学术研究环境充满挑战（例如，许多短期开发人员，每个人都有非常具体的工作重点），但其开发过程的设计确保其设计目的。该过程关键有
+<ul>
+<li>月度发布：Daikon每个月会发布一个新版本，这确保构建过程是干净的，文档是最新的，其还有一个及时解决问题的激励</li>
+<li>文档：Daikon有广泛的用户和开发者手册，此外还有描述其算法和使用的技术论文，手册的部分内容是从源代码文档自动创建的，以确保正确性</li>
+<li>支持：存在几个由版主管理的邮件列表，用于用户和开发者的交流。大多数问题会在几天内得到恢复。</li>
+<li>回归测试：每晚会对推理引擎和插装工具进行回归测试，并且在提交代码更改之前由开发人员进行测试。由于其CVS历史和回归测试，Daikon在许多论文中被用作测试对象</li>
+</ul>
+</li>
+</ul>
+<h3 id="7-%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7%E6%AF%94%E8%BE%83" tabindex="-1">7 相关工具比较</h3>
+<ul>
+<li>由Agitar开发的Agitator产评受到了Daikon的启发[31].Agitar执行动态不变量检测，以便向用户通报测试情况，并改进这些测试。结果称之为“观察”，其包括等式x=y,范围-10&lt; x &lt; y,非空 x！=null，等式.equal，以及从用户源代码收集的属性。Agitar获得了《华尔街日报》2005年软件技术创新奖</li>
+<li>DIDUCE工具[14]用于Java程序，检查一个一元不变量，该不变式会指出所有以前见过的值的每一位的值。在每个程序点（字段或数组引用，或过程调用），都会检查该不变量的三个值：变量当前值，上一个值，二者间茶之。随着不变量的弱化（在观察位置发现新值），打印一条信息。用户可以寻找错误运行中或错误发生之前打印不变量的弱化，发现罕见的边界错误。该工具被用于解释几个已知错误，并揭示了两个新错误。</li>
+<li>IODINE工具[32]使用动态分析从硬件设计中提取可能的设计属性，它寻找如状态机协议，请求-确认对，信号之间的互斥这样的属性。IODINE被用来为双核SPARCTM处理器的一个模块寻找动态不变量</li>
+<li>Remote program sampling[19]是一种轻量化的方法,用于评估C程序中的两种属性，并计算满足每种属性的次数。这些属性是概率性检查的：在大多数程序的执行点中，属性检查会被跳过。其它任何实现都可以进行类似的扩展,牺牲在测试套件上的准确性，但提高了性能。结果通过统计分析进行处理，因此可能导致错误。</li>
+<li>Henkel和Diwan [33,34]构建了一个工具，用于发现代数规范，这些规范描述了代码操作序列的含义，如pop(push(x,stack))=stack。该工具从Java类的签名生成许多术语（测试用例），并根据测试结果提出方程式。该工具还提出并测试泛化。</li>
+<li>SPIN模型检查器已经扩展到检查两个变量是否由=、&lt;、&gt;、≤或≥相关联[35]。输出是一个节点上有变量、边缘上带有比较关系的图。</li>
+<li>一些研究人员从程序或系统跟踪中推断出有限状态自动机，表示允许的转换[36-39]。以自动机形式编写的规范与动态不变量检测器生成的基于公式的程序属性相辅相成。</li>
+<li>Perracotta [40]与此类似，只是它寻找响应属性模式的一组扩展，而不是自动机。</li>
+</ul>
+<h3 id="8-%E7%BB%93%E8%AE%BA" tabindex="-1">8 结论</h3>
+<ul>
+<li>Daikon是一个功能齐全、可扩展且健壮的动态不变量检测工具。它支持多种编程语言，并且可以很容易地扩展到其他语言和数据源。它生成的可能不变量已经在从重构到测试到数据结构修复等多个上下文中使用过。</li>
+<li>Daikon可以从http://pag.csail.mit.edu/daikon/ 免费下载。该发行版包括源代码和大量文档，而且Daikon的许可证允许无限制使用。</li>
+</ul>
+<h2 id="2-searching-for-invariants-using-genetic-programming-and-mutation-testing" tabindex="-1">2 Searching for invariants using genetic programming and mutation testing</h2>
 <ul>
 <li>引用：Ratcliff S, White D R, Clark J A. Searching for invariants using genetic programming and mutation testing[C]//Proceedings of the 13th annual conference on Genetic and evolutionary computation. 2011: 1907-1914.</li>
 <li>CCF C GECCO</li>
@@ -39,27 +340,86 @@ CCF C GECCO
 </ul>
 </li>
 </ul>
-<h2 id="dig" tabindex="-1">Dig</h2>
-<p>T. Nguyen, D. Kapur, W. Weimer, and S. Forrest, “Dig: A dynamic<br>
-invariant generator for polynomial and array invariants,” ACM Trans.<br>
-Softw. Eng. Methodol., vol. 23, no. 4, sep 2014. [Online]. Available:<br>
-<a target="_blank" rel="noopener" href="https://doi.org/10.1145/2556782">https://doi.org/10.1145/2556782</a></p>
-<h2 id="feedback-driven-dynamic-invariant-discovery" tabindex="-1">Feedback-driven dynamic invariant discovery</h2>
-<p>L. Zhang, G. Yang, N. Rungta, S. Person, and S. Khurshid,<br>
-“Feedback-driven dynamic invariant discovery,” in Proceedings<br>
-of the 2014 International Symposium on Software Testing and<br>
-Analysis, ser. ISSTA 2014. New York, NY, USA: Association<br>
-for Computing Machinery, 2014, p. 362–372. [Online]. Available:<br>
-<a target="_blank" rel="noopener" href="https://doi.org/10.1145/2610384.2610389">https://doi.org/10.1145/2610384.2610389</a></p>
-<h2 id="dysy%3A-dynamic-symbolic-execution-for-invariant-inference" tabindex="-1">Dysy: Dynamic symbolic execution for invariant inference</h2>
-<p>C. Csallner, N. Tillmann, and Y. Smaragdakis, “Dysy: Dynamic<br>
-symbolic execution for invariant inference,” in Proceedings of the<br>
-30th international conference on Software engineering, 2008, pp.<br>
-281–290</p>
-<h2 id="%E4%BD%BF%E7%94%A8%E5%9F%BA%E4%BA%8E%E6%90%9C%E7%B4%A2%E6%9D%A5%E5%AF%BB%E6%89%BE%E4%B8%8D%E5%8F%98%E9%87%8F" tabindex="-1">使用基于搜索来寻找不变量</h2>
-<p>M. Harman, P. McMinn, J. T. de Souza, and S. Yoo, “Search based<br>
-software engineering: Techniques, taxonomy, tutorial,” in Empirical Software Engeneering and Verification, B. Meyer and M. Nordio,<br>
-Eds. New York, NY, USA: Springer, 2012 pp. 1–59.</p>
+<h2 id="3.-automatic-requirement-extraction-from-test-cases" tabindex="-1">3. Automatic Requirement Extraction from Test Cases</h2>
+<ul>
+<li>引用：Ackermann C, Cleaveland R, Huang S, et al. Automatic requirement extraction from test cases[C]， Runtime Verification: First International Conference, RV 2010, St. Julians, Malta, November 1-4, 2010. Proceedings 1. Springer Berlin Heidelberg, 2010: 1-15.</li>
+</ul>
+<h3 id="0-%E6%91%98%E8%A6%81-1" tabindex="-1">0 摘要</h3>
+<ul>
+<li>本论文描述了一种从测试中提取功能需求的方法，其中测试采用输入向量（提供给系统）和输出（系统响应输入而产生）的形式。
+<ul>
+<li>该方法使用数据挖掘技术从测试数据中推断不变式，并利用自动验证技术来确定这些提出的不变式中哪些确实是不变的，因此可以被视为需求。</li>
+<li>来自涉及汽车电子应用的试点研究的实验结果表明，使用完全覆盖软件结构的测试比结构性不可知的黑盒测试能够产生更完整的不变式。</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-%E4%BB%8B%E7%BB%8D-1" tabindex="-1">1 介绍</h3>
+<ul>
+<li>
+<p>本文提出并评估了一种基于数据挖掘的方法，用于自动从可执行软件构件中提取需求。这项工作的动机是使需求文档更加准确和完整。</p>
+</li>
+<li>
+<p>用于遵循读-执行-写行为模型的软件</p>
+<ul>
+<li>首先，使用自动化测试生成器生成按照几种结构覆盖标准覆盖模型的输入序列集合；每个输入向量产生的输出结果也被收集</li>
+<li>然后，将数据挖掘工具应用于测试数据，以推断在整个测试集上保持不变的输入和输出变量之间的关系（不变式）</li>
+<li>在后续的验证步骤中，使用自动化工具检查哪些提出的不变式确实是不变的；通过这一步骤的不变式随后被提议作为需求。</li>
+</ul>
+</li>
+<li>
+<p>本文结构</p>
+<ul>
+<li>第2节提供了关于数据挖掘、不变式推理以及用于进行本研究的工具和验证技术的背景。</li>
+<li>第3节更详细地概述了我们的方法</li>
+<li>第4节和第5节介绍了涉及生产级汽车应用程序的试点研究结果</li>
+<li>第6节讨论了相关工作</li>
+<li>最后一节包含了我们的结论和未来工作的想法。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-%E8%83%8C%E6%99%AF" tabindex="-1">2 背景</h3>
+<ul>
+<li>本项工作受到了Raz等人[18, 17]的启发，他们使用数据挖掘工具从运行系统的执行轨迹中推断不变式，用于异常检测的目的。我们的动机不同在于，我们的工作旨在从模型驱动开发的汽车系统程序测试数据中重建需求。</li>
+</ul>
+<h4 id="2.1-%E4%BB%8E%E8%BF%90%E8%A1%8C%E4%B8%AD%E6%8E%A8%E6%96%AD%E4%B8%8D%E5%8F%98%E9%87%8F" tabindex="-1">2.1 从运行中推断不变量</h4>
+<h4 id="2.3-%E5%9F%BA%E4%BA%8E%E4%BB%AA%E5%99%A8%E7%9A%84%E9%AA%8C%E8%AF%81" tabindex="-1">2.3 基于仪器的验证</h4>
+<h3 id="3-%E6%8F%90%E5%8F%96%E9%9C%80%E6%B1%82" tabindex="-1">3 提取需求</h3>
+<ul>
+<li>步骤如下，依赖于使用覆盖测试和数据挖掘工具，从模型的模拟执行运行生成的测试数据中提出不变式，以及对这些不变式的随后验证。</li>
+<li><strong>1 测试用例生成</strong>：通过自动化，基于覆盖的测试生成工具，在设计模型上运行生成的输出</li>
+<li><strong>2 不变量推理</strong>：使用关联规则挖掘工具在第1步的测试数据中发现不变式。该工具提出了一组被认为是被检查模型的不变式的关联规则。我们只报告强度值等于1.0的不变式，这是强度分数可以达到的最大值[22]。这等价于意味着任何报告的不变式在观察到的数据中没有反例，即它是对执行推理的证据的真实不变式。</li>
+<li><strong>3 不变式验证</strong>：模型覆盖度量仅仅保证关键元素（块、条件、决策等）在测试套件中至少执行了一次。当然，它们不能强制覆盖所有可能行为的完整覆盖（即路径覆盖）。这就是为什么推断出的不变式不能假设为真正的需求，并且必须进一步验证以便作为需求报告
+<ul>
+<li>在Raz等人[18,17]这个验证是手动进行的。我们改为通过将每个候选要求转换为监控模型，并使用IBV来确定提出的不变式是否可以被证明无效，来自动化这个验证步骤。</li>
+<li>在执行这个验证时，验证工具将生成一个新的测试套件，该测试套件在其尝试最大化模型覆盖的过程中，将尝试违反监控模型。如果监控模型不满足，那么它所代表的假定不变式并非对所有轨迹都成立，因此被丢弃。如果监控模型满足，那么我们可以说，具有很高信心水平地，已经从设计模型中推断出一个有效的不变式，并且可以视为一个需求。</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C" tabindex="-1">6 相关工作</h3>
+<ul>
+<li>Ernst等人提出的Daikon系统[8]在C、C++、Java和Perl编写的程序中动态检测“可能的不变式”。该方法的早期步骤使用代码插装器获取跟踪数据，这些数据被传递到其推理算法中。这些跟踪数据不能保证对检查中的程序有良好的覆盖；Ernst等人指出，可能需要对检查中的程序进行多次运行并结合。Daikon提出的不变式会检查冗余，但对于除了所提供的跟踪数据之外的测试用例，很难验证不变式的正确性</li>
+</ul>
+<h3 id="7-%E7%BB%93%E8%AE%BA" tabindex="-1">7 结论</h3>
+<ul>
+<li>本文提出了一个从可执行软件工件（例如遵循读-计算-写行为模型的控制软件）中重建需求的框架。该方法依赖于对结构覆盖工件的测试数据应用数据挖掘技术，以导出形式为不变式的建议需求，表达输入和输出之间的关系。然后，该方法使用自动化验证步骤来识别假的不变式。该方法在一个用Simulink建模的生产汽车照明控制应用程序上进行了试点；实验数据表明，使用全覆盖测试数据比随机测试数据产生更好的不变式集，并且迭代应用该方法可以进一步改进这些不变式。</li>
+<li>作为未来的工作，我们希望进一步试验该方法，使用其他与汽车相关的Simulink模型。我们还希望研究使用不同的覆盖标准（如决策覆盖、MC/DC等）对不变式集质量的影响。最后，本研究中研究的不变式缺乏时间方面的内容；我们有兴趣追求允许推断包含时间元素的需求（例如“如果a发生，则b必须在x时间单位内发生”）的需求生成策略。</li>
+</ul>
+<h2 id="4-dig" tabindex="-1">4 Dig</h2>
+<ul>
+<li>引用：Nguyen T V, Kapur D, Weimer W, et al. DIG: A dynamic invariant generator for polynomial and array invariants[J]. ACM Transactions on Software Engineering and Methodology (TOSEM), 2014, 23(4): 1-30.</li>
+<li>CCF A TOSEM</li>
+</ul>
+<h2 id="5-feedback-driven-dynamic-invariant-discovery" tabindex="-1">5 Feedback-driven dynamic invariant discovery</h2>
+<ul>
+<li>引用：Zhang L, Yang G, Rungta N, et al. Feedback-driven dynamic invariant discovery[C]，Proceedings of the 2014 International Symposium on Software Testing and Analysis. 2014: 362-372.</li>
+<li>CCF A ISSTA</li>
+<li><a target="_blank" rel="noopener" href="https://doi.org/10.1145/2610384.2610389">链接</a></li>
+</ul>
+<h2 id="6-dysy%3A-dynamic-symbolic-execution-for-invariant-inference" tabindex="-1">6 Dysy: Dynamic symbolic execution for invariant inference</h2>
+<ul>
+<li>引用：Csallner C, Tillmann N, Smaragdakis Y. DySy: Dynamic symbolic execution for invariant inference[C]，Proceedings of the 30th international conference on Software engineering. 2008: 281-290.</li>
+<li>CCF A ICSE</li>
+</ul>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
-</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2024/03/15/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/invariant/%E5%9F%BA%E4%BA%8E%E4%B8%8D%E5%8F%98%E9%87%8F%E7%9A%84%E7%A8%8B%E5%BA%8F%E4%BF%AE%E5%A4%8D/" title="基于不变量的程序修复"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: 基于不变量的程序修复</span></a><a class="button is-default" href="/2024/03/15/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/invariant/%E4%B8%8D%E5%8F%98%E9%87%8F%E4%BB%A3%E8%A1%A8%E5%8A%9F%E8%83%BD%E8%83%BD%E5%8A%9B%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" title="不变量与相关论文阅读"><span class="has-text-weight-semibold">Next: 不变量与相关论文阅读</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2024</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2024/03/15/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/invariant/%E4%B8%8D%E5%8F%98%E9%87%8F%E4%B8%8E%E7%A8%8B%E5%BA%8F%E4%BF%AE%E5%A4%8D%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/" title="不变量与程序修复相关论文"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: 不变量与程序修复相关论文</span></a><a class="button is-default" href="/2024/03/15/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/invariant/%E4%B8%8D%E5%8F%98%E9%87%8F%E4%BB%A3%E8%A1%A8%E5%8A%9F%E8%83%BD%E8%83%BD%E5%8A%9B%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" title="不变量代表功能能力相关论文阅读"><span class="has-text-weight-semibold">Next: 不变量代表功能能力相关论文阅读</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2024</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
