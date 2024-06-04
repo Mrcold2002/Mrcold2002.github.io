@@ -6,19 +6,21 @@ CCF A USENIX Security
 链接
 代码
 
+
 0 摘要
 动机
 
 模糊测试已经被证明是发现程序漏洞的有效技术，但仍存在一些开放的挑战。
 
-其中一个主要挑战是，广受欢迎的基于覆盖率引导的模糊测试会尽可能的将测试用例覆盖程序的不同部分，但仅仅考虑覆盖率可能并不能充分.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">不变量作为fuzzers的反馈</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#the-use-of-likely-invariants-as-feedback-for-fuzzers"><span class="toc-text">The use of likely invariants as feedback for fuzzers</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0-%E6%91%98%E8%A6%81"><span class="toc-text">0 摘要</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E6%9C%BA"><span class="toc-text">动机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3"><span class="toc-text">解决</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1 介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-text">背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E7%AE%80%E4%BB%8B"><span class="toc-text">方法简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%A1%E7%8C%AE"><span class="toc-text">贡献</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%83%8C%E6%99%AF"><span class="toc-text">2 背景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2.1-%E7%A8%8B%E5%BA%8F%E5%B1%9E%E6%80%A7%E5%92%8C%E4%B8%8D%E5%8F%98%E9%87%8F"><span class="toc-text">2.1 程序属性和不变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.2-fuzz-testing"><span class="toc-text">2.2 Fuzz Testing</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#feedback-driven-fuzz-testing"><span class="toc-text">Feedback-Driven Fuzz Testing</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%96%B9%E6%B3%95"><span class="toc-text">3 方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3.1-program-state-partitions"><span class="toc-text">3.1 Program State Partitions</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.2-using-invariants-as-feedback"><span class="toc-text">3.2 Using Invariants as Feedback</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.3-pruning-the-generated-checks"><span class="toc-text">3.3 Pruning the Generated Checks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.4-%E8%BE%93%E5%85%A5%E9%9B%86%E9%80%89%E6%8B%A9"><span class="toc-text">3.4 输入集选择</span></a></li></ol></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/Invariant"><i class="tag post-item-tag">Invariant</i></a><a href="/tags/Fuzzing"><i class="tag post-item-tag">Fuzzing</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">不变量作为fuzzers的反馈</h1><time class="has-text-grey" datetime="2024-04-26T05:17:23.240Z">2024-04-26</time><article class="mt-2 post-content"><h2 id="the-use-of-likely-invariants-as-feedback-for-fuzzers" tabindex="-1">The use of likely invariants as feedback for fuzzers</h2>
+其中一个主要挑战是，广受欢迎的基于覆盖率引导的模糊测试会尽可能的将测试用例覆盖程序的不同部分，但仅仅考虑覆盖率可能并不能充.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">不变量作为fuzzers的反馈</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#the-use-of-likely-invariants-as-feedback-for-fuzzers"><span class="toc-text">The use of likely invariants as feedback for fuzzers</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0-%E6%91%98%E8%A6%81"><span class="toc-text">0 摘要</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E6%9C%BA"><span class="toc-text">动机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3"><span class="toc-text">解决</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1 介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%83%8C%E6%99%AFb"><span class="toc-text">背景b</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E7%AE%80%E4%BB%8B"><span class="toc-text">方法简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%A1%E7%8C%AE"><span class="toc-text">贡献</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%83%8C%E6%99%AF"><span class="toc-text">2 背景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2.1-%E7%A8%8B%E5%BA%8F%E5%B1%9E%E6%80%A7%E5%92%8C%E4%B8%8D%E5%8F%98%E9%87%8F"><span class="toc-text">2.1 程序属性和不变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.2-fuzz-testing"><span class="toc-text">2.2 Fuzz Testing</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#feedback-driven-fuzz-testing"><span class="toc-text">Feedback-Driven Fuzz Testing</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%96%B9%E6%B3%95"><span class="toc-text">3 方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3.1-program-state-partitions"><span class="toc-text">3.1 Program State Partitions</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.2-using-invariants-as-feedback"><span class="toc-text">3.2 Using Invariants as Feedback</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.3-pruning-the-generated-checks"><span class="toc-text">3.3 Pruning the Generated Checks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.4-%E8%BE%93%E5%85%A5%E9%9B%86%E9%80%89%E6%8B%A9"><span class="toc-text">3.4 输入集选择</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%AE%9E%E7%8E%B0"><span class="toc-text">4 实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4.1-%E7%8A%B6%E6%80%81%E4%B8%8D%E5%8F%98%E9%87%8F%E5%AD%A6%E4%B9%A0"><span class="toc-text">4.1 状态不变量学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.2-%E7%A8%8B%E5%BA%8F%E6%8F%92%E6%A1%A9"><span class="toc-text">4.2 程序插桩</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%AF%84%E4%BC%B0"><span class="toc-text">5 评估</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5.1-rq1:invariantpruning"><span class="toc-text">5.1 RQ1:InvariantPruning</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2-rq2:stateexplosion"><span class="toc-text">5.2 RQ2:StateExplosion</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.3-rq3:program-state-exploration"><span class="toc-text">5.3 RQ3:Program State Exploration</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.4-rq4:bugdetection"><span class="toc-text">5.4 RQ4:BugDetection</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.5-rq5:run-timeoverhead"><span class="toc-text">5.5 RQ5:Run-TimeOverhead</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.6-discussion"><span class="toc-text">5.6 Discussion</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%85%B6%E5%AE%83%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-text">6 其它相关工作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6.1-invariants"><span class="toc-text">6.1 Invariants</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6.2-%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95"><span class="toc-text">6.2 模糊测试</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E9%99%90%E5%88%B6%E5%92%8C%E6%9C%AA%E6%9D%A5%E6%96%B9%E5%90%91"><span class="toc-text">7 限制和未来方向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E7%BB%93%E8%AE%BA"><span class="toc-text">8 结论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93"><span class="toc-text">9 个人总结</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/Invariant"><i class="tag post-item-tag">Invariant</i></a><a href="/tags/Fuzzing"><i class="tag post-item-tag">Fuzzing</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">不变量作为fuzzers的反馈</h1><time class="has-text-grey" datetime="2024-04-26T05:17:23.240Z">2024-04-26</time><article class="mt-2 post-content"><h2 id="the-use-of-likely-invariants-as-feedback-for-fuzzers" tabindex="-1">The use of likely invariants as feedback for fuzzers</h2>
 <ul>
 <li>引用：Fioraldi A, D’Elia D C, Balzarotti D. The use of likely invariants as feedback for fuzzers[C], 30th USENIX Security Symposium (USENIX Security 21). 2021: 2829-2846.</li>
 <li>CCF A USENIX Security</li>
 <li><a target="_blank" rel="noopener" href="https://www.usenix.org/system/files/sec21-fioraldi.pdf">链接</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/eurecom-s3/invscov">代码</a></li>
 </ul>
+<h1 id tabindex="-1"><img src="/images/%E8%AE%BA%E6%96%87/invariant/3_3.png" alt></h1>
 <h3 id="0-%E6%91%98%E8%A6%81" tabindex="-1">0 摘要</h3>
 <h4 id="%E5%8A%A8%E6%9C%BA" tabindex="-1">动机</h4>
 <ul>
@@ -49,9 +51,9 @@ CCF A USENIX Security
 </li>
 </ul>
 <h3 id="1-%E4%BB%8B%E7%BB%8D" tabindex="-1">1 介绍</h3>
-<h4 id="%E8%83%8C%E6%99%AF" tabindex="-1">背景</h4>
+<h4 id="%E8%83%8C%E6%99%AFb" tabindex="-1">背景b</h4>
 <ul>
-<li>fuzzing 成为发现软件漏洞的主要技术，其最初目的是随机生成非法或异常输入，以检测程序中的错误，如今的fuzzing经常依赖于一些启发式的方法来引导输入生成。
+<li>fuzzing 成为发现软件漏洞的主要技术，其最初目的是随机生成非法或异常输入，以检测程序中的bug，如今的fuzzing经常依赖于一些启发式的方法来引导输入生成。
 <ul>
 <li>距今，Coverage-Guided Fuzzing（CGF）是最流行的fuzzing技术之一，其选择可以提升程序代码覆盖率的输入，一般为CFG的唯一路径的数量</li>
 <li>随后，许多方法专注于克服CGF的限制，如
@@ -61,17 +63,20 @@ CCF A USENIX Security
 <li>或者搜寻程序中更有前景的部分[58,57,9]</li>
 </ul>
 </li>
-<li>尽管这些方法减少了到达目标程序不同部分的时间，但需要理解的是，仅仅代码覆盖是发现bug的必要不充分条件。实际上，bug触发时，（1）程序运行到一个给定指令（2）程序状态满足特定状态</li>
-<li>一方面，因为使用代码覆盖率来奖励探索结果导致模糊测试器没有任何动机去探索更多已经观察到的控制流事实（例如，分支及其频率）的状态。因此，现有工具检测涉及对程序状态复杂约束的错误变得更加困难。</li>
-<li>另一方面，简单地奖励模糊测试器探索新状态（状态覆盖率）也是一个不佳的策略，这通常会降低错误检测率。这是因为对于复杂的应用程序来说，程序状态爆炸</li>
+<li>尽管这些方法减少了到达目标程序不同部分的时间，但需要理解的是，仅仅代码覆盖是发现bug的必要不充分条件。实际上，bug触发时，（1）程序运行到一个给定指令（2）程序状态满足特定状态。</li>
+<li>一方面，因为使用代码覆盖率来奖励探索结果导致模糊测试器没有任何动机去探索更多已经观察到的控制流事实（例如，分支及其频率）的状态。因此，现有工具检测涉及对程序状态复杂约束的bug变得更加困难。</li>
+<li>另一方面，简单地奖励模糊测试器探索新状态（状态覆盖率）也是一个不佳的策略，这通常会降低bug检测率。这是因为对于复杂的应用程序来说，程序状态爆炸</li>
 <li>因此，需要特殊的技术来控制测试时程序的转该，同时保持fuzzer触发bug的能力，如今有一些工作想达到这种平衡。
 <ul>
 <li>一些fuzzer通过更敏感的反馈来近似程序状态，如使用调用堆栈信息或内存中加载和存储的值来丰富代码覆盖率。</li>
-<li>另一些，如[79]，除考虑控制流外，还有程序状态中的值，更好地近似了程序状态覆盖率，但在发现错误方面效率较低，因为其引发了状态爆炸</li>
+<li>另一些，如[79]，除考虑控制流外，还有程序状态中的值，更好地近似了程序状态覆盖率，但在发现bug方面效率较低，因为其引发了状态爆炸</li>
 </ul>
 </li>
-<li>为了在避免状态爆炸的同时捕获更丰富状态信息，研究人员还研究了人工辅助的解决方案。<br>
-如FUZZ FACTORY [60]允许开发人员定义他们的领域特定目标，然后添加waypoints，当生成的测试用例朝这些目标取得进展时（例如，当两个比较操作数之间有更多的位相同），奖励模糊测试器。</li>
+<li>为了在避免状态爆炸的同时捕获更丰富状态信息，研究人员还研究了人工辅助的解决方案。
+<ul>
+<li>如FUZZ FACTORY [60]允许开发人员定义他们的领域特定目标，然后添加waypoints，当生成的测试用例朝这些目标取得进展时（例如，当两个比较操作数之间有更多的位相同），奖励模糊测试器。</li>
+</ul>
+</li>
 <li>在撰写本文时，目前最成功的程序状态覆盖的估计由一个仅由人类专家选择的程序点组成[4]。在这项工作中，状态空间部分手动标注，并且修改了反馈函数以更彻底地探索这样的空间。我们相信，这一过程的自动化是该领域的关键课题。</li>
 </ul>
 </li>
@@ -82,8 +87,7 @@ CCF A USENIX Security
 <ul>
 <li>关键思想是，将边覆盖率–fuzzer使用最广泛和成功的代码覆盖率指标–与“usual”变量值的本地信息差相结合。</li>
 <li>为此，我们通过执行输入语料库并学习所有观察到的执行的变量值和关系的约束来挖掘程序的可能的不变量。一个很重要的点是，基于执行的不变量挖掘产生的约束不一定模拟程序的属性，而是分析输入语料库的本地特征[25],因此，不同的输入可能违反约束</li>
-<li>我们的直觉是，这些本地特征代表了程序状态的一个有趣抽象。因此，我们定义了一种新的反馈函数，当传入的基本块看到一个或多个违反可能不变量的变量值时，会对边进行不同处理。这种方法提升了CFG<br>
-系统的灵活性，奖励探索代码覆盖率本身无法区分的程序状态。</li>
+<li>我们的直觉是，这些本地特征代表了程序状态的一个有趣抽象。因此，我们定义了一种新的反馈函数，当传入的基本块看到一个或多个违反可能不变量的变量值时，会对边进行不同处理。这种方法提升了CFG系统的灵活性，奖励探索代码覆盖率本身无法区分的程序状态。</li>
 </ul>
 </li>
 <li>我们开发了一组启发式方法来生成和细化不变量，并采用了有效的技术使得以很低的性能开销在程序中插装–这是一个很重要的指标。我们将它们实现为一个原型INVSCOV，基于LLVM[43],AFL++[30]</li>
@@ -145,7 +149,7 @@ CCF A USENIX Security
 <li>White-box fuzzers：使用程序分析为程序构建完整图像。</li>
 </ol>
 <ul>
-<li>concolic executors like SAGE[33],SYMCC[66] 属于这类。然而，白盒测试untenable[62]</li>
+<li>concolic executors like SAGE[33],SYMCC[66] 属于这类。然而，白盒测试分析消耗untenable[62]，难以维持的。</li>
 </ul>
 </li>
 <li>
@@ -263,7 +267,6 @@ CCF A USENIX Security
 </ol>
 <ul>
 <li>为了消除这些关系，我们为被测试程序的每个函数计算可比性集：每个变量仅属于一个这样的集合，并且丢弃跨不同集合组合变量的不变量。</li>
-<li>We initially create a separate set for each variable, then use a unification-based policy by iterating over function instructions and merging the sets of two variables whenever those occur as operands for the same statement.</li>
 <li>最终，一个可比较集合包括了参与相关计算的变量。有几个例外情况：例如，在数组指针计算中，我们不会合并基元素和索引元素的集合，因为它们不是直接相关的。</li>
 </ul>
 </li>
@@ -272,6 +275,7 @@ CCF A USENIX Security
 <li>每当不同的不变量具有重叠的条件时，通过重用先前计算的值来优化它们的运行时验证。</li>
 </ol>
 <ul>
+<li>这一步针对Daikon在函数节点处枚举模板，如果函数中位操作就不用枚举。</li>
 <li>特别地，我们针对共享某些变量上相同条件的一对可能不变量进行优化。</li>
 <li>如果这两个不变量涉及两个程序点p,p0,其中p0只能在p之后执行，我们使用标准的敏感流分析来确定在p和p0之间是否存在任何涉及变量的中间重新定义。此时，我们只需传播在p处计算的值，从而节省在p0处的计算成本。</li>
 </ul>
@@ -295,6 +299,214 @@ CCF A USENIX Security
 <li>试验显示，使用从过拟合的语料库中提取的不变量比从fuzzer输入队列提取的不变量，在我们的方法中，前者会比后者少发现20%的bug</li>
 </ul>
 </li>
+</ul>
+<h3 id="4-%E5%AE%9E%E7%8E%B0" tabindex="-1">4 实现</h3>
+<ul>
+<li>
+<p>之前章节，我们介绍了动机和我们方法的关键思想。然而，我们有目的性的避免讨论了我们方法的两个重要的方面</p>
+<ul>
+<li>
+<ol>
+<li>我们如何定义我们想从不变量中捕获的<em>状态</em></li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>我们如何在被测试程序中插桩来收集我们技术需要的信息</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>我们的方法可以以不同的方式实现：</p>
+<ul>
+<li>可以在目标源码上插桩，或在二进制上进行静态重写[20]或动态翻译[17]，各种方法都有优缺点。</li>
+<li>本研究选择基于编译的实现，使用LLVM[43]和DAIKON[25]在我们invariant-based fuzzing。</li>
+</ul>
+</li>
+<li>
+<p>我们的原型是用C++编写的，并重新利用了Pereira等人[68]提出的用于LLVM的快速函数内整数范围分析，该分析需要渐近线性时间完成。</p>
+</li>
+<li>
+<p>下图2展示了我们原型的结构图。我们为LLVM实现了两个自定义的编译转换阶段。</p>
+<ul>
+<li><em>学习阶段</em>：进行日志记录插桩，收集程序中变量状态，提供给不变量推断工具。</li>
+<li><em>插桩阶段</em>：增强被测试代码，使得不变量可以直接适配基于覆盖的fuzzer<br>
+<img src="/images/%E8%AE%BA%E6%96%87/invariant/3_3.png" alt></li>
+</ul>
+</li>
+<li>
+<p>学习阶段：</p>
+<ul>
+<li>在输入语料库上执行增强版本的被测试程序，输入可有多种方式获得（$3.4;$5中使用24小时的覆盖率引导模糊测试生成种子）</li>
+<li>对于不变量挖掘，使用Daikon。 在每个插桩的位置，不变量挖掘的时间复杂度是变量数量的立方，然而由于我们的技术是在基本块级别上，变量数量为很小的常熟。</li>
+</ul>
+</li>
+<li>
+<p>插桩阶段：</p>
+<ul>
+<li>将推断的不变量信息编码到函数中来将它们暴露给 基于覆盖的模糊测试器。转换后的程序可以直接在任何基于AFL的模糊测试工具上运行。</li>
+</ul>
+</li>
+</ul>
+<h4 id="4.1-%E7%8A%B6%E6%80%81%E4%B8%8D%E5%8F%98%E9%87%8F%E5%AD%A6%E4%B9%A0" tabindex="-1">4.1 状态不变量学习</h4>
+<ul>
+<li>
+<p><strong>原型实现在LLVM的IR上的好处：</strong></p>
+<ul>
+<li>因此容易在程序的基本块级别暴露程序状态。</li>
+<li>此外，IR允许我们避免在源代码级别追踪复杂数据类型时出现未初始化值的问题[1]。</li>
+<li>Daikon的前端Kvasir使用耗费昂贵的动态二进制插桩[17]读取变量并检测内存。然而在IR上，我们可以我们只需等待地址在加载操作的结果中出现在虚拟寄存器中，然后将其用于追踪。</li>
+<li>使用IR的另一个优点：在IR中，指令通常以单一静态赋值（SSA）形式表达[70]。SSA意味着每个变量只能被赋值一次，每个使用必须由一个（唯一的）先前定义到达。</li>
+</ul>
+</li>
+<li>
+<p><strong>SAA相关：</strong></p>
+<ul>
+<li>为了简便，我们忽略了浮点数指令，只对整数的SSA变量建模。</li>
+<li>对于局部变量，由于在IR中一个源级变量可能存在多个SSA变量，我们将我们的分析限制在那些可以直接连接到源级变量的SSA变量上，通过使用来自LLVM前端的调试元数据。</li>
+<li>当程序访问非局部存储或非原始类型的字段时，LLVM将作为当前内容的加载操作的结果引入一个SSA变量。通过对这种IR变量进行仪器化，我们的不变量挖掘也扩展到全局变量、堆存储和结构体的字段。</li>
+<li>由于我们的目标不仅仅是对应用程序的状态进行建模，而是提高<strong>面向安全的测试技术的有效性</strong>，因此我们的分析重点在可能引起安全问题的变量上，根据以下三个规则：
+<ul>
+<li>该变量是GetElementPtr指令的一部分进行指针计算，除非仅涉及常量索引；</li>
+<li>通过使用Load或Store指令将变量值从内存加载或存储；</li>
+<li>该变量代表函数的返回值。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>LLVM管道</strong></p>
+<ul>
+<li>我们实现了LLVM函数管道收集变量的值，同时完成对感兴趣变量的插桩，并完成了可比较集和值域分析[68]来进行不变量修建。</li>
+<li>管道为每个代码模块创建json文件存储程序点和变量的信息（类型，比较集，范围）。随后将这些文件综合得到Daikon的declaration文件，随后依据比较集和范围提纯不变量（见$3.3）。</li>
+</ul>
+</li>
+<li>
+<p><strong>Daikon使用</strong></p>
+<ul>
+<li>我们指导Daikon在每个输入上运行插桩后程序，找到检测变量的值。</li>
+<li>我们使用Daikon的即时使用模块挖掘不变量，其会从每个执行中依次学习不变量</li>
+</ul>
+</li>
+</ul>
+<h4 id="4.2-%E7%A8%8B%E5%BA%8F%E6%8F%92%E6%A1%A9" tabindex="-1">4.2 程序插桩</h4>
+<p>略</p>
+<h3 id="5-%E8%AF%84%E4%BC%B0" tabindex="-1">5 评估</h3>
+<ul>
+<li>
+<p><strong>研究问题</strong></p>
+<ul>
+<li>RQ1：我们的不变量删除是否有效地减少了不变量的数量？</li>
+<li>RQ2: 我们的反馈机制导致了状态爆炸吗？</li>
+<li>RQ3: 我们的反馈机制可以比单纯基于代码覆盖机制探索更多程序状态吗？</li>
+<li>RQ4: 我们的反馈机制可以比基于覆盖的揭示更多或不同的bug吗？</li>
+<li>RQ5: 我们的反馈机制引入的性能消耗如何？</li>
+</ul>
+</li>
+<li>
+<p><strong>基准程序</strong></p>
+<ul>
+<li>选择8个现实世界的目标程序，工作在不同类型文件上，同时我们为他们在解析阶段的实现使用了不同的策略
+<ul>
+<li>我们选择了包含bug且广泛应用于之前工作的版本[31,51,69]</li>
+<li>我了更严密的评估，我们也人工增加了bug来评估bug发现能力。</li>
+</ul>
+</li>
+<li>LAVA-M[22]基准不合适我们的方法，因为其包含的错误依赖magic-value ($6.2)比较[38]</li>
+<li>MAGMA [38] 基准也不合适，因为它们的硬编码日志记录原语（用于检查真实情况）分割了基本块，因此与我们的不变式构建和插装的粒度冲突。</li>
+<li>表一展示了实验的程序。这里还展示了感知器，我们使用了AddressSanitizer (ASAN) 和 UndefinedBehaviourSanitizer (UBSAN) 编译时插装。然而，我们不得不为两个应用程序禁用 UBSAN，因为它引入了不想要的副作用，即使使用最简单的测试输入也会使它们崩溃。</li>
+</ul>
+</li>
+<li>
+<p><strong>试验设置</strong></p>
+<ul>
+<li>机器：x86_64，Intel® Xeon® Platinum 8260 CPU 2.4Ghz</li>
+<li>使用AFL<ins>版本2.65d作为我们方法的参考fuzzer，随后与其他配置的AFL</ins>及进行比较</li>
+<li>我们进行了5次实验减小fuzzing误差，使用中位数作为结果，每个实验48h的界限</li>
+<li>从有效文件的初始组出发，我们使用AFL++运行24h获得种子队列作为初始输入，这即会用在提取不变量也会用在fuzzers的种子上。</li>
+<li>剩余部分中，以下为我们的方法对比定义
+<ul>
+<li>INVSCOV：使用基于不变量插桩的fuzzer</li>
+<li>CODECOV：使用经典代码覆盖的fuzzer</li>
+<li>CTXCOV：使用上下文敏感的增强代码覆盖的fuzzer</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="5.1-rq1%3Ainvariantpruning" tabindex="-1">5.1 RQ1:InvariantPruning</h4>
+<ul>
+<li>计量最后产生的不变量数量对比</li>
+<li>表2展示优化前后数量对比，共三个阶段：无优化，学习阶段优化，插桩阶段优化<br>
+<img src="/images/%E8%AE%BA%E6%96%87/invariant/3_4.png" alt></li>
+<li>尽管看起来不变量数量优化较少，但确实可以增加fuzzer10%的运行效率</li>
+</ul>
+<h4 id="5.2-rq2%3Astateexplosion" tabindex="-1">5.2 RQ2:StateExplosion</h4>
+<h4 id="5.3-rq3%3Aprogram-state-exploration" tabindex="-1">5.3 RQ3:Program State Exploration</h4>
+<h4 id="5.4-rq4%3Abugdetection" tabindex="-1">5.4 RQ4:BugDetection</h4>
+<h4 id="5.5-rq5%3Arun-timeoverhead" tabindex="-1">5.5 RQ5:Run-TimeOverhead</h4>
+<h4 id="5.6-discussion" tabindex="-1">5.6 Discussion</h4>
+<ul>
+<li>我们的实验结果证实了我们的反馈，通过让变量与他们的“寻常值”不同，来提升fuzzer对只代码覆盖不能奖励到的程序状态的敏感度。</li>
+<li>在65个程序bug点只有我们的方法可以触发的情况下，只进行代码覆盖只达到了43个，因为程序没有处在错误地状态。即使用了强化的代码覆盖反馈如上下文敏感，我们的方法也能发现更多bug。</li>
+<li>我们的反馈机制产生的输入队列大小仅增长了62%，远小于内存反馈和一些基于代码的反馈。每个测试用例生成平均而言减缓了8%。这些代价可以被我们多发现的bug偿还。</li>
+<li>与边缘覆盖相比，反馈机制在代码覆盖率方面不是递减的，在某些情况下，它还可以解锁更多的依赖于状态的程序部分以进行进一步探索。在综合场景中进行了简短的实验，发现INVSCOV和细粒度的代码反馈形式可以相互补充。这样的模糊器将能够更好地区分和探索那些受到控制流事实（例如调用路径）影响的状态属性。</li>
+</ul>
+<h3 id="6-%E5%85%B6%E5%AE%83%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C" tabindex="-1">6 其它相关工作</h3>
+<ul>
+<li>本节覆盖了安全相关的使用了不变量的作品，还有与我们方法相关的可以增强fuzzing效率的技术。</li>
+</ul>
+<h4 id="6.1-invariants" tabindex="-1">6.1 Invariants</h4>
+<ul>
+<li>不变量在历史上在许多发展的领域如软件测试，软件优化和维护[26]起到了关键的左右。在安全研究的上下文中，许多工作也探索了不变量在其它问题上的应用。</li>
+<li>在畸形检测上下文中，不变量可以作为程序加固的oracle。例如[32,75]通过程序插桩阻止生产环境中的内存损坏利用，因为运行时检查的成本相对较低。Web应用程序也可以从类似的保护中受益，如[15]中使用DAIKON和PHPcode所探索的那样。</li>
+<li>故障定位：当多个不变量被违反时，一个典型的根因定位的工作流程是研究相似的输入来过滤掉不相关的不变量。如[71]，使用 dynamic backward slicing移除更多不变量。[7]对学习到的谓语进行统计学分析。</li>
+<li>在$2.1中我们提到了将不变量作为规范在基于属性的测试中至关重要。QUICKCHECK [12]可能是这类系统中最著名的一个。最近的工作，如ZEST [59]和HYPOTHESIS [48]，分别借鉴了模糊测试的概念，如反馈驱动的变异，以提高它们在测试Java和Python代码库时的效率。</li>
+</ul>
+<h4 id="6.2-%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95" tabindex="-1">6.2 模糊测试</h4>
+<ul>
+<li>
+<p>Fuzz Testing（模糊测试）是学术界和工业界广泛关注的焦点，每年尝试改进其技术各个方面的工作数量呈爆炸式增长[50]。</p>
+</li>
+<li>
+<p>我们认为，除了在$2.2节讨论的反馈进之外，fuzzer最重要的改进包括 绕过代码覆盖率障碍的技术，基于变异的程序路径执行以及捕捉静默错误。</p>
+<ul>
+<li>幸运的是，这些进展和我们的方法是可以结合的。如5.3中利用AFL++的灵活性，我们已经将一些设计和我们的方法结合。</li>
+</ul>
+</li>
+<li>
+<p><strong>Roadblocks</strong></p>
+</li>
+<li>
+<p><strong>Valid Inputs</strong></p>
+</li>
+<li>
+<p><strong>Catching Silent Faults</strong></p>
+</li>
+<li>
+<p><strong>HardTargets</strong></p>
+</li>
+</ul>
+<h3 id="7-%E9%99%90%E5%88%B6%E5%92%8C%E6%9C%AA%E6%9D%A5%E6%96%B9%E5%90%91" tabindex="-1">7 限制和未来方向</h3>
+<ul>
+<li>我们的方法通过违反动态不变量来增强经典的基于代码覆盖的反馈。</li>
+<li>由于我们为了兼容性而发出符合AFL的插桩，在更新覆盖范围时对共享映射进行索引时可能会出现哈希冲突——就像使用AFL一样。AFL++提供了一种无冲突但破坏兼容性的链接时间插桩方案[39]。我们可以设计一个从这种设计中受益的INVSCOV变体，并可能探索将不变和边缘反馈分开的映射</li>
+<li>在方法学方面，我们的方法的一个内在限制是它不是自适应的。我们只学习一次不变量，而在探索过程中通过细化它们来探索新值条件是有可能的。因此，我们方法的后续工作将是设计一个在线不变量挖掘模块。最近的异常检测中的机器学习进展，如[16]，可以为这一目标提供有效的支持。我们认为，一个能够自适应地学习变量上的状态空间划分的模糊器可以产生实际的影响，并可能有助于使OSS-Fuzz等饱和模糊测试活动捕获更多已经用CGF解决方案进行了充分测试的软件中的漏洞。</li>
+<li>最后，由于我们在基本块级别研究数据事实，我们可能的不变量无法捕捉到在任何块中都不会一起处理的变量之间的“隐式”关系。</li>
+</ul>
+<h3 id="8-%E7%BB%93%E8%AE%BA" tabindex="-1">8 结论</h3>
+<ul>
+<li>使用可能的不变量作为fuzzers的反馈，以更好地抽象和探索程序状态。</li>
+<li>过考虑控制程序状态的条件，可以发现一些潜在的漏洞，这些漏洞可能在很长时间内未被发现。</li>
+<li>我们在不引发状态爆炸问题的情况下，实现了这一目标，并且性能开销适度，发现的漏洞数量增加。</li>
+<li>希望这项工作可以为程序状态近似为模糊测试提供反馈的研究铺平道路，。</li>
+</ul>
+<h3 id="9-%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93" tabindex="-1">9 个人总结</h3>
+<ul>
+<li>本文使用程序动态不变量，强化了经典的基于代码覆盖的fuzzer，具体地对于fuzzer生成的违反不变量的输入，其会增加他的优先级。</li>
+<li>本文中，不变量在代码块级别生成，同时也晒出了一些无用的不变量，这是我们需要学习的。</li>
+<li>对debloating的思考：直接使用输入集覆盖的代码路径上的不变量作为规约，在程序简化时，简化后程序不能违背该规约，对于错误地简化可以提前发现。</li>
 </ul>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">

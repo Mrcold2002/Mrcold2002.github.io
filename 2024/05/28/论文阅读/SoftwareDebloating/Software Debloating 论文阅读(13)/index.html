@@ -1,0 +1,260 @@
+<!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>Software Debloating 论文阅读 （12）</title><meta name="description" content="菜"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="UI Driven Andorid Application Reduction
+@inproceedings&amp;#123;huang2017ui,
+  title=&amp;#123;UI driven Android application reduction&amp;#125;,
+  author=&amp;#123;Huang, Jianjun and Aafer, Yousra and Perry, David and Zhang, Xiangyu and Tian, Chen&amp;#125;,
+  booktitle=&amp;#123;2017 32nd IEEE/ACM International Conference on Automated Software Engineering (ASE)&amp;#125;,
+  pages=&amp;.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Software Debloating 论文阅读 （12）</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ui-driven-andorid-application-reduction"><span class="toc-text">UI Driven Andorid Application Reduction</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-abstract"><span class="toc-text">0 Abstract</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-introduction"><span class="toc-text">1 Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.1-%E8%83%8C%E6%99%AF"><span class="toc-text">1.1 背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.2-%E8%A7%A3%E5%86%B3"><span class="toc-text">1.2 解决</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.3-%E8%B4%A1%E7%8C%AE"><span class="toc-text">1.3 贡献</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-motivation"><span class="toc-text">2 Motivation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-design"><span class="toc-text">3 Design</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-evaluation"><span class="toc-text">4 EVALUATION</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-related-work"><span class="toc-text">5 RELATED WORK</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-conclusion"><span class="toc-text">6 CONCLUSION</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93"><span class="toc-text">个人总结</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/SoftwareEngineering"><i class="tag post-item-tag">SoftwareEngineering</i></a><a href="/tags/SoftwareDebloating"><i class="tag post-item-tag">SoftwareDebloating</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">Software Debloating 论文阅读 （12）</h1><time class="has-text-grey" datetime="2024-05-28T13:37:33.005Z">2024-05-28</time><article class="mt-2 post-content"><h1 id="ui-driven-andorid-application-reduction" tabindex="-1">UI Driven Andorid Application Reduction</h1>
+<pre><code class="language-bibtex">@inproceedings&#123;huang2017ui,
+  title=&#123;UI driven Android application reduction&#125;,
+  author=&#123;Huang, Jianjun and Aafer, Yousra and Perry, David and Zhang, Xiangyu and Tian, Chen&#125;,
+  booktitle=&#123;2017 32nd IEEE/ACM International Conference on Automated Software Engineering (ASE)&#125;,
+  pages=&#123;286--296&#125;,
+  year=&#123;2017&#125;,
+  organization=&#123;IEEE&#125;
+&#125;
+</code></pre>
+<p><img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(13)_1.png" alt></p>
+<h2 id="0-abstract" tabindex="-1">0 Abstract</h2>
+<ul>
+<li>现代移动应用APP包含许多很少使用的功能。如应用包含广告或包含其它功能（如天气APP上讲故事的功能）。这些功能对APP不必要，但会消耗电量，CPU周期和带宽。</li>
+<li>本文设计了一种UI驱动的，通过删除不需要功能定制化Andorid APP的方法。
+<ul>
+<li>具体的，我们的技术展示了UI，并且允许用户选择想要移除的表达了功能的元素。</li>
+<li>使用这些信息，我们的技术自动的移除所有与所选功能关联的代码元素，包括相关的背景任务</li>
+</ul>
+</li>
+<li>内在的分析是一种标记系统，每个代码元素被标记是否可以被移除。通过UI建议，我们的技术推断所有代码元素的标记，并根据此进行简化。</li>
+<li>我们实现了方法原型，并在10个真实的现实世界的安卓APP上进行了评估。结果现实，我们的方法可以准确的发现可以移除的代码元素，在简化程序中节省了大量的资源</li>
+</ul>
+<h2 id="1-introduction" tabindex="-1">1 Introduction</h2>
+<h3 id="1.1-%E8%83%8C%E6%99%AF" tabindex="-1">1.1 背景</h3>
+<ul>
+<li>
+<p>APP包括很多很少使用的功能：</p>
+<ul>
+<li>
+<ol>
+<li>广告出现在超过50%的应用上[2],其引入的第三方库增加隐私和安全风险[3]。先前研究已经证实敏感信息会暴露在广告网络上[4,5],广告很容易引起传播攻击[6]。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>用户不期望的应用的其它功能。如天气APP提供的新闻功能（见 Section IV-B2）</li>
+</ol>
+<ul>
+<li>除过不相关的功能，也有与应用目的相关但复杂的功能，这被用户认为是多余的或分散注意力的。如购物APP根据购物历史和浏览记录的推荐功能，一些用户可能希望关掉</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>这些功能除了视觉上的影响，还会导致电池，CPU周期，带宽等的额外消耗。先前的研究已经正式使用广告的APP显著消耗更多网络数据和能源消耗[7]。</p>
+</li>
+<li>
+<p>因此，现在急需一种自动化定制移动APP来满足不同用户人群的不同需求。</p>
+<ul>
+<li>企业和政府机构需要不包含第三方库的APP</li>
+<li>常使用或户外使用的用户希望减少电池消耗。</li>
+<li>甚至普通用户也希望定制应用。如家长希望屏蔽对孩子的不合适的内容。</li>
+</ul>
+</li>
+<li>
+<p>然而，如果没有可用的自动化工具，app定制化和私人化对于人类的开发者团队很昂贵</p>
+</li>
+</ul>
+<h3 id="1.2-%E8%A7%A3%E5%86%B3" tabindex="-1">1.2 解决</h3>
+<ul>
+<li>本文，我们提出了一种UI驱动的APP定制技术，可以移除安卓APP中与给定UI元素相关的不需要的功能。具体的
+<ul>
+<li>
+<ol>
+<li>我们技术需要用户首先明确想要移除的表达功能的UI元素</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>然后我们的技术自动化辨别指定元素对应的代码和变量的位置</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>随后我们的技术监视UI元素相关的使用，及相关的后端任务代码，如从远程服务器获取的数据</li>
+</ol>
+<ul>
+<li>尽管UI相关的代码元素可以直接移除，与后端任务相关的代码需要更多的分析判断是否可以移除。</li>
+<li>我们的技术检查后端任务察省的数据是否仅仅只流向指定的用户界面，如果是的那么这个后端任务被认为是可移除的。否则（即产生的数据传输到了其它组件）不可删除。</li>
+</ul>
+</li>
+<li>深层的分析是一个标记系统，每个代码元素被标记是否可以被删除。推断系统推断所有与UI提示相关的代码元素。最后，我们的技术依据推断的类型简化APP.</li>
+</ul>
+</li>
+<li>我们的技术可以使用在APP开发的最后一个阶段，产生大量的定制化版本来应对不同的需求。此外，我们的技术不需要源代码。</li>
+<li>我们在10个常用安卓应用上评估了我们的原型，我们的结果展示了在各种资源上可观的简化。
+<ul>
+<li>平均移除不需要功能的UI组件可以节省 28.1%数据使用,34.1%CPU时间,26.2%Wi-Fi运行时间,37.6% 计算电力使用。</li>
+<li>我们实现的结果证明了我们UI驱动的应用简化的优点</li>
+</ul>
+</li>
+</ul>
+<h3 id="1.3-%E8%B4%A1%E7%8C%AE" tabindex="-1">1.3 贡献</h3>
+<ul>
+<li>我们的工作作出了以下贡献：
+<ul>
+<li>
+<ol>
+<li>我们提出了一个UI驱动的方法，来移除安卓应用中用户指定的UI组件相关的不想要的功能。我们的技术以一个标记系统为特点，标记了相关的代码元素指示它们是否可以删除。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>我们实现了一个原型，并在一组真实世界的安卓应用上进行评估。结果显示我们的方法准确的发现了可以移除的代码元素，并且简化引起了客观的资源节省。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-motivation" tabindex="-1">2 Motivation</h2>
+<ul>
+<li>
+<p>我们使用 WeatherBug[8]，真实的安卓应用来激励我们的技术。</p>
+<ul>
+<li>直觉上，当APP挂起，用户期望得到即时的天气情况，然而，主页通常提供一些额外的信息，如图1示，APP主页包括即时天气情况，天气新闻和横幅广告。如果我们继续向下滚动，该页包括了更多不相关的信息如其他用户的图片，the closest spark strike 等<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(13)_1.png" alt></li>
+</ul>
+</li>
+<li>
+<p>除了不相关的信息淹没了用户外，这些组件爷消耗了额外的能源和网络数据。因此，这里需要定制化或重构应用来移除一些对客户端不必要的功能。</p>
+<ul>
+<li>例如，为了阻止视觉干扰，减少潜在的隐私缺失和恶毒行为（在企业环境中）[9,3,6]，同时为了减少能量和网络数据消耗（在复杂环境如户外）。</li>
+</ul>
+</li>
+<li>
+<p><strong>我们工作的首要想法是通过辨别UI上不需要的特征来定制APP来满足不同用户的需求</strong></p>
+</li>
+<li>
+<p>假设现在用户想要移除WeatherBug上不需要的UI组件和其相关功能。具体地，用户先要移除Weather News组件，图1中高亮部分。</p>
+<ul>
+<li>图2展示了工作流简化表示后的代码片段，分为n个顺序运行部分，当组件被加载时，安卓操作系统调用
+<ul>
+<li>（1）onCreateView 方法，充入第4行的静态布局文件，以保存组件的内容。同时，一个StoriesAdapter被创建并加入组件。着提供了从具体组件数据到展示界面的绑定，如所有内在组件的图片和标题。随后安卓OS调用</li>
+<li>（2）onActivityCreated方法，其最终会挂起一个后端功能来从远程服务器获取数据。当数据加载完成后，后端任务调用其回调函数</li>
+<li>（3）onRequestCompleted。在后调方法中，数据被传输到一个线程，线程在运行队列中排队。随后安卓OS</li>
+<li>（4）运行这个线程。在运行过程中，在第30行数据被取回并保存在共享数据集中。接下来，在31行线程告知StoriesAdapter关于数据集的变化。最终，数据集的变化通知引发了</li>
+<li>（5）onCreateViewHolder 和 （6）onBindViewHolder的运行。前者方法创建了带有充气视图的视图支架，后者方法再45行从共享数据集中获取数据展示在膨胀视图上。<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(13)_2.png" alt></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>在我们的驱动例子中，4，37，43行与不想要的UI组件相关。我们的技术可前瞻性地追踪相关变量地使用，如图2中展示的，我们识别出了 行7，45是将数据推送到具体地组件上的。</p>
+<ul>
+<li>第7行绑定StoriesAdapter到UI组件上，以响应数据变化并显示内容。内容，其作用类似于动作处理程序。</li>
+<li>第45行展示了给定的数据中图1中展示的相关图片的简短描述。从第45行开始，我们沿着onRequestCompleted向后收集数据，然后在后台功能（代码中省略）中跟踪数据生成点。我们在更远的地方发现了调用后端功能的位置在第12行。接下来，我们检查生成的数据是否仅用于具体的UI组件，通过向后地追踪数据使用。
+<ul>
+<li>如图二示，在这个例子中，我们发现没有其它组件使用这些数据，因此这些数据是这个UI组件特定的数据。然而，我们发现这个后端功能是一个公共组件会被其它功能使用，包括这个数据生成点。最终，我们的技术移除了其他未在后端功能中出现的代码，并且迭代地移除了合适的方法和类。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>为了展示代码简化的效果，我们的技术在onCreateViem中用一个代替视图替换了原来的视图并删除了可移除的代码啊组件。更改后的代码片段及运行时截屏如图3展示。代替视图如高亮部分描述。<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(13)_3.png" alt></p>
+</li>
+<li>
+<p>在Section IV中，移除Weather News组件减少了9%的数据使用和20%的电量消耗。</p>
+</li>
+</ul>
+<h2 id="3-design" tabindex="-1">3 Design</h2>
+<ul>
+<li>
+<p>本节讨论我们UI驱动的方法来发现安卓APP中可以删除的代码元素。</p>
+</li>
+<li>
+<p>图4展示了我们方法的工作流，正如Section 2中讨论的：在收到用户确定的UI元素并找到程序中与他们相关的具体部位后（Step0），我们的方式进行4步来检测潜在可移除代码元素</p>
+<ul>
+<li>
+<ol>
+<li>前瞻地发现确定的UI组件使用地部分</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>向后追踪UI组件使用的数据</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>从数据产生点开始，找到所有数据的使用地方</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>基于数据追踪结果，迭代地移除代码元素</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>0，1步在Section Ⅲ-C中讨论，Section Ⅲ-D讨论2，3步，Section Ⅲ-E讨论4步<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(13)_4.png" alt></p>
+</li>
+<li>
+<p>我们在整个章节使用图5中的代码片段来说明方法的细节。假设id0，id1指代不需要的UI元素，但id2不是。BgTask表示一种后台功能，它从远程服务器获取输入数据并将结果存储到data中。第13行通过getInputData函数抽象了获取输入数据的操作。一个具体的例子是HttpClient.execute(),它通常在安卓应用中用于从Web服务器获取远程数据。数据获取任务在两个位置启动：第3，7行。数据在第5，9，11行显示在UI元素上。<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(13)_5.png" alt></p>
+</li>
+</ul>
+<h2 id="4-evaluation" tabindex="-1">4 EVALUATION</h2>
+<h2 id="5-related-work" tabindex="-1">5 RELATED WORK</h2>
+<ul>
+<li>目前有许多计数检测第三方库，包括安卓中的广告库。
+<ul>
+<li>基于简单技术如：流行广告库的白名单命名空间[15,16]</li>
+<li>[17]使用hierarchical clustering 区分应用的主要和非主要功能</li>
+<li>[18]基于代码特征和包依赖关系为广告检测开发了分类器</li>
+<li>[19]基于API频率</li>
+<li>[20]提出了一种抗混淆的广告检测技术，通过提取对常见混淆技术具有弹性的配置文件，并依赖于类层次结构而不是代码</li>
+<li>相比之下，我们的技术更通用，其专注于移除用户在UI上选择的特征而不仅是广告。且不依赖于特定的代码样式</li>
+</ul>
+</li>
+<li>检测应用中冗余的技术。[21,22,23,24]。它们的目的是使软件系统更能抵抗故障，并利用重复的代码作为测试预言。它们与我们的技术支持互补，因为可以移除/替换冗余代码以提高质量。它们从程序中的错误组件开始发现冗余代码，而我们的方法从用户指定的UI信息开始。</li>
+<li>此外，许多研究工作旨在提高能源效率
+<ul>
+<li>[25,26]Gottschalk等人通过识别能源效率低下的模式，检测并移除了Android应用程序中的能源浪费代码</li>
+<li>[27]Sahin等人研究了移动应用程序中代码混淆引起的能源消耗</li>
+<li>[28]Gui等人测量了移动广告的能源消耗</li>
+<li>[29]Banerjee等人提出了一种重构Android应用程序的技术，以遵循一系列指导方针来增强能源效率</li>
+<li>[30]Wu等人使用预定义的能耗模式静态检测应用程序UI中的能源缺陷</li>
+<li>作者提出的方法不依赖于代码模式，也不需要领域知识就可以正常工作。由于移除了选定的不需要的功能，因此节省了能源。</li>
+</ul>
+</li>
+<li>使用UI信息进行安全性保护
+<ul>
+<li>AsDroid [34]使用UI信息来确认程序行为是否为应用程序用户所预期</li>
+<li>SUPOR [35]，UIPicker [36]和BidText [37]利用UI信息检查在UI上显示或输入的数据敏感性</li>
+<li>特别是，BidText [37]通过将文本信息识别为类型并沿数据流执行类型传播，实现了信息泄露检测的类型系统。</li>
+<li>Ernst等人开发的基于类型的污点分析系统预定义了一些安全类型，并检查到达程序点的类型是否兼容[38]。</li>
+</ul>
+</li>
+</ul>
+<h2 id="6-conclusion" tabindex="-1">6 CONCLUSION</h2>
+<ul>
+<li>我们提出了一种静态技术来移除Android应用程序中的代码元素。这些代码元素与用户指定的不需要的UI（用户界面）元素相关。</li>
+<li>该方法识别直接引用特定UI元素的程序位置，并应用类型系统来推断可移除的代码元素。每个可达的代码元素都被标记了一个传播的类型。这些类型被用来确定相应的代码元素是否可以移除。除了移除与指定UI元素相关的代码元素外，我们的技术还能够发现相关的后台功能，并对后台功能中的相应代码元素进行类型化，以便它们也可以被移除。</li>
+<li>我们实现了一个原型并在10个现实世界的Android应用程序上进行了评估。结果表明，我们的方法可以准确地识别与指定UI元素相关的可移除代码元素，移除这些功能可以节省大量资源。</li>
+</ul>
+<h2 id="%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93" tabindex="-1">个人总结</h2>
+<ul>
+<li>本文讲述了一个UI驱动的简化方法，应用在安卓APP上，不需要基于源代码。</li>
+<li>简化方法：
+<ul>
+<li>通过用户确定一个UI组件，找到其调用的相关前端代码，前后端连接代码。</li>
+<li>对于前端代码可以直接删除，对于前后端连接代码需要确定改代码仅用于该前端组件才能删除。</li>
+</ul>
+</li>
+</ul>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><em></em><a class="button is-default" href="/2024/04/26/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/invariant/%E9%80%9A%E8%BF%87%E4%B8%8D%E5%8F%98%E9%87%8F%E7%9A%84%E5%8F%8D%E4%BE%8B%E5%BC%95%E5%AF%BC%E7%9A%84%E5%AE%9A%E5%90%91Fuzzing/" title="通过不变量的反例引导的定向Fuzzing"><span class="has-text-weight-semibold">Next: 通过不变量的反例引导的定向Fuzzing</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2024</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
