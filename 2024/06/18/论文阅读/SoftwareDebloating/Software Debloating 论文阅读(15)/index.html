@@ -1,0 +1,945 @@
+<!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>Software Debloating 论文阅读 （15）- 安卓简化调研</title><meta name="description" content="菜"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="AutoDebloater: Automated Android App Debloating
+@inproceedings&amp;#123;liu2023autodebloater,
+  title=&amp;#123;AutoDebloater: Automated Android App Debloating&amp;#125;,
+  author=&amp;#123;Liu, Jiakun and Hu, Xing and Thung, Ferdian and Maoz, Shahar and Toch, Eran and Gao, Debin and Lo, David&amp;#125;,
+  booktitle=&amp;#123;2023 38th IEEE/ACM International Conference on Automat.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Software Debloating 论文阅读 （15）- 安卓简化调研</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#autodebloater:-automated-android-app-debloating"><span class="toc-text">AutoDebloater: Automated Android App Debloating</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1 介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-autodebloater"><span class="toc-text">2 AUTODEBLOATER</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#a-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">A 使用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#b-%E4%BD%BF%E7%94%A8storydistiller%E6%8F%90%E5%8F%96atg"><span class="toc-text">B 使用StoryDistiller提取ATG</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#c-%E7%AE%80%E5%8C%96%E5%AE%89%E5%8D%93%E5%BA%94%E7%94%A8"><span class="toc-text">C 简化安卓应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AF%84%E4%BC%B0"><span class="toc-text">3 评估</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-text">4 相关工作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E7%BB%93%E8%AE%BA"><span class="toc-text">5 结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xdebloat:-towards-automated-feature-oriented-app-debloating"><span class="toc-text">XDebloat: Towards Automated Feature-Oriented App Debloating</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-introduction"><span class="toc-text">1 INTRODUCTION</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-background-and-motivating-example"><span class="toc-text">2 BACKGROUND AND MOTIVATING EXAMPLE</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2.1-instant-app"><span class="toc-text">2.1 Instant App</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.2-app-bundle"><span class="toc-text">2.2 App Bundle</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.3-motivating-example"><span class="toc-text">2.3 Motivating Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-xdebloat"><span class="toc-text">3 XDEBLOAT</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3.1-overview"><span class="toc-text">3.1 Overview</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.2-static-analysis"><span class="toc-text">3.2 Static Analysis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.3-%E5%8A%9F%E8%83%BD%E5%AE%9A%E4%BD%8D"><span class="toc-text">3.3 功能定位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.4-%E8%A7%84%E5%88%99%E6%9E%84%E9%80%A0"><span class="toc-text">3.4 规则构造</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.5-%E7%AE%80%E5%8C%96%EF%BC%88%E5%9F%BA%E4%BA%8E%E4%BF%AE%E5%BB%BA%E7%9A%84%EF%BC%89"><span class="toc-text">3.5 简化（基于修建的）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.6-%E5%9F%BA%E4%BA%8E%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AE%80%E5%8C%96"><span class="toc-text">3.6 基于模型的简化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.7-%E9%94%99%E8%AF%AF%E6%8A%A5%E5%91%8A%E7%B3%BB%E7%BB%9F"><span class="toc-text">3.7 错误报告系统</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%AF%84%E4%BC%B0"><span class="toc-text">4 评估</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4.1-%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE"><span class="toc-text">4.1 实验设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.2-rq1%EF%BC%9A%E7%AE%80%E5%8C%96%E5%90%8E%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%88%90%E5%8A%9F%E8%BF%90%E8%A1%8C%EF%BC%9F"><span class="toc-text">4.2 RQ1：简化后程序是否可以成功运行？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.3-rq2%EF%BC%9Axdebloat%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%88%90%E5%8A%9F%E5%B0%86app%E8%BD%AC%E5%8C%96%E4%B8%BAinstant-app%E6%88%96app-bundle%EF%BC%9F"><span class="toc-text">4.3 RQ2：XDebloat是否可以成功将app转化为instant app或app bundle？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.4-rq3:-xdebloat%E5%8F%AF%E4%BB%A5%E7%A7%BB%E9%99%A4%E5%A4%9A%E5%B0%91%E4%BB%A3%E7%A0%81%EF%BC%9F"><span class="toc-text">4.4 RQ3: XDebloat可以移除多少代码？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.5-rq4:-xdebloat%E5%8F%AF%E4%BB%A5%E5%AF%B9%E8%BF%90%E8%A1%8C%E6%97%B6%E8%B5%84%E6%BA%90%E5%87%8F%E5%B0%91%E4%BD%9C%E8%B4%A1%E7%8C%AE%E5%90%97%EF%BC%88%E5%A6%82data%EF%BC%8Cbattery%EF%BC%89%EF%BC%9F"><span class="toc-text">4.5 RQ4: XDebloat可以对运行时资源减少作贡献吗（如data，battery）？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.6-rq5:-xdebloat%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E5%A6%82%E4%BD%95%EF%BC%9F"><span class="toc-text">4.6 RQ5: Xdebloat运行时间如何？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E4%BE%8B%E5%AD%90%E7%A0%94%E7%A9%B6"><span class="toc-text">5 例子研究</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%AE%A8%E8%AE%BA"><span class="toc-text">6 讨论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6.1-%E5%8A%9F%E8%83%BD%E5%AE%9A%E4%BD%8D%E6%96%B9%E6%B3%95"><span class="toc-text">6.1 功能定位方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6.2-%E9%9D%A2%E5%90%91%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8C%96%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">6.2 面向功能的简化使用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6.3-%E9%99%90%E5%88%B6"><span class="toc-text">6.3 限制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6.4-%E6%9C%89%E6%95%88%E6%80%A7%E5%A8%81%E8%83%81"><span class="toc-text">6.4 有效性威胁</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-text">7 相关工作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E7%BB%93%E8%AE%BA"><span class="toc-text">8 结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#towards-speedy-permission-based-debloating-for-android-apps"><span class="toc-text">Towards Speedy Permission-Based Debloating for Android Apps</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-introduction-1"><span class="toc-text">1 INTRODUCTION</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-miniappperm"><span class="toc-text">2 MINIAPPPERM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-preliminary-experiment"><span class="toc-text">3 PRELIMINARY EXPERIMENT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-relatedwork"><span class="toc-text">4 RELATEDWORK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-conclusion-and-futurework"><span class="toc-text">5 CONCLUSION AND FUTUREWORK</span></a></li></ol></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/SoftwareEngineering"><i class="tag post-item-tag">SoftwareEngineering</i></a><a href="/tags/SoftwareDebloating"><i class="tag post-item-tag">SoftwareDebloating</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">Software Debloating 论文阅读 （15）- 安卓简化调研</h1><time class="has-text-grey" datetime="2024-06-17T16:45:46.704Z">2024-06-18</time><article class="mt-2 post-content"><h2 id="autodebloater%3A-automated-android-app-debloating" tabindex="-1">AutoDebloater: Automated Android App Debloating</h2>
+<pre><code class="language-bibtex">@inproceedings&#123;liu2023autodebloater,
+  title=&#123;AutoDebloater: Automated Android App Debloating&#125;,
+  author=&#123;Liu, Jiakun and Hu, Xing and Thung, Ferdian and Maoz, Shahar and Toch, Eran and Gao, Debin and Lo, David&#125;,
+  booktitle=&#123;2023 38th IEEE/ACM International Conference on Automated Software Engineering (ASE)&#125;,
+  pages=&#123;2090--2093&#125;,
+  year=&#123;2023&#125;,
+  organization=&#123;IEEE&#125;
+&#125;
+</code></pre>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://autodebloater.club">工具使用地址</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jiakun-liu/autodebloater/">工具源代码</a></li>
+<li><a target="_blank" rel="noopener" href="https://youtu.be/Gmz0-p2n9D4">使用视频</a></li>
+</ul>
+<h3 id="1-%E4%BB%8B%E7%BB%8D" tabindex="-1">1 介绍</h3>
+<ul>
+<li>例子：Wikipedia应用，用户可以读文章，找寻信息，编辑文章，阅读被保存的文章，包括创建账号，登入，登出，充值密码。然而，用户不需要所有的功能，比如如果一个用户只想看文章，他就不需要登入，重置密码和编辑文章</li>
+<li>先前研究：
+<ul>
+<li>[5]静态分析安卓应用中的死代码进行清楚</li>
+<li>[6]将不会被运行的代码认定为膨胀代码；这些代码通过自动化程序探索找到（如 fuzzer）；随后移除这些代码并冲洗编译应用</li>
+<li>[7]从不同角度静态识别功能（如 permission,activity,modularity），要求开发者选择他们想要保留的功能</li>
+</ul>
+</li>
+<li>然而，这些研究不能辨认用户不想要的功能。对于用户，简化呈现了以下几个问题：
+<ul>
+<li>
+<ol>
+<li>完全探索一个应用，并且辨认不需要的功能会很困难。用户意识不到一些他们不需要功能的存在。如，他们意识不到应用简化掉的功能，而这些功能或特性对于他们的特定需求来说是不必要的，也就是说，他们没有意识到应用程序中的多余功能。</li>
+</ol>
+<ul>
+<li>让用户充分探索应用是困难的[8]</li>
+</ul>
+</li>
+<li>
+<ol start="2">
+<li>现有方法需要完整的安卓软件开发环境[7]，需要面向终端用户简化程序</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>为此，我们提出AutoDebloater，自动化简化安卓应用。
+<ul>
+<li>其为网络应用，终端用户可以通过浏览器方便获取</li>
+<li>其可以自动化探索程序，使用StoryDistiller[8,9]（是自动化探索安卓应用并生成ATG的SOTA）识别activities之间的转化；随后用户在ATG中选择需要保留的活动；最后ATG移除用户不需要的活动</li>
+</ul>
+</li>
+<li>为了评估性能，
+<ul>
+<li>我们从Google Play和F-Droid中获得5个安卓应用，包括3类（经济，工具，导航）。</li>
+<li>我们要求7个用户使用AutoDebloater简化应用。</li>
+<li>结果显示，用户队简化后程序的可靠性很满意，同时给也肯定了AutoDebloater帮助他们识别activities的能力。</li>
+<li>平均每个简化过程平均20s</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-autodebloater" tabindex="-1">2 AUTODEBLOATER</h3>
+<h4 id="a-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF" tabindex="-1">A 使用场景</h4>
+<ul>
+<li>考虑Alice只想使用维基百科看文章，她想移除编辑文章的功能
+<ul>
+<li>
+<ol>
+<li>Alice上传维基百科APK到我们的服务器</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>我们的服务器使用StoryDistiller在APK上，（1）识别app的所有activities（2）对每个活动进行截屏（3）生成ATG。 最后我们的服务器返回ATG给ALice（如果APK之前就有，会直接返回ATG）</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>Alice选择需要保留的活动，服务器移除Alice不想要的activities，随后重编译APK，发送简化后的程序给Alice</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="b-%E4%BD%BF%E7%94%A8storydistiller%E6%8F%90%E5%8F%96atg" tabindex="-1">B 使用StoryDistiller提取ATG</h4>
+<ul>
+<li>StoryDistiller的细节可以在[8,9]中找到</li>
+<li>为了探索活动间的转移，StoryDistiller需要外部的挂起应用activity（如使用命令行）
+<ul>
+<li>一个应用是否能被外部挂起，被 <em>AndroidManifest.xml</em> 中 <em>android:exported</em>决定，其默认不可被外部挂起</li>
+<li>为此，StoryDistiller插桩应用，修改<em>AndroidManifest.xml</em>中的值</li>
+</ul>
+</li>
+<li>随后，StoryDistiller使用静态分析得到静态ATG。具体地
+<ul>
+<li>
+<ol>
+<li>生成应用调用图CG</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>遍历每个类的每个方法，得到活动间的转移</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>在静态提取过程中，StoryDistiller同时提取Inter-Component Communication（ICC）数据来收集信息（如 初始属性和额外参数）来外部挂起活动。更具体地
+<ul>
+<li>
+<ol>
+<li>StoryDistiller解析manifest文件或Javadiamagnetic来提取初始属性如 action 和category</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>为了提取额外参数，StoryDistiller 可以识别与活动生命周期相关的方法，并根据这些方法中的附加参数与活动渲染之间的关系对这些方法进行连续分析。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>最后，StoryDistiller动态使用提取的ICC数据和Android Debug Bridge（ADB）来挂起活动。
+<ul>
+<li>然后，StoryDistiller探索每个活动的所有交互组件来识别动态活动间的跳转</li>
+<li>动态活动跳转和静态活动跳转结合得到最终ATG，此时StoryDistiller也获得了每个活动的截图</li>
+</ul>
+</li>
+<li>StoryDistiller运行很耗时，所以对于所有分析过的APK，我们将对其结果进行记忆化</li>
+</ul>
+<h4 id="c-%E7%AE%80%E5%8C%96%E5%AE%89%E5%8D%93%E5%BA%94%E7%94%A8" tabindex="-1">C 简化安卓应用</h4>
+<ul>
+<li>我们需要移除用户不需要的活动
+<ul>
+<li>
+<ol>
+<li>识别用户想要移除的活动的类的方法</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>识别这些方法的相关方法，使用前向切片。更具体的</li>
+</ol>
+<ul>
+<li>我们标识需要删除的类的方法为初始的待删除方法集合</li>
+<li>对每个方法，识别在CG中该方法的连续方法，如果该方法只被需要被删除的方法调用，那么可以将该方法的后者加入待删除方法集合</li>
+<li>删除直到集合为空</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>我们使用 Soot 框架[10]从安卓应用中删除方法。</li>
+<li>我们开发了Java库集成了方法移除模块：
+<ul>
+<li>输入：初始应用，调用图，移除的活动</li>
+<li>输出：简化后应用</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-%E8%AF%84%E4%BC%B0" tabindex="-1">3 评估</h3>
+<ul>
+<li>选择5个应用 Bitcoin Wallet, Amaze File Manager, Gas Prices, Vespucci8, A2DP Volume</li>
+<li>选择7个参与者，他们有使用安卓的经验，但不是开发者或研究员</li>
+<li>我们首先解释简化的原理；然后要求他们探索选择应用的功能，使用我们的服务获得相应的ATG；如果他们发现有活动他们永远不会使用，我们要求他们使用AutoDebloator移除这些活动；最后我们要求他们对简化后程序stability（简化后程序运行不会崩溃）和overall satisfaction（AutoDebloater帮助他们识别和移除活动的能力）打分</li>
+<li>结果
+<ul>
+<li>stability： 平均 4.8</li>
+<li>overall satisfaction : 平均3.97</li>
+<li>一些用户抱怨：活动不能充分的展示在ATG上，在chen[9]的工作中已经提及。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C" tabindex="-1">4 相关工作</h3>
+<ul>
+<li>Google提供了一些简化工具，目的是减小安卓应用大小，而不是移除活动。
+<ul>
+<li>如 R8 静态检测并移除死代码，应用中不使用的资源</li>
+</ul>
+</li>
+<li>[13]简化安卓应用以最小化移动设备网络带宽使用</li>
+<li>[7]的工作与我们最相似，然而没开源。同时，我们以服务的形式提供我们的工作。</li>
+</ul>
+<h3 id="5-%E7%BB%93%E8%AE%BA" tabindex="-1">5 结论</h3>
+<ul>
+<li>本文中，我们提供了一个网站，AutoDebloater，用户可以使用它简化安卓应用。</li>
+<li>我们的工具使用StoryDistiller提取ATG，用户可以在ATG中选择需要保留的活动，随后我们移除用户不需要的活动。</li>
+<li>我们的评估显示，用户对简化后程序的稳定性和AutoDebloater帮助他们识别和移除活动的能力很满意。</li>
+<li>今后，我们计划允许用户以更细的粒度（如按钮或文本字段的粒度）标注他们不想要的功能。</li>
+</ul>
+<h2 id="xdebloat%3A-towards-automated-feature-oriented-app-debloating" tabindex="-1">XDebloat: Towards Automated Feature-Oriented App Debloating</h2>
+<pre><code class="language-bibtex">@article&#123;tang2021xdebloat,
+  title=&#123;Xdebloat: Towards automated feature-oriented app debloating&#125;,
+  author=&#123;Tang, Yutian and Zhou, Hao and Luo, Xiapu and Chen, Ting and Wang, Haoyu and Xu, Zhou and Cai, Yan&#125;,
+  journal=&#123;IEEE Transactions on Software Engineering&#125;,
+  volume=&#123;48&#125;,
+  number=&#123;11&#125;,
+  pages=&#123;4501--4520&#125;,
+  year=&#123;2021&#125;,
+  publisher=&#123;IEEE&#125;
+&#125;
+</code></pre>
+<h3 id="1-introduction" tabindex="-1">1 INTRODUCTION</h3>
+<ul>
+<li>开发者趋向构建复杂和庞大的单个程序，以：包含所有的功能 ，支持各个版本的库，以及<strong>多样的为不同平台准备的应用二进制接口（ABIs）</strong>[1]。
+<ul>
+<li>这种“one-size-fits-all”策略会导致代码膨胀[3,4],导致很多问题如低传输率，低下载率，大攻击面，低攻击率[4]</li>
+</ul>
+</li>
+<li><strong>feature定义</strong>：应用中满足特定需求的功能。如，社交应用中，“chat with friends”考虑为一个功能</li>
+<li>简化措施分两类
+<ul>
+<li><strong>pruning-based debloating</strong>：移除程序中不需要的功能[5,6,7,9,9,10]，如在软件演化中，一些功能过时或不在维护，开发者想要移除。
+<ul>
+<li>目前只有RedDroid[6]在安卓应用上采用了这种策略，其在编译阶段移除死代码，减少多余的ABIS，包括多个SDKs和在下载过程中嵌入的ABIS</li>
+<li>我们与[6]不同在两个方面
+<ul>
+<li>（1）臃肿代码：RedDroid只考虑死代码为臃肿；XDebloat在应用中使用三种特征定位定位特征，运行开发者定义移除什么</li>
+<li>（2）臃肿ABIs：除了移除特定于操作系统的ABIs外，Xdebloat还会移除应用中臃肿的资源</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>module-based debloating</strong>：将程序分为若干模块，使得用户可以根据需要下载。
+<ul>
+<li>Google的两个框架 App Bundles 和 instant-enable app bundle 遵循了这一想法。</li>
+<li>然而，目前没有自动化工具可以将应用转为 app bundle。开发者必须重新开发应用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>我们提出了</strong><em>第一个</em>面向特征的应用简化框架，并实现了原型XDebloat自动化这一过程。
+<ul>
+<li>我们专注于安卓应用因为其占据80%市场份额[13]</li>
+<li>对于给定的二进制格式的安卓应用（如APK），XDebloat支持pruning-based和module-based debloating</li>
+</ul>
+</li>
+<li><strong>挑战</strong>：
+<ul>
+<li>C1：type erors：错误移除类型时，其使用会出错</li>
+<li>C2：modelling unique dependencies in Andorid：与桌面应用不同，安卓应用会有被系统委托的间接调用。例如，Android 中的 Intents 可用于实现组件（如活动）之间的通信。</li>
+<li>现有简化技术[5,6,8,14] 不能解决这些挑战，因[5,8,14]面向C应用，RedDroid[6]面向安卓应用但是其不能构建完整的程序调用图来进行简化。如，其不能解决组件间交流问题[15]，一些方法被认为是死代码而错误地被删除</li>
+</ul>
+</li>
+<li><strong>措施</strong>
+<ul>
+<li>解决C1，我们使用静态分析，分析安卓的特殊机制（如是不明确 Intent 和调用引发的数据/控制 流）。我们提出一个类型系统来避免在简化时引入类型错误</li>
+<li>解决C2，我们探索了应用中安卓特定的依赖在3.2中</li>
+</ul>
+</li>
+<li><strong>贡献</strong>
+<ul>
+<li>
+<ol>
+<li>第一个对面向功能的应用简化进行了系统调研</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>为应用简化开发了XDebloat原型，支持移除不想要的功能，同时支持将程序自动化地转化为instant app或 app bundle</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>在200个开源，1000个商用应用上评估。结果现实其可以正确地简化程序，生成正确的 instant app或app bundles，并保持较低的性能消耗。其减少代码率平均为34.33%（Activity-based），29.31%(permission-based),32.74(modularity-based).相关工作在[16]</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-background-and-motivating-example" tabindex="-1">2 BACKGROUND AND MOTIVATING EXAMPLE</h3>
+<ul>
+<li>在module-based debloating 我们使用了两种框架：instant app和 app bundle</li>
+</ul>
+<h4 id="2.1-instant-app" tabindex="-1">2.1 Instant App</h4>
+<ul>
+<li>instant app：用户可以在不安装应用的情况下直接使用[12].</li>
+<li>包括 base module 和 大于等于零的 feature modules
+<ul>
+<li>feature modules：使用定义在base module中的代码，资源和库；包含至少一个activity，为该module的入口，以url的形式访问</li>
+<li>用户访问feature module时，一个包含该module 和 base module的apk会被下载，否则只下载base module[12,17]</li>
+</ul>
+</li>
+<li>如图一示<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(15)_1.png" alt></li>
+</ul>
+<h4 id="2.2-app-bundle" tabindex="-1">2.2 App Bundle</h4>
+<ul>
+<li>app bundle：app模块化打包，用户只下载需要的模块</li>
+<li>一个应用必须包含一个 base module，其他dynamic feature modules是可选的</li>
+<li>如图2示
+<ul>
+<li>base 和 dynamic feature modules 打包到一个 .aab 文件中,上传到google play发布，google play会根据用户设备下载对应的模块，可以运行时再下载</li>
+<li>对开发者，不需要构建过多apk；对用户，只下载需要的模块</li>
+<li>图中例子，当dynamic feature module B被调用时，才会被下载<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(15)_2.png" alt></li>
+</ul>
+</li>
+</ul>
+<h4 id="2.3-motivating-example" tabindex="-1">2.3 Motivating Example</h4>
+<ul>
+<li>使用 arxiv 应用（com.commonsware.android.arXiv）作例子展示我们的Xdebloat，其所有activity如图3示<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(15)_3.png" alt></li>
+<li>登录app后，用户可以看到种子列表(RSSListWindow)，历史记录(HistoryWindow)，同时设置app偏好(EditPreference)，查询文章(SearchWindow)，查询结果展示在SearchListWindow 。 如果一个元素被选中，该元素的细节被展示在 SingleItemWindow。app还允许用户打印文章(PrintDialogActivity)</li>
+<li>XDebloat进行了以下操作</li>
+<li>
+<ol>
+<li>Feature Location：</li>
+</ol>
+<ul>
+<li>定位功能，并为下一个步骤生成相应配置文件</li>
+<li>XDebloat支持多维度功能定位，包括 类，方法，语句，可以手动功能定位；自动化功能定位维度包括 Activity-based, Permission-based, Modularity-based
+<ul>
+<li>Activity-based：活动以及附属于该活动的所有用户界面回调作为一种功能。如图3分为8个功能</li>
+<li>Permission-based：检测应用中的权限，以此分类功能。如Arxiv需要NETWORK权限，所有需要网络的功能都被归为一类</li>
+<li>Modularity-based：使用 Louvain算法将应用分为模块，以此分类功能。如图8分为10个功能</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ol start="2">
+<li>Specification Construction and Checking</li>
+</ol>
+<ul>
+<li>生成可阅读的配置文件，开发者方便修改</li>
+<li>配置文件记录&lt;fId,config&gt;，表示功能Id到config的映射。config为0表示移除，1保留。该配置只用在 pruning-based debloating。例子如图四示。</li>
+<li><img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(15)_4.png" alt></li>
+<li>仅有config不够，简化要具体到程序元素。因此对每一个config需要具体的 Specification，其表示了每个 程序元素的决定，本文中有3种决定，为 remove，preserve，unknown</li>
+</ul>
+</li>
+<li>
+<ol start="3">
+<li>Debloating</li>
+</ol>
+<ul>
+<li>给定specification，XDebloat进行 pruning-based debloating或者module-based debloating</li>
+<li>前者移除不需要的功能，后者将应用转化为instant app或app bundle</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-xdebloat" tabindex="-1">3 XDEBLOAT</h3>
+<h4 id="3.1-overview" tabindex="-1">3.1 Overview</h4>
+<ul>
+<li>如图五示，XDebloat对给定的应用4步操作
+<ul>
+<li>功能识别 3.3</li>
+<li>specification 构造和检查 3.4</li>
+<li>简化 3.5，3.6</li>
+<li>错误报告系统 3.7</li>
+</ul>
+</li>
+<li>输入文件形式是apk，支持pruning-based debloating和module-based debloating<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(15)_5.png" alt></li>
+</ul>
+<h4 id="3.2-static-analysis" tabindex="-1">3.2 Static Analysis</h4>
+<ul>
+<li>
+<p><strong>Overview</strong>:使用静态分析收集信息：</p>
+<ul>
+<li>AndroidManifest.xml中的Activities</li>
+<li>需要的权限</li>
+<li>所有布局文件</li>
+<li>程序依赖图 program dependency graph (PDG) [18]. PDG包含了所有的控制和数据依赖关系</li>
+</ul>
+</li>
+<li>
+<p>安卓<strong>应用入口</strong>两个来源[19]</p>
+<ul>
+<li>(1)安卓组件的生成周期方法 （如activity）：组件的标准入口，从AndroidManifest.xml中提取</li>
+<li>(2)UI回调：
+<ul>
+<li>开发者使用callback方法捕捉UI事件（如button click）</li>
+<li>callback方法与register方法绑定[20,21],被应用定义为与安卓框架交互的方法[21]. 也称为registration-callback pairs [20].</li>
+<li>使用EdgeMiner[20]探索安卓框架中的registration-callback pairs。使用原因
+<ul>
+<li>
+<ol>
+<li>SOTA 找UI callbacks</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>广泛使用在从应用中探索UI callbacks[22,23,24]</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>结果精确，被DroidBench证明[18,20]</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Inter-Component Communication (ICC)</strong></p>
+<ul>
+<li>Intents：安卓中组件间通信的标准方式，其会导致额外的控制和数据流</li>
+<li>使用IC3[25]推断Intent的目的地，其将ICC问题转化为Multi-Valued Composite (MVC) constant propagation problem 。</li>
+</ul>
+</li>
+<li>
+<p><strong>Reflections</strong></p>
+<ul>
+<li>移植DroidRA[26]至我们的分析模块，其是SOTA分析反射的工具</li>
+<li>DroidRA将反射调用转化为composite constant propagation problem。</li>
+<li>他们使用COALsolver[15]推断被调用者</li>
+</ul>
+</li>
+<li>
+<p><strong>Asynchronous Task Dependencies</strong></p>
+<ul>
+<li>异步任务（即 android.os.AsyncTask）是指在后台线程上运行的计算，其结果在用户界面线程上发布[21]。</li>
+<li>要实现异步任务，开发人员可以实现 AsyncTask 的子类，并实现一些方法</li>
+</ul>
+</li>
+<li>
+<p><strong>Implementation</strong></p>
+<ul>
+<li>在FlowDroid[18]上构建，其提供了dunmmyMain方法，可以通过其遍历调用图</li>
+<li>使用IC3检测ICC</li>
+</ul>
+</li>
+</ul>
+<h4 id="3.3-%E5%8A%9F%E8%83%BD%E5%AE%9A%E4%BD%8D" tabindex="-1">3.3 功能定位</h4>
+<ul>
+<li>[28,29,30,31]不同软件需要不同的功能定位方法</li>
+<li>Activity-based：以活动及其相关的UI回调作为一个功能
+<ul>
+<li>方法：分析layout文件获得UI元素及回调</li>
+</ul>
+</li>
+<li>permission-based：以需要同一权限的方法为同一功能
+<ul>
+<li>也与安卓硬件设备相关</li>
+<li>方法：使用PScout[33]探索权限使用。
+<ul>
+<li>1.在赵安卓API和权限需要的对应中SOTA</li>
+<li>
+<ol start="2">
+<li>其在相关研究中广泛使用[34,35,36,37]</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>modularity-based
+<ul>
+<li>motivated：面向对象编程思想，一个程序的每个模块应该高内聚[38].收到[2,29,39,40]的影响，程序中的一个模块可以看作用户的一个功能</li>
+<li>方法：社区检测方法[41]。在函数调用图CG上使用Louvain社区检测算法[42]</li>
+</ul>
+</li>
+</ul>
+<h4 id="3.4-%E8%A7%84%E5%88%99%E6%9E%84%E9%80%A0" tabindex="-1">3.4 规则构造</h4>
+<ul>
+<li>因为简化可能破坏原有类型关系，因此我们需要构造类型系统。首先要<strong>建模语言</strong>，随后形成<strong>类型系统</strong>，随后根据类型系统，<strong>找到需要去除的类型的相关代码元素</strong>；最后对每个代码元素<strong>构建规范</strong></li>
+</ul>
+<h4 id="3.5-%E7%AE%80%E5%8C%96%EF%BC%88%E5%9F%BA%E4%BA%8E%E4%BF%AE%E5%BB%BA%E7%9A%84%EF%BC%89" tabindex="-1">3.5 简化（基于修建的）</h4>
+<ul>
+<li>步骤
+<ul>
+<li>
+<ol>
+<li>功能定位</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>配置：选择哪些功能移除</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>规范：具体到哪些代码元素是否被移除</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>简化</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>解决Native Code</li>
+<li>解决死代码</li>
+<li>移除ABIs和DPIs</li>
+</ul>
+<h4 id="3.6-%E5%9F%BA%E4%BA%8E%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%AE%80%E5%8C%96" tabindex="-1">3.6 基于模型的简化</h4>
+<ul>
+<li>Instant App：
+<ul>
+<li>因为每个模型至少含有一个Activity，因此选择基于Activity的功能定位</li>
+<li>需要满足Google的要求[12]</li>
+</ul>
+</li>
+<li>App Bundle
+<ul>
+<li>需要满足Google的要求</li>
+</ul>
+</li>
+</ul>
+<h4 id="3.7-%E9%94%99%E8%AF%AF%E6%8A%A5%E5%91%8A%E7%B3%BB%E7%BB%9F" tabindex="-1">3.7 错误报告系统</h4>
+<ul>
+<li>两种可能的措施
+<ul>
+<li>
+<ol>
+<li>通过应用性能管理工具插桩[47,48]</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>为整个应用设置crash handle</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>bug来源
+<ul>
+<li>
+<ol>
+<li>原来程序</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>简化引起的bug</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>通过错误报告，我们可以指导bug来源，同时帮助我们解决</li>
+</ul>
+<h3 id="4-%E8%AF%84%E4%BC%B0" tabindex="-1">4 评估</h3>
+<h4 id="4.1-%E5%AE%9E%E9%AA%8C%E8%AE%BE%E7%BD%AE" tabindex="-1">4.1 实验设置</h4>
+<ul>
+<li>依据已有的相关工作[5,6,7,9,10]设置了5个RQ
+<ul>
+<li>RQ1:简化后程序是否可以成功运行？</li>
+<li>RQ2：XDebloat是否可以成功将app转化为instant app或app bundle？</li>
+<li>RQ3：XDebloat可以移除多少代码？</li>
+<li>RQ4：XDebloat可以对运行时资源减少作贡献吗（如data，battery）？</li>
+<li>RQ5：Xdebloat运行时间如何？</li>
+</ul>
+</li>
+<li>我们使用F-Droid的200个应用[49]和1000个商用应用[50]进行评估</li>
+<li>与SOTA方法比较。只有[1,6]但都没开源
+<ul>
+<li>在功能上比较
+<ul>
+<li>[6]提供了简化ABIs集合，去除死代码。这些XDebloat都有，并且提供了更多</li>
+<li>[1]专注简化UI组件及相关代码。然而，我们不考虑UI组件为功能。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="4.2-rq1%EF%BC%9A%E7%AE%80%E5%8C%96%E5%90%8E%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%88%90%E5%8A%9F%E8%BF%90%E8%A1%8C%EF%BC%9F" tabindex="-1">4.2 RQ1：简化后程序是否可以成功运行？</h4>
+<ul>
+<li>配置：随机产生配置进行简化（随机配置原因阐释）</li>
+<li>程序使用：使用开源应用进行评估（及其原因）</li>
+<li>方法：使用Sapienz[50]对简化后程序进行评估</li>
+<li>评估步骤：
+<ul>
+<li>
+<ol>
+<li>使用EMMA对简化后程序进行插桩，使用Sapienz运行2个小时</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>fuzzer在简化程序中引发崩溃时进行记录以重现崩溃，以区分崩溃来源于源程序还是简化</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>评估结果
+<ul>
+<li>Activity: 100%通过</li>
+<li>Permission:25/1415失败
+<ul>
+<li>失败原因：缺少动态字符串分析；应用的开发框架</li>
+</ul>
+</li>
+<li>Modularity: 1972/2023 成功</li>
+</ul>
+</li>
+<li>人工评估</li>
+</ul>
+<h4 id="4.3-rq2%EF%BC%9Axdebloat%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%88%90%E5%8A%9F%E5%B0%86app%E8%BD%AC%E5%8C%96%E4%B8%BAinstant-app%E6%88%96app-bundle%EF%BC%9F" tabindex="-1">4.3 RQ2：XDebloat是否可以成功将app转化为instant app或app bundle？</h4>
+<ul>
+<li>方法：使用Google提供的app bundle验证工具</li>
+<li>instant app结果：
+<ul>
+<li>都可以转化为instant app</li>
+<li>164个可以直接上传Google Play，36个需要修改（26个包含不支持的权限，10个因为不支持的或弃用的API）</li>
+</ul>
+</li>
+<li>app bundles 结果
+<ul>
+<li>190/200 个应用成功转化为 bundles；剩下10个使用了弃用的API</li>
+</ul>
+</li>
+</ul>
+<h4 id="4.4-rq3%3A-xdebloat%E5%8F%AF%E4%BB%A5%E7%A7%BB%E9%99%A4%E5%A4%9A%E5%B0%91%E4%BB%A3%E7%A0%81%EF%BC%9F" tabindex="-1">4.4 RQ3: XDebloat可以移除多少代码？</h4>
+<ul>
+<li>两种策略：
+<ul>
+<li>
+<ol>
+<li>禁用识别出的所有功能，在100个商用应用和200个开源应用上进行评估</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>只保留应用的主要功能，在200个开源应用上进行评估</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>方法：使用代码简化率进行评估</li>
+<li>策略1结果
+<ul>
+<li>Activity: 34.33%</li>
+<li>Permission: 29.31%</li>
+<li>Modularity: 32.74%</li>
+<li>结果分析：简化率十分接近，这是因为 库，图，其它资源占多数。开发者可以选择性的去移除</li>
+</ul>
+</li>
+<li>策略2结果
+<ul>
+<li>Activity: 19.12%</li>
+<li>Permission: 15.38%</li>
+<li>Modularity: 23.4%</li>
+</ul>
+</li>
+</ul>
+<h4 id="4.5-rq4%3A-xdebloat%E5%8F%AF%E4%BB%A5%E5%AF%B9%E8%BF%90%E8%A1%8C%E6%97%B6%E8%B5%84%E6%BA%90%E5%87%8F%E5%B0%91%E4%BD%9C%E8%B4%A1%E7%8C%AE%E5%90%97%EF%BC%88%E5%A6%82data%EF%BC%8Cbattery%EF%BC%89%EF%BC%9F" tabindex="-1">4.5 RQ4: XDebloat可以对运行时资源减少作贡献吗（如data，battery）？</h4>
+<ul>
+<li>方法：随机选择10个应用，人工比较和评估简化在 内存使用，电源使用，CPU时间上带来的影响。</li>
+<li>策略1结果：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>减少率</th>
+<th>内存使用</th>
+<th>电源使用</th>
+<th>CPU时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Activity</td>
+<td>32.1%</td>
+<td>27.2%</td>
+<td>40.7%</td>
+</tr>
+<tr>
+<td>Permission</td>
+<td>16.5%</td>
+<td>21.0%</td>
+<td>38.4%</td>
+</tr>
+<tr>
+<td>Modularity</td>
+<td>46.8%</td>
+<td>42.7%</td>
+<td>42.7%</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>策略2结果</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>减少率</th>
+<th>内存使用</th>
+<th>电源使用</th>
+<th>CPU时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Activity</td>
+<td>10.8%</td>
+<td>12.2%</td>
+<td>19.1%</td>
+</tr>
+<tr>
+<td>Permission</td>
+<td>9.1%</td>
+<td>10.9%</td>
+<td>14.3%</td>
+</tr>
+<tr>
+<td>Modularity</td>
+<td>14.3%</td>
+<td>19.5%</td>
+<td>25.8%</td>
+</tr>
+</tbody>
+</table>
+<h4 id="4.6-rq5%3A-xdebloat%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E5%A6%82%E4%BD%95%EF%BC%9F" tabindex="-1">4.6 RQ5: Xdebloat运行时间如何？</h4>
+<ul>
+<li>结论
+<ul>
+<li>
+<ol>
+<li>功能定位方法影响运行性能</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Activity，Permission的方法收到程序属性影响，modularity的方法受到程序结构的影响</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>XDebloat在构建app bundles时需要更多时间</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-%E4%BE%8B%E5%AD%90%E7%A0%94%E7%A9%B6" tabindex="-1">5 例子研究</h3>
+<ul>
+<li>移除应用中 不受欢迎/不需要的 组件</li>
+<li>移除应用中 与硬件相关的功能</li>
+</ul>
+<h3 id="6-%E8%AE%A8%E8%AE%BA" tabindex="-1">6 讨论</h3>
+<h4 id="6.1-%E5%8A%9F%E8%83%BD%E5%AE%9A%E4%BD%8D%E6%96%B9%E6%B3%95" tabindex="-1">6.1 功能定位方法</h4>
+<ul>
+<li>应该由开发者决定[29]</li>
+<li>本文提出 Activity-based, Permission-based, Modularity-based</li>
+<li>也可以是 class， method ，statement，field</li>
+</ul>
+<h4 id="6.2-%E9%9D%A2%E5%90%91%E5%8A%9F%E8%83%BD%E7%9A%84%E7%AE%80%E5%8C%96%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF" tabindex="-1">6.2 面向功能的简化使用场景</h4>
+<ul>
+<li>生成合法应用的轻量级版本</li>
+<li>生成合法应用的 Instant App 或 App Bundle</li>
+<li>移除应用中脆弱的部分</li>
+</ul>
+<h4 id="6.3-%E9%99%90%E5%88%B6" tabindex="-1">6.3 限制</h4>
+<ul>
+<li>
+<ol>
+<li>作为静态分析工具，XDebloat有着静态分析的固有问题，其不能解决运行时产生的值。未来工作我们将扩充XDebloat动态分析的能力</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>在本地库上我们采取了保守的策略，我们计划支持XDebloat简化本地代码</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>XDebloat不支持混淆的应用，这将导致功能不好定位</li>
+</ol>
+</li>
+</ul>
+<h4 id="6.4-%E6%9C%89%E6%95%88%E6%80%A7%E5%A8%81%E8%83%81" tabindex="-1">6.4 有效性威胁</h4>
+<ul>
+<li>评估应用不够多，实验结果可能不够准确</li>
+</ul>
+<h3 id="7-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C" tabindex="-1">7 相关工作</h3>
+<ul>
+<li><strong>程序简化</strong>
+<ul>
+<li>Chisel[8] 在C程序上使用强化学习进行简化</li>
+<li>[14] 在编译和加载阶段使用 piece-wise简化方法去除不用的C函数</li>
+<li>CIMPLIFIER运行简化应用容器，如Docker</li>
+<li>[5]TRIMMER使用用户提供的配置数据修建C应用</li>
+<li>JRed[7] 使用静态方法移除应用和运行时JRE中冗余的比特码</li>
+<li>RedDroid[6]使用静态分析移除安卓应用中死代码</li>
+<li>我们的方法不仅可以去除无用的函数，同时也可以将应用转化为instant app和app bundles</li>
+</ul>
+</li>
+<li><strong>软件膨胀检测</strong>
+<ul>
+<li>[4]提出一个检测Java应用中代码膨胀来源的方法</li>
+<li>[3]和[55]讨论了代码膨胀的影响</li>
+<li>[56,57]检测了运行时膨胀</li>
+<li>这超出了我们的研究范围</li>
+</ul>
+</li>
+<li><strong>程序简化和定制化</strong>
+<ul>
+<li>[9]PERSE提出了 语法制导的C语言简化方法</li>
+<li>[10]C-Reduce从Clang中获得的语义使用一系列启发式方法进行简化</li>
+<li>我们的方法使用功能来对程序进行定制化</li>
+</ul>
+</li>
+<li><strong>程序切片 Program sicing</strong>
+<ul>
+<li>一个切片是原始程序的一部分，表示了一些有趣的值</li>
+<li>与切边工作不同[58,59,60],我们的工作基于用户定义的配置而不是特定的有趣的值</li>
+</ul>
+</li>
+</ul>
+<h3 id="8-%E7%BB%93%E8%AE%BA" tabindex="-1">8 结论</h3>
+<ul>
+<li>我们提出了一个面向功能的简化方法，实现了原型XDebloat来自动化这一工程</li>
+<li>XDebloat的功能定位支持不同粒度，并且可以进行 pruning-based和module-based的简化。除了移除不需要的功能，其可以将简化后应用转化为instant app和app bundle</li>
+<li>我们在1200个真实应用上评估了XDebloat，结果显示XDebloat在很短时间内可以成功简化并将他们转化为instant app和app bundles。</li>
+</ul>
+<h2 id="towards-speedy-permission-based-debloating-for-android-apps" tabindex="-1">Towards Speedy Permission-Based Debloating for Android Apps</h2>
+<pre><code class="language-bibtex">@inproceedings&#123;thung2024towards,
+  title=&#123;Towards Speedy Permission-Based Debloating for Android Apps&#125;,
+  author=&#123;Thung, Ferdian and Liu, Jiakun and Rattanukul, Pattarakrit and Maoz, Shahar and Toch, Eran and Gao, Debin and Lo, David&#125;,
+  booktitle=&#123;Proceedings of the IEEE/ACM 11th International Conference on Mobile Software Engineering and Systems&#125;,
+  pages=&#123;84--87&#125;,
+  year=&#123;2024&#125;
+&#125;
+</code></pre>
+<h3 id="1-introduction-1" tabindex="-1">1 INTRODUCTION</h3>
+<ul>
+<li>现代安卓应用通常包含大量功能以满足不同的目标用户，这包括但不限于 不同的使用场景，不同的库，为不同设备架构准备的多样的应用二进制接口[7]</li>
+<li>用户不需要的功能是与他们所不允许的权限相关的，我们可以安全地移除这些功能</li>
+<li>最近的安卓简化工作[7,8,14],只有[14]专注于 基于权限的简化。
+<ul>
+<li>他们主要基于 FlowDroid来构建调用图并进行静态分析[1], 然而FlowDroid在现代软件运行时间需要几个小时[3,15]</li>
+<li>这对用户不太友好，因此需要加速简化时间</li>
+</ul>
+</li>
+<li>本文提出MINIAPPPERM加速基于权限的简化，通过构建函数调用子图而不是全图
+<ul>
+<li>基于权限的简化首先要移除与权限相关的方法，随后移除可能会被这些方法移除的其它方法。</li>
+<li>因此，我们不需要整个调用图，我们只需要探索 权限相关方法 的可达方法</li>
+<li>构建可达方法的子图，我们可以加速简化时间</li>
+</ul>
+</li>
+<li>为了评估MINIAPPPERM，我们收集了现代安卓应用数据集
+<ul>
+<li>我们首先在这些APP上使用FlowDroid收集函数调用图构建时间</li>
+<li>我们的试验表明，我们最多可以减少85.3%的函数调用图构建时间</li>
+<li>我们也人工检查了简化后应用可以正确运行</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-miniappperm" tabindex="-1">2 MINIAPPPERM</h3>
+<p><img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(15)_6.png" alt></p>
+<ul>
+<li>MINIAPPPERM总括如上图示：输入为应用和禁止的权限，输出为简化后的应用</li>
+<li>包括4个部分
+<ul>
+<li>
+<ol>
+<li><strong>权限识别器</strong>：读取权限表，识别应用中权限相关的方法</li>
+</ol>
+<ul>
+<li>使用PScount[2]将权限映射到方法</li>
+</ul>
+</li>
+<li>
+<ol start="2">
+<li><strong>调用图构建器</strong>：构建只包含权限相关方法的可达方法的部分调用图</li>
+</ol>
+<ul>
+<li>在BackDroid上构建[15]</li>
+<li>BackDroid执行有针对性的跨程序分析，可以跳过无法到达的代码，只跟踪那些通向安全敏感汇点API的路径（可将权限相关方法视为汇点API）</li>
+</ul>
+</li>
+<li>
+<ol start="3">
+<li><strong>调用图切片器</strong>：遍历部分调用图，移除可以图中可以移除的可达方法</li>
+</ol>
+<ul>
+<li>前向切片：移除只被权限相关方法调用的方法</li>
+<li>后向切片：移除只调用权限相关方法的方法</li>
+</ul>
+</li>
+<li>
+<ol start="4">
+<li><strong>简化器</strong>：移除不需要的方法，返回重新打包的APK</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-preliminary-experiment" tabindex="-1">3 PRELIMINARY EXPERIMENT</h3>
+<ul>
+<li>数据集：取样10个应用</li>
+<li>实验设置：
+<ul>
+<li>不同版本FlowDroid在函数调用图构造时间上差别很大</li>
+<li>与XDebloat不比较，其没开源，且时间差不多；与其它基于权限的方法也不比较，我们的方法是补充</li>
+</ul>
+</li>
+<li>结果：
+<ul>
+<li>函数调用图构建时间占主体，这里应该加速</li>
+<li>调用图构造时间不取决于权限的适量，却决于权限相关方法的广度</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-relatedwork" tabindex="-1">4 RELATEDWORK</h3>
+<ul>
+<li>许多工作面向程序简化
+<ul>
+<li>Chisel[6]</li>
+<li>Piece-wise[11] 分段编译和加载，可以系统地检测和移除内存中的不用代码</li>
+<li>Cimplifier[12] 基于用户定义的限制简化Docker容器</li>
+<li>TRIMMER[13]通过在部署环境中特化程序简化C程序中不需要的功能</li>
+<li>JRed[9]通过静态分析移除Java应用和JRE中的不用代码</li>
+<li>RedDroid[8]移除编译时和加载时冗余来简化安卓应用</li>
+<li>XDebloat[14]面向功能的安卓简化</li>
+<li>我们的工作是对以上工作的补充，加速了函数调用图的构建</li>
+</ul>
+</li>
+<li>一些工作致力于检测和分析软件膨胀
+<ul>
+<li>[4]提出了通过关注信息检测Java应用中运行膨胀的方法</li>
+<li>[17]分析如何找到，移除，阻止软件膨胀带来的问题</li>
+<li>[5]强调了 bloat-aware design在大数据应用中的重要性</li>
+<li>[10]分析了软件膨胀在数据敏感系统中的影响</li>
+<li>[16]引入了一种称为复制图的抽象概念，可以用来揭示Java中常见的膨胀模式。</li>
+<li>上述研究为去膨胀方法的工作提供了基础。在移除膨胀之前，应先检测到膨胀。对软件膨胀的更好理解也有助于未来去膨胀方法的开发。</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-conclusion-and-futurework" tabindex="-1">5 CONCLUSION AND FUTUREWORK</h3>
+<ul>
+<li>我们提出MINIAPPPERM加速 安卓应用中基于权限的简化</li>
+<li>其通过构建函数调用子图而不是全图来加速简化，最快可以加速85.3%</li>
+<li>未来：
+<ul>
+<li>在更多应用上更广泛地验证MiniAppPerm的有效性。</li>
+<li>计划通过优化部分调用图构建来提高MiniAppPerm的速度
+<ul>
+<li>例如引入并行化。另一种可能性是在不完全构建调用图的情况下进行即时切片。</li>
+<li>还有一个方向是使用神经符号程序分析来构建部分调用图，例如使用深度学习技术预测部分调用图的边。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2024/06/30/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(16)/" title="Software Debloating 论文阅读 （16）- 安卓简化调研"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: Software Debloating 论文阅读 （16）- 安卓简化调研</span></a><a class="button is-default" href="/2024/06/04/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(14)/" title="Software Debloating 论文阅读 （14）"><span class="has-text-weight-semibold">Next: Software Debloating 论文阅读 （14）</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2024</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
