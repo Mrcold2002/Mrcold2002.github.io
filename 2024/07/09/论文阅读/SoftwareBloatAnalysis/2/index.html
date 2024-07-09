@@ -1,0 +1,96 @@
+<!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>Bloat beneath Python’s Scales:A Fine-Grained Inter-Project Dependency Analysis</title><meta name="description" content="菜"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="@article&amp;#123;drososbloat,
+  title=&amp;#123;Bloat beneath Python’s Scales: A Fine-Grained Inter-Project Dependency Analysis&amp;#125;,
+  author=&amp;#123;DROSOS, GEORGIOS-PETROS and SOTIROPOULOS, THODORIS and SPINELLIS, DIOMIDIS and MITROPOULOS, DIMITRIS&amp;#125;
+&amp;#125;
+
+0 ABSTRACT
+
+问题：软件复用带来 依赖膨胀 的挑战，其表示无用的和过多的代码通过服用库集成到了项目中。 这些膨胀的以来代码的存在带来了 安全问题，维护成本，提升了存储需求，减缓了应用加载时间.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Bloat beneath Python’s Scales:A Fine-Grained Inter-Project Depe..</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-abstract"><span class="toc-text">0 ABSTRACT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-introduction"><span class="toc-text">1 INTRODUCTION</span></a></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/SoftwareEngineering"><i class="tag post-item-tag">SoftwareEngineering</i></a><a href="/tags/SoftwareBloat"><i class="tag post-item-tag">SoftwareBloat</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">Bloat beneath Python’s Scales:A Fine-Grained Inter-Project Dependency Analysis</h1><time class="has-text-grey" datetime="2024-07-09T10:16:41.257Z">2024-07-09</time><article class="mt-2 post-content"><pre><code class="language-bibtex">@article&#123;drososbloat,
+  title=&#123;Bloat beneath Python’s Scales: A Fine-Grained Inter-Project Dependency Analysis&#125;,
+  author=&#123;DROSOS, GEORGIOS-PETROS and SOTIROPOULOS, THODORIS and SPINELLIS, DIOMIDIS and MITROPOULOS, DIMITRIS&#125;
+&#125;
+</code></pre>
+<h2 id="0-abstract" tabindex="-1">0 ABSTRACT</h2>
+<ul>
+<li><strong>问题</strong>：软件复用带来 <strong>依赖膨胀</strong> 的挑战，其表示无用的和过多的代码通过服用库集成到了项目中。 这些膨胀的以来代码的存在带来了 安全问题，维护成本，提升了存储需求，减缓了应用加载时间。</li>
+<li>这篇工作中，我们进行了一个大规模细致分析，来理解PyPI系统中膨胀的依赖。
+<ul>
+<li>我们的分析是第一个关注在不同维度上的，包括膨胀依赖，膨胀文件和膨胀方法，这使得我们可以具体到库中的膨胀代码</li>
+<li>我们分析了1302个Python项目以及他们的3232个依赖。对每个项目使用了SOTA静态分析器细粒度的构造fine-grained project dependency graph(FPDG),代表了项目内方法级的依赖</li>
+</ul>
+</li>
+<li>我们对FPDG的可达性分析使得可以从多个方面评估膨胀依赖代码，包括其在PyPI生态系统中的普遍性、与软件漏洞的关系、其根因以及开发者的认知。</li>
+<li>我们的结果显示
+<ul>
+<li>PyPI系统中展示出显著的资源不充分利用，超过50%的依赖是膨胀的，当考虑的膨胀依赖代码级别更细致时，这一比例更高，如膨胀文件和膨胀方法</li>
+<li>在利用的包的膨胀区域中存在许多漏洞（PyPI中存在的缺陷有15%）</li>
+<li>膨胀代码主要源于代码重构过程中的遗漏，而且开发者愿意对他们的代码进行去膨胀处理：在提交的36个拉取请求中，开发者接受并合并了28个，总共移除了33个膨胀依赖。</li>
+</ul>
+</li>
+<li>我们相信我们的发现可以帮助研究人员和从业者提出新的去膨胀技术和开发实践来检测和避免膨胀代码，保证依赖资源高效地使用</li>
+</ul>
+<h2 id="1-introduction" tabindex="-1">1 INTRODUCTION</h2>
+<ul>
+<li>本研究专注于 bloated dependency code的存在</li>
+<li>bloated dependency会带来很多问题
+<ul>
+<li>（1）引入依赖冲突，提升维护成本</li>
+<li>（2）与弱点代码相关</li>
+</ul>
+</li>
+<li>膨胀依赖代码的研究很少，且都在包级别，然而代码复用通常在函数或者方法级别。</li>
+<li>本研究中，我们是<strong>第一个</strong>在Python项目中的膨胀依赖中进行细粒度的依赖分析。Python Package Index(PyPI) ，托管了众多py项目。我们探究了以下研究问题
+<ul>
+<li><strong>RQ1（Prevalence）膨胀依赖代码在PyPI中的普遍性</strong>？膨胀依赖代码在不同粒度上具有哪些定性特征</li>
+<li><strong>RQ2（Security）膨胀依赖代码和软件漏洞的关系</strong>？漏洞位于膨胀代码区域吗</li>
+<li><strong>RQ3（Causes）膨胀的PyPI以来的主要原因是什么</strong>？这些原因的频率如何</li>
+<li><strong>RQ4（Developer perception）开发者愿意移除膨胀的PyPI依赖的意愿如何</strong>？他们是否愿意去除这些代码</li>
+</ul>
+</li>
+<li>为了回答这些问题，我们在受欢迎的安卓项目上设计实现了一个大规模，细粒度的分析。
+<ul>
+<li>我们从一个建立好的数据集中选择了1302个github 上的python项目。</li>
+<li>对每个项目，我们生成了FPDG，在方法级别上构成了依赖网络</li>
+<li>我们使用PyCG，Python SOTA静态分析器，构建每个Python项目和以来的 调用图。通过<em>stitching</em> 过程，我们合并所有的调用图得到最后的FPDG</li>
+<li>在FPDG上进行可达性分析，即可评估膨胀依赖代码。</li>
+</ul>
+</li>
+<li><strong>贡献</strong>
+<ul>
+<li>
+<ol>
+<li>我们进行了首次大规模分析，用于构建PyPI生态系统中的细粒度依赖网络。我们提供了一个包含来自1,302个Python项目和3,232个PyPI版本的依赖网络的相应参考数据集（第2节）。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>我们量化了PyPI生态系统中的膨胀现象，并对其普遍性、安全影响、主要原因以及开发者的认知进行了全面评估（第3节）。</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>我们列举了我们的研究结果的含义，并讨论了软件依赖管理中潜在的未来方向（第4节）。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong>发现总结</strong>
+<ul>
+<li>RQ1:PyPI系统存在着依赖显著使用不充分的现象</li>
+<li>RQ2:在使用的包的膨胀区域我们发现了漏洞</li>
+<li>RQ3:主要由开发者代码库中的普遍变更（例如，功能移除）引入</li>
+<li>RQ4:开发者愿意移除膨胀的依赖，尤其在他们知道膨胀引入的原因时</li>
+</ul>
+</li>
+<li><strong>影响</strong>
+<ul>
+<li>通过我们的分析，我们通过提交pull request来解决膨胀依赖。我们成功简化了28个项目中的依赖，</li>
+<li>我们相信，我们的研究可以帮助研究人员和从业者构建合适的linters和自动化重构工具，以检测并消除Python项目中的膨胀依赖代码。</li>
+</ul>
+</li>
+</ul>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><em></em><a class="button is-default" href="/2024/07/09/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareBloatAnalysis/1/" title="Software Bloat Analysis:Finding, Removing, and Preventing Performance Problems in Modern Large-Scale Object-Oriented Applications"><span class="has-text-weight-semibold">Next: Software Bloat Analysis:Finding, Removing, and Preventing Performance Problems in Modern Large-Scale Object-Oriented Applications</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2024</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>

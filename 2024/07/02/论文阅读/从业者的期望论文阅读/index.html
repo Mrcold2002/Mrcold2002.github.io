@@ -1,0 +1,708 @@
+<!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>Practitioners’ Expectations</title><meta name="description" content="菜"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="Practitioners’ Expectations on Automated Code Comment Generation
+@inproceedings&amp;#123;hu2022practitioners,
+  title=&amp;#123;Practitioners' expectations on automated code comment generation&amp;#125;,
+  author=&amp;#123;Hu, Xing and Xia, Xin and Lo, David and Wan, Zhiyuan and Chen, Qiuyuan and Zimmermann, Thomas&amp;#125;,
+  booktitle=&amp;#123;Proceedings of the 44th Internat.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Practitioners’ Expectations</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#practitioners%E2%80%99-expectations-on-automated-code-comment-generation"><span class="toc-text">Practitioners’ Expectations on Automated Code Comment Generation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0-abstract"><span class="toc-text">0 Abstract</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-introduction"><span class="toc-text">1 Introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-research-methodology"><span class="toc-text">2 RESEARCH METHODOLOGY</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#stage-1%EF%BC%9Ainterview"><span class="toc-text">Stage 1：Interview</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#stage-2%EF%BC%9Asurvey"><span class="toc-text">Stage 2：Survey</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#stage-3%EF%BC%9Aliterature-review"><span class="toc-text">Stage 3：Literature Review</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-results"><span class="toc-text">3 RESULTS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-discussion"><span class="toc-text">4 DISCUSSION</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4.1-implications-%E5%BD%B1%E5%93%8D"><span class="toc-text">4.1 Implications 影响</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.2-threats-to-validity"><span class="toc-text">4.2 Threats to Validity</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-related-work"><span class="toc-text">5 RELATED WORK</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5.1-audomated-code-comment-generation"><span class="toc-text">5.1 Audomated Code Comment Generation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2-studies-on-documentation-practices"><span class="toc-text">5.2 Studies on documentation practices</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-conclusion-and-future-work"><span class="toc-text">6 CONCLUSION AND FUTURE WORK</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#practitioners%E2%80%99-expectations-on-automated-fault-localization"><span class="toc-text">Practitioners’ expectations on automated fault localization</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-introduction-1"><span class="toc-text">1 INTRODUCTION</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-research-methodology-1"><span class="toc-text">2 RESEARCH METHODOLOGY</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-practitioners%E2%80%99-expectations"><span class="toc-text">3 PRACTITIONERS’ EXPECTATIONS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3.1-statistics-of-responses-received"><span class="toc-text">3.1 Statistics of Responses Received</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.2-findings"><span class="toc-text">3.2 Findings</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.3-respondents%E2%80%99-final-comments"><span class="toc-text">3.3 Respondents’ Final Comments</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-current-state-of-research"><span class="toc-text">4 CURRENT STATE-OF-RESEARCH</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-discussion"><span class="toc-text">5 DISCUSSION</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5.1-implications"><span class="toc-text">5.1 Implications</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5.2-limitations"><span class="toc-text">5.2  Limitations</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-related-work"><span class="toc-text">6 RELATED WORK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-conclusion-and-future-work"><span class="toc-text">7 CONCLUSION AND FUTURE WORK</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#how-practitioners-perceive-automated-bug-report-management-techniques"><span class="toc-text">How Practitioners Perceive Automated Bug Report Management Techniques</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-introduction-2"><span class="toc-text">1 INTRODUCTION</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-research-methodology-2"><span class="toc-text">2 RESEARCH METHODOLOGY</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2.1-literature-review"><span class="toc-text">2.1 Literature Review</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.2-survey-design"><span class="toc-text">2.2 Survey Design</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2.3-interview-design"><span class="toc-text">2.3 Interview Design</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-results-1"><span class="toc-text">3 RESULTS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3.1-rq1%EF%BC%9Ahow-do-practitioners-perceive-automated-bug-report-management-techniques?"><span class="toc-text">3.1 RQ1：How Do Practitioners Perceive Automated Bug Report Management Techniques?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.2-rq2%EF%BC%9Awhich-are-the-highly-rated-automated-bug-report-management-techniques-that-practitioners-deem-important?"><span class="toc-text">3.2 RQ2：Which Are the Highly-Rated Automated Bug Report Management Techniques That Practitioners Deem Important?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3.3-rq3%EF%BC%9Awhy-do-practitioners-consider-certain-teechniques-as-important-or-unimportant?"><span class="toc-text">3.3 RQ3：Why Do Practitioners Consider Certain Teechniques as Important or Unimportant?</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-discussion-1"><span class="toc-text">4 DISCUSSION</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4.1-general-insights-across-categories"><span class="toc-text">4.1  General Insights Across Categories</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.2-insights-on-specific-categories"><span class="toc-text">4.2 Insights on Specific Categories</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4.3-threats-to-validity"><span class="toc-text">4.3 Threats to Validity</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-related-work-1"><span class="toc-text">5 RELATED WORK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-conclusion-and-future-work-1"><span class="toc-text">6 CONCLUSION AND FUTURE WORK</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#smart-contract-security:-a-practitioners%E2%80%99-perspective"><span class="toc-text">Smart contract security: A practitioners’ perspective</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-introduction-3"><span class="toc-text">1 INTRODUCTION</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-related-work"><span class="toc-text">2 RELATED WORK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-methodology"><span class="toc-text">3 METHODOLOGY</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-results"><span class="toc-text">4 RESULTS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-discussion-1"><span class="toc-text">5 DISCUSSION</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-threats-to-validity"><span class="toc-text">6 THREATS TO VALIDITY</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-conclusion"><span class="toc-text">7 CONCLUSION</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#software-documentation:-the-practitioners%E2%80%99-perspective"><span class="toc-text">Software Documentation: The Practitioners’ Perspective</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#how-practitioners-perceive-coding-proficiency"><span class="toc-text">How Practitioners Perceive Coding Proficiency</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#practitioners%E2%80%99-views-on-good-software-testing-practices"><span class="toc-text">Practitioners’ Views on Good Software Testing Practices</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text"></span></a></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/user_study"><i class="tag post-item-tag">user_study</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">Practitioners’ Expectations</h1><time class="has-text-grey" datetime="2024-07-02T08:13:16.038Z">2024-07-02</time><article class="mt-2 post-content"><h2 id="practitioners%E2%80%99-expectations-on-automated-code-comment-generation" tabindex="-1">Practitioners’ Expectations on Automated Code Comment Generation</h2>
+<pre><code class="language-bibtex">@inproceedings&#123;hu2022practitioners,
+  title=&#123;Practitioners' expectations on automated code comment generation&#125;,
+  author=&#123;Hu, Xing and Xia, Xin and Lo, David and Wan, Zhiyuan and Chen, Qiuyuan and Zimmermann, Thomas&#125;,
+  booktitle=&#123;Proceedings of the 44th International Conference on Software Engineering&#125;,
+  pages=&#123;1693--1705&#125;,
+  year=&#123;2022&#125;
+&#125;
+</code></pre>
+<h3 id="0-abstract" tabindex="-1">0 Abstract</h3>
+<ul>
+<li>However, it is unclear whether these techniques can alleviate comment issues<br>
+and whether practitioners appreciate this line of research.<br>
+<strong>问题</strong>：然而，这些技术是否缓解了注释问题，以及从业者是否欣赏这一研究方向尚不清楚。</li>
+</ul>
+<h3 id="1-introduction" tabindex="-1">1 Introduction</h3>
+<ul>
+<li>尽管有大量关于代码注释生成的研究，但不幸的是，很少有研究调查了从业者对注释生成研究的期望。目前尚不清楚从业者是否欣赏这一研究方向。即使他们欣赏，也不清楚他们是否会采用代码注释生成工具，什么因素影响他们的采用决策，以及他们的最低采用门槛。从业者的观点对于帮助软件工程研究人员制定满足开发人员需求的解决方案至关重要。此外，一些从业者期望与研究之间的差距尚未得到调查。</li>
+<li>为了获得从业者在代码注释生成上的期望
+<ul>
+<li>我们首先对16位各个公司的专家进行了半结构化的采访。通过采访，我们量化了采访者在编程实践中的注释时间和问题，以及他们对自动注释生成的期望。</li>
+<li>随后我们从720个开发者的问卷调研中验证了我们的想法，这些开发者来自26个国家6个大洲。</li>
+<li>在调查之后，我们进行了对最新论文的文献回顾。然后，我们将论文中提出的技术与从业者采用的标准进行了比较。</li>
+</ul>
+</li>
+<li>我们将探究以下4个研究问题</li>
+<li>RQ1：现在代码注释实践状态是什么，问题是什么
+<ul>
+<li>82%人会写注意，81%在读没有注释的代码时感到困惑</li>
+<li>69%和62%的人认为 注释的缺失和笼统的注释是主要问题</li>
+</ul>
+</li>
+<li>RQ2：自动化代码注释工具对从业者有用吗？
+<ul>
+<li>80%认为值得且必要</li>
+<li>78%认为这些工具可以更好帮助他们理解源代码</li>
+</ul>
+</li>
+<li>RQ3：从业者对自动化代码注释工具的期望是什么？
+<ul>
+<li>85%期望工具在函数级别上注释，信息包括 1）函数做了什么（功能）；2）如何使用方法；3）为什么这个方法存在</li>
+<li>最需要注释的地方是复杂、棘手和非自解释的方法</li>
+<li>生成的注释的最佳长度是2-3行。生成的注释应满足附加信息量、内容充分性和简洁性</li>
+</ul>
+</li>
+<li>RQ4:当前最先进的研究在满足从业者的需求和要求之前，其接近程度如何？
+<ul>
+<li>25篇论文，17个在函数等级生成注释</li>
+<li>然而很少文章注释 “how to use” “why a method exists” 想你洗</li>
+<li>大多数论文专注于测量生成的评论和人类撰写的评论之间的重叠N-gram，而这并不是从业者的首选</li>
+<li>没有论文评估生成的评论中额外的信息数量，这是大多数从业者期待的</li>
+</ul>
+</li>
+<li>我们的研究旨在帮助研究人员考虑从业者的需求，以继续发展更好的代码注释生成技术，最终实现高采纳率和满意度。贡献如下
+<ul>
+<li>
+<ol>
+<li>采访了16位专业人士，并对720名从业者进行了调查，解释了从业者的期望，包括了他们对注释生成重要性的看法以及他们采用或不采用这些技术的门槛和原因</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>我们回顾了过去10年在SE和AI顶级刊物上的论文，我们将当前的研究状态和从业者的需求进行了比较，并强调了下一步可以做什么满足从业者的需求</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-research-methodology" tabindex="-1">2 RESEARCH METHODOLOGY</h3>
+<ul>
+<li>研究有3个阶段
+<ul>
+<li>阶段1：与专业人士进行访谈，了解他们在代码注释方面的实践、面临的问题以及对代码注释生成技术的期望。</li>
+<li>阶段2：通过在线调查来确认和扩展基于访谈得出的关于代码注释的结论。</li>
+<li>阶段3：进行文献回顾，分析当前最先进研究在满足从业者需求和要求方面是否以及在多大程度上取得了成功。访谈和调查已获得相关机构审查委员会（IRB）的批准。</li>
+</ul>
+</li>
+</ul>
+<h4 id="stage-1%EF%BC%9Ainterview" tabindex="-1">Stage 1：Interview</h4>
+<ul>
+<li>本阶段目标理解专业人员在软件开发中的注释实践和问题，以及他们对代码注释生成的期望</li>
+<li>采访分为3部分
+<ul>
+<li>
+<ol>
+<li>参与者的背景信息</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>开放问题：他们认为的好的或坏的代码注释</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>讨论他们面对与代码注释相关的的实践和问题</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>数据分析：使用NVivo量化分析软件</li>
+</ul>
+<h4 id="stage-2%EF%BC%9Asurvey" tabindex="-1">Stage 2：Survey</h4>
+<p><strong>设计</strong></p>
+<ul>
+<li>调研可以分为六部分
+<ul>
+<li>
+<ol>
+<li>Demographics</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Commenting Practices</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>Commenting Issues</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>Tool Importance:这部分给调查对象代码注释工具直接的描述，并询问他们如何看待这类工具的重要性，具体陈述如下：</li>
+</ol>
+<ul>
+<li>(i) essential：我每天都会使用这个工具来帮助软件开发或代码理解</li>
+<li>(ii) worthwhile：我会使用这个工具来帮助软件开发或代码理解</li>
+<li>(iii) unimportant：我不会使用这个工具</li>
+<li>(iv) unwise：这个工具会损害我或我的团队的生产力。</li>
+<li>然后，我们询问了从业者关于重要性方面的问题（例如，提高开发效率和代码可读性）</li>
+</ul>
+</li>
+<li>
+<ol start="5">
+<li>Practitioners’ Expectations</li>
+</ol>
+<ul>
+<li>从业者的期望，包括 偏好粒度等级</li>
+<li>期望的注释内容，注释位置，不同注释等级对应不同长度的注释</li>
+</ul>
+</li>
+<li>
+<ol start="6">
+<li>Tool Adoption：询问受访者影响他们使用注释生成工具的因素，我们询问了以下因素</li>
+</ol>
+<ul>
+<li>minimum Turing Test rate：自动生成的注释和人工注释的区别</li>
+<li>maximum revised rate：最大修改率</li>
+<li>minimum efficiency：生成注释用时</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>最后进行自由建议实践</li>
+<li>我们也对另一些人询问了我们调查问卷的问题
+<ul>
+<li>
+<ol>
+<li>调查问卷的长度是否合适</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>问题是否清晰</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>对中国参与者搞了中文</li>
+</ul>
+<p><strong>参与者要求</strong></p>
+<ul>
+<li>
+<ol>
+<li>通过IT公司的关系，获得598份回复</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>github仓库顶尖开源仓库，向2000名潜在开发者发送链接，获得137份回复</li>
+</ol>
+</li>
+</ul>
+<h4 id="stage-3%EF%BC%9Aliterature-review" tabindex="-1">Stage 3：Literature Review</h4>
+<ul>
+<li>通过以下几个因素考虑技术的能力
+<ul>
+<li>粒度等级</li>
+<li>注释什么</li>
+<li>那里注释</li>
+<li>评估指标</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-results" tabindex="-1">3 RESULTS</h3>
+<p><strong>Finding 1</strong>：年轻从业者在读没有注释的代码时感到困惑的比例搞。软件项目中注释的质量和数量优先，很少有团队进行注释回顾<br>
+<strong>Finding 2</strong>：缺失注释和没有提供过多信息的笼统注释是最频繁的问题<br>
+<strong>Finding 3</strong>：80%受访者认为代码注释生成工具对他们有用。但这个发现不能证明大多数工具会有用，这表示代码注释生成工具不是无用的<br>
+<strong>Finding 4</strong>：方法级别的注释最被需要。小部分（28%）期望语句级别的注释<br>
+<strong>Finding 5</strong>：对于类级别的注释，功能和如何使用类是参与者期望自动化注释生成工具生成的最重要的信息。有着复杂逻辑和设计模式的类需要被好好地注释<br>
+<strong>Finding 6</strong>：对于方法级别的注释，功能，如何使用，输入和输出，设计原理是需要注释的重要信息。大部分参与者希望生成这样的信息。换句话说，注释需要从 是什么，怎么用，为什么方面来。<br>
+<strong>Finding 7</strong>：对于语句等级的注释，大多数受访则会需要包括功能和设计原理的注释。<br>
+<strong>Finding 8</strong>：在3个维度上，工具生成2-3行的注释最佳<br>
+<strong>Finding 9</strong>：大多数论文生成了描述代码片段做什么的注释（功能和实现细节），少部分描述了如何使用和它为什么存在。考虑到需要被注释的代码片段的类型，大多数研究为所有类型的代码片段生成了注释，但是在对的地方生成注释比在所有地方生成注释更重要<br>
+<strong>Finding 10</strong>：现有工具（1行）和从业者期望（2-3行）的生成注释的行数有巨大区别<br>
+<strong>Finding 11</strong>：大多数论文专注于测量生成评论和人类编写评论之间的重叠N-grams，大多数受访者所并不偏好。所有研究都忽略了从业者最重视的附加信息量（即，除了从扫描源代码中容易获取的信息之外的量）</p>
+<h3 id="4-discussion" tabindex="-1">4 DISCUSSION</h3>
+<h4 id="4.1-implications-%E5%BD%B1%E5%93%8D" tabindex="-1">4.1 Implications 影响</h4>
+<ul>
+<li>Comment completion tools</li>
+<li>Identifing where to write comments</li>
+<li>Describing why a code snippet exists</li>
+<li>Evaluation Criterion</li>
+<li>Detecting inconsistencies between comments and source code</li>
+<li>Checking if the source code is self-explanatory</li>
+</ul>
+<h4 id="4.2-threats-to-validity" tabindex="-1">4.2 Threats to Validity</h4>
+<ul>
+<li>从业者回答的问题可能不准确</li>
+</ul>
+<h3 id="5-related-work" tabindex="-1">5 RELATED WORK</h3>
+<h4 id="5.1-audomated-code-comment-generation" tabindex="-1">5.1 Audomated Code Comment Generation</h4>
+<h4 id="5.2-studies-on-documentation-practices" tabindex="-1">5.2 Studies on documentation practices</h4>
+<h3 id="6-conclusion-and-future-work" tabindex="-1">6 CONCLUSION AND FUTURE WORK</h3>
+<ul>
+<li>本文我们采访了16位找专家，调研了720名从业者，关于他们在注释实践中遇到的问题，以及他们对代码注释生成工具的期望。
+<ul>
+<li>从业者对注释生成技术研究很热情，期望工具能生成不同粒度的注释</li>
+<li>从业者期望评论生成在评论内容、评论位置、评价标准、有效性和效率等方面满足要求。</li>
+</ul>
+</li>
+<li>我们也会比较当前研究状态中评论生成的能力与从业者对采用的期望，以识别差异。我们指出了SOTA研究的缺陷和为未来注释生成工具更好地被从业者采用的发展的路</li>
+<li>未来研究应在正确的位置生成注释而努力而不是在所有地方。此外，未来研究应该更关注从业者重视的评估指标</li>
+</ul>
+<h2 id="practitioners%E2%80%99-expectations-on-automated-fault-localization" tabindex="-1">Practitioners’ expectations on automated fault localization</h2>
+<pre><code class="language-bibtex">@inproceedings&#123;kochhar2016practitioners,
+  title=&#123;Practitioners' expectations on automated fault localization&#125;,
+  author=&#123;Kochhar, Pavneet Singh and Xia, Xin and Lo, David and Li, Shanping&#125;,
+  booktitle=&#123;Proceedings of the 25th international symposium on software testing and analysis&#125;,
+  pages=&#123;165--176&#125;,
+  year=&#123;2016&#125;
+&#125;
+</code></pre>
+<h3 id="1-introduction-1" tabindex="-1">1 INTRODUCTION</h3>
+<ul>
+<li>
+<p>Despite numerous studies on fault localization, unfortunately,<br>
+few studies have investigated the expectations of<br>
+practitioners on research in fault localization. It is unclear<br>
+whether practitioners appreciate this line of research. Even<br>
+if they do, it is unclear whether they would adopt fault localization<br>
+techniques, what factors affect their decisions to<br>
+adopt, and what are their minimum thresholds for adoption.<br>
+Practitioners’ perspective is important to help guide software<br>
+engineering researchers to create solutions that matter<br>
+to our “clients”.<br>
+<strong>问题</strong>:尽管有大量关于故障定位的研究，但不幸的是，很少有研究调查了从业者对故障定位研究的期望。目前尚不清楚从业者是否欣赏这一研究方向。即使他们欣赏，也不清楚他们是否会采用故障定位技术，什么因素影响他们的采用决策，以及他们的最低采用门槛。从业者的观点对于帮助软件工程研究人员制定满足我们“客户”需求的解决方案至关重要。</p>
+</li>
+<li>
+<p>我们调查了很多从业者获得了386份回复</p>
+<ul>
+<li>为了获得这些从业者，我们向我们在IT公司的联系发邮件</li>
+<li>我们也想开源仓库的从业者发了邮件</li>
+</ul>
+</li>
+<li>
+<p>在我们的调研中</p>
+<ul>
+<li>首先收集了回复者的个人信息</li>
+<li>接下来给出 错误定位研究的概述，询问受访者他们对该领域的重要性开发</li>
+<li>以及他们根据各种因素衡量的采用门槛：调试数据的可用性、粒度级别、成功标准、成功率、可扩展性、效率、提供理由的能力以及IDE集成。</li>
+</ul>
+</li>
+<li>
+<p>随后我们进行了文献调研，与从业者采用的标准对比<br>
+<strong>探究以下研究问题</strong></p>
+</li>
+<li>
+<p>RQ1：从业者重视错误定位的研究吗？</p>
+</li>
+<li>
+<p>RQ2：在调试会话期间，从业者可用的调试数据有哪些？</p>
+</li>
+<li>
+<p>RQ3：故障定位技术应该针对哪些粒度级别（例如，组件、类、方法、基本块、语句）进行工作？</p>
+</li>
+<li>
+<p>RQ4：从业者何时会认为一个故障定位技术在定位错误方面是成功的？</p>
+</li>
+<li>
+<p>RQ5: 在采用一个故障定位技术之前，该技术的可信度（可靠性）需要达到多高？</p>
+</li>
+<li>
+<p>RQ6: 在采用一个故障定位技术之前，该技术的可扩展性需要达到多高？</p>
+</li>
+<li>
+<p>RQ7: 在采用一个故障定位技术之前，该技术的效率需要达到多高？</p>
+</li>
+<li>
+<p>RQ8: 一个从业者会采用一个既可信、又具可扩展性、又高效的故障定位技术吗？</p>
+</li>
+<li>
+<p>RQ9: 除了可信度、可扩展性和效率之外，一个故障定位技术还需要满足哪些额外标准，才能让一些从业者考虑采用？</p>
+</li>
+<li>
+<p>RQ10: 当前的研究状态与满足从业者在采用前的需求和要求之间有多接近？</p>
+</li>
+<li>
+<p>贡献如下：</p>
+<ul>
+<li>
+<ol>
+<li>调研了386名从业者来自30个国家以回答9个重要的研究问题，这些问题揭示了从业者的期望，包括他们对故障定位重要性的看法、他们的接受阈值以及采用或不采用这些技术的原因。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>我们回顾了过去5年发表的论文，比较了当前的研究现状与从业者的需求，并强调了为满足需要接下来可以做些什么。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-research-methodology-1" tabindex="-1">2 RESEARCH METHODOLOGY</h3>
+<ul>
+<li><strong>从业者调研</strong>
+<ul>
+<li>参与者要求</li>
+<li>调研设计
+<ul>
+<li>Demograohics</li>
+<li>Practitioners’ Expectations</li>
+<li>Data Analysis</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>文献回顾</strong></li>
+</ul>
+<h3 id="3-practitioners%E2%80%99-expectations" tabindex="-1">3 PRACTITIONERS’ EXPECTATIONS</h3>
+<h4 id="3.1-statistics-of-responses-received" tabindex="-1">3.1 Statistics of Responses Received</h4>
+<h4 id="3.2-findings" tabindex="-1">3.2 Findings</h4>
+<ul>
+<li><strong>RQ1：错误定位的重要性</strong>
+<ul>
+<li>按照职位看效果</li>
+<li>经历越少越觉得重要</li>
+</ul>
+</li>
+<li><strong>RQ2：可用的调试数据</strong>
+<ul>
+<li>可用：规范，单个失败测试用例，多个失败测试用例，通过的测试用例，bug报告</li>
+<li>数学形式规范没用，70%认为文本形式有用</li>
+<li>测试用例70%认为有用，bug报告80%认为有用</li>
+</ul>
+</li>
+<li><strong>RQ3：倾向维度</strong>：method, statement, and block</li>
+<li><strong>RQ4: 最小成功标准</strong>：98%认为不超过10个程序元素需要检查</li>
+<li><strong>RQ5：信任度</strong></li>
+<li><strong>RQ6: 扩展性</strong></li>
+<li><strong>RQ7：有效性</strong></li>
+<li><strong>RQ8：采用的意愿</strong></li>
+<li><strong>RQ9：其它因素</strong></li>
+</ul>
+<h4 id="3.3-respondents%E2%80%99-final-comments" tabindex="-1">3.3 Respondents’ Final Comments</h4>
+<ul>
+<li>集成到集成工具</li>
+<li>需要支持多种语言和工作流</li>
+<li>需要额外的工作来解释bug的存在</li>
+</ul>
+<h3 id="4-current-state-of-research" tabindex="-1">4 CURRENT STATE-OF-RESEARCH</h3>
+<h3 id="5-discussion" tabindex="-1">5 DISCUSSION</h3>
+<h4 id="5.1-implications" tabindex="-1">5.1 Implications</h4>
+<ul>
+<li>缺陷定位的较大的需求</li>
+<li>高的采用门槛</li>
+<li>现有技术需要在信任度（可靠性）上有大的改善</li>
+<li>在可扩展性上需要改善</li>
+<li>需要研究提供适当如何调试的理由。</li>
+<li>需要全社区的努力，将最先进的故障定位技术整合到流行的集成开发环境中。</li>
+</ul>
+<h4 id="5.2-limitations" tabindex="-1">5.2  Limitations</h4>
+<ul>
+<li>噪音回复</li>
+<li>通用性</li>
+<li>总体期望</li>
+<li>影响采用的因素</li>
+<li>采用的意愿 vs 实际采用</li>
+</ul>
+<h3 id="6-related-work" tabindex="-1">6 RELATED WORK</h3>
+<ul>
+<li>从业者看法，期望和活动</li>
+<li>缺陷定位的实验性研究</li>
+</ul>
+<h3 id="7-conclusion-and-future-work" tabindex="-1">7 CONCLUSION AND FUTURE WORK</h3>
+<ul>
+<li>
+<p>我们发现尽管从业者对故障定位的研究充满热情，但他们的采用标准很高。从业者希望一种故障定位技术能满足一些标准，包括调试数据的可用性、粒度级别、可信度（可靠性）、可扩展性、效率、提供理由的能力以及与IDE的集成。</p>
+</li>
+<li>
+<p>我们还比较了当前研究中故障定位技术的能力与从业者的采用标准，并识别出了差异。这些包括需要使最先进的故障定位技术更加可信、可扩展、能够提供有洞察力的理由，并集成到流行的IDEs中。</p>
+</li>
+<li>
+<p>我们的研究指出了未来工作的方向，以使故障定位技术得到从业者的广泛采用。</p>
+</li>
+<li>
+<p>在未来，我们计划开发更接近从业者期望的工具。</p>
+</li>
+<li>
+<p>我们计划在未来探索这些问题，例如</p>
+<ul>
+<li>为什么从业者更喜欢某些较粗的粒度？</li>
+<li>为什么经验丰富的开发者对自动故障定位不那么热衷？</li>
+<li>开源和职业从业者的期望有何不同？</li>
+</ul>
+</li>
+<li>
+<p>由于将太多问题放在一个调查中会负面影响参与度和响应质量[10]，因此很难在一个研究中回答所有问题。此外，页面限制阻止我们对数据进行额外的分析和报告。作为另一项未来的工作，我们计划复制和扩展我们的研究，以解决第5节中强调的局限性。</p>
+</li>
+</ul>
+<h2 id="how-practitioners-perceive-automated-bug-report-management-techniques" tabindex="-1">How Practitioners Perceive Automated Bug Report Management Techniques</h2>
+<pre><code class="language-bibtex">@article&#123;zou2018practitioners,
+  title=&#123;How practitioners perceive automated bug report management techniques&#125;,
+  author=&#123;Zou, Weiqin and Lo, David and Chen, Zhenyu and Xia, Xin and Feng, Yang and Xu, Baowen&#125;,
+  journal=&#123;IEEE Transactions on Software Engineering&#125;,
+  volume=&#123;46&#125;,
+  number=&#123;8&#125;,
+  pages=&#123;836--862&#125;,
+  year=&#123;2018&#125;,
+  publisher=&#123;IEEE&#125;
+&#125;
+</code></pre>
+<h3 id="1-introduction-2" tabindex="-1">1 INTRODUCTION</h3>
+<p>**问题：**大量的软件工程研究投入到自动化的错误报告管理技术中，然而，这些技术是否真的必要并且适用于理论研究之外，这个问题仍然悬而未决</p>
+<p><strong>贡献:</strong></p>
+<ul>
+<li>
+<ol>
+<li>总结了2006-2017的bug报告管理技术，分为了10类</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>调查了327名从业者对不同类别技术加制的观点，又采访了其中的25位</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>我们强调了从业者对不同技术排名背后了逻辑，并未具体的技术提供了一些潜在的提升</li>
+</ol>
+</li>
+</ul>
+<h3 id="2-research-methodology-2" tabindex="-1">2 RESEARCH METHODOLOGY</h3>
+<h4 id="2.1-literature-review" tabindex="-1">2.1 Literature Review</h4>
+<ul>
+<li>论文选择</li>
+<li>论文分类</li>
+<li><a target="_blank" rel="noopener" href="http://github.com/SurfGitHub/bugmanaStudy.">开源</a></li>
+</ul>
+<h4 id="2.2-survey-design" tabindex="-1">2.2 Survey Design</h4>
+<p><strong>Protocol</strong></p>
+<ul>
+<li>回答以下问题
+<ul>
+<li>RQ1：从业者对自动化bug报告管理技术看法</li>
+<li>RQ2：哪种自动化bug报告管理技术最受欢迎</li>
+<li>RQ3：从业者如何考虑哪种技术重要或不重要<br>
+<strong>Respondent Selection</strong></li>
+</ul>
+</li>
+<li>For industrial professionals</li>
+<li>For OSS(Open Source Software) active developers
+<ul>
+<li>除开源软件的作者外，还有报告bug的用户<br>
+<strong>Data Analysis</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="2.3-interview-design" tabindex="-1">2.3 Interview Design</h4>
+<h3 id="3-results-1" tabindex="-1">3 RESULTS</h3>
+<h4 id="3.1-rq1%EF%BC%9Ahow-do-practitioners-perceive-automated-bug-report-management-techniques%3F" tabindex="-1">3.1 RQ1：How Do Practitioners Perceive Automated Bug Report Management Techniques?</h4>
+<ul>
+<li>由于很多回复者是中国人，为了防止这是潜在的威胁，我们将中国人的结果与其它集过进行了比较，差异很小，我们排除了这种威胁</li>
+<li>对参与者职位，经验等进行分组，可以进一步探究</li>
+<li><strong>finding 1</strong>：总体：大部分参与者认为bug报告管理很重要</li>
+<li><strong>finding 2</strong>：按职位：测试人员认为bug报告管理的重要程度最高，其次是项目管理人员和开发人员</li>
+<li><strong>finding 3</strong>：按经历：有经验的从业者对bug报告管理的重要性比经验少的消极</li>
+<li><strong>finding 4</strong>：按教育背景：没有显著差异</li>
+<li><strong>finding 5</strong>：按人群：职业开发者比OSS从业者认为器重要性更高</li>
+</ul>
+<h4 id="3.2-rq2%EF%BC%9Awhich-are-the-highly-rated-automated-bug-report-management-techniques-that-practitioners-deem-important%3F" tabindex="-1">3.2 RQ2：Which Are the Highly-Rated Automated Bug Report Management Techniques That Practitioners Deem Important?</h4>
+<ul>
+<li><strong>finding 6</strong>：大部分参与者对自动化bug报告管理技术的重要性很高，其中Bug Localization, Bug-Commit Linking 最被从业者认可</li>
+<li><strong>finding 7</strong>：B1,4,5,6相对高，8，10最低</li>
+<li><strong>finding 8</strong>：</li>
+<li><strong>finding 9</strong>：</li>
+</ul>
+<h4 id="3.3-rq3%EF%BC%9Awhy-do-practitioners-consider-certain-teechniques-as-important-or-unimportant%3F" tabindex="-1">3.3 RQ3：Why Do Practitioners Consider Certain Teechniques as Important or Unimportant?</h4>
+<ul>
+<li>
+<p>为了更好地理解为什么某些技术被从业者视为重要或不重要，我们对从调查受访者和采访对象收集到的答案/评论进行了主题分析。</p>
+</li>
+<li>
+<p>主题分析是一种旨在识别和记录文本文件内“主题”（即模式）的技术。它通常包括5个步骤：（1）阅读文档以熟悉数据，（2）为数据生成初始代码，（3）在代码中搜索潜在主题，（4）审查和精炼主题，以及（5）定义和命名最终主题。主题分析已在许多过去的软件工程研究中进行，例如[40]、[41]。</p>
+</li>
+<li>
+<p>本节对所有的10类技术都进行了分析</p>
+</li>
+</ul>
+<h3 id="4-discussion-1" tabindex="-1">4 DISCUSSION</h3>
+<h4 id="4.1-general-insights-across-categories" tabindex="-1">4.1  General Insights Across Categories</h4>
+<ul>
+<li>从业者认为bug报告管理技术很重要</li>
+<li>对工具的采用取决于开发者对错误报告管理技术所提建议可靠性的相信程度。</li>
+<li>需要综合考虑多个数据来源来改善缺陷报告管理技术。</li>
+<li>软件工程实践是多样化的，必须更好地描述特定错误报告管理技术特别需要的背景和情境。</li>
+<li>困难的例子需要更多的注意</li>
+<li>将研究原型集成到常用工具中是值得的。</li>
+</ul>
+<h4 id="4.2-insights-on-specific-categories" tabindex="-1">4.2 Insights on Specific Categories</h4>
+<h4 id="4.3-threats-to-validity" tabindex="-1">4.3 Threats to Validity</h4>
+<p><strong>Literature Review</strong>:</p>
+<ul>
+<li>可能错过了相关的研究，我们采取了以下措施
+<ul>
+<li>
+<ol>
+<li>考虑了17各可能的期刊文献场所</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>选择2006年以来（该领域出现的时间）的论文</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>分类有问题：二人一块分类<br>
+<strong>Survey</strong>：</li>
+<li>不诚实的回答。措施：
+<ul>
+<li>（1）允许我们的调查受访者匿名参与；如果参与者不留下电子邮件地址，他们将无法被追踪；他们也可以留下新的/匿名的电子邮件地址</li>
+<li>（2）保证个人信息不会被传播。 如[81]说，匿名性和保密性有助于从调查受访者那里获得坦诚的回答。</li>
+</ul>
+</li>
+<li>回答者对技术理解不充分
+<ul>
+<li>准备了 “I don not understand ”选项</li>
+<li>准备了英语和中文两种语言</li>
+</ul>
+</li>
+<li>参与者的自我选择，结果/发现可能会偏向于那些更有可能/愿意填写问卷的人（例如，有额外空闲时间的实践者）。<br>
+<strong>Interview</strong><br>
+<strong>Thematic Analysis</strong></li>
+</ul>
+<h3 id="5-related-work-1" tabindex="-1">5 RELATED WORK</h3>
+<ul>
+<li>从业者对软件工程的总体看法，本文专注于从业者对软件工程中具体话题，也有其它的类似工作。</li>
+<li>除了探究从业者对现有技术价值观点的探究外，还有其它研究帮助研究者更好地理解软件开发和开发者行为的特点</li>
+</ul>
+<h3 id="6-conclusion-and-future-work-1" tabindex="-1">6 CONCLUSION AND FUTURE WORK</h3>
+<h2 id="smart-contract-security%3A-a-practitioners%E2%80%99-perspective" tabindex="-1">Smart contract security: A practitioners’ perspective</h2>
+<pre><code class="language-bibtex">@inproceedings&#123;wan2021smart,
+  title=&#123;Smart contract security: A practitioners' perspective&#125;,
+  author=&#123;Wan, Zhiyuan and Xia, Xin and Lo, David and Chen, Jiachi and Luo, Xiapu and Yang, Xiaohu&#125;,
+  booktitle=&#123;2021 IEEE/ACM 43rd International Conference on Software Engineering (ICSE)&#125;,
+  pages=&#123;1410--1422&#125;,
+  year=&#123;2021&#125;,
+  organization=&#123;IEEE&#125;
+&#125;
+</code></pre>
+<h3 id="1-introduction-3" tabindex="-1">1 INTRODUCTION</h3>
+<p>**问题：**尽管在确保智能合约安全方面做出了许多努力，但关于软件从业者如何在实践中将安全性构建到智能合约中的信息却知之甚少。</p>
+<ul>
+<li>因此，我们采用了混合方法来调查从业者对智能合约安全的看法和实践。
+<ul>
+<li>我们从与13位有智能合约开发经验的软件从业者进行半结构化访谈开始
+<ul>
+<li>通过访谈，我们定性地调查了受访者在智能合约开发中的安全意识和实践。我们得出了智能合约开发中的6个竞争优先事项、11个安全激励因素和9个安全阻碍因素、5个从业者获取安全知识的渠道、11个安全策略以及11个影响安全工具采用的因素。</li>
+</ul>
+</li>
+<li>进一步进行了一项探索性调查，调查对象包括来自六大洲35个国家的156名智能合约从业者，以定量验证我们在访谈中发现的安全感知和实践。<br>
+探究问题：<br>
+<strong>RQ1：从业者对智能合约安全的看法</strong><br>
+<strong>RQ2：安全如何适应智能合约的开发周期</strong><br>
+<strong>RQ3：区块链平台会影响从业者在智能合约安全上的观点和实践吗</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="2-related-work" tabindex="-1">2 RELATED WORK</h3>
+<ul>
+<li>A 软件开发中的安全实践</li>
+<li>B 智能合约安全</li>
+</ul>
+<h3 id="3-methodology" tabindex="-1">3 METHODOLOGY</h3>
+<ul>
+<li>A Interviews</li>
+<li>B Survey
+<ul>
+<li>Demographics</li>
+<li>Perceptions on Smart Contract Security</li>
+<li>Security Practices in Smart Contract Development</li>
+<li>Factor Analysis</li>
+<li>Comparison</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-results" tabindex="-1">4 RESULTS</h3>
+<p><strong>RQ1: Perceptions on Smart Contract Security</strong></p>
+<ul>
+<li>Impotance of Security</li>
+<li>Security Motivators</li>
+<li>Security Deterrents</li>
+<li>Experiencing Security Problems</li>
+<li>Sources of Security Knowledge<br>
+<strong>RQ2:Security Practices in Smart Contract Development</strong></li>
+<li>Efforts toward Security</li>
+<li>Strategies to Address Smart Contract Security</li>
+<li>Tools to Address Smart Contract Security<br>
+<strong>RQ3: Influence of Blockchain Platforms on Smart Contract Security</strong></li>
+</ul>
+<h3 id="5-discussion-1" tabindex="-1">5 DISCUSSION</h3>
+<ul>
+<li>Security Awareness and Risks of Smart Contract</li>
+<li>Code Reuse and Tool Implications in Smart Contract</li>
+<li>Studies across Blockchain Platforms</li>
+</ul>
+<h3 id="6-threats-to-validity" tabindex="-1">6 THREATS TO VALIDITY</h3>
+<p><strong>Internal Validity</strong></p>
+<ul>
+<li>采访偏差</li>
+<li>回答者噪音<br>
+<strong>Construct Validity</strong></li>
+<li>采访和调研的自身的问题<br>
+<strong>Conclusion Validity</strong><br>
+<strong>External Validity</strong></li>
+</ul>
+<h3 id="7-conclusion" tabindex="-1">7 CONCLUSION</h3>
+<h2 id="software-documentation%3A-the-practitioners%E2%80%99-perspective" tabindex="-1">Software Documentation: The Practitioners’ Perspective</h2>
+<ul>
+<li>A crucial first step is to understand what quality means for practitioners and what information is actually needed for specific tasks.</li>
+<li>翻译：理解从业者对质量的理解和实际需要的信息</li>
+<li>我们对146名从业者进行了2个调研
+<ul>
+<li>
+<ol>
+<li>他们认为的文档问题，及这些问题出现时他们的解决措施</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>在不同任务中都重要的文档类型<br>
+<strong>research question</strong></li>
+</ol>
+</li>
+</ul>
+</li>
+<li>RQ1:什么文档问题与从业者有关</li>
+<li>RQ2：哪种文档被从业者认为在不同任务中是重要的</li>
+</ul>
+<h2 id="how-practitioners-perceive-coding-proficiency" tabindex="-1">How Practitioners Perceive Coding Proficiency</h2>
+<p><strong>问题</strong>：什么技能影响一个人的代码熟练度？</p>
+<ul>
+<li>为了回答这个问题，我们调研了340位软件从业者。</li>
+<li>我们首先通过采访15名开发者，获得38种，分为9类的代码熟练技能。随后我们要求调研的参与者对这些技能进行排位，并给出他们的理由。</li>
+<li>我们的研究结果突出了21种重要的技能，我们讨论我们发现的影响<br>
+<strong>RQ：</strong></li>
+<li>RQ1：从业者对38种派生的代码熟练技能的看法</li>
+<li>RQ2：哪些时从业者认为重要的技能</li>
+<li>RQ3: 为什么从业者认为某些技能重要或不重要</li>
+</ul>
+<h2 id="practitioners%E2%80%99-views-on-good-software-testing-practices" tabindex="-1">Practitioners’ Views on Good Software Testing Practices</h2>
+<p><strong>问题：</strong> 尽管存在软件测试，但bug普遍存在，者引出了测试用例质量的问题，并促使我们研究什么构成了好的测试用例</p>
+<p><strong>贡献</strong></p>
+<ul>
+<li>
+<ol>
+<li>我们采访和调研了许多业界和开源从业者来探究好的测试用例的特征</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>我们提供了6个维度29个好的测试用例的特征：测试用例内容，大小，复杂度，覆盖率，可维护性，bug检测率及其它。这些特性可以为从业者提供关于他们需要为创建测试用例考虑的因素的见解，并遵循良好的测试实践。</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>我们阐述了从业者对每个特性表示赞同或反对的理由，并在此过程中强调了从业者在创建测试用例时需要考虑的权衡和特殊情况。</li>
+</ol>
+</li>
+</ul>
+<p><strong>调研RQ</strong></p>
+<ul>
+<li>RQ1:参与者如何排位29个测试用例特性</li>
+<li>RQ2:参与者不同意这些测试用例特征的原因是什么</li>
+</ul>
+<h2 id tabindex="-1"></h2>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2024/07/09/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareBloatAnalysis/1/" title="Software Bloat Analysis:Finding, Removing, and Preventing Performance Problems in Modern Large-Scale Object-Oriented Applications"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: Software Bloat Analysis:Finding, Removing, and Preventing Performance Problems in Modern Large-Scale Object-Oriented Applications</span></a><a class="button is-default" href="/2024/06/30/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(15)/" title="Software Debloating 论文阅读 （16）- 安卓简化调研2"><span class="has-text-weight-semibold">Next: Software Debloating 论文阅读 （16）- 安卓简化调研2</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2024</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
