@@ -1,6 +1,81 @@
 <!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>Mr_cold's blog</title><meta name="description" content="菜"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
 <!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/widget-post-list.css"><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><span>Archives · 2024</span></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><article class="post-container is-flex is-justify-content-center section container is-max-widescreen pt-4 px-2"><div class="columns is-variable is-1-tablet is-3-desktop-only is-2-widescreen is-full-width"><section class="column"><article class="post-item-card"><section class="content post-card-content p-4 pb-5"><header><a href="/tags/SoftwareEngineering"><i class="tag post-item-tag">SoftwareEngineering</i></a><a href="/tags/SoftwareBloat"><i class="tag post-item-tag">SoftwareBloat</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2024/07/09/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareBloatAnalysis/2/">Bloat beneath Python’s Scales:A Fine-Grained Inter-Project Dependency Analysis</a></h2><time class="has-text-grey" datetime="2024-07-09T10:16:41.257Z">2024-07-09</time><p class="is-flex-grow-2 mt-2">@article&amp;#123;drososbloat,
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><span>Archives · 2024</span></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><article class="post-container is-flex is-justify-content-center section container is-max-widescreen pt-4 px-2"><div class="columns is-variable is-1-tablet is-3-desktop-only is-2-widescreen is-full-width"><section class="column"><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(16)_x.png" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2024/07/27/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(16)/"><img class="post-cover-img js-img-fadeIn" src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(16)_x.png" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/SoftwareEngineering"><i class="tag post-item-tag">SoftwareEngineering</i></a><a href="/tags/SoftwareDebloating"><i class="tag post-item-tag">SoftwareDebloating</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2024/07/27/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(16)/">Software Debloating 论文阅读 （16）- Dead Code Removal at Meta</a></h2><time class="has-text-grey" datetime="2024-07-27T14:01:51.090Z">2024-07-27</time><p class="is-flex-grow-2 mt-2">
+0 摘要
+
+
+功能生命周期：为了迎合用户的需求，软件不断地演化：新功能被构建、部署、成熟并逐渐老化，最终它们的使用量下降到足以证明关闭它们是合理的。在任何大型代码库中，这种功能生命周期自然会导致保留不必要的代码和数据。移除这些内容尊重了用户的隐私期望，同时也帮助工程师高效工作。
+
+
+问题及解决：在之前的软件工程研究中，我们发现几乎没有证据表明在工业规模上进行了代码弃用或死代码移除。因此，我们实现了一个了系统化代码和资产移除框架（Systematic Code and Asset Removal Framework，SCARF），一个产品弃用系统，旨在协助在大型代码库中工作的工程师。
+
+
+SCARF作用：SCARF识别未使用的代码和数据资产，并安全地移除它们。它完全自动操作，包括提交代码和删除数据库表。它还..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2024/07/27/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(16)/">Read more</a></section></article><article class="post-item-card"><section class="content post-card-content p-4 pb-5"><header><a href="/tags/%E9%B8%BF%E8%92%99"><i class="tag post-item-tag">鸿蒙</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2024/07/09/PL/%E9%B8%BF%E8%92%99%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/">鸿蒙应用开发</a></h2><time class="has-text-grey" datetime="2024-07-09T13:15:38.473Z">2024-07-09</time><p class="is-flex-grow-2 mt-2">本节记录通过黑马程序员B站课程学习鸿蒙应用开发的笔记。
+黑马程序员鸿蒙课程
+课程内容：
+
+
+
+鸿蒙APP开发
+
+
+（1）ArkUI界面与交互
+（2）组件化开发
+（3）网络管理
+
+
+
+
+能力套件开发
+
+
+（1）一次开发多端部署
+（2）系统能力集
+（3）开放能力集
+
+
+
+
+全场景开发
+
+
+（1）元服务
+（2）端云一体化
+（3）万物互联
+
+
+
+1. ArkTS基础快速入门
+console.log() 在日志里打印东西
+
+
+三种基础数据类型
+
+
+
+string
+
+
+
+
+number
+
+
+
+
+boolean
+
+
+
+
+
+存储数据
+
+
+//let 变量名:类型 = 值
+let title : string = &amp;quot;奥利奥&amp;quot;
+let price : number = 10
+let isBuy : bool..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2024/07/09/PL/%E9%B8%BF%E8%92%99%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/">Read more</a></section></article><article class="post-item-card"><section class="content post-card-content p-4 pb-5"><header><a href="/tags/SoftwareEngineering"><i class="tag post-item-tag">SoftwareEngineering</i></a><a href="/tags/SoftwareBloat"><i class="tag post-item-tag">SoftwareBloat</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2024/07/09/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareBloatAnalysis/2/">Bloat beneath Python’s Scales:A Fine-Grained Inter-Project Dependency Analysis</a></h2><time class="has-text-grey" datetime="2024-07-09T10:16:41.257Z">2024-07-09</time><p class="is-flex-grow-2 mt-2">@article&amp;#123;drososbloat,
   title=&amp;#123;Bloat beneath Python’s Scales: A Fine-Grained Inter-Project Dependency Analysis&amp;#125;,
   author=&amp;#123;DROSOS, GEORGIOS-PETROS and SOTIROPOULOS, THODORIS and SPINELLIS, DIOMIDIS and MITROPOULOS, DIMITRIS&amp;#125;
 &amp;#125;
@@ -14,12 +89,11 @@
 @inproceedings&amp;#123;hu2022practitioners,
   title=&amp;#123;Practitioners' expectations on automated code comment generation&amp;#125;,
   author=&amp;#123;Hu, Xing and Xia, Xin and Lo, David and Wan, Zhiyuan and Chen, Qiuyuan and Zimmermann, Thomas&amp;#125;,
-  booktitle=&amp;#123;Proceedings of the 44th Internat..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2024/07/02/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/%E4%BB%8E%E4%B8%9A%E8%80%85%E7%9A%84%E6%9C%9F%E6%9C%9B%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(15)_x.png" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2024/06/30/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(15)/"><img class="post-cover-img js-img-fadeIn" src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(15)_x.png" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/SoftwareEngineering"><i class="tag post-item-tag">SoftwareEngineering</i></a><a href="/tags/SoftwareDebloating"><i class="tag post-item-tag">SoftwareDebloating</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2024/06/30/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(15)/">Software Debloating 论文阅读 （16）- 安卓简化调研2</a></h2><time class="has-text-grey" datetime="2024-06-30T12:10:11.002Z">2024-06-30</time><p class="is-flex-grow-2 mt-2">
-REDDROID: Android Application Redundancy Customization Based on Static Analysis
+  booktitle=&amp;#123;Proceedings of the 44th Internat..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2024/07/02/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/%E4%BB%8E%E4%B8%9A%E8%80%85%E7%9A%84%E6%9C%9F%E6%9C%9B%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">Read more</a></section></article><article class="post-item-card"><section class="content post-card-content p-4 pb-5"><header><a href="/tags/SoftwareEngineering"><i class="tag post-item-tag">SoftwareEngineering</i></a><a href="/tags/SoftwareDebloating"><i class="tag post-item-tag">SoftwareDebloating</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2024/06/30/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(15)/">Software Debloating 论文阅读 （15）- 安卓简化调研2</a></h2><time class="has-text-grey" datetime="2024-06-30T12:10:11.002Z">2024-06-30</time><p class="is-flex-grow-2 mt-2">REDDROID: Android Application Redundancy Customization Based on Static Analysis
 @inproceedings&amp;#123;jiang2018reddroid,
   title=&amp;#123;RedDroid: Android application redundancy customization based on static analysis&amp;#125;,
   author=&amp;#123;Jiang, Yufei and Bao, Qinkun and Wang, Shuai and Liu, Xiao and Wu, Dinghao&amp;#125;,
-  booktitle=&amp;#123;2018 IEEE 29th interna..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2024/06/30/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(15)/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(15)_1.png" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2024/06/18/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(14)/"><img class="post-cover-img js-img-fadeIn" src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(15)_1.png" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/SoftwareEngineering"><i class="tag post-item-tag">SoftwareEngineering</i></a><a href="/tags/SoftwareDebloating"><i class="tag post-item-tag">SoftwareDebloating</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2024/06/18/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(14)/">Software Debloating 论文阅读 （14）- 安卓简化调研1</a></h2><time class="has-text-grey" datetime="2024-06-17T16:45:46.704Z">2024-06-18</time><p class="is-flex-grow-2 mt-2">AutoDebloater: Automated Android App Debloating
+  booktitle=&amp;#123;2018 IEEE 29th internat..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2024/06/30/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(15)/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(15)_1.png" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2024/06/18/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(14)/"><img class="post-cover-img js-img-fadeIn" src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(15)_1.png" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/SoftwareEngineering"><i class="tag post-item-tag">SoftwareEngineering</i></a><a href="/tags/SoftwareDebloating"><i class="tag post-item-tag">SoftwareDebloating</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2024/06/18/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/SoftwareDebloating/Software%20Debloating%20%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB(14)/">Software Debloating 论文阅读 （14）- 安卓简化调研1</a></h2><time class="has-text-grey" datetime="2024-06-17T16:45:46.704Z">2024-06-18</time><p class="is-flex-grow-2 mt-2">AutoDebloater: Automated Android App Debloating
 @inproceedings&amp;#123;liu2023autodebloater,
   title=&amp;#123;AutoDebloater: Automated Android App Debloating&amp;#125;,
   author=&amp;#123;Liu, Jiakun and Hu, Xing and Thung, Ferdian and Maoz, Shahar and Toch, Eran and Gao, Debin and Lo, David&amp;#125;,
@@ -35,28 +109,7 @@ REDDROID: Android Application Redundancy Customization Based on Static Analysis
 
 引用：Huang H, Zhou A, Payer M, et al. Everything is Good for Something: Counterexample-Guided Directed Fuzzing via Likely Invariant Inference[C], 2024 IEEE Symposium on Security and Privacy (SP). IEEE Computer Society, 2024: 142-142.
 CCF A S&amp;amp;P , IEEE Symposium on Security and Privacy
-..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2024/04/26/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/invariant/%E9%80%9A%E8%BF%87%E4%B8%8D%E5%8F%98%E9%87%8F%E7%9A%84%E5%8F%8D%E4%BE%8B%E5%BC%95%E5%AF%BC%E7%9A%84%E5%AE%9A%E5%90%91Fuzzing/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/%E8%AE%BA%E6%96%87/invariant/3_3.png" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2024/04/26/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/invariant/%E4%B8%8D%E5%8F%98%E9%87%8F%E4%BD%9C%E4%B8%BAFuzzers%E7%9A%84%E5%8F%8D%E9%A6%88/"><img class="post-cover-img js-img-fadeIn" src="/images/%E8%AE%BA%E6%96%87/invariant/3_3.png" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/Invariant"><i class="tag post-item-tag">Invariant</i></a><a href="/tags/Fuzzing"><i class="tag post-item-tag">Fuzzing</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2024/04/26/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/invariant/%E4%B8%8D%E5%8F%98%E9%87%8F%E4%BD%9C%E4%B8%BAFuzzers%E7%9A%84%E5%8F%8D%E9%A6%88/">不变量作为fuzzers的反馈</a></h2><time class="has-text-grey" datetime="2024-04-26T05:17:23.240Z">2024-04-26</time><p class="is-flex-grow-2 mt-2">The use of likely invariants as feedback for fuzzers
-
-引用：Fioraldi A, D’Elia D C, Balzarotti D. The use of likely invariants as feedback for fuzzers[C], 30th USENIX Security Symposium (USENIX Security 21). 2021: 2829-2846.
-CCF A USENIX Security
-链接
-代码
-
-
-0 摘要
-动机
-
-模糊测试已经被证明是发现程序漏洞的有效技术，但仍存在一些开放的挑战。
-
-其中一个主要挑战是，广受欢迎的基于覆盖率引导的模糊测试会尽可能的将测试用例覆盖程序的不同部分，但仅仅考虑覆盖率可能并不能充..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2024/04/26/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/invariant/%E4%B8%8D%E5%8F%98%E9%87%8F%E4%BD%9C%E4%B8%BAFuzzers%E7%9A%84%E5%8F%8D%E9%A6%88/">Read more</a></section></article><article class="post-item-card"><header class="is-relative is-flex"><div class="post-cover-backdrop is-hidden"><img src="/images/%E8%AE%BA%E6%96%87/invariant/1_1.png" alt="loading.."></div><a class="post-cover-link has-text-centered skeleton" href="/2024/03/22/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/invariant/%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%8F%98%E9%87%8F%E5%9C%A8%E5%9B%9E%E5%BD%92%E6%B5%8B%E8%AF%95%E5%92%8C%E9%94%99%E8%AF%AF%E5%AE%9A%E4%BD%8D/"><img class="post-cover-img js-img-fadeIn" src="/images/%E8%AE%BA%E6%96%87/invariant/1_1.png" alt="loading.." data-backdrop="true"></a></header><section class="content post-card-content p-4 pb-5"><header><a href="/tags/Invariant"><i class="tag post-item-tag">Invariant</i></a></header><h2 class="mt-4 mb-0 is-family-serif"><a href="/2024/03/22/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/invariant/%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%8F%98%E9%87%8F%E5%9C%A8%E5%9B%9E%E5%BD%92%E6%B5%8B%E8%AF%95%E5%92%8C%E9%94%99%E8%AF%AF%E5%AE%9A%E4%BD%8D/">使用不变量在回归测试和错误定位</a></h2><time class="has-text-grey" datetime="2024-03-22T15:46:00.234Z">2024-03-22</time><p class="is-flex-grow-2 mt-2">Using automatically generated invariants for regression testing and bug localization
-
-引用：Sagdeo P, Ewalt N, Pal D, et al. Using automatically generated invariants for regression testing and bug localization[C], 2013 28th IEEE/ACM International Conference on Automated Software Engineering (ASE). IEEE, 2013: 634-639.
-CCF A ASE
-链接
-
-1 介绍
-
-在软件开发和部署后，检测和定位软件中的错误..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2024/03/22/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/invariant/%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%8F%98%E9%87%8F%E5%9C%A8%E5%9B%9E%E5%BD%92%E6%B5%8B%E8%AF%95%E5%92%8C%E9%94%99%E8%AF%AF%E5%AE%9A%E4%BD%8D/">Read more</a></section></article><section class="paginator is-flex is-justify-content-flex-end is-flex-wrap-wrap mt-5"><span class="page-number current">1</span><a class="page-number" href="/archives/2024/page/2/">2</a><a class="page-number" href="/archives/2024/page/3/">3</a><a class="page-number" href="/archives/2024/page/4/">4</a><a class="extend next" rel="next" href="/archives/2024/page/2/"><i class="iconfont icon-next has-text-grey"></i></a></section></section><aside class="column is-hidden-mobile is-4-tablet is-3-widescreen"><div style="position: sticky; top: 50px;"><main class="aside-card-container archives-widget is-in-archive-page"><h3>Archives</h3><section><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">22</span></li></ul></section></main></div></aside></div></article><script>$claudia.fadeInImage(null, $claudia.blurBackdropImg)
+..</p><a class="button is-default mt-2 has-text-weight-semibold" href="/2024/04/26/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/invariant/%E9%80%9A%E8%BF%87%E4%B8%8D%E5%8F%98%E9%87%8F%E7%9A%84%E5%8F%8D%E4%BE%8B%E5%BC%95%E5%AF%BC%E7%9A%84%E5%AE%9A%E5%90%91Fuzzing/">Read more</a></section></article><section class="paginator is-flex is-justify-content-flex-end is-flex-wrap-wrap mt-5"><span class="page-number current">1</span><a class="page-number" href="/archives/2024/page/2/">2</a><a class="page-number" href="/archives/2024/page/3/">3</a><a class="page-number" href="/archives/2024/page/4/">4</a><a class="extend next" rel="next" href="/archives/2024/page/2/"><i class="iconfont icon-next has-text-grey"></i></a></section></section><aside class="column is-hidden-mobile is-4-tablet is-3-widescreen"><div style="position: sticky; top: 50px;"><main class="aside-card-container archives-widget is-in-archive-page"><h3>Archives</h3><section><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">July 2024</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/">April 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">February 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a><span class="archive-list-count">22</span></li></ul></section></main></div></aside></div></article><script>$claudia.fadeInImage(null, $claudia.blurBackdropImg)
 
 window.addEventListener('resize', $claudia.throttle(function () {
     var images = document.querySelectorAll('.js-img-fadeIn')

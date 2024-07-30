@@ -1,0 +1,398 @@
+<!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>Software Debloating 论文阅读 （16）- Dead Code Removal at Meta</title><meta name="description" content="菜"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="
+0 摘要
+
+
+功能生命周期：为了迎合用户的需求，软件不断地演化：新功能被构建、部署、成熟并逐渐老化，最终它们的使用量下降到足以证明关闭它们是合理的。在任何大型代码库中，这种功能生命周期自然会导致保留不必要的代码和数据。移除这些内容尊重了用户的隐私期望，同时也帮助工程师高效工作。
+
+
+问题及解决：在之前的软件工程研究中，我们发现几乎没有证据表明在工业规模上进行了代码弃用或死代码移除。因此，我们实现了一个了系统化代码和资产移除框架（Systematic Code and Asset Removal Framework，SCARF），一个产品弃用系统，旨在协助在大型代码库中工作的工程师。
+
+
+SCARF作用：SCARF识别未使用的代码和数据资产，并安全地移除它们。它完全自动操作，包括提交代码和删除数据库表。它还.."><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Mr_cold's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Software Debloating 论文阅读 （16）- Dead Code Removal at Meta</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E6%91%98%E8%A6%81"><span class="toc-text">0 摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1 介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1.1-%E6%A6%82%E8%BF%B0%E5%92%8C%E4%BE%8B%E5%AD%90"><span class="toc-text">1.1 概述和例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1.2-%E6%96%87%E7%AB%A0%E7%BB%93%E6%9E%84"><span class="toc-text">1.2 文章结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%83%8C%E6%99%AF"><span class="toc-text">2 背景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2.1-mete%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B"><span class="toc-text">2.1 Mete软件开发过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.2-tooling"><span class="toc-text">2.2 Tooling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2.3-sources-of-deprecation-candidates"><span class="toc-text">2.3 Sources of Deprecation Candidates</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%95%B0%E6%8D%AE%E6%94%B6%E9%9B%86%E9%98%B6%E6%AE%B5"><span class="toc-text">3 数据收集阶段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3.1-%E4%BB%A3%E7%A0%81%E7%9A%84%E6%94%B6%E9%9B%86%E4%BF%A1%E6%81%AF"><span class="toc-text">3.1 代码的收集信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3.2-%E6%94%B6%E9%9B%86%E4%BB%A3%E7%A0%81%E5%85%B3%E7%B3%BB"><span class="toc-text">3.2 收集代码关系</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E9%98%B6%E6%AE%B5"><span class="toc-text">4 数据处理阶段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4.1-%E5%AE%9E%E7%8E%B0"><span class="toc-text">4.1 实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4.2-scarf%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86"><span class="toc-text">4.2 SCARF数据处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%BC%83%E7%94%A8%E9%98%B6%E6%AE%B5"><span class="toc-text">5 弃用阶段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5.1-codemodservice"><span class="toc-text">5.1 CodemodService</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E9%83%A8%E7%BD%B2%E5%BA%8F%E5%88%97"><span class="toc-text">6 部署序列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-meta%E4%B8%AD%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-text">7 Meta中的影响</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#code"><span class="toc-text">Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#data"><span class="toc-text">Data</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C"><span class="toc-text">8 相关工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E7%BB%93%E8%AE%BA"><span class="toc-text">9 结论</span></a></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/SoftwareEngineering"><i class="tag post-item-tag">SoftwareEngineering</i></a><a href="/tags/SoftwareDebloating"><i class="tag post-item-tag">SoftwareDebloating</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">Software Debloating 论文阅读 （16）- Dead Code Removal at Meta</h1><time class="has-text-grey" datetime="2024-07-27T14:01:51.090Z">2024-07-27</time><article class="mt-2 post-content"><p><img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(16)_x.png" alt></p>
+<h2 id="0-%E6%91%98%E8%A6%81" tabindex="-1">0 摘要</h2>
+<ul>
+<li>
+<p><strong>功能生命周期</strong>：为了迎合用户的需求，软件不断地演化：新功能被构建、部署、成熟并逐渐老化，最终它们的使用量下降到足以证明关闭它们是合理的。在任何大型代码库中，这种功能生命周期自然会导致保留不必要的代码和数据。移除这些内容尊重了用户的隐私期望，同时也帮助工程师高效工作。</p>
+</li>
+<li>
+<p><strong>问题及解决</strong>：在之前的软件工程研究中，我们发现几乎没有证据表明在工业规模上进行了代码弃用或死代码移除。因此，我们实现了一个了系统化代码和资产移除框架（Systematic Code and Asset Removal Framework，SCARF），一个产品弃用系统，旨在协助在大型代码库中工作的工程师。</p>
+</li>
+<li>
+<p><strong>SCARF作用</strong>：SCARF识别未使用的代码和数据资产，并安全地移除它们。它完全自动操作，包括提交代码和删除数据库表。它还在无法采取自动化行动的地方，收集开发者的输入，进行进一步的移除。</p>
+</li>
+<li>
+<p><strong>SCARF效果</strong>：死代码移除提高了大型代码库的质量和一致性，有助于知识管理和提高可靠性。SCARF在Meta产生了重要影响。仅去年一年，它就移除了跨越1280万个不同资产的数PB数据，并删除了超过1.04亿行代码。</p>
+</li>
+<li>
+<p>CCS CONCEPTS: Software and its engineering→Software creation and management.</p>
+</li>
+<li>
+<p>Key Words</p>
+<ul>
+<li>Code transformation</li>
+<li>Automated refactoring</li>
+<li>Data purging</li>
+<li>Data cleanup</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-%E4%BB%8B%E7%BB%8D" tabindex="-1">1 介绍</h2>
+<ul>
+<li>问题：
+<ul>
+<li>
+<ol>
+<li>不应该存储没用的数据（在原型功能被删除后，其遗留的数据是没用的）</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>死代码</li>
+</ol>
+<ul>
+<li>不知道删除的影响</li>
+<li>在Meta的调研中，30%人认为因为死代码，在代码库上工作很困难</li>
+</ul>
+</li>
+<li>
+<ol start="3">
+<li>大型代码库中，人工移除代码和数据不符合标准流程，十分困难</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="1.1-%E6%A6%82%E8%BF%B0%E5%92%8C%E4%BE%8B%E5%AD%90" tabindex="-1">1.1 概述和例子</h3>
+<ul>
+<li>SCARF分为3个阶段，每个阶段使用例子MariaDB table
+<ul>
+<li><strong>Data Collection</strong>：使用两个数据源：源依赖（如调用图）和运行时使用（方法处理的流量）
+<ul>
+<li>基于依赖构建图，在子图里将节点与数据链接。</li>
+<li>对于MariaDB表，我们将会收集以下信息：所有存在表的集合，每个表格在生产中接收的读取和写入数量的元数据，然后是查询该表格的代码指针，以及定义表格的数据模式的位置。</li>
+</ul>
+</li>
+<li><strong>Processing</strong>：
+<ul>
+<li>收集的数据进行标准化，存入图数据库，待SCARF和其它工具使用</li>
+<li>SCARF使用图，选择简化的候选人，同时为工程师提供子图的详情，了解其运行时使用情况，以及如何如何将其与图中其它部分隔离解耦</li>
+<li>以我们的MariaDB表为例，我们可以分析收集到的数据，找到在代码中没有使用、没有定义数据模式、没有生产读取或写入的表。</li>
+</ul>
+</li>
+<li><strong>Deperecation</strong>：在被确认为可删除后，一些资产需要删除确认（如数据库表），其它资产（如未使用的库和代码）会自动生成补丁（或 在meta中是diff）进行发送以进行代码审阅，这包括4个过程。如下所述：
+<ul>
+<li>
+<ol>
+<li>SCARF通知资产拥有者弃用正在进行</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>得到拥有者的确认（如果需要）</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>然后隔离资产（使其不可访问）</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>进行删除</li>
+</ol>
+</li>
+<li>对于MariaDB表，SCARF向表的拥有者提交内部工单，如果表是空的，将会跳过同意步骤。接下来，SCARF 可以对表格使用访问控制列表（ACL），以禁止所有非基础设施的读取和写入操作，最后可以对表格发出 DROP TABLE 命令。<br>
+<img src="/images/%E8%AE%BA%E6%96%87/software%20debloating%20%E8%AE%BA%E6%96%87/(16)_1.png" alt></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="1.2-%E6%96%87%E7%AB%A0%E7%BB%93%E6%9E%84" tabindex="-1">1.2 文章结构</h3>
+<ul>
+<li>第二节，我们介绍 Meta 的背景，包括软件开发流程和工具。</li>
+<li>第三节，我们讨论我们收集的数据以及我们创建的图表，以促进无用代码和数据的删除。</li>
+<li>第四节，我们讨论数据处理阶段，包括数据清理和识别可以安全删除的子图。</li>
+<li>第五节，我们提出了安全删除的方法，包括在最终删除之前隔离数据。</li>
+<li>第七节，我们描述了在 Meta 删除无用代码和数据的规模和影响。</li>
+<li>第八节，我们将我们的工作置于文献背景中。</li>
+<li>第九节，我们描述了我们的贡献并总结了论文。</li>
+</ul>
+<h2 id="2-%E8%83%8C%E6%99%AF" tabindex="-1">2 背景</h2>
+<h3 id="2.1-mete%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B" tabindex="-1">2.1 Mete软件开发过程</h3>
+<ul>
+<li>Meta开发流程[12]</li>
+<li>合并的代码需要通过代码审查，然后部署到生产环境</li>
+<li>使用Phabricator进行Continuous Integration（CI）</li>
+</ul>
+<h3 id="2.2-tooling" tabindex="-1">2.2 Tooling</h3>
+<ul>
+<li>在 Meta，静态分析工具被广泛使用。</li>
+<li>为了识别源代码的依赖关系和查找未使用的代码，我们使用 Glean 工具来分析 C/C++ 代码和 Hack 代码。</li>
+<li>另一个与本文所述方法相关的工具是 Apache Hive [25]。Hive 是一个开源的数据仓库和分析解决方案，构建在 Hadoop 分布式文件系统之上。</li>
+</ul>
+<h3 id="2.3-sources-of-deprecation-candidates" tabindex="-1">2.3 Sources of Deprecation Candidates</h3>
+<ul>
+<li>有三种未使用数据的主要出现来源</li>
+<li>
+<ol>
+<li><strong>工程师需要对弃用功能的代码进行彻底删除</strong></li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li><strong>工程师需要识别删除的相对边界</strong> 删除的代码可能和剩余代码有潜在联系，可能需要在类中的方法和函数级别删除</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li><strong>工程书需要安全彻底地删除</strong></li>
+</ol>
+<ul>
+<li>一个“unused”的定义是“数据库日志未显示对表的查询”，然而大型数据库可能会定期扫描表</li>
+<li>一个“unused”的定义是“代码中没有对表的引用”，然而一个大型功能可以涉及许多不同的存储系统，找到所有的引用是困难的</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-%E6%95%B0%E6%8D%AE%E6%94%B6%E9%9B%86%E9%98%B6%E6%AE%B5" tabindex="-1">3 数据收集阶段</h2>
+<ul>
+<li>我们在Meta的很多团队部署了SCARF。</li>
+<li>SCARF 收集有关 Meta 中代码和数据资产的信息。这些资产可以是代码的符号，如类或方法，也可以是数据库中的逻辑数据类型，如表格。资产的列表存储在一个键值存储中，对于每个资产，我们收集额外的信息：<br>
+（1）基础数据：资产的基本信息，如大小或创建时间<br>
+（2）运行时使用情况：该资产被调用、读取或写入的频率<br>
+（3）关系：还有什么其他内容引用了这个资产？</li>
+</ul>
+<h3 id="3.1-%E4%BB%A3%E7%A0%81%E7%9A%84%E6%94%B6%E9%9B%86%E4%BF%A1%E6%81%AF" tabindex="-1">3.1 代码的收集信息</h3>
+<ul>
+<li><strong>基础数据：</strong>
+<ul>
+<li>至少包含唯一的名字和标识符，以及资产所在类和位置（如在某个仓库和某个数据库的表）</li>
+<li>可能的话可以包括资产的大小（如行数），创造的数据如 作者，时间戳</li>
+<li>还可以对数据分类</li>
+<li>我们在 Meta 使用现有的数据目录工具来收集这些代码和数据资产的信息。在该目录中，每个代码库或数据系统都有一套特定领域的实现。</li>
+</ul>
+</li>
+<li><strong>运行时使用：</strong>
+<ul>
+<li>SCARF 收集有关每个资产在生产环境中如何使用的信息，主要通过在生产框架和系统中插入记录所有使用情况的日志来实现。
+<ul>
+<li>例如，数据表的运行时使用情况包括其读取和写入流量：每秒向表中添加或更新了多少字节，以及其他系统查询了多少字节。</li>
+<li>代码的运行时使用情况包括使用日志记录：例如，在一个模型-视图-控制器（MVC）框架中，使用情况可能是每个控制器服务的每秒查询次数（QPS），或者在对象关系映射（ORM）中，可能是其加载/存储方法被调用的频率。</li>
+</ul>
+</li>
+<li>为了在 Meta 的代码库中实现插桩，我们将 SCARF 特定的逻辑集成到各种系统中，扫描代码库内单个框架的访问日志或计数器。
+<ul>
+<li>例如，我们的主要 Web 代码库包含一个 MVC 请求处理框架，我们为其添加了访问日志记录，以记录每个控制器被加载的频率。</li>
+<li>同样，我们为 MySQL 编写了扩展，通过每次客户端查询时递增每个表的计数器来记录使用指标。</li>
+</ul>
+</li>
+<li>然而，日志记录可能带来过大开销。因此，我们采用动态取样，一旦某个资产的使用量超过阈值，我们就停止对其采样，节省开销。</li>
+</ul>
+</li>
+<li><strong>关系：</strong>
+<ul>
+<li>SCARF 绘制了资产的依赖图，边有3中语义标签：弃用阻塞边，传递依赖，无操作</li>
+<li>弃用阻塞边：表示终点节点只有在起点节点被删除后才能被删除，或这条边被删除</li>
+<li>传递依赖：起点节点被删除后，终点节点也要删除</li>
+<li>表示代码的节点源自对源代码的静态分析，表示数据的节点来自分析数据的依赖关系，以及扫描代码中对特定数据类型名称的提及。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3.2-%E6%94%B6%E9%9B%86%E4%BB%A3%E7%A0%81%E5%85%B3%E7%B3%BB" tabindex="-1">3.2 收集代码关系</h3>
+<ul>
+<li>
+<p>两种技术：</p>
+<ul>
+<li>Glean [10] 用于语法引用：它高效地存储有关代码结构的事实，增量存储，定期重构</li>
+<li>BigGrep [26] 用于其他情况。</li>
+</ul>
+</li>
+<li>
+<p><strong>复杂运行时使用</strong></p>
+<ul>
+<li>依靠Glean的静态信息来提供对数据系统或语言的充分覆盖是困难的。也就是说，通常很难找到所有的运行时使用来源或关系，即在复杂场景受到了挑战。</li>
+<li>SCARF 在弃用资产时不可引入错误，可行时，我们重新设计代码和数据系统来阻止不推荐的使用。
+<ul>
+<li>如：提供一个类型安全的API来构建给定的控制器URI，并在未使用该API时发出警告</li>
+</ul>
+</li>
+<li>当以上方法不够时，将复杂的使用模式编码到 SCARF的收集设施中。我们将其实现为一个决策引擎，检测不同的模式
+<ul>
+<li>如：显式地检测反射，并添加指向其子类的弃用阻塞边</li>
+</ul>
+</li>
+<li>我们发现这两种方法的结合在实践中足有保证强大的生产安全</li>
+</ul>
+</li>
+<li>
+<p><strong>BigGrep</strong></p>
+<ul>
+<li>我们实现了一个基于文本引用的特定检测器：我们通过所有代码库进行代码搜索，以查找可能被弃用的所有符号和数据资产。为此，我们使用了 BigGrep，Meta 的大规模代码搜索工具。</li>
+<li>在将SCARF和BigGrep集成时，出现了有趣的细节：默认情况下，BigGrep返回三种可能的结果：（a）未找到匹配项，（b）匹配项的完整列表，或（c）为了防止系统过载，返回的匹配项列表被截断。对所有潜在资产名称进行文本引用搜索的简单实现对于索引服务来说计算开销非常大。因此，我们构建了一个资产名称的前缀树，并按深度优先顺序提交查询。如果 BigGrep 截断了对某个中间节点的查询，我们会对该节点的每个子节点进行查询，以重建前缀树中每个节点的完整引用集。</li>
+<li>如果指导更结构化的信息，可以使用正则表达式降低QPS</li>
+<li>该检测器可以尽可能地查找资产，即降低了图中点的错误率，但也增加了图中边的错误率，这可能会降低有效性，但我们发现整体的安全收益超过了这些成本。针对特定的错误我们可以使用特定的方法来缓解</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E9%98%B6%E6%AE%B5" tabindex="-1">4 数据处理阶段</h2>
+<ul>
+<li>数据质量检查、标准化数据，并选择潜在的弃用候选项</li>
+</ul>
+<h3 id="4.1-%E5%AE%9E%E7%8E%B0" tabindex="-1">4.1 实现</h3>
+<ul>
+<li>SCARF 的这一阶段类似于许多其他数据处理管道：它利用幂等性、重试、健康监控和常见的数据分析技术来实现其目标。</li>
+<li><strong>数据质量分析</strong>：在数据收集阶段收集的数据需要进行质量、一致性和回归检查
+<ul>
+<li>我们对所有实例中的数据运行通用的和特定领域的检查。</li>
+<li>执行回归测试，将每个数据集与前一天的数据对比，确保变化不是由错误或系统故障引起的</li>
+</ul>
+</li>
+<li><strong>数据标准化</strong>
+<ul>
+<li>可以创建在所有SCARF实例中唯一的资产标识符，表明不同类型的相似标识符，这使得可以对所有SCARF数据进行综合分析</li>
+<li>图中的边可以跨SCARF实现进行链接</li>
+<li>可以将数据存在图数据库中，以便于查询。SCARF 本身在弃用候选选择过程中查询这个图形数据库。该数据库还被子图理解工具以及 Meta 内部的其他工具套件所查询。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4.2-scarf%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86" tabindex="-1">4.2 SCARF数据处理</h3>
+<ul>
+<li>三个部分：弃用候选选择、子图理解以及手动检查和验证。</li>
+<li><strong>弃用候选</strong>：我们构建一个有向依赖图，其中节点表示代码或数据资产的单个实例，边表示静态和运行时依赖关系。每个节点还标注了其基本数据和运行时使用情况。一旦构建了这个图，我们就会遍历图以确定哪些子图是弃用的候选项。候选子图必须满足以下条件：
+<ul>
+<li>没有入边的弃用阻塞边，例如，如果一个函数的返回值在生产代码中被使用，则该函数不能被删除。</li>
+<li>没有运行时使用，例如，如果一个表正在被下游系统积极查询，则该表不应被弃用。</li>
+<li>类型一致，例如，SCARF 不能在一次操作中原子性地弃用由一些函数和一些数据表组成的图。</li>
+</ul>
+</li>
+<li>这些候选子图会被导出到自动弃用管道中，具体如第 5 节所述。工程师还可以使用我们内部的工具套件对这些子图进行分析，以判断是否可以删除复杂的子图。</li>
+<li>在弃用候选选择过程中，我们避免选择全部资产进行弃用，主要有两个原因：速率限制和生产安全。我们限制自动弃用的速度，以平衡处理所有潜在目标的进度与可用开发人员的能力。这还确保了即使 SCARF 错误地标记资产为弃用，它的速度也是有限的，从而为检测和修复问题留出更多时间。</li>
+<li><strong>子图理解</strong>
+<ul>
+<li>对于非候选子图，开发者可以导出进行人工分析；开发者可以使用内部工具调整SCARF决策，调整子图或覆盖其逻辑，该内部工具通过可视化展示子图数据。</li>
+<li>工程师可以观察子图使用情况，与整张图的链接情况，要将整个子图从生产环境中移除，需要将运行时使用量降至零。</li>
+<li>子图理解的内部工具会将每个工程师正在检查的子图的数据集的副本导入到其自己的数据库中。这允许额外的分类和可视化层，这些层是 SCARF 数据集本身所没有的：即能够清晰地可视化子图的边界，并进行交互式调整。</li>
+<li>工程师通常通过提交代码和配置更改来执行这些工作。工程师根据SCARF的信息逐步帮助SCARF移除整个子图。由此构成反馈循环，将子图隔离开来。随着子图中的组件变得无效，SCARF 将开始启动它们的移除。</li>
+</ul>
+</li>
+<li><strong>人工检查和可视化</strong>
+<ul>
+<li>我们实施了工具来验证和改进 SCARF，并导出数据以识别改进。</li>
+<li>我们使用弃用数据为各种系统提供支持，帮助开发者提高代码质量。</li>
+<li>这些数据也作为是否弃用功能的决策</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-%E5%BC%83%E7%94%A8%E9%98%B6%E6%AE%B5" tabindex="-1">5 弃用阶段</h2>
+<ul>
+<li>
+<p>基于配置，SCARF会等待工程师批准，或者直接通知已经安全删除。配置有很多种。</p>
+</li>
+<li>
+<p>删除时，实例将被隔离：SCARF使这些实例不可访问。如果删除出现问题，SCARF将撤销删除冰箱SCARF团队报告问题</p>
+</li>
+<li>
+<p>验证阶段保证弃用过程已成功完成，并存储一个记录，表明移除操作已经完成</p>
+</li>
+<li>
+<p><em>传递性弃用</em>：如果弃用节点是传递性弃用的源头，后续将会继续弃用，直到因为启用阻塞边而停止，此时将通知弃用的工程团队，以解决阻碍继续清楚</p>
+</li>
+<li>
+<p><em>链式移除</em>：逐层地进行弃用（相当于拓扑序）</p>
+</li>
+</ul>
+<h3 id="5.1-codemodservice" tabindex="-1">5.1 CodemodService</h3>
+<ul>
+<li>我们发现，对于有大量自动化更改的代码审查需要一个专门的自动化系统，我们称为CodemodService，其实现了一个代码自动化配置的框架。运行时，配置确定需要调度的输入集，随后组合称一个任务</li>
+<li>CodemodService将代码更改转换为可审查补丁，补丁在现有Meta代码审查基础设施中发布，并寻找合适的审阅者。</li>
+<li>接受的补丁在工作时间内合并，拒绝的补丁则被放弃。未审查的补丁会被重新基准化，以确保更新的测试覆盖信号存在。</li>
+<li>类似 CodemodService 的开源系统，名为 Auto-Transform[22]。</li>
+<li>在大多数情况下，CodemodService 生成的补丁与工程师生成的其他补丁处理方式完全相同：它们由其他工程师审查，适合的补丁会被批准，然后像往常一样由持续集成 (CI) 处理和合并。在少数情况下，我们可以非常自信地认为这些变更集在没有人工审查的情况下是安全的</li>
+<li>为了确保自动化补丁保持高质量，CodemodService 通过两个主要渠道监控反馈：被拒绝的补丁和明确的反馈表单。CodemodService 配置的开发者监控被拒绝的补丁的比率；拒绝来自自动提交配置的补丁会生成警报通知给所有者。所有来自 CodemodService 的自动化补丁还包括一个明确的反馈流程，通过该流程，审查补丁的开发者可以将其标记为不正确或难以理解，或对配置提供自由形式的评论。</li>
+<li>CodemodService 的 SCARF 配置每年在 Meta 的代码库中生成数十万次提交。</li>
+</ul>
+<h2 id="6-%E9%83%A8%E7%BD%B2%E5%BA%8F%E5%88%97" tabindex="-1">6 部署序列</h2>
+<ul>
+<li>SCARF在Mete是逐步发展的
+<ul>
+<li>初期阶段从概念验证开始，目标是从一个大型Web仓库中移除未使用的HTTP端点。早期的移除全由人工发起，防止出现生产事故</li>
+<li>第二阶段，建立概念验证，尝试在特定的存储系统中自动移除数据资产。自动化弃用成功了，因此推广到更多的数据系统。此时遇到了挑战，数据系统TAO[4]中，其包含了很多配置类型，这些类型几乎没有数据，因为其是在端到端测试系统中创建的，其占比高达99%。解决了这些扩展挑战后，我们将这一早期系统部署到其他几个数据系统中。</li>
+<li>第三阶段，抽象成如图1所描述的架构。逐步推广到更多系统，在新系统添加支持以重用代码，同时实现特定系统的特定架构部分。在这一阶段，我们引入了对Glean的依赖来处理代码，并使用了一组统一的使用量指标；我们还构建了一个中央用户界面。</li>
+<li>第四阶段，构建了附加工具，构成了反馈循环，人-机合一辅助弃用。同时当决定弃用一个产品时，相关工程师可以通知SCARF所需的弃用，并使用内部工具跟踪其进展。</li>
+</ul>
+</li>
+<li>设计 SCARF 架构的一个具体目标是使将自动弃用功能添加到新系统变得尽可能简单。以下是实现该目标的过程：
+<ul>
+<li>首先，工程师实现 SCARF 的系统特定部分，并将其与新系统集成。</li>
+<li>在确认实现正确性后，我们将 SCARF 配置为开始自动选择弃用候选资产，速率较小，例如每天 5 个资产。在这个数量级下，每个候选资产可以在比 SCARF 配置的等待时间短得多的时间框架内由工程师手动检查。我们再次在这种配置下运行 SCARF 一段时间，以监控正确性，这次重点关注开发者反馈。</li>
+<li>在这个阶段，系统中剩余的弃用候选资产较少，我们通常将 SCARF 配置为在工程师请求停止弃用时收集更多信息。例如，我们可能要求提供资产正在使用的具体证据，或进行影响评估 [27]，评估在缺乏使用的情况下保留该资产的风险。</li>
+</ul>
+</li>
+</ul>
+<h2 id="7-meta%E4%B8%AD%E7%9A%84%E5%BD%B1%E5%93%8D" tabindex="-1">7 Meta中的影响</h2>
+<p>影响是多方面的，我们拥有一套仪表板来监控SCARF的健康状况，同时也报告了其影响</p>
+<ul>
+<li>本节我们将会报告
+<ul>
+<li>删除的代码行数和字节数</li>
+<li>自动生成 diffs的成功率</li>
+<li>计算能力的减少</li>
+</ul>
+</li>
+</ul>
+<h3 id="code" tabindex="-1">Code</h3>
+<ul>
+<li>SCARF已经删除了超过一亿行代码，2022年删了4500万行；总共30w个diff，2022年14w个；在多种语言上效率都很高，包括Hack，JS，Objective-C，CSS，Thrift schemas，GraphQL<br>
+schemas</li>
+<li>删除的代码补丁是自动生成的，我们看到 Hack 语言在过去三个月中的补丁生成成功率为 97%。
+<ul>
+<li>未来的一项工作是找到能够理解已删除代码的审查员，这些代码可能不再由任何人拥有，以及处理跨越代码库多个部分的差异。</li>
+<li>另一个问题是找到平衡点，是将代码库某一部分的所有差异发送给单一专家审查员，还是在负责某个功能的团队之间平衡审查负载：过度依赖单个人可能导致疲劳，而将审查负载分配给过多的人则会导致重复的上下文收集，因为每位工程师都需要学习相同的信息来确定如何审查差异。</li>
+</ul>
+</li>
+<li>工程师可以选择那些并非完全死掉且具有复杂依赖关系的子图进行弃用。
+<ul>
+<li>例如，可能会决定弃用一个使用量低但不为零的产品，工程师必须找到这些使用源并禁用它们。这个功能是成功的，已经完成了超过 7000 个复杂子图的移除。许多项目仍在进行中，因为这些移除的时间尺度可能长达数月，有时甚至几年：一个单一的 SCARF 弃用可能从开始到完成需要超过一个月的等待时间，这个时间在子图中的资产之间存在依赖关系时会进一步增加。最后，Meta 的许多清理工作都是与其他项目一起进行的。</li>
+</ul>
+</li>
+</ul>
+<h3 id="data" tabindex="-1">Data</h3>
+<ul>
+<li>SCARF已经从Meta代码仓库和在线系统中删除了PB级别的数据，涉及到不同的SCARF实例，在某些情况下（如 TAO），SCARF 能够删除超过 98% 的定义数据类型。</li>
+<li>当 SCARF 删除代码时，这会进一步推动数据的删除</li>
+<li>SCARF 的代码删除实例利用这种“链式弃用”方法来实现对数TB数据的删除。通过这个过程，SCARF 已经删除了超过 7000 个数据日志 ORM 模式、超过 6000 个在线数据访问 ORM 模式，以及超过 4 万个数据仓库 ORM 模式。通过消除这些数据仓库 ORM 模式，相应处理管道的移除也节省了超过 1 兆瓦的计算能力。</li>
+</ul>
+<h2 id="8-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C" tabindex="-1">8 相关工作</h2>
+<ul>
+<li><strong>死代码</strong>
+<ul>
+<li>[7]提出用于C++软件仓库的数据模型，支持可达性分析和死代码检测。</li>
+<li>[11]一种基于度量的技术，用于检测 JavaScript 中的死代码。</li>
+<li>[14,15]提出了动态技术、静态技术或两者结合的技术来检测和消除死代码</li>
+<li>大多数相关工作技术要么是特定于语言的，要么不是自动化的，且尚未在工业规模上证明有效。相比之下，我们提出了一种自动化技术，它能够（i）处理不同的编程语言和（ii）在大规模下运行。</li>
+</ul>
+</li>
+<li>许多大公司使用功能标志、开关或门槛来允许新功能快速实施并推广给小部分用户，以确定功能是否按预定指标正常工作并表现良好。
+<ul>
+<li>[19]技术债务迅速积累，因为只有新功能稳定后，旧功能才能关闭。然而，经过初期减少过时功能之后，开关数量仍然呈指数增长。这些功能在开关关闭后不再运行。</li>
+<li>SCARF 可以针对这些实验性功能，自动更改代码以将其删除。</li>
+</ul>
+</li>
+<li>与我们的工作最相关的是 Piranha[20,21]，它已经在 Uber 成功部署，用于处理陈旧的功能标志。Piranha 能够识别 Objective-C、Java 和 Swift 程序中的过时功能标志。通过将其整合到开发人员的 CI 工作流中，Piranha 能够在具有数百万行代码和多个编程语言的大规模代码库中进行清理。Piranha 与专注于消除过时 C 预处理器条件和库的工作[2, 3, 6] 密切相关。SCARF 在当前技术的基础上取得了进展，它不仅分析标志和调用依赖关系，还识别缺乏运行时使用的代码。</li>
+<li>AutoTransform [22] 是一个类似于 Meta 的 CodemodService 的系统，旨在生成代码补丁供开发者审查。特别是，AutoTransform 是 Slack 开发的一种用于自动化代码转换的工具，旨在帮助组织高效地进行大规模的代码库更改，而无需手动修改文件。AutoTransform 允许开发者定义代码转换的规则（例如，重命名函数、改变 API 端点或更新库版本），并且该工具将自动在代码库中应用这些更改。</li>
+</ul>
+<h2 id="9-%E7%BB%93%E8%AE%BA" tabindex="-1">9 结论</h2>
+<p>我们介绍了 SCARF——自动化的死代码和数据删除系统。我们的系统设计用于大规模操作，已经删除了超过 1.04 亿行代码和数 PB 数据。我们的主要贡献包括：</p>
+<ul>
+<li>大规模代码删除的可行性：即使在非类型化的动态语言中，这些语言具有反射和副作用</li>
+<li>大规模数据删除的可行性：即使在存在复杂的异构数据系统和数据处理管道的情况下</li>
+<li>从业务视角理解代码和数据使用：了解代码和数据的运行时使用情况，以及从编程语言角度的使用情况，对于成功进行弃用是非常重要的。</li>
+<li>复杂删除的自动化：虽然大多数删除操作是自动进行的，但复杂的删除操作可以通过允许工程师检查子图和移除依赖关系来解锁自动化。</li>
+<li>构建标准化 API：用于访问代码和数据资产的元数据的标准化 API 对于与其他业务工具的集成至关重要，并允许弃用系统在多个语言中使用。</li>
+</ul>
+<p>Meta 使用的编程语言的范围、规模和多样性使得我们的方法适用于大多数软件系统。我们希望对我们系统的描述能够激励其他公司实施死代码和数据弃用，并帮助研究人员理解在大规模处理技术债务时面临的困难。</p>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><em></em><a class="button is-default" href="/2024/07/09/PL/%E9%B8%BF%E8%92%99%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/" title="鸿蒙应用开发"><span class="has-text-weight-semibold">Next: 鸿蒙应用开发</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Haojen/Claudia-theme-blog" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Mrcold2002"><i class="iconfont icon-github"></i></a><!-- Ins--><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Mr_cold 2024</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span></span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
